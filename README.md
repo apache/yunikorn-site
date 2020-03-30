@@ -36,4 +36,3 @@ rake page name="new-page.md"
 1. Submit the `master` branch to github repo.
 2. Copy the `_site` directory to the other backup path, e.g., `back_site`.
 3. Switch to the `asf-site` branch, clear all the contents of the directory, copy the contents of the `back_site` directory to the this directory, and submit the `asf-site` branch to github repo.
-
