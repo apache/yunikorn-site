@@ -1,0 +1,10 @@
+publish:
+  whoami: asf-site
+  
+github:
+  description: "Apache Yunikorn website"
+  homepage: https://yunikorn.apache.org/
+  enabled_merge_buttons:
+    squash: true
+    merge: false
+    rebase: false
