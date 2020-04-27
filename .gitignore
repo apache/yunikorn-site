@@ -1,0 +1,8 @@
+*.tmp
+.DS_Store
+.build
+*.swp
+*.a
+.idea
+yunikorn-site/
+_site/

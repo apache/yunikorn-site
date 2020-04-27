@@ -5,6 +5,14 @@ github:
   description: "Apache Yunikorn website"
   homepage: https://yunikorn.apache.org/
   enabled_merge_buttons:
-    squash: true
+    squash: false
     merge: false
     rebase: false
+  features:
+    wiki: false
+    issues: false
+    projects: false
+  notifications:
+    commits:      dev@foo.apache.org
+    pullrequests: reviews@yunikorn.apache.org
+    jira_options: link label

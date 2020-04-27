@@ -25,7 +25,6 @@ RUN ls -la /incubator-yunikorn-site/*
 
 RUN \
   cd / && \
-#  git clone https://gitbox.apache.org/repos/asf/incubator-yunikorn-site.git && \
   cd /incubator-yunikorn-site && bundle update
 
 ENV \
