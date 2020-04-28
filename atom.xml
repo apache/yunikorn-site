@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>Apache Yunikorn (Incubating)</title>
+ <title>Apache YuniKorn (Incubating)</title>
  <link href="https://yunikorn.apache.org//" rel="self"/>
  <link href="https://yunikorn.apache.org/"/>
  <updated>2020-04-30T12:00:00+00:00</updated>

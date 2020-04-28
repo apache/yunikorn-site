@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
-        <title>Apache Yunikorn (incubating)</title>
-        <description>Apache Yunikorn - The Apache Software Foundation</description>
+        <title>Apache YuniKorn (incubating)</title>
+        <description>Apache YuniKorn - The Apache Software Foundation</description>
         <link>https://yunikorn.apache.org/</link>
         <link>https://yunikorn.apache.org/</link>
         <lastBuildDate>2020-04-30T12:00:00+00:00</lastBuildDate>

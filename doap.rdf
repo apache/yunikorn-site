@@ -24,7 +24,7 @@
   <Project rdf:about="http://yunikorn.apache.org">
     <created>2020-01-21</created>
     <license rdf:resource="http://spdx.org/licenses/Apache-2.0" />
-    <name>Apache Yunikorn (Incubating)</name>
+    <name>Apache YuniKorn (Incubating)</name>
     <homepage rdf:resource="http://yunikorn.apache.org" />
     <asfext:pmc rdf:resource="http://incubator.apache.org" />
     <shortdesc>A light-weight universal resource scheduler for container orchestrator systems.</shortdesc>

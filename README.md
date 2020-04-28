@@ -15,15 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-# Apache Yunikorn website
+# Apache YuniKorn website
 
-This readme will walk you through building the yunikorn website
+This readme will walk you through building the Apache YuniKorn website
 
 ## Introduction
 
-1. The `master` branch of the yunikorn is used to manage the website source code. Every time you modify the website, you need to submit it to the `master` branch for saving.
+1. The `master` branch contains the website source code. Every time you modify the website, you need to submit it to the `master` branch for saving.
 
-2. The `asf-site` branch is used for the static page branch of the website. Every time you modify the website, you need to save the latest generated static page here. https://yunikorn.apache.org will be updated automatically.
+2. The `asf-site` branch contains the deployed static pages, scripts and images of the website. Every time you modify the website, you need to save the latest generated static page set here.
+ 
+https://yunikorn.apache.org will be updated automatically via the configuration set in the `.asf.yaml` file.
 
 ## Build website by docker
 
@@ -35,15 +37,20 @@ docker build -t yunikorn/yunikorn-website:1.0.0 .
 
 docker run -it -p 4000:4000 -v $PWD/yunikorn-site:/yunikorn-site yunikorn/yunikorn-website:1.0.0 bash
 cd /incubator-yunikorn-site
-bundle exec jekyll serve --watch --host=0.0.0.0
+bundle exec jekyll serve --destination /yunikorn-site/ --watch --host=0.0.0.0
 ```
 
-The static page of the website will be generated in the `$PWD/yunikorn-site/_site` directory.
+The static page of the website will be generated inside the docker image in the `/yunikorn-site` directory.
+This directory will be located at `/yunikorn-site` on the host operating system, at the top-level of the source code tree.
 
-view yunikorn website in local: http://localhost:4000/
+You can view the new website locally on: http://localhost:4000/
 
 ## Deploy website
 
-1. Submit the `master` branch to github repo.
-2. Copy the `_site` directory to the other backup path, e.g., `back_site`.
-3. Switch to the `asf-site` branch, clear all the contents of the directory, copy the contents of the `back_site` directory to this directory, and submit the `asf-site` branch to github repo.
+All these instructions expect that the current directory is the top-level directory of the repository.
+
+1. Commit the `master` branch to GitHub repo.
+1. Copy the `yunikorn-site` directory to a backup path **outside** the source tree, e.g. `mkdir ../backup-site && cp -R yunikorn-site/* ../backup-site`.
+1. Checkout the `asf-site` branch, clear all the contents of the directory, e.g. `rm -rf ./*` (this leaves the files starting with a dot do not remove them!)
+1. Copy the contents of the `backup-site` directory back to the top-level directory of the repo, e.g. `cp -R ../backup-site/* .`
+1. Commit the `asf-site` branch to GitHub repo.
