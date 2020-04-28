@@ -2,15 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>Apache YuniKorn (Incubating)</title>
- <link href="https://yunikorn.apache.org//" rel="self"/>
- <link href="https://yunikorn.apache.org/"/>
- <updated>2020-04-30T12:00:00+00:00</updated>
+ <link href="https://yunikorn.apache.org/" rel="self"/>
+ <updated>2020-04-28T14:32:29+00:00</updated>
  <id>https://yunikorn.apache.org/</id>
  <author>
    <name>The Apache Software Foundation</name>
    <email>dev@yunikorn.apache.org</email>
  </author>
 
- 
- 
 </feed>
