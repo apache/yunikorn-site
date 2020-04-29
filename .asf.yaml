@@ -21,10 +21,10 @@ publish:
   whoami: asf-site
   
 github:
-  description: "Apache YuniKorn website"
+  description: "Apache Yunikorn website - see the master branch for instructions"
   homepage: https://yunikorn.apache.org/
   labels:
-    - YuniKorn
+    - yunikorn
     - apache
   enabled_merge_buttons:
     squash: true
