@@ -1,1 +1,0 @@
-rsync -avz --delete --exclude '_*' --exclude '.*' --exclude 'Gemfile*' --exclude 'CNAME' --exclude 'assets/bootstrap*' --exclude 'Rakefile' --exclude 'images' /Users/moon/Projects/submarine-pages/_site/ /Users/moon/Projects/asf-submarine/site/
