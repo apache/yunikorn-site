@@ -27,7 +27,7 @@ github:
     - YuniKorn
     - apache
   enabled_merge_buttons:
-    squash: false
+    squash: true
     merge: false
     rebase: false
   features:
