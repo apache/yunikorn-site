@@ -2,7 +2,7 @@ publish:
   whoami: asf-site
   
 github:
-  description: "Apache Yunikorn website"
+  description: "Apache Yunikorn website - see the master branch for instructions"
   homepage: https://yunikorn.apache.org/
   enabled_merge_buttons:
     squash: true
