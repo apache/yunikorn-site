@@ -1,11 +1,27 @@
-
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
-    <title>Apache Yunikorn (Incubating)</title>
-    
+    <title>Apache YuniKorn (incubating)</title>
+    <meta name="description" content="Apache YuniKorn (incubating)">
     <meta name="author" content="The Apache Software Foundation">
 
     <!-- Enable responsive viewport -->
@@ -13,7 +29,7 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
@@ -21,14 +37,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="/assets/themes/yunikorn/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/themes/yunikorn/css/style.css?body=1" rel="stylesheet" type="text/css">
-    <link href="/assets/themes/yunikorn/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" /> 
+    <link href="/assets/themes/yunikorn/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
     <!-- Le fav and touch icons -->
-    <!-- Update these with your own images
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-    -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/themes/yunikorn/img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/themes/yunikorn/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/themes/yunikorn/img/favicon/favicon-16x16.png">
@@ -45,197 +55,133 @@
     <script src="/assets/themes/yunikorn/js/docs.js"></script>
     <script src="/assets/themes/yunikorn/js/anchor.min.js"></script>
     <script src="/assets/themes/yunikorn/js/moment.min.js"></script>
-    <script src="/assets/themes/yunikorn/js/helium.controller.js"></script>
-    <script src="/assets/themes/yunikorn/js/medium.controller.js"></script>
 
     <!-- atom & rss feed -->
     <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
     <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
-  </head>
+</head>
 
-  <body>
-    
+<body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">
-        <img src="/assets/themes/yunikorn/img/yunikorn_white_logo.png" style="margin-top: -8px;" width="80" alt="I'm yunikorn">
-        <span style="margin-left: 0px;"> Apache Yunikorn </span>
-        <!-- <span style="margin-left: 4px; font-size: 16px; font-family: Arial;">0.4.0</span> -->
-      </a>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="/assets/themes/yunikorn/img/yunikorn_white_logo.png" style="margin-top: -6px;" width="80" alt="I'm yunikorn">
+                    <span style="margin-left: 0px;"> Apache YuniKorn </span>
+                </a>
+            </div>
+            <nav class="navbar-collapse collapse" role="navigation">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="https://github.com/apache/incubator-yunikorn-core/blob/master/docs/user-guide.md">Quick Start</a></li>
+                    <!-- Download -->
+                    <li><a href="/download.html">Download</a></li>
+                    <!-- Docs -->
+                    <li class="docs">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="title"><span><b>Release</b></span></li>
+                            <li><a href="https://github.com/apache/incubator-yunikorn-core/tree/v0.8.0/docs">0.8.0</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="title"><span><b>Snapshot&nbsp;(development)</b></span></li>
+                            <li><a href="https://github.com/apache/incubator-yunikorn-core/tree/master/docs">development</a></li>
+                        </ul>
+                    </li>
+                    <li class="docs">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/community/contributors.html">Contributors</a></li>
+                            <li><a href="/community/member.html">Member</a></li>
+                            <li><a href="https://github.com/apache/incubator-yunikorn-core">GitHub</a></li>
+                        </ul>
+                    </li>
+                    <!-- Apache -->
+                    <li class="docs">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.apache.org/foundation/how-it-works.html">Apache Software Foundation</a></li>
+                            <li><a href="http://www.apache.org/licenses/">Apache License</a></li>
+                            <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                            <li><a href="/assets.html">Assets</a></li>
+                            <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="https://github.com/apache/incubator-yunikorn-core/blob/master/docs/roadmap.md">Roadmap</a></li>
+                </ul>
+            </nav><!--/.navbar-collapse -->
+        </div>
     </div>
-    <nav class="navbar-collapse collapse" role="navigation">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="https://github.com/apache/incubator-yunikorn-core/blob/master/docs/user-guide.md">Quick Start</a></li>
 
-        <!-- Download -->
-        <li><a href="/download.html">Download</a></li>
-
-        <!-- Docs -->
-        <!--li class="docs">
-          <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li class="title"><span><b>Release</b><span></li>
-            <li><a href="https://hadoop.apache.org/yunikorn/docs/0.2.0/Index/">0.2.0</a></li>
-            <li><a href="http://hadoop.apache.org/yunikorn/docs/">0.1.0</a></li>
-            <li role="separator" class="divider"></li>
-              <li class="title"><span><b>Snapshot&nbsp;(development)</b><span></li>
-            <li><a href="/docs/0.3.0-SNAPSHOT">0.3.0-SNAPSHOT</a></li>
-          </ul>
-        </li-->
-
-        <li><a href="https://github.com/apache/incubator-yunikorn-core/tree/master/docs">Docs</a></li>
-
-        <li class="docs">
-          <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="/community/contributors.html">Contributors</a></li>
-            <li><a href="/community/member.html">Member</a></li>
-            <li><a href="https://github.com/apache/incubator-yunikorn-core">GitHub</a></li>
-          </ul>
-        </li>
-          <!-- Apache -->
-        <li class="docs">
-          <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="http://www.apache.org/foundation/how-it-works.html">Apache Software Foundation</a></li>
-            <li><a href="http://www.apache.org/licenses/">Apache License</a></li>
-            <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
-            <li><a href="/assets.html">Assets</a></li>
-            <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
-          </ul>
-        </li>
-        <li><a href="https://github.com/apache/incubator-yunikorn-core/blob/master/docs/roadmap.md">Roadmap</a></li>
-      </ul>
-    </nav><!--/.navbar-collapse -->
-  </div>
-</div>
-
-
-<div class="jumbotron">
-  <div class="container" style="padding-bottom: 5px; margin-top: -15px;">
-    <div>
-      <div class="submarine">
-        <div class="submarine2"></div>
-      </div>
+    <div class="jumbotron">
+        <div class="container" style="padding-bottom: 5px; margin-top: -15px;">
+            <div>
+                <div class="yunikorn">
+                    <div class="yunikorn2"></div>
+                </div>
+            </div>
+            <div>
+                <div style="margin-top: -250px; position: relative;">
+                    <h1 class="yunikorn-title">Apache YuniKorn (Incubating)</h1>
+                    <p class="description">Apache YuniKorn (incubating) is a light-weight, universal resource scheduler for container orchestrator systems.</p>
+                </div>
+                <div class="border row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center newBtn" style="margin-top:8px;">
+                        <a href="https://github.com/apache/incubator-yunikorn-core/blob/master/docs/user-guide.md" class="btn btn-primary btn-lg" role="button" style="margin:5px 25px 5px 25px;font-size:15px;">GET STARTED</a>
+                        <a href="/download.html" class="btn btn-primary btn-lg" role="button" style="margin:5px 25px 5px 25px;font-size:15px;">DOWNLOAD</a>
+                        <a href="https://github.com/apache/incubator-yunikorn-core/blob/master/docs/roadmap.md" class="btn btn-primary btn-lg" role="button" style="margin:5px 25px 5px 25px;font-size:15px;">ROADMAP</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div style="margin-top: -250px; position: relative;">
-      <h1 class="submarine-title">Apache Yunikorn (Incubating)</h1>
-      <p class="description">
-        Apache YuniKorn (incubating) is a light-weighted, universal resource scheduler for container orchestrator systems.
-      </p>
-    </div>
-    <div class="border row">
-      <div class="col-md-12 col-sm-12 col-xs-12 text-center newBtn" style="margin-top:8px;">
-        <a href="https://github.com/apache/incubator-yunikorn-core/blob/master/docs/user-guide.md" class="btn btn-primary btn-lg" role="button"
-           style="margin:5px 25px 5px 25px;font-size:15px;">
-          GET STARTED
-        </a>
-      <a href="/download.html" class="btn btn-primary btn-lg" role="button"
-           style="margin:5px 25px 5px 25px;font-size:15px;">
-          DOWNLOAD
-        </a>
-      <a href="https://github.com/apache/incubator-yunikorn-core/blob/master/docs/roadmap.md" class="btn btn-primary btn-lg" role="button"
-           style="margin:5px 25px 5px 25px;font-size:15px;">
-          ROADMAP
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-<!--
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
-
- 
-
-
-
+    <p><br />
     <div class="content">
-      
-
-
-<div class="row">
-  <div class="col-md-12">
-    <!--
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
-
-<p><br />
-<h1 class="index-header">
-  What is Apache Yunikorn?
-</h1></p>
-
-<p><br /><br /><br />
-<div class="row">
-  <div class="col-md-6" style="padding-right:0">
-    <h1 style="color:#4c555a">UNIVERSAL SCHEDULER</h1>
-    <p>
-      Apache YuniKorn (incubating) is a light-weighted, universal resource scheduler for container orchestrator systems. 
-    </p>
-    <ul style="list-style-type: none;padding-left:10px;" >
-      <li style="font-size:18px; margin: 5px;"><span class="glyphicon glyphicon-transfer" style="margin-right:10px"></span> Unified</li>
-      <li style="font-size:18px; margin: 5px;"><span class="glyphicon glyphicon-eye-open" style="margin-right:10px"></span> Capacity Planning</li>
-      <li style="font-size:18px; margin: 5px;"><span class="glyphicon glyphicon-dashboard" style="margin-right:10px"></span> Resource Monitoring</li>
-      <li style="font-size:18px; margin: 5px;"><span class="glyphicon glyphicon-wrench" style="margin-right:10px"></span> Resource Scheduling</li>
-      <li style="font-size:18px; margin: 5px;"><span class="glyphicon glyphicon-cloud" style="margin-right:10px"></span> Application Management</li>
-    </ul>
-  </div>
-  <div class="col-md-6" style="padding:0">
-    <img class="img-responsive" style="border: 1px solid #ecf0f1;" src="./assets/themes/yunikorn//img/architecture.png" />
-  </div>
-</div></p>
-
-<p><br /></p>
-
-
-<p><br /></p>
-
-<h2>Roadmaps</h2>
-
-<p>Want to learn more about roadmap and release plan of Yunikorn? Please go to <a href="https://github.com/apache/incubator-yunikorn-core/blob/master/docs/roadmap.md">roadmap</a></p>
-
-<p><img class="img-responsive" style="margin:0 auto; padding: 15px;" src="./assets/themes/yunikorn/img/asf_logo.png" width="250px"/></p>
-
-
-  </div>
-</div>
-
-
+        <div class="row">
+            <div class="col-md-12">
+                <p><br />
+                <br /><h1 class="index-header">What is Apache YuniKorn?</h1>
+                    <p><br /><br /><br /></p>
+                <div class="row">
+                    <div class="col-md-6" style="padding-right:0">
+                        <h1 style="color:#4c555a">UNIVERSAL SCHEDULER</h1>
+                        <p>Apache YuniKorn (incubating) is a light-weighted, universal resource scheduler for container orchestrator systems.</p>
+                        <ul style="list-style-type: none;padding-left:10px;" >
+                        <li style="font-size:18px; margin: 5px;"><span class="glyphicon glyphicon-transfer" style="margin-right:10px"></span> Unified</li>
+                        <li style="font-size:18px; margin: 5px;"><span class="glyphicon glyphicon-eye-open" style="margin-right:10px"></span> Capacity Planning</li>
+                        <li style="font-size:18px; margin: 5px;"><span class="glyphicon glyphicon-dashboard" style="margin-right:10px"></span> Resource Monitoring</li>
+                        <li style="font-size:18px; margin: 5px;"><span class="glyphicon glyphicon-wrench" style="margin-right:10px"></span> Resource Scheduling</li>
+                        <li style="font-size:18px; margin: 5px;"><span class="glyphicon glyphicon-cloud" style="margin-right:10px"></span> Application Management</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6" style="padding:0">
+                        <img class="img-responsive" style="border: 1px solid #ecf0f1;" src="/assets/themes/yunikorn//img/architecture.png" />
+                    </div>
+                </div>
+                <p><br /></p>
+                <p><br /></p>
+                <h2>Roadmaps</h2>
+                <p>Want to learn more about roadmap and release plan of Apache YuniKorn? Please go to <a href="https://github.com/apache/incubator-yunikorn-core/blob/master/docs/roadmap.md">roadmap</a></p>
+            </div>
+        </div>
     </div>
-
-    
-
-
-    
+    <p><br /></p>
     <footer>
-      <!-- <p>&copy; 2020 The Apache Software Foundation</p>-->
+        <p><img class="img-responsive" style="margin:0 auto; padding: 15px;" src="/assets/themes/yunikorn/img/asf_incubator_logo.png" width="250px"/></p>
+        <p><br /></p>
+        <p style="text-align: center;">Copyright © 2020 The Apache Software Foundation.<br>
+            Apache and the Apache feather logo are trademarks of The Apache Software Foundation</p>
+        <div class="col-md-12">
+        </div>
+        <div class="col-md-12">
+        Disclaimer: Apache YuniKorn (incubating) is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache Incubator.
+        Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects.
+        While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.
+        </div>
     </footer>
   </body>
 </html>
