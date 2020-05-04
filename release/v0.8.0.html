@@ -121,22 +121,47 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>Apache YuniKorn (incubating) Release Notes v0.8.0</h1>
-                <!--
                 <div class="col-md-6">
                     <p>This is the first release of Apache YuniKorn (incubating).</p>
+                    <h2>Overview</h2>
+                    <p>The Apache YuniKorn (Incubating) community has fixed 60 JIRAs in this release: <a href="https://issues.apache.org/jira/issues/?filter=12348926">YuniKorn jiras fixed in 0.8.0</a></p>
+                    <h2>Highlights</h2>
+                    <h3>Queues and placement rules</h3>
+                    <p>With this new dynamic queue management feature, users can set up placement rules to delegate queue management.</p>
+                    <p>This enables use cases like mapping a K8 namespace to a YuniKorn queue without the need to pre-create all queues.</p>
+                    <p>Queues are created based on placement rules when required for running an application. Dynamic queues are deleted when no longer required.</p>
+                    <h3>Pluggable Application Management</h3>
+                    <p>A pluggable app management framework is being added to this release, with this feature, YuniKorn can be easily integrated with 3rd party K8s operators, such as Spark-k8s-operator, Flink-k8s-operator, etc.</p>
+                    <h3>Resource Reservation</h3>
+                    <p>Reservation is the methodology used to avoid large/picky resource requests being starved in the batch scheduling scenario.</p>
+                    <p>One node is reserved for a specific request from an application, effectively removing it from the available node list for other applications.</p>
+                    <h3>Pluggable Node Sorting Policies</h3>
+                    <p>There are 2 builtin node sorting policies (FAIR and BinPacking) available in YuniKorn with regards to allocation distribution.</p>
+                    <p>The node sorting policies are pluggable, users can implement their own policies and plug that into the scheduler.</p>
+                    <h3>Improved Scheduling Performance</h3>
+                    <p>When running Big Data batch workloads, e.g Spark, on K8s, scheduler throughput becomes one of the main concerns.</p>
+                    <p>In YuniKorn, there are lots of optimizations to improve the performance, such as a fully async event-driven system and low-latency sorting policies.</p>
+                    <p>Based on our test using Kubemark, YuniKorn is 2x+ faster than the default K8s scheduler.</p>
+
+                    <h2>Community</h2>
+                    <p>Since the birth of the YuniKorn project, the feedback has been well-received. We are thankful to have such a diverse community where we have members from Microsoft, LinkedIn, Alibaba, Apple, Tencent, Nvidia, and Cloudera, to help and guide the project’s growth.</p>
+                    <p>Many thanks to everyone who contributed to the release, and everyone in the Apache YuniKorn (Incubating) community!</p>
+                    <p>The release is a result of direct and indirect efforts from many contributors, listed below are those who contributed directly by submitting patches: Adam Antal, Akhil Puthenveettil Balan, Bhuvan Mysore, Jetly Jaimin, Kinga Marton, Sunil Govindan, Tao Yang,  Tarun Parimi, Wangda Tan, Wanqiang Ji, Weiwei Yang, Wilfred Spiegelenburg, Vinod Kumar Vavilapalli.</p>
+                    <br />
+                    <p>Thanks for our mentors Felix Cheung, Holden Karau, Jason Lowe, Junping Du for helping us to set up repositories, permissions, and guide us on how to do the development and release the Apache way.</p>
+
                     <p><br /></p>
-                    2020-05-04
+                    Release date: 2020-05-04
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 text-center newBtn" style="margin-top:8px;">
                     <p><br /></p>
-                    <a href="https://www.apache.org/dyn/closer.cgi/incubator/yunikorn/v0.8.0/apache-yunikorn-0.8.0-incubating-src.tar.gz" class="btn btn-success btn-sm active" role="button">Download</a>
-                    (<a href="https://downloads.apache.org/incubator/yunikorn/v0.8.0/apache-yunikorn-0.8.0-incubating-src.tar.gz.sha512">checksum</a>
-                    <a href="https://downloads.apache.org/incubator/yunikorn/v0.8.0/apache-yunikorn-0.8.0-incubating-src.asc">signature</a>)
+                    <p><a href="https://www.apache.org/dyn/closer.cgi/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz" class="btn btn-success btn-sm active" role="button">Download</a></p>
+                    (<a href="https://downloads.apache.org/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz.sha512">checksum</a>
+                    <a href="https://downloads.apache.org/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz.asc">signature</a>)
                     <p><br /></p>
                     <a href="https://github.com/apache/incubator-yunikorn-core/tree/v0.8.0/docs" class="btn btn-warning btn-sm active" role="button">Documentation</a>
                     <p><br /></p>
                 </div>
-                -->
             </div>
         </div>
     </div>
