@@ -1,0 +1,43 @@
+{
+  "version-0.8.0/docs": {
+    "Get Started": [
+      "version-0.8.0/a_user_guide",
+      "version-0.8.0/a_developer_guide"
+    ],
+    "Setup": [
+      "version-0.8.0/b_build_local",
+      "version-0.8.0/b_configure_scheduler",
+      "version-0.8.0/b_deployment",
+      "version-0.8.0/b_env_setup"
+    ],
+    "Configuration": [
+      "version-0.8.0/c_queue_config",
+      "version-0.8.0/c_placement_rules",
+      "version-0.8.0/c_acls"
+    ],
+    "Performance": [
+      "version-0.8.0/d_evaluate_perf_function_with_kubemark",
+      "version-0.8.0/d_metrics",
+      "version-0.8.0/d_profiling"
+    ],
+    "Design": [
+      "version-0.8.0/e_design",
+      "version-0.8.0/e_cross_queue_preemption",
+      "version-0.8.0/e_namespace_resource_quota",
+      "version-0.8.0/e_pluggable_app_management",
+      "version-0.8.0/e_resilience",
+      "version-0.8.0/e_scheduler_configuration"
+    ]
+  },
+  "version-0.8.0/community": [
+    "version-0.8.0/f_how_to_contribute",
+    "version-0.8.0/f_coding_guidelines",
+    "version-0.8.0/f_reporting_issues",
+    "version-0.8.0/f_community_sync_up",
+    {
+      "type": "link",
+      "href": "/showcase",
+      "label": "Showcase"
+    }
+  ]
+}

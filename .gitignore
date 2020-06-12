@@ -6,3 +6,9 @@
 .idea
 yunikorn-site/
 _site/
+
+.docusaurus
+node_modules
+build
+package-lock.json
+yarn.lock

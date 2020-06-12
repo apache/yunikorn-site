@@ -13,19 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubuntu:18.04
-RUN \
-  apt-get update && \
-  apt-get install -y wget vim git python-pip zlib1g-dev libssl-dev
-
-RUN apt-get update && apt-get -y install bundler
+FROM node:12.18.0
 
 ADD . /incubator-yunikorn-site
-RUN ls -la /incubator-yunikorn-site/*
 
-RUN \
-  cd / && \
-  cd /incubator-yunikorn-site && bundle update
-
-ENV \
-  YUNIKORN_SITE=/yunikorn-site
+WORKDIR /incubator-yunikorn-site

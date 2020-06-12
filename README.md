@@ -33,11 +33,21 @@ https://yunikorn.apache.org will be updated automatically via the configuration 
 git clone https://github.com/apache/incubator-yunikorn-site.git
 git checkout master
 
-docker build -t yunikorn/yunikorn-website:1.0.0 .
+docker build -t yunikorn/yunikorn-website:1.0.2 -f Dockerfile .
 
-docker run -it -p 4000:4000 -v $PWD/yunikorn-site:/yunikorn-site yunikorn/yunikorn-website:1.0.0 bash
-cd /incubator-yunikorn-site
-bundle exec jekyll serve --destination /yunikorn-site/ --watch --host=0.0.0.0
+docker rm -f yunikorn-site
+
+docker run -it \
+--name yunikorn-site \
+-p 3000:3000 \
+-v $PWD/yunikorn-site:/incubator-yunikorn-site/build \
+yunikorn/yunikorn-website:1.0.2 bash
+
+yarn install
+
+yarn build
+
+yarn start --host 0.0.0.0
 ```
 
 The static page of the website will be generated inside the docker image in the `/yunikorn-site` directory.
