@@ -51,10 +51,19 @@ yarn start --host 0.0.0.0
 
 You can view the new website locally on: http://localhost:3000/
 
-## Update documents
+## Add / Update documents
 
-// TODO - how to add/update documents (md files)
-// TODO - how to add a new version documentation
+All master docs are in the folder `docs`.
+
+1. The newly created document needs to be prefixed with a letter(for classification).
+2. Each document requires a unique ID.
+
+## Add a new version documentation
+
+1. Create a folder named new version under folder `versioned_docs`.
+2. Copy *.md files to the new version folder.
+3. Create new version sidebar data json file under folder `versioned_sidebars`.
+4. Add new version info to `versions.json`.
 
 ## Deploy website
 
