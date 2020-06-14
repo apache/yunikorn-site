@@ -58,7 +58,7 @@ All master docs are in the folder `docs`.
 1. The newly created document needs to be prefixed with a letter(for classification).
 2. Each document requires a unique ID.
 
-## Add a new version documentation
+## Release a new version
 
 1. Create a folder named new version under folder `versioned_docs`.
 2. Copy *.md files to the new version folder.
