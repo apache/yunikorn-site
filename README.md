@@ -24,36 +24,37 @@ This readme will walk you through building the Apache YuniKorn website
 1. The `master` branch contains the website source code. Every time you modify the website, you need to submit it to the `master` branch for saving.
 
 2. The `asf-site` branch contains the deployed static pages, scripts and images of the website. Every time you modify the website, you need to save the latest generated static page set here.
- 
+
 https://yunikorn.apache.org will be updated automatically via the configuration set in the `.asf.yaml` file.
 
-## Build website by docker
+## Build the web-site in docker
+
+The following command will generate the web-site static pages inside the docker image in the `/incubator-yunikorn-site` directory.
+This directory will be mounted to `/yunikorn-site` on the host operating system, under the project root directory.
 
 ```
 git clone https://github.com/apache/incubator-yunikorn-site.git
 git checkout master
 
-docker build -t yunikorn/yunikorn-website:1.0.2 -f Dockerfile .
-
-docker rm -f yunikorn-site
+docker build -t yunikorn/yunikorn-website:2.0.0 -f Dockerfile .
 
 docker run -it \
 --name yunikorn-site \
 -p 3000:3000 \
 -v $PWD/yunikorn-site:/incubator-yunikorn-site/build \
-yunikorn/yunikorn-website:1.0.2 bash
+yunikorn/yunikorn-website:2.0.0 bash
 
 yarn install
-
 yarn build
-
 yarn start --host 0.0.0.0
 ```
 
-The static page of the website will be generated inside the docker image in the `/yunikorn-site` directory.
-This directory will be located at `/yunikorn-site` on the host operating system, at the top-level of the source code tree.
+You can view the new website locally on: http://localhost:3000/
 
-You can view the new website locally on: http://localhost:4000/
+## Update documents
+
+// TODO - how to add/update documents (md files)
+// TODO - how to add a new version documentation
 
 ## Deploy website
 
