@@ -38,9 +38,12 @@ git checkout master
 
 docker build -t yunikorn/yunikorn-website:2.0.0 -f Dockerfile .
 
+docker rm -f yunikorn-site
+
 docker run -it \
 --name yunikorn-site \
 -p 3000:3000 \
+-v $PWD:/incubator-yunikorn-site \
 -v $PWD/yunikorn-site:/incubator-yunikorn-site/build \
 yunikorn/yunikorn-website:2.0.0 bash
 
@@ -60,10 +63,9 @@ All master docs are in the folder `docs`.
 
 ## Release a new version
 
-1. Create a folder named new version under folder `versioned_docs`.
-2. Copy *.md files to the new version folder.
-3. Create new version sidebar data json file under folder `versioned_sidebars`.
-4. Add new version info to `versions.json`.
+```
+yarn release x.x.x (e.g. 0.8.1)
+```
 
 ## Deploy website
 

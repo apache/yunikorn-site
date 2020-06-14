@@ -1,13 +1,13 @@
 {
   "name": "website",
-  "version": "0.0.0",
+  "version": "1.9.1",
   "private": true,
   "scripts": {
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
-    "version": "docusaurus-version"
+    "release": "docusaurus docs:version"
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.56",
