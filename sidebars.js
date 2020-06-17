@@ -18,39 +18,39 @@ module.exports = {
 
     docs: {
         'Get Started': [
-            'a_user_guide',
-            'a_developer_guide'
+            'get_started/user_guide',
+            'get_started/developer_guide'
         ],
         'Setup': [
-            'b_build_local',
-            'b_configure_scheduler',
-            'b_deployment',
-            'b_env_setup'
+            'setup/build_local',
+            'setup/configure_scheduler',
+            'setup/deployment',
+            'setup/env_setup'
         ],
         'Configuration': [
-            'c_queue_config',
-            'c_placement_rules',
-            'c_acls'
+            'configuration/queue_config',
+            'configuration/placement_rules',
+            'configuration/acls'
         ],
         'Performance': [
-            'd_evaluate_perf_function_with_kubemark',
-            'd_metrics',
-            'd_profiling'
+            'performance/evaluate_perf_function_with_kubemark',
+            'performance/metrics',
+            'performance/profiling'
         ],
         'Design': [
-            'e_design',
-            'e_cross_queue_preemption',
-            'e_namespace_resource_quota',
-            'e_pluggable_app_management',
-            'e_resilience',
-            'e_scheduler_configuration'
+            'design/design',
+            'design/cross_queue_preemption',
+            'design/namespace_resource_quota',
+            'design/pluggable_app_management',
+            'design/resilience',
+            'design/scheduler_configuration'
         ],
     },
 
     community: [
-        'f_how_to_contribute',
-        'f_coding_guidelines',
-        'f_reporting_issues',
-        'f_community_sync_up'
+        'community/how_to_contribute',
+        'community/coding_guidelines',
+        'community/reporting_issues',
+        'community/community_sync_up'
     ],
 };

@@ -1,43 +1,124 @@
 {
-  "version-0.8.0/docs": {
-    "Get Started": [
-      "version-0.8.0/a_user_guide",
-      "version-0.8.0/a_developer_guide"
-    ],
-    "Setup": [
-      "version-0.8.0/b_build_local",
-      "version-0.8.0/b_configure_scheduler",
-      "version-0.8.0/b_deployment",
-      "version-0.8.0/b_env_setup"
-    ],
-    "Configuration": [
-      "version-0.8.0/c_queue_config",
-      "version-0.8.0/c_placement_rules",
-      "version-0.8.0/c_acls"
-    ],
-    "Performance": [
-      "version-0.8.0/d_evaluate_perf_function_with_kubemark",
-      "version-0.8.0/d_metrics",
-      "version-0.8.0/d_profiling"
-    ],
-    "Design": [
-      "version-0.8.0/e_design",
-      "version-0.8.0/e_cross_queue_preemption",
-      "version-0.8.0/e_namespace_resource_quota",
-      "version-0.8.0/e_pluggable_app_management",
-      "version-0.8.0/e_resilience",
-      "version-0.8.0/e_scheduler_configuration"
-    ]
-  },
-  "version-0.8.0/community": [
-    "version-0.8.0/f_how_to_contribute",
-    "version-0.8.0/f_coding_guidelines",
-    "version-0.8.0/f_reporting_issues",
-    "version-0.8.0/f_community_sync_up",
+  "version-0.8.0/docs": [
     {
-      "type": "link",
-      "href": "/showcase",
-      "label": "Showcase"
+      "type": "category",
+      "label": "Get Started",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.8.0/get_started/user_guide"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/get_started/developer_guide"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Setup",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.8.0/setup/build_local"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/setup/configure_scheduler"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/setup/deployment"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/setup/env_setup"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Configuration",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.8.0/configuration/queue_config"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/configuration/placement_rules"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/configuration/acls"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Performance",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.8.0/performance/evaluate_perf_function_with_kubemark"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/performance/metrics"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/performance/profiling"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Design",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.8.0/design/design"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/design/cross_queue_preemption"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/design/namespace_resource_quota"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/design/pluggable_app_management"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/design/resilience"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.8.0/design/scheduler_configuration"
+        }
+      ]
+    }
+  ],
+  "version-0.8.0/community": [
+    {
+      "type": "doc",
+      "id": "version-0.8.0/community/how_to_contribute"
+    },
+    {
+      "type": "doc",
+      "id": "version-0.8.0/community/coding_guidelines"
+    },
+    {
+      "type": "doc",
+      "id": "version-0.8.0/community/reporting_issues"
+    },
+    {
+      "type": "doc",
+      "id": "version-0.8.0/community/community_sync_up"
     }
   ]
 }

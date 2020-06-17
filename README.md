@@ -56,10 +56,7 @@ You can view the new website locally on: http://localhost:3000/
 
 ## Add / Update documents
 
-All master docs are in the folder `docs`.
-
-1. The newly created document needs to be prefixed with a letter(for classification).
-2. Each document requires a unique ID.
+The new site is based on [docusaurus](https://v2.docusaurus.io/docs/docs-introduction), please go ahead with that.
 
 ## Release a new version
 
