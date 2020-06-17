@@ -19,7 +19,7 @@ const versions = require('./versions.json');
 module.exports = {
   title: 'Apache YuniKorn',
   tagline: 'Apache YuniKorn (Incubating) is a light-weight, universal resource scheduler for container orchestrator systems.',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'http://yunikorn.apache.org',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'apache', // Usually your GitHub org/user name.
