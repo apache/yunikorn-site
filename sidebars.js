@@ -46,11 +46,4 @@ module.exports = {
             'design/scheduler_configuration'
         ],
     },
-
-    community: [
-        'community/how_to_contribute',
-        'community/coding_guidelines',
-        'community/reporting_issues',
-        'community/community_sync_up'
-    ],
 };

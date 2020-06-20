@@ -24,6 +24,22 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'apache', // Usually your GitHub org/user name.
   projectName: 'incubator-yunikorn-core', // Usually your repo name.
+  plugins: [
+    [
+      '@docusaurus/plugin-content-blog',
+      {
+        /**
+         * URL route for the blog section of your site.
+         * *DO NOT* include a trailing slash.
+         */
+        routeBasePath: 'community',
+        /**
+         * Path to data on filesystem relative to site dir.
+         */
+        path: './community',
+      },
+    ],
+  ],
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -52,27 +68,27 @@ module.exports = {
         src: 'img/yunikorn_blue_256.png',
       },
       links: [
-        {label: 'Quick Start', to: 'docs/next/get_started/user_guide', position: 'left'},
-        {label: 'Download', to: 'docs/next/download', position: 'left'},
+        {label: 'Quick Start', to: 'docs/', position: 'left'},
+        {label: 'Roadmap', to: 'community/roadmap', position: 'left' },
+        {label: 'Download', to: 'community/download', position: 'left'},
         {label: 'Community', to: 'apache', position: 'left',
           items: [
             {
               label: 'How To Contribute',
-              to: 'docs/next/community/how_to_contribute'
+              to: 'community/how_to_contribute'
             },
             {
               label: 'Coding Guidelines',
-              to: 'docs/next/community/coding_guidelines'
+              to: 'community/coding_guidelines'
             },
             {
               label: 'Reporting Issues',
-              to: 'docs/next/community/reporting_issues'
+              to: 'community/reporting_issues'
             },
             {
-              label: 'Community Sync Up',
-              to: 'docs/next/community/community_sync_up'
+              label: 'Community Syncup',
+              to: 'community/community_sync_up'
             },
-
           ]
         },
         {label: 'Apache', to: 'apache', position: 'left',
@@ -99,7 +115,6 @@ module.exports = {
             }
           ]
         },
-        { label: 'Roadmap', to: 'docs/next/roadmap', position: 'left' },
         {
           label: 'Docs',
           to: 'docs', // "fake" link
@@ -133,12 +148,12 @@ module.exports = {
     footer: {
       style: 'grey',
       copyright: `
-        
+
         <img src="https://incubator.apache.org/images/incubator_feather_egg_logo_sm.png" style="max-width: 300px"> <br/>
-        
+
         Copyright © 2020 The Apache Software Foundation. <br/>
         Apache and the Apache feather logo are trademarks of The Apache Software Foundation<br/> <br/>
-        
+
         <p style="text-align: left">Disclaimer: Apache YuniKorn (Incubating) is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache Incubator. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.</p>`
 
     },

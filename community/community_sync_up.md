@@ -22,7 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-Target Audiences: 
+Target Audiences:
 -----------------
 - Developpers who are interested to contribute to YuniKorn project.
 - Users who are using or interested to learn about the project.
@@ -36,6 +36,6 @@ Meeting Notes:
 -------------
 - [Google Doc](https://docs.google.com/document/d/165gzC7uhcKc5XDWiMYSRKBiPQBy2tDtXADUPuhGlUa0/edit#heading=h.461goivmz24v)
 
-Calendar: 
+Calendar:
 ---------
 - [Google Calendar](https://calendar.google.com/calendar/b/3/r/week/2020/3/26?cid=YXBhY2hlLnl1bmlrb3JuQGdtYWlsLmNvbQ)

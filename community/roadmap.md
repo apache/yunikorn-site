@@ -22,8 +22,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# YuniKorn Roadmap
-
 ## What's next
 
 **yunikorn-core**
@@ -38,7 +36,7 @@ under the License.
 **yunikorn-k8shim**
 
 * [YUNIKORN-133](https://issues.apache.org/jira/browse/YUNIKORN-133): Performance improvement: optimize predicate function performance.
-* [YUNIKORN-42](https://issues.apache.org/jira/browse/YUNIKORN-42): Publish comprehensive scheduler events to K8s event system. 
+* [YUNIKORN-42](https://issues.apache.org/jira/browse/YUNIKORN-42): Publish comprehensive scheduler events to K8s event system.
 
 **yunikorn-web**
 
@@ -64,7 +62,7 @@ to run Big Data workloads on K8s. See more at [Release Notes](http://yunikorn.ap
 * Placement rules (auto queue creation/mapping).
 * Customized resource types (like GPU) scheduling support.
 * Rich placement constraints support.
-* Automatically map incoming container requests to queues by policies. 
+* Automatically map incoming container requests to queues by policies.
 * Node partition: partition cluster to sub-clusters with dedicated quota/ACL management.
 * Configuration hot-refresh.
 * Stateful recovery.

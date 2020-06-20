@@ -33,9 +33,9 @@ function Home() {
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <br />
           <div className="buttons_src-pages-">
-              <a className="button button--outline button--secondary button--lg" href="/docs/next/get_started/user_guide">GET STARTED</a> &nbsp;
-              <a className="button button--outline button--secondary button--lg" href="/docs/next/download">DOWNLOAD</a> &nbsp;
-              <a className="button button--outline button--secondary button--lg" href="/docs/next/roadmap">ROADMAP</a>
+              <a className="button button--outline button--secondary button--lg" href="/docs/">GET STARTED</a> &nbsp;
+              <a className="button button--outline button--secondary button--lg" href="/community/download">DOWNLOAD</a> &nbsp;
+              <a className="button button--outline button--secondary button--lg" href="/community/roadmap">ROADMAP</a>
           </div>
         </div>
       </header>

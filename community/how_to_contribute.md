@@ -22,13 +22,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-Yunikorn uses:
+YuniKorn uses:
 * JIRA for issue tracking.
 * GitHub Pull Requests to manage code review and the change itself.
 * MarkDown in the source tree for the documentation.
 
 ## Find an issue
-We use JIRA issues to track bugs for this project. 
+We use JIRA issues to track bugs for this project.
 Find an issue that you would like to work on, or file a new one if you have discovered a new issue.
 For help with reporting issues look at the [how to report an issue](community/reporting_issues.md).
 
@@ -39,7 +39,7 @@ review process, etc. We flag these starter bugs [here](https://issues.apache.org
 If nobody is working on an existing issue, assign it to yourself only if you intend to work on it shortly.
 If you pick up an existing JIRA look for pull requests that are linked to the JIRA ticket.
 Someone might be already working on it and not assigned the ticket.
-JIRAs that have a pull requests linked will have the label `pull-request-available` and a link to the pull request can be found under issue links. 
+JIRAs that have a pull requests linked will have the label `pull-request-available` and a link to the pull request can be found under issue links.
 
 For anything that is more than a trivial change, like a typo or one line code change, it’s a good idea to discuss your intended approach on the issue.
 You are much more likely to have your patch reviewed and committed if you’ve already got buy-in from the YuniKorn community before you start writing the fix.
@@ -50,7 +50,7 @@ If you cannot assign the JIRA to yourself ask the community to help assign it an
 Fixes or improvement must be created on the `master` branch.
 Fork the relevant YuniKorn project into your own project and checkout the `master` branch.
 Make sure that you have an up to date code revision checked out before you start.
-Create a branch to work on, a good name to use is the JIRA ID you are working on. 
+Create a branch to work on, a good name to use is the JIRA ID you are working on.
 
 Now start coding! As you are writing your patch, please keep the following things in mind:
 
@@ -71,7 +71,7 @@ Finally, please write a good, clear commit message, with a short, descriptive ti
 The descriptive title must start with the JIRA ID you are working on.
 An example is: `[YUNIKORN-2] Support Gang Scheduling`
 The commit message will be used to pre-fill the pull request information.
-The JIRA ID in the message will automatically link the pull request and the JIRA. 
+The JIRA ID in the message will automatically link the pull request and the JIRA.
 The message that follows can be used to explain what the problem was, and how it was fixed.
 
 ## Create a pull request
@@ -90,7 +90,7 @@ For example a pull request linked to [YUNIKORN-2](https://issues.apache.org/jira
 
 ## Committing a change
 When a change is approved it will be committed to the `master` branch of the repository.
-The commit message must include the JIRA in the first line and should include a `Closes #1` as a 
+The commit message must include the JIRA in the first line and should include a `Closes #1` as a
 A commit will automatically close the PR.
 The JIRA will not be closed automatically.
 
@@ -98,4 +98,3 @@ The JIRA will not be closed automatically.
 If you’re not sure about something, try to follow the style of the existing codebase.
 Look at whether there are other examples in the code that do a similar thing.
 Feel free to ask questions on the [dev@yunikorn.apache.org](mailto:dev@yunikorn.apache.org) list as well.
-
