@@ -19,7 +19,7 @@ const versions = require('./versions.json');
 module.exports = {
   title: 'Apache YuniKorn',
   tagline: 'Apache YuniKorn (Incubating) is a light-weight, universal resource scheduler for container orchestrator systems.',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'http://yunikorn.apache.org',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'apache', // Usually your GitHub org/user name.
@@ -29,7 +29,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          homePageId: 'a_user_guide',
+          homePageId: 'get_started/user_guide',
           path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
           // editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
@@ -52,25 +52,25 @@ module.exports = {
         src: 'img/yunikorn_blue_256.png',
       },
       links: [
-        {label: 'Quick Start', to: 'docs/next/a_user_guide', position: 'left'},
-        {label: 'Download', to: 'docs/next/h_download', position: 'left'},
+        {label: 'Quick Start', to: 'docs/next/get_started/user_guide', position: 'left'},
+        {label: 'Download', to: 'docs/next/download', position: 'left'},
         {label: 'Community', to: 'apache', position: 'left',
           items: [
             {
               label: 'How To Contribute',
-              to: 'docs/next/f_how_to_contribute'
+              to: 'docs/next/community/how_to_contribute'
             },
             {
               label: 'Coding Guidelines',
-              to: 'docs/next/f_coding_guidelines'
+              to: 'docs/next/community/coding_guidelines'
             },
             {
               label: 'Reporting Issues',
-              to: 'docs/next/f_reporting_issues'
+              to: 'docs/next/community/reporting_issues'
             },
             {
               label: 'Community Sync Up',
-              to: 'docs/next/f_community_sync_up'
+              to: 'docs/next/community/community_sync_up'
             },
 
           ]
@@ -99,7 +99,7 @@ module.exports = {
             }
           ]
         },
-        { label: 'Roadmap', to: 'docs/next/g_roadmap', position: 'left' },
+        { label: 'Roadmap', to: 'docs/next/roadmap', position: 'left' },
         {
           label: 'Docs',
           to: 'docs', // "fake" link

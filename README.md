@@ -38,9 +38,12 @@ git checkout master
 
 docker build -t yunikorn/yunikorn-website:2.0.0 -f Dockerfile .
 
+docker rm -f yunikorn-site
+
 docker run -it \
 --name yunikorn-site \
 -p 3000:3000 \
+-v $PWD:/incubator-yunikorn-site \
 -v $PWD/yunikorn-site:/incubator-yunikorn-site/build \
 yunikorn/yunikorn-website:2.0.0 bash
 
@@ -51,10 +54,15 @@ yarn start --host 0.0.0.0
 
 You can view the new website locally on: http://localhost:3000/
 
-## Update documents
+## Add / Update documents
 
-// TODO - how to add/update documents (md files)
-// TODO - how to add a new version documentation
+The new site is based on [docusaurus](https://v2.docusaurus.io/docs/docs-introduction), please go ahead with that.
+
+## Release a new version
+
+```
+yarn release x.x.x (e.g. 0.8.1)
+```
 
 ## Deploy website
 
