@@ -27,9 +27,9 @@ const features = [
     imageUrl: 'img/scheduling.png',
     description: (
       <>
-      Built-in with comprehensive scheduling capabilities, such as hierarchy
+      Builtin with comprehensive scheduling capabilities, including hierarchy
       queues, resource fairness across queues, job ordering (FIFO/FAIR), pluggable
-      node sorting policies, preemption, etc.
+      node sorting policies, preemption, and more.
       </>
     ),
   },
@@ -38,9 +38,8 @@ const features = [
     imageUrl: 'img/k8s.png',
     description: (
       <>
-      YuniKorn is fully K8s compatible, all K8s APIs are supported
-      such as predicates, volumes, etc. No API changes needed from client
-      side.
+      Fully K8s compatible, an alternative of the default K8s
+      scheduler, but more powerful. Transparent for the existing K8s applications.
       </>
     ),
   },
@@ -49,8 +48,8 @@ const features = [
     imageUrl: 'img/cloud-prem.png',
     description: (
       <>
-      It supports both on-prem and on-cloud clusters. It works with cluster
-      autoscaler on cloud to bring maximum resource elasticity.
+      Supports both on-prem and on-cloud use cases. When running on cloud, it works
+      with the autoscaler to bring maximum resource elasticity, with better throughput.
       </>
     ),
   },
