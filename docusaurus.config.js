@@ -21,21 +21,14 @@ module.exports = {
   tagline: 'Apache YuniKorn (Incubating) is a light-weight, universal resource scheduler for container orchestrator systems.',
   url: 'http://yunikorn.apache.org',
   baseUrl: '/',
-  favicon: 'img/favicon.ico',
-  organizationName: 'apache', // Usually your GitHub org/user name.
-  projectName: 'incubator-yunikorn-core', // Usually your repo name.
+  favicon: 'img/yunikorn.ico',
+  organizationName: 'apache',
+  projectName: 'incubator-yunikorn-core',
   plugins: [
     [
       '@docusaurus/plugin-content-blog',
       {
-        /**
-         * URL route for the blog section of your site.
-         * *DO NOT* include a trailing slash.
-         */
         routeBasePath: 'community',
-        /**
-         * Path to data on filesystem relative to site dir.
-         */
         path: './community',
       },
     ],
@@ -48,9 +41,6 @@ module.exports = {
           homePageId: 'get_started/user_guide',
           path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
-          // editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
-          // showLastUpdateAuthor: false,
-          // showLastUpdateTime: false,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -59,13 +49,13 @@ module.exports = {
     ],
   ],
   themeConfig: {
-    disableDarkMode: true,
+    disableDarkMode: false,
     navbar: {
       hideOnScroll: false,
       title: 'Apache YuniKorn',
       logo: {
         alt: 'YuniKorn Site Logo',
-        src: 'img/yunikorn_blue_256.png',
+        src: 'img/yunikorn.ico',
       },
       links: [
         {label: 'Quick Start', to: 'docs/', position: 'left'},
@@ -155,7 +145,6 @@ module.exports = {
         Apache and the Apache feather logo are trademarks of The Apache Software Foundation<br/> <br/>
 
         <p style="text-align: left">Disclaimer: Apache YuniKorn (Incubating) is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache Incubator. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.</p>`
-
     },
   }
 };

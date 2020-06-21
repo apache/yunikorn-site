@@ -17,8 +17,44 @@
 import React from 'react';
 import classnames from 'classnames';
 import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
+
+const features = [
+  {
+    title: <>Scheduling Capabilities</>,
+    imageUrl: 'img/scheduling.png',
+    description: (
+      <>
+      Built-in with comprehensive scheduling capabilities, such as hierarchy
+      queues, resource fairness across queues, job ordering (FIFO/FAIR), pluggable
+      node sorting policies, preemption, etc.
+      </>
+    ),
+  },
+  {
+    title: <>Resource Scheduler for K8s</>,
+    imageUrl: 'img/k8s.png',
+    description: (
+      <>
+      YuniKorn is fully K8s compatible, all K8s APIs are supported
+      such as predicates, volumes, etc. No API changes needed from client
+      side.
+      </>
+    ),
+  },
+  {
+    title: <>Cloud Native</>,
+    imageUrl: 'img/cloud-prem.png',
+    description: (
+      <>
+      It supports both on-prem and on-cloud clusters. It works with cluster
+      autoscaler on cloud to bring maximum resource elasticity.
+      </>
+    ),
+  },
+];
 
 function Home() {
   const context = useDocusaurusContext();
@@ -28,39 +64,48 @@ function Home() {
       title={`Welcome to ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
       <header className={classnames('hero hero--primary', styles.heroBanner)}>
-        <div className="container">
-          <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
-          <br />
-          <div className="buttons_src-pages-">
-              <a className="button button--outline button--secondary button--lg" href="/docs/">GET STARTED</a> &nbsp;
-              <a className="button button--outline button--secondary button--lg" href="/community/download">DOWNLOAD</a> &nbsp;
-              <a className="button button--outline button--secondary button--lg" href="/community/roadmap">ROADMAP</a>
-          </div>
-        </div>
+        <div className="container" />
       </header>
       <main>
-          <section className="features_src-pages-">
-              <div className="container">
-                  <h1 className="hero__title">Architecture</h1>
-                  {/*<p>Apache YuniKorn (Incubating) is a light-weighted, universal resource scheduler for container orchestrator systems.</p>*/}
-                  {/*<ul>*/}
-                  {/*    <li><span className="glyphicon glyphicon-transfer"></span> Unified</li>*/}
-                  {/*    <li><span className="glyphicon glyphicon-eye-open"></span> Capacity Planning</li>*/}
-                  {/*    <li><span className="glyphicon glyphicon-dashboard"></span> Resource Monitoring</li>*/}
-                  {/*    <li><span className="glyphicon glyphicon-wrench"></span> Resource Scheduling</li>*/}
-                  {/*    <li><span className="glyphicon glyphicon-cloud"></span> Application Management</li>*/}
-                  {/*</ul>*/}
-                  <div className="row">
-                      <div className="col col--12">
-                          <div className="text--center">
-                              <br />
-                              <img src="/img/architecture.png" />
-                          </div>
-                      </div>
-                  </div>
-              </div>
+          <section className="main_src-pages-">
+          <div className="container">
+            <h1 className="hero__title">{siteConfig.title}</h1>
+            <p className="hero__subtitle">{siteConfig.tagline}</p>
+            <br />
+            <div className="buttons_src-pages-">
+                <a className="button button--outline button--secondary button--lg" href="/docs/">GET STARTED</a> &nbsp;
+                <a className="button button--outline button--secondary button--lg" href="/community/download">DOWNLOAD</a> &nbsp;
+                <a className="button button--outline button--secondary button--lg" href="/community/roadmap">ROADMAP</a>
+            </div>
+          </div>
           </section>
+
+          {features && features.length && (
+         <section className={styles.features}>
+           <div className="container">
+             <div className="row">
+               {features.map(({ imageUrl, title, description }, idx) => (
+                 <div
+                   key={idx}
+                   className={classnames('col col--4', styles.feature)}
+                 >
+                   {imageUrl && (
+                     <div className="text--center">
+                       <img
+                         className={styles.featureImage}
+                         src={imageUrl}
+                         alt={title}
+                       />
+                     </div>
+                   )}
+                   <h3>{title}</h3>
+                   <p>{description}</p>
+                 </div>
+               ))}
+             </div>
+           </div>
+         </section>
+       )}
       </main>
 
     </Layout>

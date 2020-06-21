@@ -17,13 +17,12 @@
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #44aab1;
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
-  --ifm-code-font-size: 95%;
+  --ifm-color-primary-dark: #3d999f;
+  --ifm-color-primary-darker: #3a9196;
+  --ifm-color-primary-darkest: #30777c;
+  --ifm-color-primary-light: #51b5bc;
+  --ifm-color-primary-lighter: #5ab9c0;
+  --ifm-color-primary-lightest: #75c4ca;
 }
 
 .docusaurus-highlight-code-line {
@@ -78,9 +77,14 @@
   max-width: 1200px;
 }
 
+[class^="main_src-pages"] .container{
+  text-align: center;
+  max-width: 1200px;
+  padding: 60px;
+}
 
 .button.button--secondary {
-  color: white !important;
+  color: 44aab1 !important;
 }
 
 .button--lg {
@@ -88,7 +92,12 @@
 }
 
 .hero--primary {
-  background-image: url("/img/home-hero.png");
+  background-image: url("/img/hero-background-image.jpeg");
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.navbar .navbar__logo {
+  height: auto;
+  width: 50px;
 }
