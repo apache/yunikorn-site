@@ -44,3 +44,9 @@
   height: 200px;
   width: 200px;
 }
+
+@media screen and (max-width: 966px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
