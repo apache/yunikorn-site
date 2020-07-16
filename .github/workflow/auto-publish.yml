@@ -1,0 +1,51 @@
+name: yunikorn-site auto-publish
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out latest code on master branch"
+        uses: actions/checkout@v2
+        with:
+          path: './yunikorn-master'
+      - name: "Build and run website locally"
+        working-directory: './yunikorn-master'
+        run: |
+          docker build -t yunikorn/yunikorn-website:1.0.0 .
+          docker run -d -p 4000:4000 -v $PWD/yunikorn-site:/yunikorn-site yunikorn/yunikorn-website:1.0.0
+      - name: "Wait until the local website server populates static pages"
+        working-directory: './yunikorn-master'
+        run: |
+          bash -c 'while true; do curl -Is http://localhost:4000 | head -n 1 | grep "OK"; [ $? -eq 0 ] && break; sleep 3; done'
+          echo "backup generated files"
+          mkdir /tmp/site-backup
+          cp -R yunikorn-site/* /tmp/site-backup
+          ls -al /tmp/site-backup/*
+        shell: bash
+        timeout-minutes: 5
+      - name: "Checkout asf-site branch"
+        uses: actions/checkout@v2
+        with:
+          path: './yunikorn-asf-site'
+          ref: 'asf-site'
+      - name: "Commit changes"
+        working-directory: './yunikorn-asf-site'
+        run: |
+          echo "wipe out the content (except files starting with dot)"
+          rm -rf ./*
+          cp -R /tmp/site-backup/* .
+          git config --local user.email "yunikornscheduler@gmail.com"
+          git config --local user.name "yunikorn-bot"
+          git add .
+          git commit -m "Auto refresh web-site content" -a
+      - name: "Push changes"
+        uses: ad-m/github-push-action@master
+        with:
+          branch: 'asf-site'
+          directory: './yunikorn-asf-site'
+          github_token: ${{ secrets.GITHUB_TOKEN }}

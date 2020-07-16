@@ -14,7 +14,6 @@
 # limitations under the License.
 
 FROM node:12.18.0
-
 ADD . /incubator-yunikorn-site
-
 WORKDIR /incubator-yunikorn-site
+ENTRYPOINT bundle update && bundle exec jekyll serve --destination /yunikorn-site/ --watch --host=0.0.0.0
