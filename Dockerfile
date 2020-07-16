@@ -13,7 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:12.18.0
+FROM ubuntu:18.04
+RUN apt-get update
+RUN apt-get install -y wget vim git python-pip zlib1g-dev libssl-dev
+RUN apt-get update
+RUN apt-get -y install bundler
 ADD . /incubator-yunikorn-site
 WORKDIR /incubator-yunikorn-site
 ENTRYPOINT bundle update && bundle exec jekyll serve --destination /yunikorn-site/ --watch --host=0.0.0.0
