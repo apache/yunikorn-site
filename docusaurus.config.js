@@ -133,11 +133,6 @@ module.exports = {
     },
     footer: {
       style: 'grey',
-      logo: {
-        alt: 'Apache Incubator Logo',
-        src: 'https://incubator.apache.org/images/incubator_feather_egg_logo.png',
-        href: 'https://incubator.apache.org/',
-      },
       links: [
         {
           title: 'Blog',
@@ -191,6 +186,11 @@ module.exports = {
           ]
         },
       ],
+      logo: {
+        alt: 'Apache Incubator Logo',
+        src: 'https://incubator.apache.org/images/apache-incubator-logo-source.svg',
+        href: 'https://incubator.apache.org/',
+      },
       copyright: `Copyright © ${new Date().getFullYear()} The Apache Software Foundation.`
     },
   }
