@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: "yunikorn website auto-publish"
+name: "auto-publish"
 
 on:
   push:
@@ -32,16 +32,8 @@ jobs:
         working-directory: './yunikorn-master'
         run: |
           docker build -t yunikorn/yunikorn-website:1.0.0 .
-          docker run -d -p 4000:4000 -v $PWD/yunikorn-site:/yunikorn-site yunikorn/yunikorn-website:1.0.0
-      - name: "Wait until the local website server populates static pages"
-        working-directory: './yunikorn-master'
-        run: |
-          bash -c 'while true; do curl -Is http://localhost:4000 | head -n 1 | grep "OK"; [ $? -eq 0 ] && break; sleep 3; done'
-          echo "backup generated files"
-          mkdir /tmp/site-backup
-          cp -R yunikorn-site/* /tmp/site-backup
-          ls -al /tmp/site-backup/*
-        shell: bash
+          docker run --name yunikorn-site -d -p 3000:3000 yunikorn/yunikorn-website:1.0.0
+          bash -c 'while true; do curl -Is http://localhost:3000 | head -n 1 | grep "OK"; [ $? -eq 0 ] && break; sleep 3; done'
         timeout-minutes: 5
       - name: "Checkout asf-site branch"
         uses: actions/checkout@v2
@@ -51,9 +43,11 @@ jobs:
       - name: "Commit changes"
         working-directory: './yunikorn-asf-site'
         run: |
+          mkdir /tmp/site-backup
+          docker cp yunikorn-site:/incubator-yunikorn-site/build /tmp/site-backup/
           echo "wipe out the content (except files starting with dot)"
           rm -rf ./*
-          cp -R /tmp/site-backup/* .
+          cp -R /tmp/site-backup/build/* .
           git config --local user.email "yunikornscheduler@gmail.com"
           git config --local user.name "yunikorn-bot"
           git add .
