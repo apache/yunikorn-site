@@ -56,7 +56,7 @@ You can view the new website locally on: http://localhost:3000/
 
 ## Add / Update documents
 
-The new site is based on [docusaurus](https://v2.docusaurus.io/docs/docs-introduction), please go ahead with that.
+The website is built based on [docusaurus-v2](https://v2.docusaurus.io/docs/docs-introduction).
 
 ## Release a new version
 
