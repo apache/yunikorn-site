@@ -138,7 +138,60 @@ module.exports = {
         src: 'https://incubator.apache.org/images/incubator_feather_egg_logo.png',
         href: 'https://incubator.apache.org/',
       },
-      copyright: `Copyright © ${new Date().getFullYear()} The Apache Software Foundation. Apache and the Apache feather logo are trademarks of The Apache Software Foundation`
+      links: [
+        {
+          title: 'Blog',
+          items: [
+            {
+              label: 'What\'s YuniKorn?',
+              href: 'https://blog.cloudera.com/yunikorn-a-universal-resources-scheduler/'
+            },
+            {
+              label: 'What\'s new in YuniKorn 0.8.0',
+              href: 'https://blog.cloudera.com/apache-yunikorn-incubating-0-8-release-whats-new-and-upcoming/'
+            }
+          ]
+        },
+        {
+          title: 'Github',
+          items: [
+            {
+              label: 'scheduler-core',
+              href: 'https://github.com/apache/incubator-yunikorn-core/'
+            },
+            {
+              label: 'kubernetes-shim',
+              href: 'https://github.com/apache/incubator-yunikorn-k8shim'
+            },
+            {
+              label: 'scheduler-interface',
+              href: 'https://github.com/apache/incubator-yunikorn-scheduler-interface'
+            },
+            {
+              label: 'scheduler-web',
+              href: 'https://github.com/apache/incubator-yunikorn-web'
+            }
+          ]
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'Community meetings',
+              href: 'http://yunikorn.apache.org/community/community_sync_up'
+            },
+            {
+              label: 'Roster',
+              href: 'http://people.apache.org/phonebook.html?podling=yunikorn'
+            },
+            {
+              label: 'Issues',
+              href: 'https://issues.apache.org/jira/projects/YUNIKORN/issues'
+            }
+          ]
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} The Apache Software Foundation.`
     },
   }
 };
