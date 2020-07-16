@@ -85,23 +85,19 @@ module.exports = {
           items: [
             {
               label: 'Apache Software Foundation',
-              href: 'http://www.apache.org/foundation/how-it-works.html'
+              href: 'https://www.apache.org/'
+            },
+            {
+              label: 'Apache Incubator',
+              href: 'https://incubator.apache.org/'
             },
             {
               label: 'Apache License',
-              href: 'http://www.apache.org/foundation/how-it-works.html'
+              href: 'https://www.apache.org/licenses/LICENSE-2.0'
             },
             {
               label: 'Sponsorship',
-              href: 'http://www.apache.org/foundation/how-it-works.html'
-            },
-            {
-              label: 'Assets',
-              href: 'http://www.apache.org/foundation/how-it-works.html'
-            },
-            {
-              label: 'Thanks',
-              href: 'http://www.apache.org/foundation/how-it-works.html'
+              href: 'https://www.apache.org/foundation/sponsorship.html'
             }
           ]
         },
