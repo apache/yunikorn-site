@@ -105,6 +105,13 @@ function Home() {
            </div>
          </section>
        )}
+
+          <section className="features_src-pages-">
+              <div className="container">
+                  <h3 className="text--center">Project Timeline</h3>
+                  <img src="/img/timeline.png"  className={styles.timelineImage}/>
+              </div>
+          </section>
       </main>
     </Layout>
   );

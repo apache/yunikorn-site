@@ -45,6 +45,14 @@
   width: 200px;
 }
 
+.timelineImage {
+  height: 80%;
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media screen and (max-width: 966px) {
   .heroBanner {
     padding: 2rem;

@@ -50,12 +50,20 @@ module.exports = {
   ],
   themeConfig: {
     disableDarkMode: false,
+    announcementBar: {
+      id: 'new_release',
+      content:
+          '0.9.0 release is up-coming!!',
+      backgroundColor: '#fafbfc',
+      textColor: '#091E42',
+    },
     navbar: {
       hideOnScroll: false,
       title: 'Apache YuniKorn',
       logo: {
         alt: 'YuniKorn Site Logo',
         src: 'img/yunikorn.ico',
+        srcDark: 'img/yunikorn_white_logo.png',
       },
       links: [
         {label: 'Quick Start', to: 'docs/', position: 'left'},
