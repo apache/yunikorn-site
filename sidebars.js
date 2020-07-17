@@ -17,7 +17,7 @@
 module.exports = {
     docs: {
         'Get Started': [
-            'get_started/get_started',
+            'get_started/user_guide',
             'get_started/run_sample_workloads',
             'get_started/run_non_modified_k8s_apps',
             'get_started/run_spark',

@@ -42,7 +42,7 @@ By default we use the file called `queues.yaml` in our deployments.
 The filename can be changed via the command line flag `policyGroup` of the scheduler.
 Changing the filename must be followed by corresponding changes in the deployment details, either the `configmap` or the file included in the docker container.
 
-The example file for the configuration is located in [config/queues.yaml](../config/queues.yaml).  
+Here is a sample configuration file [queues.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/conf/queues.yaml).  
 
 ## Partitions
 Partitions are the top level of the scheduler configuration.

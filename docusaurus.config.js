@@ -38,7 +38,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          homePageId: 'get_started/get_started',
+          homePageId: 'get_started/user_guide',
           path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
         },
@@ -142,7 +142,7 @@ module.exports = {
               href: 'https://blog.cloudera.com/yunikorn-a-universal-resources-scheduler/'
             },
             {
-              label: 'What\'s new in YuniKorn 0.8.0',
+              label: 'What\'s new in YuniKorn 0.8.0?',
               href: 'https://blog.cloudera.com/apache-yunikorn-incubating-0-8-release-whats-new-and-upcoming/'
             }
           ]

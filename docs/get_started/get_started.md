@@ -1,5 +1,5 @@
 ---
-id: get_started
+id: user_guide
 title: Get Started
 ---
 
