@@ -38,7 +38,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          homePageId: 'get_started/user_guide',
+          homePageId: 'get_started/get_started',
           path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
         },

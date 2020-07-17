@@ -1,6 +1,6 @@
 ---
 id: metrics
-title: Metrics
+title: Scheduler Metrics
 ---
 
 <!--
@@ -21,8 +21,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-# YuniKorn Metrics
 
 YuniKorn leverages [Prometheus](https://prometheus.io/) to record metrics. The metrics system keeps tracking of
 scheduler's critical execution paths, to reveal potential performance bottlenecks. Currently, there are two categories

@@ -1,6 +1,6 @@
 ---
 id: queue_config
-title: Queue Config
+title: Partition and Queue Configuration
 ---
 
 <!--
@@ -22,9 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# YuniKorn Partition and Queue Configuration
-
-The basis for the queue configuration is given in the [scheduler design document](setup/configure_scheduler.md#queue-configuration).
+The basis for the queue configuration is given in the [scheduler design document](design/architecture.md#configurations--semantics).
 
 This document provides the generic queue configuration.
 It references both the [Access control lists](configuration/acls.md) and [placement rule](configuration/placement_rules.md) documentation.

@@ -1,6 +1,6 @@
 ---
 id: placement_rules
-title: Placement Rules
+title: App Placement Rules
 ---
 
 <!--
@@ -21,8 +21,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-# YuniKorn Scheduler Placement Rules
 
 The basics for the placement rules are described in the [scheduler design document](e_scheduler_configuration.md#placement-rules-definition).
 Multiple rules can be chained to form a placement policy.

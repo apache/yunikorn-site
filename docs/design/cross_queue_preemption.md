@@ -22,9 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Preemption Logic Of YuniKorn
-
-## To be solved problems:
+## Problems:
 
 According to lessons we learned from YARN Scheduler preemption. 
 

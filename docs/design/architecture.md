@@ -1,6 +1,6 @@
 ---
-id: design
-title: Design
+id: architecture
+title: Architecture
 ---
 
 <!--
@@ -22,13 +22,22 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Design of YuniKorn scheduler
+Apache YuniKorn (Incubating) is a light-weight, universal resource scheduler for container orchestrator systems.
+It was created to achieve fine-grained resource sharing for various workloads efficiently on a large scale, multi-tenant,
+and cloud-native environment. YuniKorn brings a unified, cross-platform, scheduling experience for mixed workloads that
+consist of stateless batch workloads and stateful services.
 
-## Overall
+YuniKorn now supports K8s and can be deployed as a custom K8s scheduler. YuniKorn's architecture design also allows
+adding different shim layer and adopt to different ResourceManager implementation including Apache Hadoop YARN,
+or any other systems.
 
 ## Architecture
 
-### Components:
+Following chart illustrates the high-level architecture of YuniKorn.
+
+![images](/img/architecture.png)
+
+## Components:
 
 **Scheduler API Server**:
 

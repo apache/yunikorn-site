@@ -1,6 +1,6 @@
 ---
 id: env_setup
-title: Environment Setup
+title: Dev Environment Setup
 ---
 
 <!--

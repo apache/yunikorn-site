@@ -1,6 +1,6 @@
 ---
 id: acls
-title: Acls
+title: ACLs
 ---
 
 <!--
@@ -21,8 +21,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-# YuniKorn Scheduler ACLs
 
 ## Usage
 Access Control Lists are generic for YuniKorn.

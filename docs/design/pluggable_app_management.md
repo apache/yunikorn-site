@@ -22,8 +22,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Pluggable App Management
-
 ## The Problem
 
 Currently, we schedule and group an application is based on a label on the pod.

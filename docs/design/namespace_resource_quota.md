@@ -22,8 +22,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Use K8s Namespace in YuniKorn
-
 In K8s, user can setup namespace with [resource quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/) to limit aggregated resource consumption in this namespace. The validation of namespace resource quotas is handled in api-server directly, therefore YuniKorn simply honors the quotas like the default scheduler.
 
 ## Best practice

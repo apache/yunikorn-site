@@ -16,6 +16,8 @@
  * limitations under the License.
  -->
 # Apache YuniKorn website
+---
+![auto-publish](https://github.com/apache/incubator-yunikorn-site/workflows/auto-publish/badge.svg)
 
 This readme will walk you through building the Apache YuniKorn website
 

@@ -22,8 +22,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Profiling Scheduler
-
 Use [pprof](https://github.com/google/pprof) to do CPU, Memory profiling can help you understand the runtime status of YuniKorn scheduler. Profiling instruments have been
 added to YuniKorn rest service, we can easily retrieve and analyze them from HTTP
 endpoints.

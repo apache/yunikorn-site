@@ -15,22 +15,24 @@
  */
 
 module.exports = {
-
     docs: {
         'Get Started': [
-            'get_started/user_guide',
-            'get_started/developer_guide'
+            'get_started/get_started',
+            'get_started/run_sample_workloads',
+            'get_started/run_non_modified_k8s_apps',
+            'get_started/run_spark',
+            'get_started/run_tf'
         ],
-        'Setup': [
-            'setup/build_local',
-            'setup/configure_scheduler',
-            'setup/deployment',
-            'setup/env_setup'
+        'Developer Guide': [
+            'developer_guide/developer_guide',
+            'developer_guide/env_setup',
+            'developer_guide/deployment'
         ],
         'Configuration': [
             'configuration/queue_config',
             'configuration/placement_rules',
-            'configuration/acls'
+            'configuration/acls',
+            'configuration/sorting_policies'
         ],
         'Performance': [
             'performance/evaluate_perf_function_with_kubemark',
@@ -38,12 +40,15 @@ module.exports = {
             'performance/profiling'
         ],
         'Design': [
-            'design/design',
+            'design/architecture',
+            'design/scheduler_core_design',
             'design/cross_queue_preemption',
             'design/namespace_resource_quota',
             'design/pluggable_app_management',
             'design/resilience',
-            'design/scheduler_configuration'
+            'design/scheduler_configuration',
+            'design/state_aware_scheduling',
+            'design/scheduler_object_states'
         ],
     },
 };

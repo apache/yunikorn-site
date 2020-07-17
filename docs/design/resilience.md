@@ -22,8 +22,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Resilience Design
-
 This is not a HA (High-availability) design, HA implies that a service can
 survive from a fatal software/hardware failure. That requires one or more
 standby instances providing same services to take over active instance on failures.
