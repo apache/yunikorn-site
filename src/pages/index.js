@@ -34,7 +34,7 @@ const features = [
   },
   {
     title: <>Resource Scheduler for K8s</>,
-    imageUrl: 'img/k8s.png',
+    imageUrl: 'img/support-k8s.png',
     description: (
       <>
       Fully K8s compatible, an alternative of the default K8s
@@ -44,7 +44,7 @@ const features = [
   },
   {
     title: <>Cloud Native</>,
-    imageUrl: 'img/cloud-prem.png',
+    imageUrl: 'img/cloud-native.png',
     description: (
       <>
       Supports both on-prem and on-cloud use cases. When running on cloud, it works
@@ -105,7 +105,7 @@ function Home() {
             <section className="features_src-pages-">
                 <div className="container">
                     <h3 className="text--center">Project Timeline</h3>
-                    <img src="/img/timeline.png" className={styles.timelineImage}/>
+                    <img src="/img/project-timeline" className={styles.timelineImage}/>
                 </div>
             </section>
         </main>
