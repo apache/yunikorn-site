@@ -17,7 +17,6 @@
 import React from 'react';
 import classnames from 'classnames';
 import Layout from '@theme/Layout';
-import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
 
@@ -62,57 +61,54 @@ function Home() {
     <Layout
       title={`Welcome to ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
-      <header className={classnames('hero hero--primary', styles.heroBanner)}>
-        <div className="container" />
-      </header>
-      <main>
-          <section className="main_src-pages-">
-          <div className="container">
-            <h1 className="hero__title">{siteConfig.title}</h1>
-            <p className="hero__subtitle">{siteConfig.tagline}</p>
-            <br />
-            <div className="buttons_src-pages-">
-                <a className="button button--primary button--lg" href="/docs/">GET STARTED</a> &nbsp;
-                <a className="button button--primary button--lg" href="/community/download">DOWNLOAD</a> &nbsp;
-                <a className="button button--primary button--lg" href="/community/roadmap">ROADMAP</a>
+        <header className={classnames('hero', styles.heroBanner)}>
+            <div className="container">
+                <div className="row">
+                    <div className={classnames('col col-lg-8')}>
+                        <h1 className="hero__title">{siteConfig.title}</h1>
+                        <p className="hero__subtitle">{siteConfig.tagline}</p>
+                        <div className="container">
+                            <div className="buttons_src-pages-">
+                                <a className="button button--primary button--lg" href="/docs/">GET STARTED</a>
+                                <a className="button button--primary button--lg" href="/community/download">DOWNLOAD</a>
+                                <a className="button button--primary button--lg" href="/community/roadmap">ROADMAP</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={classnames('col col-lg-4')}>
+                        <img className={styles.heroImg} src="img/yunikorn_classic_logo.png"/>
+                    </div>
+                </div>
             </div>
-          </div>
-          </section>
+        </header>
+        <main>
+            {features && features.length && (
+                <section className={styles.features}>
+                    <div className="container">
+                        <div className="row">
+                            {features.map(({imageUrl, title, description}, idx) => (
+                                <div key={idx} className={classnames('col col--4', styles.feature)}>
+                                    {imageUrl && (
+                                        <div className="text--center">
+                                            <img className={styles.featureImage} src={imageUrl} alt={title}/>
+                                        </div>
+                                    )}
+                                    <h3>{title}</h3>
+                                    <p>{description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
 
-          {features && features.length && (
-         <section className={styles.features}>
-           <div className="container">
-             <div className="row">
-               {features.map(({ imageUrl, title, description }, idx) => (
-                 <div
-                   key={idx}
-                   className={classnames('col col--4', styles.feature)}
-                 >
-                   {imageUrl && (
-                     <div className="text--center">
-                       <img
-                         className={styles.featureImage}
-                         src={imageUrl}
-                         alt={title}
-                       />
-                     </div>
-                   )}
-                   <h3>{title}</h3>
-                   <p>{description}</p>
-                 </div>
-               ))}
-             </div>
-           </div>
-         </section>
-       )}
-
-          <section className="features_src-pages-">
-              <div className="container">
-                  <h3 className="text--center">Project Timeline</h3>
-                  <img src="/img/timeline.png"  className={styles.timelineImage}/>
-              </div>
-          </section>
-      </main>
+            <section className="features_src-pages-">
+                <div className="container">
+                    <h3 className="text--center">Project Timeline</h3>
+                    <img src="/img/timeline.png" className={styles.timelineImage}/>
+                </div>
+            </section>
+        </main>
     </Layout>
   );
 }

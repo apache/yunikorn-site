@@ -15,10 +15,15 @@
 */
 
 .heroBanner {
-  padding: 4rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+  background: url("/img/hero.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 966px) {
@@ -33,7 +38,14 @@
   justify-content: center;
 }
 
+.heroImg {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
 .features {
+  margin-top: 20px;
   display: flex;
   align-items: center;
   padding: 2rem 0;
@@ -53,8 +65,3 @@
   margin-right: auto;
 }
 
-@media screen and (max-width: 966px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-}

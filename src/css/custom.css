@@ -16,6 +16,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
+  --ifm-container-width: 1200px;
   --ifm-color-primary: #44aab1;
   --ifm-color-primary-dark: #3d999f;
   --ifm-color-primary-darker: #3a9196;
@@ -73,6 +74,18 @@ html[data-theme='dark'] .header-github-link:before {
   display: block !important;
 }
 
+.hero__title {
+  font-size: 3rem;
+  font-family: sans-serif;
+  color: #ffffff;
+}
+
+.hero__subtitle {
+  margin-top: 10px;
+  font-family: sans-serif;
+  color: #ffffff;
+}
+
 .hero--primary {
   height: 360px;
 }
@@ -93,6 +106,12 @@ html[data-theme='dark'] .header-github-link:before {
 }
 
 .button.button--secondary {
+  margin:5px;
+  color: 44aab1 !important;
+}
+
+.button.button--primary {
+  margin:5px;
   color: 44aab1 !important;
 }
 
@@ -101,9 +120,17 @@ html[data-theme='dark'] .header-github-link:before {
 }
 
 .hero--primary {
-  background-image: url("/img/hero-background-image.jpeg");
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background-image: url("/img/cube.jpg");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .navbar .navbar__logo {

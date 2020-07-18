@@ -18,7 +18,7 @@ const versions = require('./versions.json');
 
 module.exports = {
   title: 'Apache YuniKorn',
-  tagline: 'A light-weight, universal resource scheduler for container orchestrator systems. Designed for running Big Data & ML on Kubernetes!',
+  tagline: 'Unleash the power of resource scheduling for running Big Data & ML on Kubernetes!',
   url: 'http://yunikorn.apache.org',
   baseUrl: '/',
   favicon: 'img/yunikorn.ico',
