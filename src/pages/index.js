@@ -23,7 +23,7 @@ import styles from './styles.module.css';
 const features = [
   {
     title: <>Scheduling Capabilities</>,
-    imageUrl: 'img/scheduling.png',
+    imageUrl: 'img/resource-scheduling.png',
     description: (
       <>
       Builtin with comprehensive scheduling capabilities, including hierarchy
