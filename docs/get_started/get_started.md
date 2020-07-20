@@ -26,9 +26,6 @@ Before reading this guide, we assume you either have a Kubernetes cluster, or a 
 It is also assumed that `kubectl` is on your path and properly configured.
 Follow this [guide](developer_guide/env_setup.md) on how to setup a local Kubernetes cluster using docker-desktop.
 
-All files mentioned in this user guide are part of the [yunikorn-k8shim](https://github.com/apache/incubator-yunikorn-k8shim) repository.
-They are located in the [deployments](https://github.com/apache/incubator-yunikorn-k8shim/tree/master/deployments/scheduler) sub directory. The command given assume that you are located in that directory.
-
 ## Install
 
 The easiest way to get started is to use our Helm Charts to deploy YuniKorn on an existing Kubernetes cluster.
@@ -38,7 +35,7 @@ It is recommended to use Helm 3 or later versions.
 helm repo add yunikorn  https://apache.github.io/incubator-yunikorn-release
 helm repo update
 kubectl create namespace yunikorn
-helm install yunikorn/yunikorn --namespace yunikorn
+helm install yunikorn yunikorn/yunikorn --namespace yunikorn
 ```
 
 By default, the helm chart will install the scheduler, web-server and the admission-controller in the cluster.
@@ -70,5 +67,5 @@ Once this is done, web UI will be available at: http://localhost:9889.
 
 ![UI Screenshots](/img/yk-ui-screenshots.gif)
 
-YuniKorn UI provides a centralised view for cluster resource capacity and utilization, and all applications.
+YuniKorn UI provides a centralised view for cluster resource capacity, utilization, and all application info.
 
