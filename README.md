@@ -23,42 +23,37 @@ This readme will walk you through building the Apache YuniKorn website
 
 ## Introduction
 
-1. The `master` branch contains the website source code. Every time you modify the website, you need to submit it to the `master` branch for saving.
+1. The `master` branch contains the website source code. Modifications of the web-site need to be merged into the master branch.
 
-2. The `asf-site` branch contains the deployed static pages, scripts and images of the website. Every time you modify the website, you need to save the latest generated static page set here.
+2. The `asf-site` branch contains the deployed static pages, scripts and images of the website. This branch is maintained by `yunikorn-bot`, in most of the cases, no manual updates needed for this branch.
 
 https://yunikorn.apache.org will be updated automatically via the configuration set in the `.asf.yaml` file.
 
-## Build the web-site in docker
+## Make changes
 
-The following command will generate the web-site static pages inside the docker image in the `/incubator-yunikorn-site` directory.
-This directory will be mounted to `/yunikorn-site` on the host operating system, under the project root directory.
+You can build and run the web-site server locally in dev mode with the following command:
 
-```
-git clone https://github.com/apache/incubator-yunikorn-site.git
-git checkout master
-
-docker build -t yunikorn/yunikorn-website:2.0.0 -f Dockerfile .
-
-docker rm -f yunikorn-site
-
-docker run -it \
---name yunikorn-site \
--p 3000:3000 \
--v $PWD:/incubator-yunikorn-site \
--v $PWD/yunikorn-site:/incubator-yunikorn-site/build \
-yunikorn/yunikorn-website:2.0.0 bash
-
-yarn install
-yarn build
-yarn start --host 0.0.0.0
+```shell script
+./local-build.sh run
 ```
 
-You can view the new website locally on: http://localhost:3000/
+this commands builds a docker image `yunikorn/yunikorn-website:latest` locally, and launch the web-server at URL: http://localhost:3000.
+All dependencies will be installed in the docker image in order to keep the local env clean, the web-site will be built by
+the content in the current repo directory. So that any changes that have been done within the directory will automatically
+trigger the update of the local web-server. You can review you changes from the local endpoint to verify your changes. Once
+the dev is done, you need to ctrl+c to exit the dev mode.
 
 ## Add / Update documents
 
-The website is built based on [docusaurus-v2](https://v2.docusaurus.io/docs/docs-introduction).
+The website is built based on [docusaurus-v2](https://v2.docusaurus.io/docs/docs-introduction). The docs are written in MD file format,
+docs are located at:
+
+- community: the non-versioned docs
+- docs: the master version of docs
+- versioned_docs: the released version of docs
+- sidebars.js: change this file if you need to update the layout of the docs
+
+For advanced updates, including style, theme, etc, please refer to the docusaurus doc.
 
 ## Release a new version
 
@@ -68,7 +63,14 @@ yarn release x.x.x (e.g. 0.8.1)
 
 ## Deploy website
 
-All these instructions expect that the current directory is the top-level directory of the repository.
+The deployment should happen automatically once all changes are merged into the master branch. It usually takes a few
+minutes before the asf site gets updated.
+
+## The manual steps of deploying the web-site
+
+Note: In most of the cases, you do not need to read this section as the publish should be done automatically with github workflow.
+
+All the below steps expect that the current directory is the top-level directory of the repository.
 
 1. Commit the `master` branch to GitHub repo.
 1. Copy the `yunikorn-site` directory to a backup path **outside** the source tree, e.g. `mkdir ../backup-site && cp -R yunikorn-site/* ../backup-site`.
