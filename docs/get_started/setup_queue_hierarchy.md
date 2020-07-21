@@ -1,6 +1,6 @@
 ---
 id: setup_queue_hierarchy
-title: Set Queue Hierarchy
+title: Setup Queue Hierarchy
 keywords:
  - queue
 ---
@@ -25,11 +25,11 @@ under the License.
 -->
 
 YuniKorn manages resources by leveraging resource queues. The resource queue has the following characters:
-- queues can have *hierarchical* structure
-- each queue can be preset with *min/max capacity* where min-capacity defines the guaranteed resource and the max-capacity defines the resource limit (aka resource quota)
+- queues can have **hierarchical** structure
+- each queue can be preset with **min/max capacity** where min-capacity defines the guaranteed resource and the max-capacity defines the resource limit (aka resource quota)
 - tasks must be running under a certain leaf queue
-- queues can be *static* (loading from configuration file) or *dynamical* (internally managed by YuniKorn)
-- queue level resource fairness is enforced by the scheduler
+- queues can be **static** (loading from configuration file) or **dynamical** (internally managed by YuniKorn)
+- queue level **resource fairness is** enforced by the scheduler
 - a job can only run under a specific queue
 
 :::info
