@@ -87,6 +87,10 @@ module.exports = {
               label: 'Community Syncup',
               to: 'community/community_sync_up'
             },
+            {
+              label: 'Sessions and Demos',
+              to: 'community/sessions'
+            },
           ]
         },
         {label: 'Apache', to: 'apache', position: 'left',
