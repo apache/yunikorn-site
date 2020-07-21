@@ -23,11 +23,6 @@ module.exports = {
             'get_started/run_spark',
             'get_started/run_tf'
         ],
-        'Developer Guide': [
-            'developer_guide/developer_guide',
-            'developer_guide/env_setup',
-            'developer_guide/deployment'
-        ],
         'Configuration': [
             'configuration/queue_config',
             'configuration/placement_rules',
@@ -38,6 +33,11 @@ module.exports = {
             'performance/evaluate_perf_function_with_kubemark',
             'performance/metrics',
             'performance/profiling'
+        ],
+        'Developer Guide': [
+            'developer_guide/developer_guide',
+            'developer_guide/env_setup',
+            'developer_guide/deployment'
         ],
         'Design': [
             'design/architecture',
