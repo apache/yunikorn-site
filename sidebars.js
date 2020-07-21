@@ -46,6 +46,7 @@ module.exports = {
             'design/namespace_resource_quota',
             'design/pluggable_app_management',
             'design/resilience',
+            'design/predicates',
             'design/scheduler_configuration',
             'design/state_aware_scheduling',
             'design/scheduler_object_states'
