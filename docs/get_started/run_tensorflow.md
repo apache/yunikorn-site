@@ -1,6 +1,8 @@
 ---
 id: run_tf
 title: Run Tensorflow Jobs
+keywords:
+ - tensorflow
 ---
 
 <!--

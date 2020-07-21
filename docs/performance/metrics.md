@@ -1,6 +1,8 @@
 ---
 id: metrics
 title: Scheduler Metrics
+keywords:
+ - metrics
 ---
 
 <!--

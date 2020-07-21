@@ -18,8 +18,8 @@ module.exports = {
     docs: {
         'Get Started': [
             'get_started/user_guide',
-            'get_started/run_sample_workloads',
-            'get_started/run_non_modified_k8s_apps',
+            'get_started/core_features',
+            'get_started/setup_queue_hierarchy',
             'get_started/run_spark',
             'get_started/run_tf'
         ],

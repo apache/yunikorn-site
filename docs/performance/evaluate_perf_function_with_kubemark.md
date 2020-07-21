@@ -1,6 +1,9 @@
 ---
 id: evaluate_perf_function_with_kubemark
 title: Evaluate YuniKorn function & performance with Kubemark
+keywords:
+ - performance
+ - throughput
 ---
 
 <!--
