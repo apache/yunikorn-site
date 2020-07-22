@@ -1,6 +1,6 @@
 ---
-id: developer_guide
-title: Developer Guide
+id: build
+title: Build
 ---
 
 <!--

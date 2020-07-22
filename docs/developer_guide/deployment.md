@@ -1,6 +1,6 @@
 ---
 id: deployment
-title: Build and Run the Scheduler
+title: Deploy to Kubernetes
 ---
 
 <!--

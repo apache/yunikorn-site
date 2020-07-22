@@ -179,7 +179,7 @@ The administrative queue ACL also provides _submit_ access.
 If the queue does not exist or does not have an ACL set, the ACL of the parent queue is checked.
 This recursive check is repeated until an ACL provides access or after the ACL of the root queue is checked.
 
-For more detail on the ACL syntax check the [ACL documentation](configuration/acls.md).
+For more detail on the ACL syntax check the [ACL documentation](user_guide/acls.md).
 
 ## Rules
 ### Provided Rule

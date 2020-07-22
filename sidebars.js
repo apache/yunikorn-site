@@ -41,8 +41,8 @@ module.exports = {
             'performance/profiling'
         ],
         'Developer Guide': [
-            'developer_guide/developer_guide',
             'developer_guide/env_setup',
+            'developer_guide/build',
             'developer_guide/deployment'
         ],
         'Design': [

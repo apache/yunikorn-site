@@ -22,6 +22,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+:::caution
+Warning! This feature has not been fully implemented. Please use the wildcard ACL for now. 
+:::
+
 ## Usage
 Access Control Lists are generic for YuniKorn.
 They can be used in multiple places in YuniKorn.

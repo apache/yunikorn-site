@@ -133,7 +133,7 @@ another scheduler in Kubernetes](https://kubernetes.io/docs/tasks/extend-kuberne
 
 The default configuration has placement rule enabled, which automatically maps the `spark-test` namespace to a YuniKorn
 queue `root.spark-test`. All Spark jobs submitted to this namespace will be automatically submitted to the queue first.
-To see more about how placement rule works, please see doc [placement-rules](configuration/placement_rules.md). By far,
+To see more about how placement rule works, please see doc [placement-rules](user_guide/placement_rules.md). By far,
 the namespace defines the security context of the pods, and the queue determines how the job and pods will be scheduled
 with considering of job ordering, queue resource fairness, etc. Note, this is the simplest setup, which doesn't enforce
 the queue capacities. The queue is considered as having unlimited capacity.
