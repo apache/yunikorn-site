@@ -68,3 +68,11 @@ can be done by scale down and up the replica:
 kubectl scale deployment yunikorn-scheduler -n yunikorn --replicas=0
 kubectl scale deployment yunikorn-scheduler -n yunikorn --replicas=1
 ```
+
+## Still got questions?
+
+No problem! The Apache YuniKorn community will be happy to help. You can reach out to the community with the following options:
+
+1. Post your questions to dev@yunikorn.apache.org
+2. Join the [YuniKorn slack channel](https://join.slack.com/t/yunikornworkspace/shared_invite/enQtNzAzMjY0OTI4MjYzLTBmMDdkYTAwNDMwNTE3NWVjZWE1OTczMWE4NDI2Yzg3MmEyZjUyYTZlMDE5M2U4ZjZhNmYyNGFmYjY4ZGYyMGE) and post your questions to the `#yunikorn-user` channel.
+3. Join the [community sync up meetings](community/community_sync_up.md) and directly talk to the community members. 
