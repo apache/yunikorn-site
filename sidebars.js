@@ -34,6 +34,7 @@ module.exports = {
                     'user_guide/workloads/run_tf'
                 ],
             },
+            'user_guide/trouble_shooting',
         ],
         'Performance': [
             'performance/evaluate_perf_function_with_kubemark',
