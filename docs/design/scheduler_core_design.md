@@ -115,7 +115,7 @@ Response of update (such as new allocated container) will be received by registe
 
 ## Configurations & Semantics
 
-Please refer to [scheduler-configuration](setup/configure_scheduler.md) to better understand configuration.
+Please refer to [scheduler-configuration](user_guide/queue_config.md) to better understand configuration.
 
 ## How scheduler do allocation
 

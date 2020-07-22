@@ -18,16 +18,22 @@ module.exports = {
     docs: {
         'Get Started': [
             'get_started/user_guide',
-            'get_started/core_features',
-            'get_started/setup_queue_hierarchy',
-            'get_started/run_spark',
-            'get_started/run_tf'
+            'get_started/core_features'
         ],
-        'Configuration': [
-            'configuration/queue_config',
-            'configuration/placement_rules',
-            'configuration/acls',
-            'configuration/sorting_policies'
+        'User Guide': [
+            'user_guide/setup_queue_hierarchy',
+            'user_guide/queue_config',
+            'user_guide/placement_rules',
+            'user_guide/sorting_policies',
+            'user_guide/acls',
+            {
+                type: 'category',
+                label: 'Workloads',
+                items: [
+                    'user_guide/workloads/run_spark',
+                    'user_guide/workloads/run_tf'
+                ],
+            },
         ],
         'Performance': [
             'performance/evaluate_perf_function_with_kubemark',

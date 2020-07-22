@@ -27,7 +27,7 @@ under the License.
 
 :::note
 This document assumes you have YuniKorn and its admission-controller both installed. Please refer to
-[get started](get_started.md) to see how that is done.
+[get started](../../get_started/get_started.md) to see how that is done.
 :::
 
 ## Prepare the docker image for Spark
@@ -119,7 +119,7 @@ You'll see Spark driver and executors been created on Kubernetes:
 ![spark-pods](/img/spark-pods.png)
 
 You can also view the job info from YuniKorn UI. If you do not know how to access the YuniKorn UI, please read the document
-[here](get_started.md#access-the-web-ui).
+[here](../../get_started/get_started.md#access-the-web-ui).
 
 ![spark-jobs-on-ui](/img/spark-jobs-on-ui.png)
 

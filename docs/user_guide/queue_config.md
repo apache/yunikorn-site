@@ -25,7 +25,7 @@ under the License.
 The basis for the queue configuration is given in the [scheduler design document](design/architecture.md#configurations--semantics).
 
 This document provides the generic queue configuration.
-It references both the [Access control lists](configuration/acls.md) and [placement rule](configuration/placement_rules.md) documentation.
+It references both the [Access control lists](user_guide/acls.md) and [placement rule](user_guide/placement_rules.md) documentation.
 
 This document explains how to create the partition and queue configuration for the scheduler with examples.
 
@@ -42,7 +42,21 @@ By default we use the file called `queues.yaml` in our deployments.
 The filename can be changed via the command line flag `policyGroup` of the scheduler.
 Changing the filename must be followed by corresponding changes in the deployment details, either the `configmap` or the file included in the docker container.
 
-Here is a sample configuration file [queues.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/conf/queues.yaml).  
+Here is a sample configuration file:
+
+```yaml
+partitions:
+  - name: default
+    placementrules:
+      - name: tag
+        value: namespace
+        create: true
+    queues:
+      - name: root
+        submitacl: '*'
+```
+
+this configuration defines one single partition `default`, and it automatically maps namespaces to an dynamical queue under the root queue. 
 
 ## Partitions
 Partitions are the top level of the scheduler configuration.
