@@ -72,6 +72,10 @@ module.exports = {
         {label: 'Community', to: 'apache', position: 'left',
           items: [
             {
+              label: 'Get Involved',
+              to: 'community/get_involved'
+            },
+            {
               label: 'How To Contribute',
               to: 'community/how_to_contribute'
             },
@@ -82,10 +86,6 @@ module.exports = {
             {
               label: 'Reporting Issues',
               to: 'community/reporting_issues'
-            },
-            {
-              label: 'Community Syncup',
-              to: 'community/community_sync_up'
             },
             {
               label: 'Sessions and Demos',
@@ -184,8 +184,8 @@ module.exports = {
           title: 'Community',
           items: [
             {
-              label: 'Community meetings',
-              href: 'http://yunikorn.apache.org/community/community_sync_up'
+              label: 'Get Involved',
+              href: 'http://yunikorn.apache.org/community/get_involved'
             },
             {
               label: 'Roster',

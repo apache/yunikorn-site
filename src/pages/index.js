@@ -105,7 +105,7 @@ function Home() {
             <section className="features_src-pages-">
                 <div className="container">
                     <h3 className="text--center">Project Timeline</h3>
-                    <img src="/img/project-timeline" className={styles.timelineImage}/>
+                    <img src="/img/project-timeline.png" className={styles.timelineImage}/>
                 </div>
             </section>
         </main>
