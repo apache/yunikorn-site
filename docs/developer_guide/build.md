@@ -1,6 +1,6 @@
 ---
 id: build
-title: Build
+title: Build and Run
 ---
 
 <!--
