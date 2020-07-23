@@ -46,7 +46,7 @@ having enough capacity for the pending pods, there are several approaches:
 
 1) check the queue usage from yunikorn UI
 
-If you do not know how to access the UI, you can refer the document [here](get_started/user_guide#access_the_web_ui). Go
+If you do not know how to access the UI, you can refer the document [here](get_started/user_guide#Access-the-Web-UI). Go
 to the `Queues` page, navigate to the queue where this job is submitted to. You will be able to see the available capacity
 left for the queue.
 
@@ -75,4 +75,4 @@ No problem! The Apache YuniKorn community will be happy to help. You can reach o
 
 1. Post your questions to dev@yunikorn.apache.org
 2. Join the [YuniKorn slack channel](https://join.slack.com/t/yunikornworkspace/shared_invite/enQtNzAzMjY0OTI4MjYzLTBmMDdkYTAwNDMwNTE3NWVjZWE1OTczMWE4NDI2Yzg3MmEyZjUyYTZlMDE5M2U4ZjZhNmYyNGFmYjY4ZGYyMGE) and post your questions to the `#yunikorn-user` channel.
-3. Join the [community sync up meetings](community/community_sync_up.md) and directly talk to the community members. 
+3. Join the [community sync up meetings](community/get_involved.md#Community-Meetings) and directly talk to the community members. 
