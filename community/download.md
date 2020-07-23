@@ -26,10 +26,9 @@ Apache YuniKorn (Incubating) is released as source code tarballs. The downloads 
 
 The latest release of Apache YuniKorn is v0.8.0.
 
-|  Version   | Release date  | Source download  | Docker images  | Release notes  |
-|  ----  | ----  | ----  | ----  | ----  |
-| v0.8.0  | 2020-05-04 | [Download](https://www.apache.org/dyn/closer.cgi/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz) ([Checksum](https://downloads.apache.org/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz.sha512) [Signature](https://downloads.apache.org/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz.asc)) | [Scheduler](https://hub.docker.com/layers/apache/yunikorn/scheduler-0.8.0/images/sha256-0b35f9bb767f06af7f84f58799401ba7de7b8991f3c9724f40f733bc517193df) [Admission controller](https://hub.docker.com/layers/apache/yunikorn/admission-0.8.0/images/sha256-700e9bf7bc5597ab144be9f29b489fb82d7e012ee46d34bbc26cfb91bf364124) [Web app](https://hub.docker.com/layers/apache/yunikorn/web-0.8.0/images/sha256-83faa83ec9d1c90b40ca5bee9977c31fba31ba34f3ae9c785d994adbb545a273) | [Announcement](https://yunikorn.apache.org/release/v0.8.0.html) |
-
+|  Version   | Release date  | Source download  | Release notes  |
+|  ----  | ----  | ----  | ----  |
+| v0.8.0  | 2020-05-04 | [Download](https://www.apache.org/dyn/closer.cgi/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz) ([Checksum](https://downloads.apache.org/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz.sha512) [Signature](https://downloads.apache.org/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz.asc)) | [Announcement](https://yunikorn.apache.org/release/v0.8.0.html) |
 
 ## Verifying the signature
 

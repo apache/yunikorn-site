@@ -61,6 +61,10 @@ For advanced updates, including style, theme, etc, please refer to the docusauru
 yarn release x.x.x (e.g. 0.8.1)
 ```
 
+this command will snapshot all the docs from the current `docs` directory, and copy all files to another new directory
+under `versioned_docs`, e.g `versioned_docs/version-0.9.0`. Commit these changes to the master branch, once the auto-build
+is done, the new doc will be presented on the website.
+
 ## Deploy website
 
 The deployment should happen automatically once all changes are merged into the master branch. It usually takes a few
