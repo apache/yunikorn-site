@@ -54,7 +54,7 @@ Configuration to consider:
 ## Queue Configuration
 ### Queue Definition
 On startup the scheduler will load the configuration for the queues from the provided configuration file after initialising the service. If there is no queue configuration provided the scheduler should start up with a simple default configuration which performs a well documented default behaviour.
-Based on the kubernetes definition this configuration could be a configMap  <sup id="s1">[1](#footnote1)</sup> but not a CRD.
+Based on the kubernetes definition this configuration could be a configMap <sup id="s1">[1](#f1)</sup> but not a CRD.
 
 The queue configuration is dynamic. Changing the queue configuration must not require a scheduler restart.
 Changes should be allowed by either calling the GO based API, the REST based API or by updating the configuration file. Changes made through the API must be persisted in the configuration file. Making changes through an API is not a high priority requirement and could be postponed to a later release.
@@ -213,7 +213,7 @@ Base point to make: a changed configuration should not impact the currently runn
 ### Access Control Lists
 The scheduler ACL is independent of the queue ACLs. A scheduler administrator is not by default allowed to submit an application or administer the queues in the system.
 
-All ACL types should use the same definition pattern. We should allow at least POSIX user and group names which uses the portable filename character set <sup id="s2">[2](#footnote2)</sup>. However we should take into account that we could have domain specifiers based on the environment that the system runs in (@ sign as per HADOOP-12751).
+All ACL types should use the same definition pattern. We should allow at least POSIX user and group names which uses the portable filename character set <sup id="s2">[2](#f2)</sup>. However we should take into account that we could have domain specifiers based on the environment that the system runs in (@ sign as per HADOOP-12751).
 
 By default access control is enabled and access is denied. The only special case is for the core scheduler which automatically adds the system user, the scheduler process owner, to the scheduler ACL. The scheduler process owner is allowed to make sure that the process owner can use the API to call any administrative actions.
 
@@ -241,6 +241,6 @@ The full configuration of the K8s shim is still under development.
 The full configuration of the YARN shim is still under development.
 
 #
-1: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#should-i-use-a-configmap-or-a-custom-resource  [↩](#s1)<br/>
-2: The set of characters from which portable filenames are constructed.  [↩](#s2)<br/>
-```A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 . _ -```
+1: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#should-i-use-a-configmap-or-a-custom-resource. [↩](#s1)<br/> <b id="f1"></b>
+2: The set of characters from which portable filenames are constructed.  [↩](#s2)<br/> <b id="f2"></b>
+`A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 . _ -`
