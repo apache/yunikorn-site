@@ -21,7 +21,6 @@ module.exports = {
             'get_started/core_features'
         ],
         'User Guide': [
-            'user_guide/setup_queue_hierarchy',
             'user_guide/queue_config',
             'user_guide/placement_rules',
             'user_guide/sorting_policies',
