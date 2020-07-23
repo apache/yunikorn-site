@@ -33,17 +33,38 @@ a lot more factors, e.g resource, ordering etc, while making scheduling decision
 fine-grained controls on resource quotas, resource fairness and priorities, which are the most important requirements
 for a multi-tenancy computing system.
 
-## Share resources across different users or organizations
-This is usually achieved by hierarchy queues. Applications need to be properly queued in working-queues,
-the ordering policy determines which application can get resources first. The policy can be various, such as simple FIFO,
-or priority based. Queues can maintain the order of applications, and it can also help to define how elastic can be in
-terms of the resource consumption for a team/organization.
+## Hierarchy Resource Queues
 
-## Resource fairness between multi-tenant
+Hierarchy queues provide an efficient mechanism to manage cluster resources. The hierarchy of the queues can logically
+map to the structure of an organization. This gives fine-grained control over resources for different tenants. The YuniKorn
+UI provides a centralised view to monitor the usage of resource queues, it helps you to get the insight how the resources are
+used across different tenants. What's more, By leveraging the min/max queue capacity, it can define how elastic it can be
+in terms of the resource consumption for each tenant.
+
+## Job Ordering and Queuing
+Applications can be properly queued in working-queues, the ordering policy determines which application can get resources first.
+The policy can be various, such as simple `FIFO`, `Fair`, `StateAware` or `Priority` based. Queues can maintain the order of applications,
+and based on different policies, the scheduler allocates resources to jobs accordingly. The behavior is much more predictable.
+
+What's more, when the queue max-capacity is configured, jobs and tasks can be properly queued up in the resource queue.
+If the remaining capacity is not enough, they can be waiting in line until some resources are released. This simplifies
+the client side operation. Unlike the default scheduler, resources are capped by namespace resource quotas,
+and that is enforced by the quota-admission-controller, if the underneath namespace has no enough quota, pods cannot be
+created. Client side needs complex logic, e.g retry by condition, to handle such scenarios.
+
+## Resource fairness
 In a multi-tenant environment, a lot of users are sharing cluster resources. To avoid tenants from competing resources
 and potential get starving. More fine-grained fairness needs to achieve fairness across users, as well as teams/organizations.
 With consideration of weights or priorities, some more important applications can get high demand resources that stand over its share.
 This is often associated with resource budget, a more fine-grained fairness mode can further improve the expense control.
+
+## Resource Reservation
+
+YuniKorn automatically does reservations for outstanding requests. If a pod could not be allocated, YuniKorn will try to
+reserve it on a qualified node and tentatively allocate the pod on this reserved node (before trying rest of nodes).
+This mechanism can avoid this pod gets starved by later submitted smaller, less-picky pods.
+This feature is important in the batch workloads scenario because when a large amount of heterogeneous pods is submitted
+to the cluster, it's very likely some pods can be starved even they are submitted much earlier. 
 
 ## Throughput
 Throughput is a key criterion to measure scheduler performance. It is critical for a large scale distributed system.
