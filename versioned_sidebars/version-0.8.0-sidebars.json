@@ -6,6 +6,10 @@
       "items": [
         {
           "type": "doc",
+          "id": "version-0.8.0/get_started/release_notes"
+        },
+        {
+          "type": "doc",
           "id": "version-0.8.0/get_started/user_guide"
         },
         {
