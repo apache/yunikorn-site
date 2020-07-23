@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[56],{193:function(e){e.exports=JSON.parse('{"permalink":"/community","page":1,"postsPerPage":10,"totalPages":1,"totalCount":7,"previousPage":null,"nextPage":null}')}}]);
