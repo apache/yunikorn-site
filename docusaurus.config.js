@@ -47,6 +47,7 @@ module.exports = {
     colorMode: {
       disableSwitch: false,
     },
+    image: 'img/logo/yunikorn-logo-main.png',
     announcementBar: {
       id: 'new_release',
       content:
