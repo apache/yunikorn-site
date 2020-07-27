@@ -24,15 +24,6 @@ module.exports = {
   favicon: 'img/yunikorn.ico',
   organizationName: 'apache',
   projectName: 'incubator-yunikorn-core',
-  plugins: [
-    [
-      '@docusaurus/plugin-content-blog',
-      {
-        routeBasePath: 'community',
-        path: './community',
-      },
-    ],
-  ],
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -42,6 +33,10 @@ module.exports = {
           path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
         },
+        blog: {
+          routeBasePath: 'community',
+          path: './community',
+        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -49,7 +44,9 @@ module.exports = {
     ],
   ],
   themeConfig: {
-    disableDarkMode: false,
+    colorMode: {
+      disableSwitch: false,
+    },
     announcementBar: {
       id: 'new_release',
       content:
@@ -65,35 +62,45 @@ module.exports = {
         src: 'img/yunikorn.ico',
         srcDark: 'img/yunikorn_white_logo.png',
       },
-      links: [
-        {label: 'Quick Start', to: 'docs/', position: 'left'},
-        {label: 'Roadmap', to: 'community/roadmap', position: 'left' },
-        {label: 'Download', to: 'community/download', position: 'left'},
-        {label: 'Community', to: 'apache', position: 'left',
+      items: [
+        {
+          to: 'docs/', label: 'Quick Start', position: 'left',
+        },
+        {
+          to: 'community/roadmap', label: 'Roadmap', position: 'left',
+        },
+        {
+          to: 'community/download', label: 'Community', position: 'left',
           items: [
             {
+              to: 'community/get_involved',
               label: 'Get Involved',
-              to: 'community/get_involved'
+              position: 'left',
             },
             {
-              label: 'How To Contribute',
-              to: 'community/how_to_contribute'
+              to: 'community/how_to_contribute',
+              label: 'How to Contribute',
+              position: 'left',
             },
             {
+              to: 'community/coding_guidelines',
               label: 'Coding Guidelines',
-              to: 'community/coding_guidelines'
+              position: 'left',
             },
             {
+              to: 'community/reporting_issues',
               label: 'Reporting Issues',
-              to: 'community/reporting_issues'
+              position: 'left',
             },
             {
+              to: 'community/sessions',
               label: 'Sessions and Demos',
-              to: 'community/sessions'
+              position: 'left',
             },
           ]
         },
-        {label: 'Apache', to: 'apache', position: 'left',
+        {
+          label: 'Apache', to: 'apache', position: 'left',
           items: [
             {
               label: 'Apache Software Foundation',
@@ -115,7 +122,7 @@ module.exports = {
         },
         {
           label: 'Docs',
-          to: 'docs', // "fake" link
+          to: 'docs',
           position: 'right',
           activeBaseRegex: `docs/(?!next/(support|team|resources))`,
           items: [
@@ -144,7 +151,7 @@ module.exports = {
       ],
     },
     footer: {
-      style: 'grey',
+      style: 'light',
       links: [
         {
           title: 'Blog',

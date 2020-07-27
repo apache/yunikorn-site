@@ -147,7 +147,3 @@ As a utility target you can check that all files that must have a license have t
 make common-check-license
 ```
 
-## Design documents
-
-All design documents are located in a central location per component. The core component design documents also contains the design documents for cross component designs.
-[List of design documents](design/README.md)

@@ -75,4 +75,4 @@ No problem! The Apache YuniKorn community will be happy to help. You can reach o
 
 1. Post your questions to dev@yunikorn.apache.org
 2. Join the [YuniKorn slack channel](https://join.slack.com/t/yunikornworkspace/shared_invite/enQtNzAzMjY0OTI4MjYzLTBmMDdkYTAwNDMwNTE3NWVjZWE1OTczMWE4NDI2Yzg3MmEyZjUyYTZlMDE5M2U4ZjZhNmYyNGFmYjY4ZGYyMGE) and post your questions to the `#yunikorn-user` channel.
-3. Join the [community sync up meetings](../../community/get_invovled.md#community-meetings) and directly talk to the community members. 
+3. Join the [community sync up meetings](http://yunikorn.apache.org/community/get_involved#community-meetings) and directly talk to the community members. 

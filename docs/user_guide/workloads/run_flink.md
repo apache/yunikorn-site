@@ -2,6 +2,7 @@
 id: run_flink
 title: Run Flink Jobs
 description: How to run Flink jobs with YuniKorn
+image: https://svn.apache.org/repos/asf/flink/site/img/logo/png/100/flink_squirrel_100_color.png
 keywords:
  - spark
 ---
@@ -24,6 +25,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+
+It's very easy to run [Apache Flink](https://flink.apache.org/) on Kubernetes with YuniKorn. Depending on which mode is
+used to run Flink on Kubernetes, the configuration is slight different.
 
 ## Standalone mode
 

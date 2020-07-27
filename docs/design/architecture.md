@@ -35,7 +35,7 @@ or any other systems.
 
 Following chart illustrates the high-level architecture of YuniKorn.
 
-![images](/img/architecture.png)
+<img src={require('./../assets/architecture.png').default} />
 
 ## Components:
 

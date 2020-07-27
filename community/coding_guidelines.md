@@ -83,10 +83,8 @@ See the golangci-lint product documentation for more options and information on 
 
 ### Configuration
 A predefined configuration is provided for the two projects that use them:
-* [YuniKorn k8shim](https://github.com/apache/incubator-yunikorn-k8shim)
-* [YuniKorn core](https://github.com/apache/incubator-yunikorn-core).  
-
-The configuration is provided in the yaml file: [golangci.yml](../.golangci.yml).
+* [YuniKorn k8shim](https://github.com/apache/incubator-yunikorn-k8shim), configuration file [golangci.yml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/.golangci.yml).
+* [YuniKorn core](https://github.com/apache/incubator-yunikorn-core), configuration file [golangci.yml](https://github.com/apache/incubator-yunikorn-core/blob/master/.golangci.yml). 
 
 The web interface is a javascript project and the scheduler interface only has generated Go code and thus do not use it. 
 

@@ -176,7 +176,7 @@ There are no limitations on the key or value values, anything is allowed.
 Currently the property list is not used in the scheduler and is only provided for future expansion like the option to turn on or off preemption on a queue or define a sorting order specific for a queue.  
 
 Access to a queue is set via the `adminacl` for administrative actions and for submitting an application via the `submitacl` entry.
-ACLs are documented in the [Access control lists](configuration/acls.md) document.
+ACLs are documented in the [Access control lists](acls.md) document.
 
 Queue resource limits are set via the `resources` parameter.
 User and group limits are set via the `limits` parameter.
@@ -197,7 +197,7 @@ partitions:
 ```
 
 ### Placement rules
-The placement rules are defined and documented in the [placement rule](configuration/placement_rules.md) document.
+The placement rules are defined and documented in the [placement rule](placement_rules.md) document.
 
 Each partition can have only one set of placement rules defined. 
 If no rules are defined the placement manager is not started and each application *must* have a queue set on submit.  

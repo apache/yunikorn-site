@@ -24,7 +24,7 @@ under the License.
 
 # YuniKorn Scheduler Placement Rules
 
-The basics for the placement rules are described in the [scheduler design document](e_scheduler_configuration.md#placement-rules-definition).
+The basics for the placement rules are described in the [scheduler design document](design/scheduler_configuration.md#placement-rules-definition).
 Multiple rules can be chained to form a placement policy.
 [Access control lists](configuration/acls.md) and rule filters are defined per rule and enforced per rule.
 This document explains how to build a policy, including the rule usage, that is part of the scheduler with examples.
