@@ -100,7 +100,7 @@ module.exports = {
           ]
         },
         {
-          label: 'Apache', to: 'apache', position: 'left',
+          label: 'Apache', position: 'left',
           items: [
             {
               label: 'Apache Software Foundation',
@@ -207,10 +207,10 @@ module.exports = {
       ],
       logo: {
         alt: 'Apache Incubator Logo',
-        src: 'https://incubator.apache.org/images/apache-incubator-logo-source.svg',
+        src: 'https://incubator.apache.org/images/incbuator_feather_egg_logo_crop.png',
         href: 'https://incubator.apache.org/',
       },
-      copyright: `Copyright © ${new Date().getFullYear()} The Apache Software Foundation.`
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="http://www.apache.org/">The Apache Software Foundation</a>. Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <br> Apache, Apache YuniKorn, the Apache feather logo, Apache YuniKorn logo, Apache Incubator logo are trademarks of The Apache Software Foundation.`
     },
   }
 };
