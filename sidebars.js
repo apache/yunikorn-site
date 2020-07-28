@@ -36,6 +36,11 @@ module.exports = {
             },
             'user_guide/trouble_shooting',
         ],
+        'API Documentation': [
+            'api/cluster',
+            'api/scheduler',
+            'api/system'
+        ],
         'Performance': [
             'performance/evaluate_perf_function_with_kubemark',
             'performance/metrics',
