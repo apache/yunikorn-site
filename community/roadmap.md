@@ -80,7 +80,7 @@ queue or application ID.
 ## v0.8.0 (May 4, 2020)
 
 This release ships a fully functional resource scheduler for Kubernetes with a number of useful features that empower
-to run Big Data workloads on K8s. See more at [Release Notes](http://yunikorn.apache.org/release/v0.8.0.html).
+to run Big Data workloads on K8s. See more at [Release Notes](http://yunikorn.apache.org/docs/get_started/release_notes#release-notes-v080).
 
 **yunikorn-scheduler-interface**
 
