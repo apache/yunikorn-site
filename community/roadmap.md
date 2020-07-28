@@ -24,23 +24,58 @@ under the License.
 
 ## What's next
 
-**yunikorn-core**
+- Kubernetes 1.16/1.17 support
+- Gang scheduling
+- App tracking API and CRD
+- Preemption phase 2
+- App/task priority support
+- Support spot instances for Spark scheduling
+- Web UI refurbishment
 
-* [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1): Support app/task priority aware scheduling.
-* [YUNIKORN-2](https://issues.apache.org/jira/browse/YUNIKORN-2): Gang Scheduling.
-* [YUNIKORN-21](https://issues.apache.org/jira/browse/YUNIKORN-21): Optimize node sorting algorithms.
-* [YUNIKORN-42](https://issues.apache.org/jira/browse/YUNIKORN-42): High efficient scheduling events framework phase 1.
-* [YUNIKORN-33](https://issues.apache.org/jira/browse/YUNIKORN-33): Performance benchmark with Kubemark.
-* [YUNIKORN-131](https://issues.apache.org/jira/browse/YUNIKORN-131): Prometheus integration - phase 2.
+## v0.9.0
 
-**yunikorn-k8shim**
+In this version, the Apache YuniKorn (Incubating) community is focusing on improving the user experience, and usability
+to running Apache Spark and Flink workloads. The main features delivered in this release includes:
 
-* [YUNIKORN-133](https://issues.apache.org/jira/browse/YUNIKORN-133): Performance improvement: optimize predicate function performance.
-* [YUNIKORN-42](https://issues.apache.org/jira/browse/YUNIKORN-42): Publish comprehensive scheduler events to K8s event system.
+### Resource Quota Management
 
-**yunikorn-web**
+This version YuniKorn provides a seamless way to manage resource quota for a Kubernetes cluster, it can work as an
+alternative to the [namespace resource quota](https://kubernetes.io/docs/concepts/policy/resource-quotas/). There are
+2 main advantages of using this feature comparing to the namespace resource quota:
 
-* [YUNIKORN-83](https://issues.apache.org/jira/browse/YUNIKORN-83): Implements the nodes info page.
+1. The namespace resource quota is counting resources at the admission phase, irrespective of the pod is using the resources or not.
+This can lead up to issues that the namespace resources could not be efficiently used.
+2. The namespace resource quota is flat, it doesn't support hierarchy resource quota management.
+3. The resource quota admission controller rejects the pods as long as it goes over the quota, this increases the complexity
+of the client side code.
+
+By using the resource quota management provided by YuniKorn, it is more efficient, seamlessly setup and it provides the
+job queue to handle common scheduling ordering requirements.
+
+### Job Ordering Policy: StateAware (optimized FIFO)
+
+The `StateAware` app sorting policy orders jobs in a queue in FIFO order, and schedule them one by one on conditions.
+The condition is to wait for the application enters a runnable state. This avoids the common race condition while submitting
+lots of batch jobs, e.g Spark, to a single namespace (or cluster). By enforcing the certain ordering of jobs, it also improves
+the scheduling of jobs to be more predictable. More explanation of this feature can be found in doc here.
+
+### Work with the cluster-autoscaler
+
+In this release, YuniKorn has been tested heavily to work nicely with the Kubernetes [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler).
+It brings the maximum elasticity to the Kubernetes cluster by working efficiently with the cluster-autoscaler. Some bugs
+are fixed and some improvements are done in this release.
+
+### Even cache system
+
+In this release, an efficient even cache system is added into the scheduler. This system caches some key scheduling
+events in a memory store and publishes them to Kubernetes event system when needed. More scheduling events are visible
+directly from Kubernetes by using kubectl command. This helps to improve the usability and debuggability a lot.
+
+### More comprehensive web UI
+
+YuniKorn UI provides a better centralized view for resource management. An nodes page has been added to the UI, to display
+the detailed nodes info in the cluster. The apps page has been enhanced, it now provides a search box to search apps by
+queue or application ID.
 
 ## v0.8.0 (May 4, 2020)
 
