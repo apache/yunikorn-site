@@ -21,11 +21,14 @@ title: Scheduler Core Design
  * limitations under the License.
  -->
 
-## Overall
+Github repo: https://github.com/apache/incubator-yunikorn-core/
 
-## Architecture
+Scheduler core encapsulates all scheduling algorithms, it collects resources from underneath resource management
+platforms (like YARN/K8s), and is responsible for container allocation requests. It makes the decision where is the
+best spot for each request and then sends response allocations to the resource management platform.
+Scheduler core is agnostic about underneath platforms, all the communications are through the [scheduler interface](https://github.com/apache/incubator-yunikorn-scheduler-interface).
 
-### Components:
+## Components:
 
 ```
 
@@ -36,45 +39,55 @@ title: Scheduler Core Design
                                 +--------------+   +------------+
                 Scheduler-      | GRPC Protocol|   |Go API      |
                 Interface:      +--------------+   +------------+
-   +----------------------------- YuniKorn-Core -------------------------------+
-                        +--------------------+
-                        |    RMProxy         |
-                        +---------+----------+
-                                  |
-                                  |Write Ops                    +----------------+
-    +-------------+               V                            ++Scheduler       |
-    |ConfigWacher +        +---------------+    Allocate       ||   And          |
-    +-------------+        |Scheduler Cache|  <-----------------|                |
-            +---------->   +---------------+    Preempt        ++Preemptor       |
-             Update Cfg           ^                             +----------------+
-                                  |
-                                  |
-              +-------------------+-------------------------+
-              |--------+ +------+ +----------+ +----------+ |
-              ||Node   | |Queue | |Allocation| |Requests  | |         +
-              |--------+ +------+ +----------+ +----------+ |
-              +---------------------------------------------+
+
++---------------------------------------------------------------------------+
+                     +--------------------+
+                     |Scheduler API Server|
+ +-------------+     +---------+----------+
+ |AdminService |               |
+ +-------------+               |Write Ops                    +----------------+
+ +-------------+               V                            ++Scheduler       |
+ |Configurator |      +-------------------+  Allocate       ||   And          |
+ +-------------+      |Cache Event Handler+<-----------------|                |
+         +----------> +-------------------+  Preempt        ++Preemptor       |
+          Update Cfg   Handled by policies                   +----------------+
+                               +  (Stateless)
+                        +------v--------+
+                        |Scheduler Cache|
+                        +---------------+
+                +---------------------------------------------+
+                |--------+ +------+ +----------+ +----------+ |
+                ||Node   | |Queue | |Allocation| |Requests  | |
+                |--------+ +------+ +----------+ +----------+ |
+                +---------------------------------------------+
 ```
 
-#### RMProxy
+###Scheduler API Server (RMProxy)
 
-Responsible for communication between RM and Scheduler, which implements scheduler-interface GRPC protocol, or just APIs. (For intra-process communication w/o Serde).
+Responsible for communication between RM and Scheduler, which implements scheduler-interface GRPC protocol,
+or just APIs. (For intra-process communication w/o Serde).
 
-#### Scheduler Cache
+### Scheduler Cache
 
-Caches all data related to scheduler state, such as used resources of each queues, nodes, allocations. Relationship between allocations and nodes, etc.
+Caches all data related to scheduler state, such as used resources of each queues, nodes, allocations.
+Relationship between allocations and nodes, etc. Should not include in-flight data for resource allocation.
+For example to-be-preempted allocation candidates. Fair share resource of queues, etc.
 
-Should not include in-flight data for resource allocation. For example to-be-preempted allocation candidates. Fair share resource of queues, etc.
+### Scheduler Cache Event Handler
 
-#### Configuration
+Handles all events which needs to update scheduler internal state. So all the write operations will be carefully handled.
 
-Handles configuration for YuniKorn scheduler, reload configuration, etc. ConfigWatcher is responsible for watching changes of config and reload the config, and ConfigValidator is responsible for validate if a config is valid or not.
+### Admin Service
 
-#### Scheduler and Preemptor
+Handles request from Admin, which can also load configurations from storage and update scheduler policies.
 
-Handles Scheduler's internal state. (Which is not belong to scheduelr cache), such as internal reservations, etc. Scheduler and preemptor will work together, make scheduling or preemption decisions.
+### Scheduler and Preemptor
 
-##### Scheduler's responsibility
+Handles Scheduler's internal state. (Which is not belong to scheduelr cache), such as internal reservations, etc.
+Scheduler and preemptor will work together, make scheduling or preemption decisions. All allocate/preempt request
+will be handled by event handler.
+
+## Scheduler's responsibility
 
 - According to resource usages between queues, sort queues, applications, and figure out order of application allocation. (This will be used by preemption as well).
 - It is possible that we cannot satisfy some of the allocation request, we need to skip them and find next request.
@@ -83,19 +96,18 @@ Handles Scheduler's internal state. (Which is not belong to scheduelr cache), su
 - Be able to config and change ordering policies for apps, queues.
 - Application can choose their own way to manage sort of nodes.
 
-##### Preemptor's responsibility
+## Preemption
 
 - It is important to know "who wants the resource", so we can do preemption based on allocation orders.
 - When do preemption, it is also efficient to trigger allocation op. Think about how to do it.
 - Preemption needs to take care about queue resource balancing.
 
-#### EventHandler
+## Communication between Shim and Core 
 
-All events exchange between RMProxy, Cache, Scheduler are handled by asynchonrized event handler.
-
-#### Communication between Shim and Core 
-
-YuniKorn-Shim (like https://github.com/apache/incubator-yunikorn-k8shim) communicates with core by using scheduler-interface (https://github.com/apache/incubator-yunikorn-scheduler-interface). Scheduler interface has Go API or GRPC. Currently, yunikorn-k8shim is using Go API to communicate with yunikorn-core to avoid extra overhead introduced by GRPC. 
+YuniKorn-Shim (like https://github.com/apache/incubator-yunikorn-k8shim) communicates with core by
+using scheduler-interface (https://github.com/apache/incubator-yunikorn-scheduler-interface).
+Scheduler interface has Go API or GRPC. Currently, yunikorn-k8shim is using Go API to communicate with yunikorn-core
+to avoid extra overhead introduced by GRPC. 
 
 **Shim (like K8shim) first need to register with core:** 
 
@@ -115,7 +127,77 @@ Response of update (such as new allocated container) will be received by registe
 
 ## Configurations & Semantics
 
-Please refer to [scheduler-configuration](user_guide/queue_config.md) to better understand configuration.
+Example of configuration:
+
+- Partition is name space.
+- Same queues can under different partitions, but enforced to have same hierarchy.
+
+    Good:
+
+    ```
+     partition=x    partition=y
+         a           a
+       /   \        / \
+      b     c      b   c
+    ```
+
+    Good (c in partition y acl=""):
+
+    ```
+     partition=x    partition=y
+         a           a
+       /   \        /
+      b     c      b
+    ```
+
+    Bad (c in different hierarchy)
+
+    ```
+     partition=x    partition=y
+         a           a
+       /   \        /  \
+      b     c      b    d
+                  /
+                 c
+    ```
+
+    Bad (Duplicated c)
+
+    ```
+     partition=x
+         a
+       /   \
+      b     c
+     /
+    c
+
+    ```
+
+- Different hierarchies can be added
+
+    ```scheduler-conf.yaml
+    partitions:
+      - name:  default
+        queues:
+            root:
+              configs:
+                acls:
+              childrens:
+                - a
+                - b
+                - c
+                - ...
+            a:
+              configs:
+                acls:
+                capacity: (capacity is not allowed to set for root)
+                max-capacity: ...
+          mapping-policies:
+            ...
+      - name: partition_a:
+        queues:
+            root:...
+    ```
 
 ## How scheduler do allocation
 
@@ -163,7 +245,7 @@ When application trying to allocate resources on nodes, it will invokes Predicat
 
 Once allocation is done, scheduler will create an AllocationProposal and send to Cache to do further check, we will cover details in the upcoming section.
 
-## Flow of events inside YuniKorn-core
+## Flow of events
 
 Like mentioned before, all communications between components like RMProxy/Cache/Schedulers are done by using async event handler. 
 
@@ -217,3 +299,97 @@ Once an AllocationProposal created by scheduler, scheduler sends `AllocationProp
 Cache look at AllocationProposal under lock, and commit these proposals. The reason to do proposal/commit is Scheduler can run in multi-threads which could cause conflict for resource allocation. This approach is inspired by Borg/Omega/YARN Global Scheduling.
 
 Cache checks more states such as queue resources, node resources (we cannot allocate more resource than nodes' available), etc. Once check is done, Cache updates internal data strcture and send confirmation to Scheduler to update the same, and scheduler sends allocated Allocation to RMProxy so Shim can do further options. For example, K8shim will `bind` an allocation (POD) to kubelet.
+
+```
+Job Add:
+--------
+RM -> Cache -> Scheduler (Implemented)
+
+Job Remove:
+-----------
+RM -> Scheduler -> Cache (Implemented)
+Released allocations: (Same as normal release) (Implemented)
+Note: Make sure remove from scheduler first to avoid new allocated created. 
+
+Scheduling Request Add:
+-----------------------
+RM -> Cache -> Scheduler (Implemented)
+Note: Will check if requested job exists, queue exists, etc.
+When any request invalid:
+   Cache -> RM (Implemented)
+   Scheduler -> RM (Implemented)
+
+Scheduling Request remove:
+------------------------- 
+RM -> Scheduler -> Cache (Implemented)
+Note: Make sure removed from scheduler first to avoid new container allocated
+
+Allocation remove (Preemption) 
+-----------------
+Scheduler -> Cache -> RM (TODO)
+              (confirmation)
+
+Allocation remove (RM voluntarilly ask)
+---------------------------------------
+RM -> Scheduler -> Cache -> RM. (Implemented)
+                      (confirmation)
+
+Node Add: 
+---------
+RM -> Cache -> Scheduler (Implemented)
+Note: Inside Cache, update allocated resources.
+Error handling: Reject Node to RM (Implemented)
+
+Node Remove: 
+------------
+Implemented in cache side
+RM -> Scheduler -> Cache (TODO)
+
+Allocation Proposal:
+--------------------
+Scheduler -> Cache -> RM
+When rejected/accepted:
+    Cache -> Scheduler
+    
+Initial: (TODO)
+--------
+1. Admin configured partitions
+2. Cache initializes
+3. Scheduler copies configurations
+
+Relations between Entities 
+-------------------------
+1. RM includes one or multiple:
+   - Partitions 
+   - Jobs
+   - Nodes 
+   - Queues
+   
+2. One queue: 
+   - Under one partition
+   - Under one RM.
+   
+3. One job: 
+   - Under one queue (Job with same name can under different partitions)
+   - Under one partition
+
+RM registration: (TODO)
+----------------
+1. RM send registration
+2. If RM already registered, remove old one, including everything belong to RM.
+
+RM termination (TODO) 
+--------------
+Just remove the old one.
+
+Update of queues (TODO) 
+------------------------
+Admin Service -> Cache
+
+About partition (TODO) 
+-----------------------
+Internal partition need to be normalized, for example, RM specify node with partition = xyz. 
+Scheduler internally need to normalize it to <rm-id>_xyz
+This need to be done by RMProxy
+
+```
