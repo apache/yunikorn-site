@@ -71,7 +71,10 @@ module.exports = {
           to: 'community/roadmap', label: 'Roadmap', position: 'left',
         },
         {
-          to: 'community/download', label: 'Community', position: 'left',
+          to: 'community/download', label: 'Download', position: 'left',
+        },
+        {
+          label: 'Community', position: 'left',
           items: [
             {
               to: 'community/get_involved',
