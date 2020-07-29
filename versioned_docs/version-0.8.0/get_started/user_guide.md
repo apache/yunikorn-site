@@ -31,25 +31,25 @@ They are located in the [deployments](https://github.com/apache/incubator-yuniko
 
 ## Quick Start
 
-The easiest way to get started is to use our Helm Charts to deploy YuniKorn on an existing Kubernetes cluster. Recommand to use Helm 3 or later versions.
+The easiest way to get started is to use our Helm Charts to deploy YuniKorn on an existing Kubernetes cluster. Recommended to use Helm 3 or later versions.
 
 ```shell script
-helm repo add yunikorn  https://apache.github.io/incubator-yunikorn-release
+helm repo add yunikorn https://apache.github.io/incubator-yunikorn-release
 helm repo update
-helm install yunikorn/yunikorn
+helm install yunikorn yunikorn/yunikorn --version 0.8.0
 ```
 
 it will firstly create a `configmap` where stores YuniKorn configuration, and then deploy YuniKorn scheduler
 and web UI containers in a pod as a `deployment` in the `default` namespace. If you want to deploy YuniKorn to another namespace, you can do following:
 
 ```shell script
-kubectl create namespace yunikorn-ns
-helm install yunikorn yunikorn/yunikorn --namespace yunikorn-ns
+kubectl create namespace yunikorn
+helm install yunikorn yunikorn/yunikorn --namespace yunikorn --version 0.8.0
 ```
 
 Uninstall yunikorn:
 ```shell script
-helm uninstall yunikorn --namespace yunikorn-ns
+helm uninstall yunikorn --namespace yunikorn
 ```
 
 If you don't want to use helm charts, you can find our step-by-step
