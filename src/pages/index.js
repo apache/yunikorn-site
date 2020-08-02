@@ -64,7 +64,7 @@ function Home() {
         <header className={classnames('hero', styles.heroBanner)}>
             <div className="container">
                 <div className="row">
-                    <div className={classnames('col col-lg-8')}>
+                    <div className='hero_column_main'>
                         <h1 className="hero__title">{siteConfig.title}</h1>
                         <p className="hero__subtitle">{siteConfig.tagline}</p>
                         <div className="container">
@@ -75,7 +75,7 @@ function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className={classnames('col col-lg-4')}>
+                    <div className='hero_column_logo'>
                         <img className={styles.heroImg} src="img/yunikorn_classic_logo.png"/>
                     </div>
                 </div>

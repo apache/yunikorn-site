@@ -17,7 +17,7 @@
 const versions = require('./versions.json');
 
 module.exports = {
-  title: 'Apache YuniKorn',
+  title: 'Apache YuniKorn (Incubating)',
   tagline: 'Unleash the power of resource scheduling for running Big Data & ML on Kubernetes!',
   url: 'http://yunikorn.apache.org',
   baseUrl: '/',
@@ -211,10 +211,18 @@ module.exports = {
       ],
       logo: {
         alt: 'Apache Incubator Logo',
-        src: 'https://incubator.apache.org/images/incbuator_feather_egg_logo_crop.png',
+        src: 'https://incubator.apache.org/images/incubator_feather_egg_logo.png',
         href: 'https://incubator.apache.org/',
       },
-      copyright: `Copyright © ${new Date().getFullYear()} <a href="http://www.apache.org/">The Apache Software Foundation</a>. Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <br> Apache, Apache YuniKorn, the Apache feather logo, Apache YuniKorn logo, Apache Incubator logo are trademarks of The Apache Software Foundation.`
+      copyright: `
+Copyright © ${new Date().getFullYear()} <a href="http://www.apache.org/">The Apache Software Foundation</a>. Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <br>
+<div style="padding:20px; margin: 10px; color: #4d4d4d;">
+  Apache YuniKorn is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the name of Apache TLP sponsor.
+  Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications,
+  and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily
+  a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.
+</div>
+`
     },
   }
 };

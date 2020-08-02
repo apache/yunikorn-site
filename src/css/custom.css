@@ -16,7 +16,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-container-width: 1200px;
+  --ifm-container-width: 1500px;
   --ifm-color-primary: #44aab1;
   --ifm-color-primary-dark: #3d999f;
   --ifm-color-primary-darker: #3a9196;
@@ -76,18 +76,36 @@ html[data-theme='dark'] .header-github-link:before {
 
 .hero__title {
   font-size: 3rem;
-  font-family: sans-serif;
+  font-family: Verdana, sans-serif;
+  font-variant: small-caps;
+  font-weight: 800;
   color: #ffffff;
 }
 
 .hero__subtitle {
-  margin-top: 10px;
-  font-family: sans-serif;
+  margin-top: 5px;
+  font-family: Verdana, sans-serif;
   color: #ffffff;
 }
 
 .hero--primary {
   height: 360px;
+}
+
+.hero_column_main {
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  width: 70%;
+  padding: 20px;
+}
+
+.hero_column_logo {
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  width: 30%;
+  padding: 20px;
 }
 
 .hero--primary .container {
@@ -107,12 +125,10 @@ html[data-theme='dark'] .header-github-link:before {
 
 .button.button--secondary {
   margin:5px;
-  color: 44aab1 !important;
 }
 
 .button.button--primary {
   margin:5px;
-  color: 44aab1 !important;
 }
 
 .button--lg {

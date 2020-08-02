@@ -26,12 +26,6 @@
   flex-direction: column;
 }
 
-@media screen and (max-width: 966px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-}
-
 .buttons {
   display: flex;
   align-items: center;
@@ -41,7 +35,7 @@
 .heroImg {
   display: flex;
   align-items: center;
-  width: 50%;
+  width: 80%;
 }
 
 .features {
