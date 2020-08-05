@@ -261,6 +261,7 @@ Result: `root.last_resort`
 
 ### Tag Rule
 Name to be used in the configuration: *tag*
+
 Retrieves the queue name from the applications tags.
 The tag name that is checked for its value is configured in the rule using the `value`.
 Configuring a tag rule without a `value` set is an error, however an application does not have to have the tag set.
@@ -274,7 +275,7 @@ Supported parameters:
 * parent
 * filter
 
-Example: place an application based on the kubernetes `namespace` which gets sets automatically in the application when submitted:
+Example: place an application based on the kubernetes `namespace` which gets set automatically in the application when submitted:
 ```yaml
 placementrules:
   - name: tag
@@ -291,9 +292,45 @@ Result: `root.testing`
 Application submit request for a non kubernetes based application by the user `developer`<br/>
 Result: failed, next rule executed
 
+### Mapping rule
+Name to be used in the configuration: *mapping*
+
+Retrieves the queue name from the applications tags similarly to the *tag* rule, but an additional mapping is executed on the value of the tag.
+
+Users should configure this rule by providing the `value` field as described above.
+The `value` field should consist of three parts separated by the `:` character.
+The first part determines the tag that is checked for the application.
+The second part is arbitrary (at least one) number of values. 
+If the application has the tag and its value is one of these fields then this rule is triggered.
+The third part decides in which queue the application will be placed. It shouldn't necessarily be a fully qualified queue name.    
+
+Configuring a mapping rule without a `value` set is an error, however an application does not have to have the tag set.
+If the tag is not set on the application the rule fails.
+If the tag value returned from the application is a fully qualified queue name, the parent rule, if configured, will not be executed.
+
+Supported parameters:
+* value (required)
+* create
+* parent
+* filter
+
+Example: place an application based on the kubernetes `namespace` which gets set automatically in the application when submitted.
+```yaml
+placementrules:
+  - name: mapping
+    value: namespace:finance,legal,management:root.reporting
+```
+
+Application submit request for a kubernetes based application in the namespace `management` by the user `john`, queue in the application on submit: `any_queue`<br/>
+Result: `root.reporting`
+
+Application submit request for a kubernetes based application in the namespace `default` by the user `john`<br/>
+Result: failed, next rule executed
+
 ## Complex examples
 In this complex example we chain three rules:
 1. a `user` rule, with a parent rule `tag` using the kubernetes namespace, to be used only for users that are part of and "dev" group.
+1. a `mapping` rule putting the applications from namespaces `prod_1` and `prod_2` to the `root.production` queue (assuming it exists).
 1. a `tag` rule using the kubernetes namespace, with a parent rule `fixed` using the existing queue `root.namespaces`.
 1. a `fixed` rule to place everything that reaches this point in the `root.default` queue.
 
@@ -319,6 +356,9 @@ placementrules:
           type: allow
           users:
             - john
+  - name: mapping
+    create: false
+    value: namespace:prod_1,prod_2:root.production
   - name: fixed
     value: root.default
 ```
@@ -329,8 +369,11 @@ Result: `root.namespaces.testing` (matched in rule 2)
 Application submit request for a kubernetes based application in the namespace `newapp` by the user `sarah` with groups membership `sarah, test_app, dev_app`<br/>
 Result: `root.newapp.sarah` (matched in rule 1)
 
+Application submit request for a kubernetes based application in the namespace `prod_1` by the user `bob` with groups membership `bob`<br/>
+Result: `root.production` (matched in rule 3, assuming root.dev exists)
+
 Application submit request for a kubernetes based application in the namespace `testapp` by the user `bob` with groups membership `bob`<br/>
-Result: `root.deault` (matched in rule 3)
+Result: `root.default` (matched in rule 4)
 
 In this second example we chain two rules:
 1. a `fixed` rule to place everything in the `root.production` queue
