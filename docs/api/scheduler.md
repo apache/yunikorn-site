@@ -85,6 +85,12 @@ Displays general information about the applications like used resources, queue n
 
 **Method** : `GET`
 
+**Query Params** : 
+
+1. queue=\<fully qualified queue name\>
+
+Fully qualified queue name filters the applications based on exact match. Passing only leaf queue name doesn't give the expected behaviour. For example, /ws/v1/apps?queue=root.default return the applications running in "root.default" queue.
+
 **Auth required** : NO
 
 ### Success response
