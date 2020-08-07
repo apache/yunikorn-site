@@ -89,7 +89,7 @@ Displays general information about the applications like used resources, queue n
 
 1. queue=<fully qualified queue name\>
 
-Fully qualified queue name filters the applications based on exact match. Passing only leaf queue name doesn't give the expected behaviour. For example, /ws/v1/apps?queue=root.default return the applications running in "root.default" queue.
+The fully qualified queue name used to filter the applications that run within the given queue. For example, "/ws/v1/apps?queue=root.default" returns the applications running in "root.default" queue.
 
 **Auth required** : NO
 
