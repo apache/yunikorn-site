@@ -34,35 +34,43 @@ module.exports = {
                     'user_guide/workloads/run_tf'
                 ],
             },
-            'user_guide/trouble_shooting',
+            {
+                type: 'category',
+                label: 'REST APIs',
+                items: [
+                    'api/cluster',
+                    'api/scheduler',
+                    'api/system'
+                ]
+            },
+            'user_guide/trouble_shooting'
         ],
-        'API Documentation': [
-            'api/cluster',
-            'api/scheduler',
-            'api/system'
+        'Developer Guide': [
+            'developer_guide/env_setup',
+            'developer_guide/build',
+            'developer_guide/deployment',
+            {
+                type: 'category',
+                label: 'Designs',
+                items: [
+                    'design/architecture',
+                    'design/scheduler_core_design',
+                    'design/k8shim',
+                    'design/cross_queue_preemption',
+                    'design/namespace_resource_quota',
+                    'design/pluggable_app_management',
+                    'design/resilience',
+                    'design/predicates',
+                    'design/scheduler_configuration',
+                    'design/state_aware_scheduling',
+                    'design/scheduler_object_states'
+                ]
+            },
         ],
         'Performance': [
             'performance/evaluate_perf_function_with_kubemark',
             'performance/metrics',
             'performance/profiling'
-        ],
-        'Developer Guide': [
-            'developer_guide/env_setup',
-            'developer_guide/build',
-            'developer_guide/deployment'
-        ],
-        'Design': [
-            'design/architecture',
-            'design/scheduler_core_design',
-            'design/k8shim',
-            'design/cross_queue_preemption',
-            'design/namespace_resource_quota',
-            'design/pluggable_app_management',
-            'design/resilience',
-            'design/predicates',
-            'design/scheduler_configuration',
-            'design/state_aware_scheduling',
-            'design/scheduler_object_states'
-        ],
+        ]
     },
 };
