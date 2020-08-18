@@ -25,6 +25,7 @@ module.exports = {
             'user_guide/placement_rules',
             'user_guide/sorting_policies',
             'user_guide/acls',
+            'user_guide/resource_quota_management',
             {
                 type: 'category',
                 label: 'Workloads',
