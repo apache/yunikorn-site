@@ -72,7 +72,7 @@ The dashboard as deployed in the previous step requires a token or config to sig
 5. paste the token value into the input box and sign in:<br/>
     ![Token Access in dashboard](/img/dashboard_secret.png)
 
-## Local Kubernetes cluster with minikube
+## Local Kubernetes cluster with Minikube
 Minikube can be added to an existing Docker Desktop install. Minikube can either use the pre-installed hypervisor or use a hypervisor of choice. These instructions use [HyperKit](https://github.com/moby/hyperkit) which is embedded in Docker Desktop.   
 
 If you want to use a different hypervisor then HyperKit make sure that you follow the generic minikube install instructions. Do not forget to install the correct driver for the chosen hypervisor if required.
@@ -80,7 +80,7 @@ The basic instructions are provided in the [minikube install](https://kubernetes
 
 Check hypervisor  Docker Desktop should have already installed HyperKit. In a terminal run: `hyperkit` to confirm. Any response other than `hyperkit: command not found` confirms that HyperKit is installed and on the path. If it is not found you can choose a different hypervisor or fix the Docker Desktop install.
 
-### Installing minikube
+### Installing Minikube
 1. install minikube, you can either use brew or directly via these steps: 
     ```shell script
      curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
