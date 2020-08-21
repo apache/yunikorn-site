@@ -22,7 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-Before reading this guide, we assume you either have a Kubernetes cluster, or a local Kubernetes dev environment, e.g MiniKube.
+Before reading this guide, we assume you either have a Kubernetes cluster, or a local Kubernetes dev environment, e.g Minikube.
 It is also assumed that `kubectl` is on your path and properly configured.
 Follow this [guide](setup/env_setup.md) on how to setup a local Kubernetes cluster using docker-desktop.
 
@@ -141,7 +141,7 @@ If this yaml is deployed on 1 node cluster, expect 1 pod to be started and the o
 More examples on affinity and anti affinity scheduling in the predicates section of the [README predicates](https://github.com/apache/incubator-yunikorn-k8shim/tree/master/deployments/examples#predicates)
 
 ### Volume examples
-There are three examples with volumes available. The NFS example does not work on docker desktop and requires [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/). 
+There are three examples with volumes available. The NFS example does not work on docker desktop and requires [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/). 
 The EBS volume requires a kubernetes cluster running on AWS (EKS).
 Further instructions for the volume examples in the section of the [README Volumes](https://github.com/apache/incubator-yunikorn-k8shim/tree/master/deployments/examples#volumes).
 
