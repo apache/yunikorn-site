@@ -24,11 +24,18 @@ under the License.
 -->
 
 Apache YuniKorn (Incubating) community is quite diverse, we have engineers from Alibaba, Apple, 
-Cloudera, Linkedin, Microsoft, Nvidia, Tencent, Uber, etc. (sorted by alphabet). The community deeply believes in the
-importance of this diversity and the value of "the Apache Way".  We welcome any form of contributions, code, documentation or suggestions!
+Cloudera, Linkedin, Microsoft, Nvidia, Tencent, Uber, etc. (sorted by alphabetical order). The community deeply believes in the
+importance of this diversity and the value of "The Apache Way".  We welcome any form of contributions, code, documentation or suggestions!
 :smiley: Don't wait, join us now!
 
-## Communication Channels
+## How to join YuniKorn Community
+
+Please join us through one of the following channels:
+
+### Contribute through github
+- Basic steps of contributing to project is explained here - [How to contribute](how_to_contribute.md)
+
+### Communication Channels
 
 - Mailing lists:
   - for people wanting to contribute to or discuss the project development: [dev@yunikorn.apache.org](mailto:dev@yunikorn.apache.org)   
@@ -41,7 +48,7 @@ Currently, we have following channels in the workspace: `#yunikorn-dev` and `#yu
 
 - We have periodically community sync ups in multiple timezones and languages, please find [Community Syncup](#community-meetings) to attend online sync ups.
 
-## Community Meetings
+### Community Meetings
 
 #### Target Audiences:
 - Developers who are interested to contribute to YuniKorn project.
@@ -67,3 +74,15 @@ import TabItem from '@theme/TabItem';
 - Meeting Notes: [Google Doc](https://docs.google.com/document/d/165gzC7uhcKc5XDWiMYSRKBiPQBy2tDtXADUPuhGlUa0/edit#heading=h.461goivmz24v)
 
 - Calendar: [Google Calendar](https://calendar.google.com/calendar/b/3/r/week/2020/3/26?cid=YXBhY2hlLnl1bmlrb3JuQGdtYWlsLmNvbQ) :point_left:
+
+## How to share feedback to YuniKorn Community
+
+We welcome you to try our latest releases and share your experiences.
+
+Any point, if you are facing any issues:
+- Raise an issue or a feedback in the JIRA as per our [guide](reporting_issues.md).
+- Clarify / Seek help in the YuniKorn slack `#yunikorn-user` channel
+
+### Other feedback mechanisms
+- If you think, we can add more inputs to this document or additional documentation links for developers including setup etc, please raise issue under YuniKorn Documentation. Refer our [guide](reporting_issues.md).
+- Any other support please request at YuniKorn slack `#general` channel
