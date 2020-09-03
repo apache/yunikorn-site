@@ -352,3 +352,19 @@ partitions:
       - name: user
         create: true
 ```
+
+## Placement based on namespace annotation
+
+You can configure the following annotation for a namespace in your cluster: `yunikorn.apache.org/parentqueue`.
+Each allocation created in the namespace will be passed with the value of the annotation under the `namespace.parentqueue` tag.
+
+Cluster administrators can use this behaviour to put allocations in dedicated queues based on the namespace's annotation.
+For example the admin can put each application into different user's queue based on the namespace using this following setting: 
+```yaml
+placementrules:
+  - name: user
+    create: true
+    parent: 
+      - name: tag
+        value: namespace.parentqueue
+```
