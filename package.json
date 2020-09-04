@@ -10,11 +10,18 @@
     "release": "docusaurus docs:version"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.59",
-    "@docusaurus/preset-classic": "^2.0.0-alpha.59",
-    "classnames": "^2.2.6",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "@docusaurus/core": "2.0.0-alpha.63",
+    "@docusaurus/preset-classic": "2.0.0-alpha.63",
+    "@docusaurus/plugin-ideal-image": "2.0.0-alpha.62",
+    "@graphql-inspector/core": "2.2.0",
+    "classnames": "2.2.6",
+    "fetch-ponyfill": "6.1.1",
+    "globby": "11.0.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-feather": "2.0.8",
+    "react-flip-move": "3.0.4",
+    "react-monaco-editor": "0.40.0"
   },
   "browserslist": {
     "production": [

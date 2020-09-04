@@ -33,10 +33,6 @@ module.exports = {
           path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
         },
-        blog: {
-          routeBasePath: 'community',
-          path: './community',
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },

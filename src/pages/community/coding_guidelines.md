@@ -22,6 +22,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+# Coding Guidelines
+
 ## The basics
 GO as a language provides a build in formatter for the code: `gofmt`.
 The project uses the predefined format as implemented in `gofmt`.

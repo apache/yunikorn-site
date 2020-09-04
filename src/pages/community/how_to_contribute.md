@@ -22,6 +22,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+# How To Contribute
+
 YuniKorn uses:
 * JIRA for issue tracking.
 * GitHub Pull Requests to manage code review and the change itself.
@@ -30,7 +32,7 @@ YuniKorn uses:
 ## Find an issue
 We use JIRA issues to track bugs for this project.
 Find an issue that you would like to work on, or file a new one if you have discovered a new issue.
-For help with reporting issues look at the [how to report an issue](reporting_issues.md).
+For help with reporting issues look at the [how to report an issue](reporting_issues).
 
 The easiest way to get started working with the code base is to pick up a really easy
 JIRA and work on that. This will help you get familiar with the code base, build system,
@@ -63,7 +65,7 @@ It’s better for everyone if we maintain discipline about the scope of each pat
 In general, if you find a bug while working on a specific feature, file a JIRA for the bug, check if you can assign it to yourself and fix it independently of the feature.
 This helps us to differentiate between bug fixes and features and allows us to build stable maintenance releases.
 
-Make sure you have observed the recommendations in the [coding guidelines](coding_guidelines.md).
+Make sure you have observed the recommendations in the [coding guidelines](coding_guidelines).
 Before you commit you should also run the full test suite using `make test`.
 Make sure that all the tests pass.
 

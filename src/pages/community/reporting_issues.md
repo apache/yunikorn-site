@@ -22,6 +22,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+# Reporting Issues
+
 ## For YuniKorn Users
 If you have an issue with YuniKorn operation, please follow these guidelines:
 
