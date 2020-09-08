@@ -65,7 +65,7 @@ kubectl port-forward svc/yunikorn-service 9080:9080 -n yunikorn
 `9889` is the default port for Web UI, `9080` is the default port of scheduler's Restful service where web UI retrieves info from.
 Once this is done, web UI will be available at: http://localhost:9889.
 
-![UI Screenshots](/img/yk-ui-screenshots.gif)
+![UI Screenshots](./../assets/yk-ui-screenshots.gif)
 
 YuniKorn UI provides a centralised view for cluster resource capacity, utilization, and all application info.
 

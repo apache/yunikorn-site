@@ -60,7 +60,7 @@ The key issue here is we need a app-management interface, that can be easily ext
 It needs to be decoupled with existing scheduling logic. For each operator, we create a service to manage this type app's lifecycle,
 and communicate with the scheduling cache independently. The high-level design looks like below:
 
-![Pluggable App Management](/img/pluggable-app-mgmt.jpg)
+![Pluggable App Management](./../assets/pluggable-app-mgmt.jpg)
 
 Where
 - `AppManagementService` is a composite set of services that can be managed together.

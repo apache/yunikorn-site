@@ -14,7 +14,6 @@
  * limitations under the License.
 */
 
-import React from 'react';
 import classnames from 'classnames';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -23,7 +22,7 @@ import styles from './styles.module.css';
 const features = [
   {
     title: <>Scheduling Capabilities</>,
-    imageUrl: 'img/resource-scheduling.png',
+    imageUrl: '/img/resource-scheduling.png',
     description: (
       <>
       Builtin with comprehensive scheduling capabilities, including hierarchy
@@ -34,7 +33,7 @@ const features = [
   },
   {
     title: <>Resource Scheduler for K8s</>,
-    imageUrl: 'img/support-k8s.png',
+    imageUrl: '/img/support-k8s.png',
     description: (
       <>
       Fully K8s compatible, an alternative of the default K8s
@@ -44,7 +43,7 @@ const features = [
   },
   {
     title: <>Cloud Native</>,
-    imageUrl: 'img/cloud-native.png',
+    imageUrl: '/img/cloud-native.png',
     description: (
       <>
       Supports both on-prem and on-cloud use cases. When running on cloud, it works
@@ -60,7 +59,7 @@ function Home() {
   return (
     <Layout
       title={`Welcome to ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="Apache YuniKorn (incubating) website">
         <header className={classnames('hero', styles.heroBanner)}>
             <div className="container">
                 <div className="row">
@@ -76,7 +75,7 @@ function Home() {
                         </div>
                     </div>
                     <div className='hero_column_logo'>
-                        <img className={styles.heroImg} src="img/yunikorn_classic_logo.png"/>
+                        <img className={styles.heroImg} src="/img/logo/yunikorn_classic_logo.png"/>
                     </div>
                 </div>
             </div>
@@ -105,7 +104,7 @@ function Home() {
             <section className="features_src-pages-">
                 <div className="container">
                     <h3 className="text--center">Project Timeline</h3>
-                    <img src="/img/project-timeline.png" className={styles.timelineImage}/>
+                    <img src="img/project-timeline.png" className={styles.timelineImage}/>
                 </div>
             </section>
         </main>
