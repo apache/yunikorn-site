@@ -14,7 +14,8 @@
  * limitations under the License.
 */
 
-import classnames from 'classnames';
+import React from 'react';
+import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
@@ -60,7 +61,7 @@ function Home() {
     <Layout
       title={`Welcome to ${siteConfig.title}`}
       description="Apache YuniKorn (incubating) website">
-        <header className={classnames('hero', styles.heroBanner)}>
+        <header className={clsx('hero', styles.heroBanner)}>
             <div className="container">
                 <div className="row">
                     <div className='hero_column_main'>
@@ -86,7 +87,7 @@ function Home() {
                     <div className="container">
                         <div className="row">
                             {features.map(({imageUrl, title, description}, idx) => (
-                                <div key={idx} className={classnames('col col--4', styles.feature)}>
+                                <div key={idx} className={clsx('col col--4', styles.feature)}>
                                     {imageUrl && (
                                         <div className="text--center">
                                             <img className={styles.featureImage} src={imageUrl} alt={title}/>
