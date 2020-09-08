@@ -24,20 +24,28 @@ under the License.
 
 # RoadMap
 
-## What's next
+## What's next (future development)
 
-- Kubernetes 1.16/1.17 support
 - Gang scheduling
-- App tracking API and CRD
 - Preemption phase 2
-- App/task priority support
 - Support spot instances for Spark scheduling
-- Web UI refurbishment
+- Support for Kubernetes 1.17 and later
 
-## v0.9.0
+## v0.10.0
 
-In this version, the Apache YuniKorn (Incubating) community is focusing on improving the user experience, and usability
-to running Apache Spark and Flink workloads. The main features delivered in this release includes:
+In this version, the Apache YuniKorn (Incubating) community is focusing on improving the stability, and configuration handling
+The main features delivered in this release includes:
+
+- Core scheduler cache removal [YUNIKORN-317](https://issues.apache.org/jira/browse/YUNIKORN-317)
+- Logging and tracing enhancement using OpenTracing [YUNIKORN-387](https://issues.apache.org/jira/browse/YUNIKORN-387)
+- Kubernetes API upgrade to 1.16 [YUNIKORN-373](https://issues.apache.org/jira/browse/YUNIKORN-373)
+- Application tracking API and CRD [YUNIKORN-201](https://issues.apache.org/jira/browse/YUNIKORN-201)
+- Application and task priority support [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1)
+- Web UI refurbishment [YUNIKORN-320](https://issues.apache.org/jira/browse/YUNIKORN-320)
+
+## v0.9.0 (28 August 2020)
+
+This release ships a number of improvements focussed on the user experience.
 
 ### Resource Quota Management
 
@@ -79,7 +87,7 @@ YuniKorn UI provides a better centralized view for resource management. An nodes
 the detailed nodes info in the cluster. The apps page has been enhanced, it now provides a search box to search apps by
 queue or application ID.
 
-## v0.8.0 (May 4, 2020)
+## v0.8.0 (4 May 2020)
 
 This release ships a fully functional resource scheduler for Kubernetes with a number of useful features that empower
 to run Big Data workloads on K8s. See more at [Release Notes](http://yunikorn.apache.org/docs/get_started/release_notes#release-notes-v080).
