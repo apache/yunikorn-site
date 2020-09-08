@@ -62,7 +62,7 @@ New -----------> Registered -----------> Recovering ----------> Running
 
 Following chart illustrate how yunikorn-core and shim works together on recovery.
 
-![Workflow](/img/resilience-workflow.jpg)
+![Workflow](./../assets/resilience-workflow.jpg)
 
 Restart (with recovery) process
 - yunikorn-shim registers itself with yunikorn-core
@@ -91,7 +91,7 @@ In the shim layer, it maintains states for each node and pods running on this no
 all nodes initially are considered as under `recovering`. Only when all pods running on this node are fully recovered,
 the node can be considered as `recovered`.
 
-![node-recovery](/img/resilience-node-recovery.jpg)
+![node-recovery](./../assets/resilience-node-recovery.jpg)
 
 Like demonstrated on upon diagram,
 

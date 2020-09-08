@@ -62,7 +62,7 @@ you can type command such as `web` or `gif` to get a graph that helps you better
 understand the overall performance on critical code paths. You can get something
 like below:
 
-![CPU Profiling](/img/cpu_profile.jpg)
+![CPU Profiling](./../assets/cpu_profile.jpg)
 
 Note, in order to use these
 options, you need to install the virtualization tool `graphviz` first, if you are using Mac, simply run `brew install graphviz`, for more info please refer [here](https://graphviz.gitlab.io/).
