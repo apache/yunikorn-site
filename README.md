@@ -37,8 +37,8 @@ You can build and run the web-site server locally in dev mode with the following
 ./local-build.sh run
 ```
 
-this commands builds a docker image `yunikorn/yunikorn-website:latest` locally, and launch the web-server at URL: http://localhost:3000.
-All dependencies will be installed in the docker image in order to keep the local env clean, the web-site will be built by
+This commands will build a docker image `yunikorn/yunikorn-website:latest` locally, and launch the web-server at URL: http://localhost:3000.
+All dependencies will be installed in the docker image in order to keep the local env clean. The web-site will be built by
 the content in the current repo directory. So that any changes that have been done within the directory will automatically
 trigger the update of the local web-server. You can review you changes from the local endpoint to verify your changes. Once
 the dev is done, you need to ctrl+c to exit the dev mode.
@@ -47,23 +47,29 @@ the dev is done, you need to ctrl+c to exit the dev mode.
 
 The website is built based on [docusaurus-v2](https://v2.docusaurus.io/docs/docs-introduction). The docs are written in MD file format,
 docs are located at:
+- src/pages: the non-versioned pages of the site
+- docs: the master version of the documentation
+- sidebars.js: change this file if you need to update the layout of the documentation
 
-- community: the non-versioned docs
-- docs: the master version of docs
-- versioned_docs: the released version of docs
-- sidebars.js: change this file if you need to update the layout of the docs
+Images that are part of a documentation page must be located in the `assets` directory as part of the documents, i.e. `docs/assets`.
+All other images that are used for the homepage and menu etc that do not change when or if a page of the documentation is updated must be located in the `static/img` directory.   
+
+The versioned documents and side bars should only be updated to fix errors:
+- versioned_docs: the released version of documentation
+- versioned_sidebars: the sidebars for the corresponding released documentation
 
 For advanced updates, including style, theme, etc, please refer to the docusaurus doc.
 
 ## Release a new version
 
-```
-yarn release x.x.x (e.g. 0.8.1)
+```shell script
+yarn release x.x.x
 ```
 
-this command will snapshot all the docs from the current `docs` directory, and copy all files to another new directory
-under `versioned_docs`, e.g `versioned_docs/version-0.9.0`. Commit these changes to the master branch, once the auto-build
-is done, the new doc will be presented on the website.
+This command will snapshot all the docs from the current `docs` directory, and copy all files to another new directory
+under `versioned_docs`, e.g `versioned_docs/version-0.9.0`. A similar copy will be generated for the sidebar that belongs to the docs.
+
+Commit these changes to the master branch, once the auto-build is done, the new doc will be presented on the website.
 
 ## Deploy website
 
