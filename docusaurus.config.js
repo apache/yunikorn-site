@@ -33,10 +33,6 @@ module.exports = {
           path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
         },
-        blog: {
-          routeBasePath: 'community',
-          path: './community',
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -51,7 +47,7 @@ module.exports = {
     announcementBar: {
       id: 'new_release',
       content:
-          '0.9.0 release is up-coming!!',
+          '0.9.0 has been released, check the DOWNLOADS',
       backgroundColor: '#fafbfc',
       textColor: '#091E42',
     },
@@ -61,7 +57,7 @@ module.exports = {
       logo: {
         alt: 'YuniKorn Site Logo',
         src: 'img/yunikorn.ico',
-        srcDark: 'img/yunikorn_white_logo.png',
+        srcDark: 'img/logo/yunikorn_white_logo.png',
       },
       items: [
         {

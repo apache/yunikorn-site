@@ -37,7 +37,7 @@ Just simply follow the instruction [here](https://docs.docker.com/docker-for-mac
 
 Once Kubernetes is started in docker desktop, you should see something similar below:
 
-![Kubernetes in Docker Desktop](/img/docker-desktop.png)
+![Kubernetes in Docker Desktop](./../assets/docker-desktop.png)
 
 This means that:
 1. Kubernetes is running.
@@ -68,9 +68,9 @@ The dashboard as deployed in the previous step requires a token or config to sig
     ```
 3. copy the token value which is part of the `Data` section with the tag `token`.
 4. select the **Token** option in the dashboard web UI:<br/>
-    ![Token Access in dashboard](/img/dashboard_token_select.png)
+    ![Token Access in dashboard](./../assets/dashboard_token_select.png)
 5. paste the token value into the input box and sign in:<br/>
-    ![Token Access in dashboard](/img/dashboard_secret.png)
+    ![Token Access in dashboard](./../assets/dashboard_secret.png)
 
 ## Local Kubernetes cluster with Minikube
 Minikube can be added to an existing Docker Desktop install. Minikube can either use the pre-installed hypervisor or use a hypervisor of choice. These instructions use [HyperKit](https://github.com/moby/hyperkit) which is embedded in Docker Desktop.   
@@ -94,7 +94,7 @@ Check hypervisor  Docker Desktop should have already installed HyperKit. In a 
     ```
 1. update the minikube config to default to the HyperKit install  `minikube config set vm-driver hyperkit`
 1. change docker desktop to use minikube for Kubernetes:<br/>
-    ![Kubernetes in Docker Desktop: minikube setting](/img/docker-dektop-minikube.png)
+    ![Kubernetes in Docker Desktop: minikube setting](./../assets/docker-dektop-minikube.png)
 
 ### Deploy and access the cluster
 After the installation is done you can start a new cluster.
@@ -116,7 +116,7 @@ Note, this instruction requires you have GoLand IDE for development.
 In GoLand, go to yunikorn-k8shim project. Then click "Run" -> "Debug..." -> "Edit Configuration..." to get the pop-up configuration window.
 Note, you need to click "+" to create a new profile if the `Go Build` option is not available at the first time.
 
-![Debug Configuration](/img/goland_debug.jpg)
+![Debug Configuration](./../assets/goland_debug.jpg)
 
 The highlighted fields are the configurations you need to add. These include:
 

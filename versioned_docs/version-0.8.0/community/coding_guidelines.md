@@ -115,11 +115,11 @@ There are three tabs to configure, the first two are crucial to comply with the 
 
 | ||
 | -------- | ---------- |
-| Tabs |![tabs](/img/goland_ide_pref_tabs.png)|
-| Imports |![imports](/img/goland_ide_pref_imports.png)|
-| Other |![other](/img/goland_ide_pref_other.png)|
+| Tabs |![tabs](./../assets/goland_ide_pref_tabs.png)|
+| Imports |![imports](./../assets/goland_ide_pref_imports.png)|
+| Other |![other](./../assets/goland_ide_pref_other.png)|
 
 ### Inspections
 The default inspections except for one that helps highlight shadowing variables. 
 
-![inspections](/img/goland_ide_pref_inspections.png)
+![inspections](./../assets/goland_ide_pref_inspections.png)

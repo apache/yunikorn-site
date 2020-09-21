@@ -4,12 +4,11 @@
 *.swp
 *.a
 .idea
-yunikorn-site/
-_site/
-
 *.log
-.docusaurus
-node_modules
-build
 package-lock.json
 yarn.lock
+yunikorn-site/
+_site/
+.docusaurus/
+node_modules/
+build/

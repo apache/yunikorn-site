@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "1.9.1",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "start": "docusaurus start",
@@ -10,11 +10,12 @@
     "release": "docusaurus docs:version"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.59",
-    "@docusaurus/preset-classic": "^2.0.0-alpha.59",
-    "classnames": "^2.2.6",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "@docusaurus/core": "2.0.0-alpha.63",
+    "@docusaurus/preset-classic": "2.0.0-alpha.63",
+    "@mdx-js/react": "^1.5.8",
+    "clsx": "^1.1.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
   },
   "browserslist": {
     "production": [
