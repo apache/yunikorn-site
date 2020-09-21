@@ -44,13 +44,6 @@ module.exports = {
                     'api/system'
                 ]
             },
-            {
-                type: 'category',
-                label: 'Shim Specific',
-                items: [
-                    'shim_specific/kubernetes'
-                ]
-            },
             'user_guide/trouble_shooting'
         ],
         'Developer Guide': [
