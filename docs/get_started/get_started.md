@@ -42,6 +42,8 @@ By default, the helm chart will install the scheduler, web-server and the admiss
 When `admission-controller` is installed, it simply routes all traffic to YuniKorn. That means the resource scheduling
 is delegated to YuniKorn. You can disable it by setting `embedAdmissionController` flag to false during the helm install.  
 
+Further configuration options for installing YuniKorn via Helm are available in the [YuniKorn Helm hub page](https://hub.helm.sh/charts/yunikorn/yunikorn).
+
 If you don't want to use helm charts, you can find our step-by-step
 tutorial [here](developer_guide/deployment.md).
 
