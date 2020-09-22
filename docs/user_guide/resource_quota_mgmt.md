@@ -151,37 +151,49 @@ in the configuration. YuniKorn will automatically run the job and all its pods i
 the corresponding queue. For example, if a job is submitted to namespace `development`,
 then you will see the job is running in `root.development` queue.
 
-## Option 3) Custom mapping of workspaces to queues using Kubernetes shim
+## Option 3) Hierarchy queues with dynamical leaves that mapped to namespaces
 
-You can configure the following annotation for a Kubernetes namespace in your cluster: `yunikorn.apache.org/parentqueue`.
-Each pod (allocation) created in the namespace will be passed to the scheduler with the value of that annotation under the `namespace.parentqueue` tag.
+### Goal
+Though the tag placement rule using the `namespace` tag is capable of putting applications based on the name of the namespace, sometimes more dynamic placement is required.
 
-### Example: Creating dynamic leaf queues based on namespaces
+Users can annotate namespaces which allows dynamic placement of applications based on the annotation value if proper placement rules are present.
 
-Cluster administrators can use this behaviour to put allocations in dedicated queues based on the namespace's annotations.
+### Configuration
+Apply the following configuration to YuniKorn's configmap:
 
-Let's say we have the following queue configuration:
 ```yaml
 placementrules:
- - name: user
+ - name: tag
+   value: namespace
    create: true
    parent:
      - name: tag
-       value: namespace
-       create: true
-       parent:
-         - name: tag
-           value: namespace.parentqueue
+       value: namespace.parentqueue
 queues:
  - name: root
    queues:
      - name: namespaces
+
 ```
-and the `production` namespace is annotated with the following annotation:
+
+The `namespace.parentqueue` tag is provided by the shim (see next section).
+
+You can do this during the installation by overwriting the configuration in the
+[helm chart template](https://github.com/apache/incubator-yunikorn-release/blob/724ec82d0d548598e170cc6d5ca6aaae00f8286c/helm-charts/yunikorn/values.yaml#L71-L81).
+
+### Set up namespaces
+You can configure the following annotation for a Kubernetes namespace in your cluster: `yunikorn.apache.org/parentqueue`.
+
+E.g. `production` namespace can be annotated with the following annotation:
 ```yaml
 yunikorn.apache.org/parentqueue: root.namespaces
 ```
 
-Admins can put each application into different user's queue based on the namespace setting using the settings above.
+Each pod (allocation) created in the namespace will be passed to the scheduler with the value of that annotation under the `namespace.parentqueue` tag.
 
-Let's say user `bob` submitting an application to the `production` namespace. The application will be placed onto `root.namespaces.production.bob`.
+This tag can be further used in the tag placement rule to provide the desired mapping as seen above in the Configuration section.
+
+### Run workloads
+After the configmap has been configured and the namespace has been annotated, users simply submit applications to the namespace and the placement rule will take effect.
+
+Let's say a user submits an application to the `production` namespace. The application will be placed onto `root.namespaces.production` based on the configs above.
