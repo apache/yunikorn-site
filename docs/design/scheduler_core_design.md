@@ -62,7 +62,7 @@ Scheduler core is agnostic about underneath platforms, all the communications ar
                 +---------------------------------------------+
 ```
 
-###Scheduler API Server (RMProxy)
+### Scheduler API Server (RMProxy)
 
 Responsible for communication between RM and Scheduler, which implements scheduler-interface GRPC protocol,
 or just APIs. (For intra-process communication w/o Serde).
