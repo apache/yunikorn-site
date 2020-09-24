@@ -172,7 +172,8 @@ placementrules:
 queues:
  - name: root
    queues:
-     - name: namespaces
+     - name: production
+     - name: development
 
 ```
 
@@ -184,9 +185,9 @@ You can do this during the installation by overwriting the configuration in the
 ### Set up namespaces
 You can configure the following annotation for a Kubernetes namespace in your cluster: `yunikorn.apache.org/parentqueue`.
 
-E.g. `production` namespace can be annotated with the following annotation:
+E.g. `finance` namespace can be annotated with the following annotation:
 ```yaml
-yunikorn.apache.org/parentqueue: root.namespaces
+yunikorn.apache.org/parentqueue: root.production
 ```
 
 Each pod (allocation) created in the namespace will be passed to the scheduler with the value of that annotation under the `namespace.parentqueue` tag.
@@ -196,4 +197,4 @@ This tag can be further used in the tag placement rule to provide the desired ma
 ### Run workloads
 After the configmap has been configured and the namespace has been annotated, users simply submit applications to the namespace and the placement rule will take effect.
 
-Let's say a user submits an application to the `production` namespace. The application will be placed onto `root.namespaces.production` based on the configs above.
+Let's say a user submits an application to the `finance` namespace. The application will be placed onto `root.production.finance` based on the configs above.
