@@ -150,3 +150,51 @@ Jobs continue to be submitted to namespaces, based on the `Placementrule` used
 in the configuration. YuniKorn will automatically run the job and all its pods in
 the corresponding queue. For example, if a job is submitted to namespace `development`,
 then you will see the job is running in `root.development` queue.
+
+## Option 3) Hierarchy queues with dynamical leaves that mapped to namespaces
+
+### Goal
+Though the tag placement rule using the `namespace` tag is capable of putting applications based on the name of the namespace, sometimes more dynamic placement is required.
+
+Users can annotate namespaces which allows dynamic placement of applications based on the annotation value if proper placement rules are present.
+
+### Configuration
+Apply the following configuration to YuniKorn's configmap:
+
+```yaml
+placementrules:
+ - name: tag
+   value: namespace
+   create: true
+   parent:
+     - name: tag
+       value: namespace.parentqueue
+queues:
+ - name: root
+   queues:
+     - name: production
+     - name: development
+
+```
+
+The `namespace.parentqueue` tag is provided by the shim (see next section).
+
+You can do this during the installation by overwriting the configuration in the
+[helm chart template](https://github.com/apache/incubator-yunikorn-release/blob/724ec82d0d548598e170cc6d5ca6aaae00f8286c/helm-charts/yunikorn/values.yaml#L71-L81).
+
+### Set up namespaces
+You can configure the following annotation for a Kubernetes namespace in your cluster: `yunikorn.apache.org/parentqueue`.
+
+E.g. `finance` namespace can be annotated with the following annotation:
+```yaml
+yunikorn.apache.org/parentqueue: root.production
+```
+
+Each pod (allocation) created in the namespace will be passed to the scheduler with the value of that annotation under the `namespace.parentqueue` tag.
+
+This tag can be further used in the tag placement rule to provide the desired mapping as seen above in the Configuration section.
+
+### Run workloads
+After the configmap has been configured and the namespace has been annotated, users simply submit applications to the namespace and the placement rule will take effect.
+
+Let's say a user submits an application to the `finance` namespace. The application will be placed onto `root.production.finance` based on the configs above.
