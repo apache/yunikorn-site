@@ -81,7 +81,7 @@ import TabItem from '@theme/TabItem';
 We welcome you to try our latest releases and share your experiences.
 
 Any point, if you are facing any issues:
-- Raise an issue or a feedback in the JIRA as per our [guide](community/reporting_issues).
+- Raise an issue or a feedback in the JIRA as per our [guide](reporting_issues).
 - Clarify / Seek help in the YuniKorn slack `#yunikorn-user` channel
 
 ### Other feedback mechanisms
