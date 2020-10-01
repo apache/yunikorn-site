@@ -192,7 +192,7 @@ module.exports = {
           items: [
             {
               label: 'Get Involved',
-              href: 'http://yunikorn.apache.org/community/get_involved'
+              to: 'community/get_involved'
             },
             {
               label: 'Roster',

@@ -30,7 +30,7 @@ If you have an issue with YuniKorn operation, please follow these guidelines:
 If you are having an issue with setup, configuration, or some other form of behavior not matching your expectation, join the user mailing list and ask your questions in that forum.
 See the [YuniKorn web page](https://yunikorn.apache.org) for information on mailing lists.
 You can also ask the YuniKorn slack channel for help, check the web page for details on how to join.
-If you have a bug that needs a fix in the code or in the documentation, please follow the procedure in [Filing a JIRA](#Filing-a-JIRA-for-YuniKorn-issues) below.
+If you have a bug that needs a fix in the code or in the documentation, please follow the procedure in [Filing a JIRA](#filing-a-jira-for-yunikorn-issues) below.
 
 ## For YuniKorn Developers
 JIRA is used by the Apache YuniKorn project to track all issues.
