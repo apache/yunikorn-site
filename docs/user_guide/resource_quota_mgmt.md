@@ -35,7 +35,7 @@ Node additions and removals update the `root` queue quota automatically.
 Beside the `root` queue the quotas can be set, and is enforced, at any point in the hierarchy. 
 Every queue can have a quota set. The quota is enforced recursively throughout the hierarchy.
 This means that a child queue can never use more resources than the **configured** quota of the parent queue.
-Setting a quota on a child queue larger than its parent queue's quota will not have any effect.
+Setting a quota on a child queue larger than its parent queue's quota would thus not have any effect and is handled as a configuration error.
 
 In the hierarchy there are some further rules that need to be considered.
 If a parent queue has multiple children the sum of the **usage** of all children combined can never exceed the quota **configured** on the parent.
@@ -123,7 +123,7 @@ labels:
 ### Goal
 Automatically map a Kubernetes `namespace` to a queue in YuniKorn.
 The user creates the required namespaces in Kubernetes. 
-The YuniKorn k8-shim and core scheduler automatically pass the required information and map the namespace to a queue, creating the queue if it does not exist.
+The YuniKorn k8s shim and core scheduler automatically pass the required information and map the namespace to a queue, creating the queue if it does not exist.
 The resource quota will be managed by YuniKorn instead of using the Kubernetes namespace quota.
 This does require the namespaces to be setup without Kubernetes quota enforcement and tags as per the [setup](#Namespace-quota) below.
 
@@ -145,7 +145,7 @@ partitions:
 ```
 
 This configuration places an application based on the `tag` rule.
-The tag selected is the `namespace` tag which is automatically added by the k8-shim to all applications that get created.
+The tag selected is the `namespace` tag which is automatically added by the k8s shim to all applications that get created.
 The `create` flag is set to true which will trigger the creation of the queue with the same name as the namespace if it does not exist. 
 
 Applications within the automatically created child queues will be sorted based sorting policy set on the parent queue.
@@ -212,7 +212,7 @@ partitions:
 The configuration used for the namespace to queue mapping is the same as [above](#Namespace-to-queue-mapping).
 As an extension to the placement rule a `parent` rule is added.
 The parent rule uses the tag `namespace.parentqueue` from the application to generate the parent queue below which the `namespace` queue will be created.
-The `namespace.parentqueue` tag is automatically added by the k8-shim but does require a namespace annotation.
+The `namespace.parentqueue` tag is automatically added by the k8s shim but does require a namespace annotation.
 
 Quotas cannot be set on the parent queue based on this mapping.
 The quota is linked to the namespace as per the namespace mapping provided earlier.
