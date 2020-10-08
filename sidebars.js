@@ -50,6 +50,7 @@ module.exports = {
             'developer_guide/env_setup',
             'developer_guide/build',
             'developer_guide/deployment',
+            'developer_guide/openshift_development',
             {
                 type: 'category',
                 label: 'Designs',
