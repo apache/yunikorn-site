@@ -434,6 +434,76 @@ Reponse
 }
 ```
 
+## Configuration update
+
+Endpoint to override scheduler configuration. 
+
+**URL** : `/ws/v1/config`
+
+**Method** : `PUT`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```yaml
+partitions:
+  -
+    name: default
+    placementrules:
+      - name: tag
+        value: namespace
+        create: true
+    queues:
+      - name: root
+        submitacl: '*'
+        properties:
+          application.sort.policy: stateaware
+checksum: [173,7,83,162,71,12,24,54,61,72,195,227,207,95,85,14,128,101,107,7,112,214,125,208,136,131,212,118,44,191,90,222]
+```
+**Note:** the checksum is the base configuration checksum on top of what we want to make the changes.
+If the provisioned checksum differs from the actual scheduler checksum, the configuration update will fail.
+
+### Failure response
+
+The configuration update can fail due to different reasons such as: 
+- invalid configuration, 
+- outdated base checksum, 
+- failure while saving the configuration to the scheduler. 
+
+In each case the transaction will be rolled back, and the proper 
+error message will be returned in the response.
+
+**Code** : `409 Conflict`
+
+**Message example** :  root queue must not have resource limits set
+
+**Content example**
+
+```yaml
+partitions:
+  -
+    name: default
+    placementrules:
+      - name: tag
+        value: namespace
+        create: true
+    queues:
+      - name: root
+        submitacl: '*'
+        resources:
+          guaranteed:
+            memory: "512"
+            vcore: "1"
+        properties:
+          application.sort.policy: stateaware
+checksum: [186,179,215,100,2,130,126,171,230,47,167,228,198,188,244,216,221,149,82,131,69,97,182,182,96,239,55,254,217,41,151,145]
+```
+
 ## Application history
 
 Endpoint to retrieve historical data about the number of total applications by timestamp.
