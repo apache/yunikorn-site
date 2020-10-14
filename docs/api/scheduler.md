@@ -529,7 +529,9 @@ partitions:
 checksum: [173,7,83,162,71,12,24,54,61,72,195,227,207,95,85,14,128,101,107,7,112,214,125,208,136,131,212,118,44,191,90,222]
 ```
 **Note:** the checksum is the base configuration checksum on top of what we want to make the changes.
-If the provisioned checksum differs from the actual scheduler checksum, the configuration update will fail.
+If the provided checksum in the request differs from the base version, the configuration update will fail. 
+This is to avoid applying any unintentional changes to the running version. 
+Subsequently, the client needs to retrieve the latest version from the scheduler and send another update with the up-to-date checksum.
 
 ### Failure response
 
