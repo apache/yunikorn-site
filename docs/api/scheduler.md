@@ -433,6 +433,69 @@ Reponse
     "reason": "yaml: unmarshal errors:\n  line 7: cannot unmarshal !!str `wrong_text` into configs.PartitionConfig"
 }
 ```
+## Configuration
+
+Endpoint to retrieve the current scheduler configuration
+
+**URL** : `/ws/v1/config`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+partitions:
+- name: default
+  queues:
+  - name: root
+    parent: true
+    submitacl: '*'
+  placementrules:
+  - name: tag
+    create: true
+    value: namespace
+checksum:
+- 186
+- 179
+- 215
+- 100
+- 2
+- 130
+- 126
+- 171
+- 230
+- 47
+- 167
+- 228
+- 198
+- 188
+- 244
+- 216
+- 221
+- 149
+- 82
+- 131
+- 69
+- 97
+- 182
+- 182
+- 96
+- 239
+- 55
+- 254
+- 217
+- 41
+- 151
+- 145
+
+sha256 checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
+```
 
 ## Configuration update
 
