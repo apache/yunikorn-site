@@ -537,8 +537,7 @@ Subsequently, the client needs to retrieve the latest version from the scheduler
 
 The configuration update can fail due to different reasons such as: 
 - invalid configuration, 
-- outdated base checksum, 
-- failure while saving the configuration to the scheduler. 
+- outdated base checksum.
 
 In each case the transaction will be rolled back, and the proper 
 error message will be returned in the response.
