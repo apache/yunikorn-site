@@ -66,7 +66,7 @@ kubectl port-forward svc/yunikorn-service 9889:9889 -n yunikorn
 `9889` is the default port for web UI.
 Once this is done, web UI will be available at: `http://localhost:9889`.
 
-![UI Screenshots](./../assets/yk-ui-master-screenshots.gif)
+![UI Screenshots](./../assets/yk-ui-screenshots.gif)
 
 YuniKorn UI provides a centralised view for cluster resource capacity, utilization, and all application info.
 
