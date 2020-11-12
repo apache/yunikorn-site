@@ -245,6 +245,42 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 ]
 ```
 
+## Nodes utilization
+
+Shows how nodes are distributed with regarding the utilization
+
+**URL** : `/ws/v1/nodes/utilization`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```text
+[
+    {
+     partition: default,
+     utilization: [ {
+        type: "cpu",
+        total: 100,
+        used: 50,
+        usage: 50%
+      },
+      {
+         type: "memory",
+         total: 1000,
+         used: 500,
+         usage: 50%
+      }
+     ]
+    }, 
+    ...
+]
+```
+
 ## Goroutines info
 
 Dumps the stack traces of the currently running goroutines.
@@ -449,7 +485,7 @@ Endpoint to retrieve the current scheduler configuration
 
 **Content example**
 
-```json
+```yaml
 partitions:
 - name: default
   queues:
@@ -460,41 +496,7 @@ partitions:
   - name: tag
     create: true
     value: namespace
-checksum:
-- 186
-- 179
-- 215
-- 100
-- 2
-- 130
-- 126
-- 171
-- 230
-- 47
-- 167
-- 228
-- 198
-- 188
-- 244
-- 216
-- 221
-- 149
-- 82
-- 131
-- 69
-- 97
-- 182
-- 182
-- 96
-- 239
-- 55
-- 254
-- 217
-- 41
-- 151
-- 145
-
-sha256 checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
+checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
 ```
 
 ## Configuration update
@@ -526,7 +528,7 @@ partitions:
         submitacl: '*'
         properties:
           application.sort.policy: stateaware
-checksum: [173,7,83,162,71,12,24,54,61,72,195,227,207,95,85,14,128,101,107,7,112,214,125,208,136,131,212,118,44,191,90,222]
+checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
 ```
 **Note:** the checksum is the base configuration checksum on top of what we want to make the changes.
 If the provided checksum in the request differs from the base version, the configuration update will fail. 
@@ -565,7 +567,7 @@ partitions:
             vcore: "1"
         properties:
           application.sort.policy: stateaware
-checksum: [186,179,215,100,2,130,126,171,230,47,167,228,198,188,244,216,221,149,82,131,69,97,182,182,96,239,55,254,217,41,151,145]
+checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
 ```
 
 ## Application history

@@ -59,4 +59,41 @@ As an example, here is a response from a 2-node cluster with 3 applications and 
     }
 ]
 ```
-		
+
+## Clusters utilization
+
+Returns statistical data related the cluster resource utilization
+
+**URL** : `/ws/v1/clusters/utilization`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+[
+    {
+        "partition": "[mycluster]default",
+        "utilization": [
+            {
+                "type": "memory",
+                "total": 5076,
+                "used": 1500,
+                "usage": "29%"
+            },
+            {
+                "type": "vcore",
+                "total": 4000,
+                "used": 300,
+                "usage": "7%"
+            }
+        ]
+    }
+]
+```
