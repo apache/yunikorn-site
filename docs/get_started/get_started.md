@@ -57,15 +57,14 @@ helm uninstall yunikorn --namespace yunikorn
 ## Access the Web UI
 
 When the scheduler is deployed, the web UI is also deployed in a container.
-Port forwarding for the web interface on the standard ports can be turned on via:
+Port forwarding for the web interface on the standard port can be turned on via:
 
 ```
 kubectl port-forward svc/yunikorn-service 9889:9889 -n yunikorn
-kubectl port-forward svc/yunikorn-service 9080:9080 -n yunikorn
 ```
 
-`9889` is the default port for Web UI, `9080` is the default port of scheduler's Restful service where web UI retrieves info from.
-Once this is done, web UI will be available at: http://localhost:9889.
+`9889` is the default port for web UI.
+Once this is done, web UI will be available at: `http://localhost:9889`.
 
 ![UI Screenshots](./../assets/yk-ui-screenshots.gif)
 
