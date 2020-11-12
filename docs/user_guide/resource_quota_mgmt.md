@@ -23,10 +23,18 @@ under the License.
 -->
 
 ## Quota configuration and rules
-YuniKorn can offer a finer grained resource quota management setup compared to the simple
-namespace resource quota provided by Kubernetes.
+YuniKorn can offer a finer grained resource quota management setup compared to the simple namespace resource quota provided by Kubernetes.
 
-Contrary to quotas in Kubernetes YuniKorn does not enforce quotas on submission but on actively consumed resources.
+On Kubernetes a pod must fit into the namespace quota when the pod is submitted. 
+If the pod does not fit in the namespace quota the pod is rejected.
+The client must implement a retry-mechanism and re-submit the pod if it needs the pod to be scheduled.
+
+Contrary to quotas in Kubernetes YuniKorn does not enforce quotas on submission but only on actively consumed resources.
+To explain the difference: when using YuniKorn for quota enforcement a new pod submitted to Kubernetes is always accepted.
+Yunikorn will queue the pod without counting the queued pod's resources towards the consumed quota.
+When YuniKorn tries to schedule the pod it checks at scheduling time if the pod fits in the quota configured for the queue the pod is assigned to.
+If at that point the pod does not fit in the quota the pod is skipped and not counted in the resource consumption. 
+This means that until a scheduling attempt of a pod is successful a pod it is not consuming resources in the YuniKorn quota system.
 
 Resource quotas in YuniKorn are linked to the queue and its place in the queue hierarchy.
 The base of the queue structure, the `root` queue, does not allow setting a quota as it reflects the current size of the cluster.
@@ -40,6 +48,8 @@ Setting a quota on a child queue larger than its parent queue's quota would thus
 In the hierarchy there are some further rules that need to be considered.
 If a parent queue has multiple children the sum of the **usage** of all children combined can never exceed the quota **configured** on the parent.
 However, from a configuration perspective this does not mean that the sum of the **configured** quotas for all children must be smaller than the parent quota.
+
+![Queue Quota](./../assets/queue-resource-quotas.png)
 
 As an example the `root.parent` queue has a quota of 900.
 It contains three child queues, two with a quota set.
@@ -179,7 +189,7 @@ The configured placement rule will create the queue, if required, and add the ap
  
 For example, if an application is submitted to namespace `development`, then the application will run in the `root.development` queue.
 
-## Parent queue mapping
+## Parent queue mapping for namespaces
 
 ### Goal
 Though the tag placement rule using the `namespace` tag is capable of placing an application in a queue this might not be enough in all setups.
@@ -190,7 +200,11 @@ YuniKorn cannot and does not just add all annotations from a namespace to an app
 To help support this grouping case a parent queue can be tagged on a namespace.   
 
 ### Configuration
-Apply the following configuration to YuniKorn's configmap:
+The configuration for this functionality consists of two pieces:
+1. the mapping rule
+1. the namespace annotation
+
+First we set the following configuration to YuniKorn's configmap:
 
 ```yaml
 partitions:
@@ -210,21 +224,20 @@ partitions:
 ```
 
 The configuration used for the namespace to queue mapping is the same as [above](#Namespace-to-queue-mapping).
-As an extension to the placement rule a `parent` rule is added.
-The parent rule uses the tag `namespace.parentqueue` from the application to generate the parent queue below which the `namespace` queue will be created.
-The `namespace.parentqueue` tag is automatically added by the k8s shim but does require a namespace annotation.
+As an extension to the placement rule a `parent` rule is added to support the grouping.
+The parent rule is used to generate the parent, or the queue above, in the hierarchy.
+The rule uses the tag `namespace.parentqueue` from the application to generate the parent queue name.
+The `namespace.parentqueue` tag is automatically added by the Kubernetes shim but does require a namespace annotation (see below).
 
-Quotas cannot be set on the parent queue based on this mapping.
-The quota is linked to the namespace as per the namespace mapping provided earlier.
-Parent queue quotas must be set directly in the configuration.
-A requirement is then that the `create` flag must be set to `false`.
-However, this is not a generic requirement for the using the tag rule in this configuration.
-
-In the example the `create` flag is not set on the parent rule.
+In the example rule configuration given the `create` flag is not set on the parent rule.
 This means that the parent queue must exist in the configuration otherwise the application submit will fail.
-That also limits the supported values to `production` and `development` for this configuration.
-Note that the rule will fully qualify the name, you can thus omit the `root.` part in the annotation.
-If the annotation starts with `root.` the system assumes it is a fully qualified queue name. 
+For the example configuration this means supported values for the parent are thus limited to `production` and `development`.
+
+Quotas cannot be set on the parent queue using any of these mappings.
+The quota linked to the namespace is set on the namespace queue not the parent  as per the namespace mapping provided earlier.
+
+Parent queue quotas must always be set directly in the configuration.
+This requires the `create` flag to be set to `false` on the parent rule.
 
 ### Namespace parent queue
 Contrary to the namespace name itself, and inline with the quota settings, the namespaces need to be annotated to use the parent queue mapping.
@@ -234,12 +247,21 @@ The same annotation value may be used for multiple namespaces:
 yunikorn.apache.org/parentqueue: root.production
 ```
 
-The example above will map the parent queue to the existing `root.production` queue.
+The example annotation above will map the parent queue to the existing `root.production` queue.
+Note that the rule will fully qualify the name if needed, you can thus omit the `root.` part in the annotation.
+If the annotation starts with `root.` the system assumes it is a fully qualified queue name.
+
+To complete the picture here is an image that shows the mapping from Kubernetes namespaces to queues in YuniKorn.
+It uses the annotations on the namespaces in Kubernetes as described, and the example configuration for the mapping rules.
+The `finance` and `sales` namespaces become queues grouped under the parent queue `production`.
+The namespaces `dev` and `test` are placed under the `development` parent queue.   
+
+![Queue Quota](./../assets/namespace-mapping.png)
 
 ### Run a workload
 Applications, and the pods that are part of the application, can be submitted without specific labels or changes.
-YuniKorn will add the tags and the placement rules will do the rest.
+YuniKorn will add the tags, the placement rules will do the rest.
 The configured placement rule will create the queues, if required, and add the application to the queue.
 
-If the namespace `finance` is annotated with the example value, and the rules are in place.
+Since the namespace `finance` is annotated with the example value, and the rules are in place.
 Applications in the `finance` namespace will run in the `root.production.finance` queue that is created dynamically.
