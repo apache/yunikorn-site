@@ -82,7 +82,7 @@ This means at the given time, this cluster has 100 nodes whose utilization is in
 it has 300 nodes whose utilization is in the range 10% - 20%, and so on… Now, we run lots of workloads and
 collect metrics, see the below chart:
 
-<img src="./../assets/node-fair.png" />
+![Node Fairness](./../assets/node-fair.png)
 
 We can see all nodes have 0% utilization, and then all of them move to bucket-1, then bucket-2 … and eventually
 all nodes moved to bucket-9, which means all capacity is used. In another word, nodes’ resource has been used in
@@ -92,7 +92,7 @@ a fairness manner.
 
 This is When the bin-packing policy is enabled, we can see the following pattern:
 
-<img src="./../assets/node-bin-packing.png" />
+![Node Bin-Packing](./../assets/node-bin-packing.png)
 
 On the contrary, all nodes are moving between 2 buckets, bucket-0 and bucket-9. Nodes in bucket-0 (0% - 10%)
 are decreasing in a linear manner, and nodes in bucket-9 (90% - 100%) are increasing with the same curve.
