@@ -97,7 +97,17 @@ The deployment will run 2 containers from your pre-built docker images in 1 pod,
 * yunikorn-scheduler-core (yunikorn scheduler core and shim for K8s)
 * yunikorn-scheduler-web (web UI)
 
-The pod is deployed as a customized scheduler, it will take the responsibility to schedule pods which explicitly specifies `schedulerName: yunikorn` in pod's spec.
+The pod is deployed as a customized scheduler, it will take the responsibility to schedule pods which explicitly specifies `schedulerName: yunikorn` in pod's spec. In addition to the `schedulerName`, you will also have to add a label `applicationId` to the pod.
+```yaml
+  metadata:
+    name: pod_example
+    labels:
+      applicationId: appID
+  spec:
+    schedulerName: yunikorn
+```
+
+Note: Admission controller abstracts the addition of `schedulerName` and `applicationId` from the user and hence, routes all traffic to YuniKorn. If you use helm chart to deploy, it will install admission controller along with the scheduler.
 
 ## Access to the web UI
 
