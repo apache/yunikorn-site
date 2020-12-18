@@ -7,7 +7,6 @@
 *.log
 package-lock.json
 yarn.lock
-yunikorn-site/
 _site/
 .docusaurus/
 node_modules/

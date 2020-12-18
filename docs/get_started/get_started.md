@@ -1,6 +1,7 @@
 ---
 id: user_guide
 title: Get Started
+slug: /
 ---
 
 <!--

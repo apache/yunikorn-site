@@ -18,13 +18,13 @@
 
 function stop() {
   echo "cleaning up docker image"
-	docker stop yunikorn-site-local &>/dev/null
+  docker stop yunikorn-site-local &>/dev/null
   docker rm -f yunikorn-site-local &>/dev/null
   docker rmi yunikorn/yunikorn-website:latest &>/dev/null
 }
 
 function clean() {
-	echo "removing build artifacts:"
+  echo "removing build artifacts:"
   echo "  docusaurus install" && rm -rf .docusaurus
   echo "  node modules" && rm -rf node_modules
   echo "  yarn lock file" && rm -f yarn.lock
@@ -70,7 +70,7 @@ function run() {
 }
 
 function print_usage() {
-    cat <<EOF
+  cat <<EOF
 Usage: $(basename "$0") run | clean | help
     run        build the website, and launch the server in a docker image.
     clean      remove old build and cached files.
