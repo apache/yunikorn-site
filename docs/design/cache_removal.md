@@ -27,12 +27,9 @@ It describes the changes planned based on the analysis that was done of the curr
 
 ## Goals
 The goal is to provide the same functionality before and after the change.
-- Junit tests before and after the merge must all pass.
-- Smoke tests defined in the core should all pass without major changes*.
+- unit tests before and after the merge must all pass.
+- Smoke tests defined in the core should all pass without major changes <sup id="s1">[definition](#f1)</sup>.
 - End-to-end tests that are part of the shim code must all pass without changes.
-
-Major changes for smoke tests are defined as changes to the tests that alter use case and thus test flows.
-Some changes will be needed as checks made could rely on cache objects which have been removed.
 
 ## Background 
 The current Scheduler Core is build up around two major components to store the data: the cache and scheduler objects.
@@ -47,8 +44,10 @@ One of which is logged as [YUNIKORN-169](https://issues.apache.org/jira/browse/Y
 A further point is the complexity that the two structure brings to the code.
 A distinct set of messages to communicate between the scheduler and the cache.
 A one on one mapping between the scheduler and cache objects shows that the distinction is probably more artificial than required.
-
-## Existing objects
+---
+<b id="f1"></b>definition: Major changes for smoke tests are defined as changes to the tests that alter use case and thus test flows. Some changes will be needed as checks made could rely on cache objects which have been removed. [↩](#s1)
+## Structure analysis
+### Objects
 The existing objects as per the code analysis.
 The overlap between the scheduler and the cache objects is shown by showing them at the same line.
 N/A means that there is no equivalent object in either the scheduler or cache.
@@ -69,8 +68,7 @@ N/A means that there is no equivalent object in either the scheduler or cache.
 The `initializer` code that is part of the cache does not define a specific object.
 It contains a mixture of code defined at the package level and code that is part of the `ClusterInfo` object.
 
-## Existing Events
-
+### Events
 Events defined in the core have multiple origins and destinations.
 Some events are only internal for the core between the cache and scheduler.
 These events will be removed.
@@ -101,8 +99,7 @@ These events will be removed.
 Events that are handled by the cache will need to be handled by the core code after the removal of the cache.
 Two events are handled by the cache and the scheduler.
 
-## Detailed analysis (Existing behavior)
-
+## Detailed flow analysis
 ### Object existing in both cache and scheduler
 The current design is based on the fact that the cache object is the basis for all data storage.
 Each cache object must have a corresponding scheduler object.

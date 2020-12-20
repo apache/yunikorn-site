@@ -240,7 +240,7 @@ The full configuration of the K8s shim is still under development.
 ### YARN shim
 The full configuration of the YARN shim is still under development.
 
-#
-1: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#should-i-use-a-configmap-or-a-custom-resource. [↩](#s1)<br/> <b id="f1"></b>
-2: The set of characters from which portable filenames are constructed.  [↩](#s2)<br/> <b id="f2"></b>
-`A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 . _ -`
+---
+<br/><b id="f1"></b>1: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#should-i-use-a-configmap-or-a-custom-resource. [↩](#s1)
+<br/><b id="f2"></b>2: The set of characters from which portable filenames are constructed. [↩](#s2)
+<br/>`A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 . _ -`
