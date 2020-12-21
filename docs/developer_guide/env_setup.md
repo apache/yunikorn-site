@@ -78,28 +78,28 @@ Minikube can be added to an existing Docker Desktop install. Minikube can either
 If you want to use a different hypervisor then HyperKit make sure that you follow the generic minikube install instructions. Do not forget to install the correct driver for the chosen hypervisor if required.
 The basic instructions are provided in the [minikube install](https://kubernetes.io/docs/tasks/tools/install-minikube/) instructions.
 
-Check hypervisor  Docker Desktop should have already installed HyperKit. In a terminal run: `hyperkit` to confirm. Any response other than `hyperkit: command not found` confirms that HyperKit is installed and on the path. If it is not found you can choose a different hypervisor or fix the Docker Desktop install.
+Check hypervisor Docker Desktop should have already installed HyperKit. In a terminal run: `hyperkit` to confirm. Any response other than `hyperkit: command not found` confirms that HyperKit is installed and on the path. If it is not found you can choose a different hypervisor or fix the Docker Desktop install.
 
 ### Installing Minikube
 1. install minikube, you can either use brew or directly via these steps: 
     ```shell script
-     curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
-    chmod +x minikube 
+    curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+    chmod +x minikube
     sudo mv minikube /usr/local/bin
     ```
-1. install HyperKit driver  (required), you can either use brew or directly via these steps:
+1. install HyperKit driver (required), you can either use brew or directly via these steps:
     ```shell script
     curl -LO https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-hyperkit
     sudo install -o root -g wheel -m 4755 docker-machine-driver-hyperkit /usr/local/bin/
     ```
-1. update the minikube config to default to the HyperKit install  `minikube config set vm-driver hyperkit`
+1. update the minikube config to default to the HyperKit install `minikube config set vm-driver hyperkit`
 1. change docker desktop to use minikube for Kubernetes:<br/>
     ![Kubernetes in Docker Desktop: minikube setting](./../assets/docker-dektop-minikube.png)
 
 ### Deploy and access the cluster
 After the installation is done you can start a new cluster.
 1. start the minikube cluster: `minikube start --kubernetes-version v1.14.2`
-1. start the minikube dashboard: ` minikube dashboard &`
+1. start the minikube dashboard: `minikube dashboard &`
 
 ### Build impact
 When you create images make sure that the build is run after pointing it to the right environment. 

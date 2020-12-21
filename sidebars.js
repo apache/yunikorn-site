@@ -57,6 +57,7 @@ module.exports = {
                 items: [
                     'design/architecture',
                     'design/scheduler_core_design',
+                    'design/cache_removal',
                     'design/k8shim',
                     'design/cross_queue_preemption',
                     'design/namespace_resource_quota',
