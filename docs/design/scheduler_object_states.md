@@ -52,8 +52,10 @@ Containers/pods can be added to and removed from the application.
 This state is part of the normal scheduling cycle.
 * Waiting: An application that has no pending requests or running containers/pod will be waiting.
 This state shows that the application has not been marked completed yet but currently is not actively being scheduled.
-* Completed: The resource manager has signalled that the application is done. 
-This is a final state. The application cannot change state after entering.
+* Completed: An application is considered completed when it has been in the waiting state for a defined time period.
+The current timeout is set to 30 seconds.
+* Expired: The completed application is tracked for a period of time, after that is expired and deleted from the scheduler.
+THis is a final state and after this state the application cannot be tracked anymore. 
 * Killed: Removed by the resource manager at the request of an administrator or the user running the application.
 This is a final state. The application cannot change state after entering.
 * Rejected: The application was rejected when it was added to the scheduler. 
@@ -67,6 +69,7 @@ The events that can trigger a state change:
 * Wait: mark an application as idle (source: core scheduler)
 * Complete: mark an application as complete (source: resource manager)
 * Kill: kill an application (source: resource manager)
+* Expire: progress the application to the expired state and remove it from the scheduler (source: core scheduler)
 
 Here is a diagram that shows the states with the event that causes the state to change:  
 ![application state diagram](./../assets/application-state.png)
