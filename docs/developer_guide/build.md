@@ -33,10 +33,10 @@ Read the [environment setup guide](developer_guide/env_setup.md) first to setup 
 ## Build YuniKorn for Kubernetes
 
 Prerequisite:
-- Go 1.11+
+- Go 1.12+
 
 You can build the scheduler for Kubernetes from [yunikorn-k8shim](https://github.com/apache/incubator-yunikorn-k8shim) project.
-The build procedure will built all components into a single executable that can be deployed and running on Kubernetes.
+The build procedure will build all components into a single executable that can be deployed and running on Kubernetes.
 
 Start the integrated build process by pulling the `yunikorn-k8shim` repository:
 ```bash
@@ -45,6 +45,19 @@ cd $HOME/yunikorn/
 git clone https://github.com/apache/incubator-yunikorn-k8shim.git
 ```
 At this point you have an environment that will allow you to build an integrated image for the YuniKorn scheduler.
+
+### A note on Go modules and git version
+Go use git to fetch module information.
+Certain modules cannot be retrieved if the git version installed on the machine used to build is old.
+A message similar to the one below will be logged when trying to build for the first time.
+```text
+go: finding modernc.org/mathutil@v1.0.0
+go: modernc.org/golex@v1.0.0: git fetch -f origin refs/heads/*:refs/heads/* refs/tags/*:refs/tags/* in <location>: exit status 128:
+	error: RPC failed; result=22, HTTP code = 404
+	fatal: The remote end hung up unexpectedly
+```
+Update git to a recent version to fix this issue.
+Git releases later than 1.22 are known to work.
 
 ### Build Docker image
 
@@ -61,8 +74,7 @@ How to deploy the scheduler with a ConfigMap is explained in the [scheduler conf
 
 The image build command will first build the integrated executable and then create the docker image.
 Currently, there are some published docker images under [this docker hub repo](https://hub.docker.com/r/apache/yunikorn), you are free to fetch and use.
-But keep in mind, YuniKorn has no official release yet, the latest version image can only be used for testing or evaluating, do not use it in production.
-The default image tags are not be suitable for deployments to an accessible repository as it uses a hardcoded user and would push to Docker Hub with proper credentials.
+The default image tags are not suitable for deployments to an accessible repository as it uses a hardcoded user and would push to Docker Hub with proper credentials.
 You *must* update the `TAG` variable in the `Makefile` to push to an accessible repository.
 When you update the image tag be aware that the deployment examples given will also need to be updated to reflect the same change.
 
@@ -75,7 +87,7 @@ these info with docker `inspect` command.
 docker inspect apache/yunikorn:scheduler-latest
 ```
 
-these info includes git revisions (last commit SHA) for each component, to help you understand which version of the source code
+This info includes git revisions (last commit SHA) for each component, to help you understand which version of the source code
 was shipped by this image. They are listed as docker image `labels`, such as
 
 ```
@@ -98,7 +110,7 @@ Changing dependencies uses mod `replace` directives as explained in the [Update 
 
 The YuniKorn project has four repositories three of those repositories have a dependency at the go level.
 These dependencies are part of the go modules and point to the github repositories.
-During development it can be required to break the dependency on the committed version from github.
+During the development cycle it can be required to break the dependency on the committed version from github.
 This requires making changes in the module file to allow loading a local copy or a forked copy from a different repository.  
 
 #### Affected repositories
@@ -142,7 +154,7 @@ replace github.com/apache/incubator-yunikorn-core => ../checked-out-yunikorn
 ```
 Note: if the `replace` directive is using a local filesystem path, then the target must have the `go.mod` file at that location.
 
-Further details on the modules wiki: [When should I use the 'replace' directive?](https://github.com/golang/go/wiki/Modules#when-should-i-use-the-replace-directive).
+Further details on the modules' wiki: [When should I use the 'replace' directive?](https://github.com/golang/go/wiki/Modules#when-should-i-use-the-replace-directive).
 
 ## Build the web UI
 
@@ -153,7 +165,7 @@ The scheduler is fully functional without the web UI.
 ## Locally run the integrated scheduler
 
 When you have a local development environment setup you can run the scheduler in your local kubernetes environment.
-This has been tested in a Docker desktop with docker for desktop and Minikube. See the [environment setup guide](developer_guide/env_setup.md) for further details.
+This has been tested in a Docker desktop with 'Docker for desktop' and Minikube. See the [environment setup guide](developer_guide/env_setup.md) for further details.
 
 ```
 make run
