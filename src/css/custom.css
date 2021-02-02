@@ -26,6 +26,11 @@
   --ifm-color-primary-lightest: #75c4ca;
 }
 
+/* Hack: hide warning message on unreleased and old versions of the docs  */
+.alert.alert--warning.margin-bottom--md {
+  display: none;
+} 
+
 .docusaurus-highlight-code-line {
   background-color: rgb(72, 77, 91);
   display: block;
