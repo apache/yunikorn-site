@@ -65,6 +65,63 @@ Distribution in that case could be any of:
 
 The exact distribution between the queues will fluctuate and is dependent on the scheduling policies.
 
+## Converting Kubernetes resources and quotas
+Resource support for pods is limited to the resources specified as part of the _requests_ specification:
+* _cpu_ is mapped to _vcore_ with the value in milli cpu.
+* _memory_ is mapped to _memory_ with the value in MB (1 MB = 10^6 B = 1 000 000 B).
+* all other resources are mapped as provided.
+
+Extended resource as per the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) are supported.
+
+Example pod with a single container:
+```yaml
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: container-1
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "1Gi"
+        hugepages-1Gi: "1"
+```
+The above specification will set pod resources request for scheduling in YuniKorn to:
+* _vcore_ -> 250
+* _memory_ -> 1074
+* _hugepages-1Gi_ -> 1
+
+Two remarks:  
+Multiple container specifications will be aggregated into one total pod resource request automatically.  
+All memory is reported in MB with unit conversions applied where needed. 
+
+In the case that static queue definitions are used for a queue there is no limit on the type of resource that can be specified in a quota.
+Quota annotations on namespaces, used as part of the automatic queue creation, are limited to the equivalent _cpu_ and _memory_ resources.
+See the [setup](#Namespace-quota) below for the annotations on the namespace for quotas.
+
+## Kubernetes and YuniKorn quota interaction
+The recommendation is to turn off, not configure, the Kubernetes Namespace quotas.
+Using only YuniKorn queue quotas provides a more flexible setup and allows queueing of workloads.  
+
+In a setup that has both YuniKorn and Kubernetes quotas turned on consider the following points:
+* Two separate configurations need to be maintained.
+  This increases the maintenance burden, and the possibility of configuration mistakes.
+* Both quotas will be enforced.
+  
+Having both quotas turned on can lead to unexpected behaviour.
+The main issue is the fact that the Kubernetes namespace quota is enforced on submit.
+There are three combinations of quota configuration that are possible. 
+The 3 combinations could have two effects when used in combination with the YuniKorn quota.
+
+1. Both quotas are _equal_: workloads will not be queued, the full configured quota can be used.  
+   - Maximum usage and queueing will be limited to the set quota
+2. Kubernetes quota is _lower_ than YuniKorn: the YuniKorn quota will never be reached and workloads will not be queued.   
+   - Maximum usage will be limited to the Kubernetes quota.
+3. Kubernetes quota is _higher_ than YuniKorn: YuniKorn will limit the usage to the quota set in YuniKorn.
+   The Kubernetes quota will be enforced on submit and thus set the limit for the workload that can be queued on top of the YuniKorn quota.  
+   - Maximum usage will be limited to the YuniKorn quota.
+   - Workload queueing will be limited to the Kubernetes quota.
+
 :::note
 The following configuration examples are just to demonstrate the format needed
 to create a queue hierarchy with quotas set.
