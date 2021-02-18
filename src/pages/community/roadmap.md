@@ -26,26 +26,24 @@ under the License.
 
 ## What's next (future development)
 
-- Gang scheduling
-- Preemption phase 2
-- Support spot instances for Spark scheduling
-- Support for Kubernetes 1.17 and later
+- Application and task priority support [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1)
+- Logging and tracing enhancement using OpenTracing [YUNIKORN-387](https://issues.apache.org/jira/browse/YUNIKORN-387)
+- REST API redesign [YUNIKORN-413](https://issues.apache.org/jira/browse/YUNIKORN-413)
+- Application level preemption
 
 ## v0.10.0
 
 In this version, the Apache YuniKorn (Incubating) community is focusing on improving the stability, and configuration handling
 The main features delivered in this release includes:
 
+- Gang scheduling [YUNIKORN-2](https://issues.apache.org/jira/browse/YUNIKORN-2)
 - Core scheduler cache removal [YUNIKORN-317](https://issues.apache.org/jira/browse/YUNIKORN-317)
-- Logging and tracing enhancement using OpenTracing [YUNIKORN-387](https://issues.apache.org/jira/browse/YUNIKORN-387)
-- Kubernetes API upgrade to 1.16 [YUNIKORN-373](https://issues.apache.org/jira/browse/YUNIKORN-373)
-- Application tracking API and CRD [YUNIKORN-201](https://issues.apache.org/jira/browse/YUNIKORN-201)
-- Application and task priority support [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1)
+- Application tracking API and CRD phase 1 [YUNIKORN-201](https://issues.apache.org/jira/browse/YUNIKORN-201)
 - Web UI refurbishment [YUNIKORN-320](https://issues.apache.org/jira/browse/YUNIKORN-320)
 
 ## v0.9.0 (28 August 2020)
 
-This release ships a number of improvements focussed on the user experience.
+This release ships a number of improvements focused on the user experience.
 
 ### Resource Quota Management
 
