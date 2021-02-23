@@ -52,8 +52,11 @@ Containers/pods can be added to and removed from the application.
 This state is part of the normal scheduling cycle.
 * Waiting: An application that has no pending requests or running containers/pod will be waiting.
 This state shows that the application has not been marked completed yet but currently is not actively being scheduled.
-* Completed: The resource manager has signalled that the application is done. 
-This is a final state. The application cannot change state after entering.
+* Completed: An application is considered completed when it has been in the waiting state for a defined time period.
+From this state the application can only move to the Expired state and it cannot move back into any of scheduling states (Running or Waiting)
+The current timeout is set to 30 seconds.
+* Expired: The completed application is tracked for a period of time, after that is expired and deleted from the scheduler.
+This is a final state and after this state the application cannot be tracked anymore. 
 * Killed: Removed by the resource manager at the request of an administrator or the user running the application.
 This is a final state. The application cannot change state after entering.
 * Rejected: The application was rejected when it was added to the scheduler. 
@@ -65,8 +68,9 @@ The events that can trigger a state change:
 * Reject: rejecting the application by the scheduler (source: core scheduler)
 * Run: progress an application to the next active state (source: core scheduler)
 * Wait: mark an application as idle (source: core scheduler)
-* Complete: mark an application as complete (source: resource manager)
+* Complete: mark an application as complete (source: core scheduler)
 * Kill: kill an application (source: resource manager)
+* Expire: progress the application to the expired state and remove it from the scheduler (source: core scheduler)
 
 Here is a diagram that shows the states with the event that causes the state to change:  
 ![application state diagram](./../assets/application-state.png)
