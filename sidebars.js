@@ -26,6 +26,7 @@ module.exports = {
             'user_guide/sorting_policies',
             'user_guide/acls',
             'user_guide/resource_quota_management',
+            'user_guide/gang_scheduling',
             {
                 type: 'category',
                 label: 'Workloads',
