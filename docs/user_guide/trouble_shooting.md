@@ -148,10 +148,12 @@ kubectl scale deployment yunikorn-scheduler -n yunikorn --replicas=1
 
 ### 1. No placeholders created, app's pods are pending
 
-*Reason*: This is usually because the taskGroups definition is invalid, and the app is rejected by the scheduler.
-The scheduler does the sanity check upon app submission, to ensure all the taskGroups are defined correctly,
-if these info are malformed, the scheduler rejects the app. Check the pod event for relevant messages, and you will
-also be able to find more detail error messages from the schedulers' log.
+*Reason*: This is usually because the app is rejected by the scheduler, therefore non of the pods are scheduled.
+The common reasons caused the rejection are: 1) The taskGroups definition is invalid. The scheduler does the
+sanity check upon app submission, to ensure all the taskGroups are defined correctly, if these info are malformed,
+the scheduler rejects the app; 2) The total min resources defined in the taskGroups is bigger than the queues' max
+capacity, scheduler rejects the app because it won't fit into the queue's capacity. Check the pod event for relevant messages,
+and you will also be able to find more detail error messages from the schedulers' log.
 
 *Solution*: Correct the taskGroups definition and retry submitting the app. 
 

@@ -32,10 +32,6 @@ maximum number of applications running concurrently with min resource guaranteed
 
 ![Gang Scheduling](./../assets/gang_scheduling_iintro.png)
 
-:::note
-gang scheduling feature is only available in *0.10.0* and later releases.
-:::
-
 ## Enable Gang Scheduling
 
 There is no cluster-wide configuration needed to enable Gang Scheduling.
@@ -50,9 +46,7 @@ treated as the same kind in the scheduler.
 
 ### Prerequisite
 
-It is recommended to enable gang scheduling at least in the *queue level*, which means for
-each resource queue, either all the apps are gang scheduled, or non of the apps is gang scheduled.
-For the queues which have gang scheduling enabled, the queue sorting policy needs to be set either
+For the queues which runs gang scheduling enabled applications, the queue sorting policy needs to be set either
 `FIFO` or `StateAware`. To configure queue sorting policy, please refer to doc: [app sorting policies](user_guide/sorting_policies.md#Application_sorting).
 
 :::info Why FIFO based sorting policy?
@@ -72,7 +66,7 @@ which can be specified via pod annotations. The required fields are:
 |----------------------------------------------- |---------------------	|
 | yunikorn.apache.org/task-group-name 	         | Task group name, it must be unique within the application |
 | yunikorn.apache.org/task-groups                | A list of task groups, each item contains all the info defined for the certain task group |
-| yunikorn.apache.org/schedulingPolicyParameters | Optional. A arbitrary key value pairs to define scheduling policy parameters. Currently only *placeholderTimeoutInSeconds* is supported. It defines the reservation timeout for how long the scheduler should wait until giving up allocating all the placeholders. |
+| yunikorn.apache.org/schedulingPolicyParameters | Optional. A arbitrary key value pairs to define scheduling policy parameters. Please read [schedulingPolicyParameters section](#scheduling-policy-parameters) |
 
 #### How many task groups needed?
 
@@ -86,6 +80,28 @@ one for the driver pod and the other one for the executor pods.
 The task group definition is a copy of the app’s real pod definition, values for fields like resources, node-selector
 and toleration should be the same as the real pods. This is to ensure the scheduler can reserve resources with the
 exact correct pod specification.
+
+#### Scheduling Policy Parameters
+
+Scheduling policy related configurable parameters. Apply the parameters in the following format in pod's annotation:
+
+```yaml
+annotations:
+   yunikorn.apache.org/schedulingPolicyParameters: "PARAM1=VALUE1 PARAM2=VALUE2 ..."
+```
+
+Currently, the following parameters are supported:
+
+`placeholderTimeoutInSeconds`
+
+Default value: *15 minutes*.
+This parameter defines the reservation timeout for how long the scheduler should wait until giving up allocating all the placeholders.
+The timeout timer starts to tick when the scheduler *allocates the first placeholder pod*. This ensures if the scheduler
+could not schedule all the placeholder pods, it will eventually give up after a certain amount of time. So that the resources can be
+freed up and used by other apps. If non of the placeholders can be allocated, this timeout won't kick-in. To avoid the placeholder
+pods stuck forever, please refer to [troubleshooting](trouble_shooting.md#gang-scheduling) for solutions.
+
+More scheduling parameters will added in order to provide more flexibility while scheduling apps.
 
 #### Example
 
