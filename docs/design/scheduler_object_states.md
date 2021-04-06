@@ -50,14 +50,15 @@ This state is part of the normal scheduling cycle.
 * Running: The state in which the application will spend most of its time.
 Containers/pods can be added to and removed from the application. 
 This state is part of the normal scheduling cycle.
-* Waiting: An application that has no pending requests or running containers/pod will be waiting.
+* Completing: An application that has no pending requests or running containers/pod will be completing.
 This state shows that the application has not been marked completed yet but currently is not actively being scheduled.
-* Completed: An application is considered completed when it has been in the waiting state for a defined time period.
-From this state the application can only move to the Expired state and it cannot move back into any of scheduling states (Running or Waiting)
+* Completed: An application is considered completed when it has been in the completing state for a defined time period.
+From this state the application can only move to the Expired state, and it cannot move back into any of scheduling states (Running or Completing)
 The current timeout is set to 30 seconds.
 * Expired: The completed application is tracked for a period of time, after that is expired and deleted from the scheduler.
 This is a final state and after this state the application cannot be tracked anymore. 
-* Killed: Removed by the resource manager at the request of an administrator or the user running the application.
+* Failing: An application marked for failing, what still has some allocations or asks what needs to be cleaned up before entering into the Failed state.
+* Failed: An application is considered failed when it was marked for failure and all the pending requests and allocations were already removed.
 This is a final state. The application cannot change state after entering.
 * Rejected: The application was rejected when it was added to the scheduler. 
 This only happens when a resource manager tries to add a new application, when it gets created in a New state, and the scheduler rejects the creation.
@@ -67,9 +68,8 @@ This is a final state. The application cannot change state after entering.
 The events that can trigger a state change:
 * Reject: rejecting the application by the scheduler (source: core scheduler)
 * Run: progress an application to the next active state (source: core scheduler)
-* Wait: mark an application as idle (source: core scheduler)
-* Complete: mark an application as complete (source: core scheduler)
-* Kill: kill an application (source: resource manager)
+* Complete: mark an application as idle or complete (source: core scheduler)
+* Fail: fail an application (source: resource manager or core scheduler)
 * Expire: progress the application to the expired state and remove it from the scheduler (source: core scheduler)
 
 Here is a diagram that shows the states with the event that causes the state to change:  
