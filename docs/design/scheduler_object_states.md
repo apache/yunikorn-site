@@ -57,7 +57,8 @@ From this state the application can only move to the Expired state, and it canno
 The current timeout is set to 30 seconds.
 * Expired: The completed application is tracked for a period of time, after that is expired and deleted from the scheduler.
 This is a final state and after this state the application cannot be tracked anymore. 
-* Failing: An application marked for failing, what still has some allocations or asks what needs to be cleaned up before entering into the Failed state.
+* Failing: An application marked for failing, what still has some allocations or asks what needs to be cleaned up before entering into the Failed state. 
+  The application can be Failing when the partition it belongs to is removed or during gang scheduling, if the placeholder processing times out, and the application has no real allocations yet.
 * Failed: An application is considered failed when it was marked for failure and all the pending requests and allocations were already removed.
 This is a final state. The application cannot change state after entering.
 * Rejected: The application was rejected when it was added to the scheduler. 
