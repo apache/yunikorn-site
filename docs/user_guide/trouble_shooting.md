@@ -144,6 +144,45 @@ kubectl scale deployment yunikorn-scheduler -n yunikorn --replicas=0
 kubectl scale deployment yunikorn-scheduler -n yunikorn --replicas=1
 ```
 
+## Gang Scheduling
+
+### 1. No placeholders created, app's pods are pending
+
+*Reason*: This is usually because the app is rejected by the scheduler, therefore non of the pods are scheduled.
+The common reasons caused the rejection are: 1) The taskGroups definition is invalid. The scheduler does the
+sanity check upon app submission, to ensure all the taskGroups are defined correctly, if these info are malformed,
+the scheduler rejects the app; 2) The total min resources defined in the taskGroups is bigger than the queues' max
+capacity, scheduler rejects the app because it won't fit into the queue's capacity. Check the pod event for relevant messages,
+and you will also be able to find more detail error messages from the schedulers' log.
+
+*Solution*: Correct the taskGroups definition and retry submitting the app. 
+
+### 2. Not all placeholders can be allocated
+
+*Reason*: The placeholders also consume resources, if not all of them can be allocated, that usually means either the queue
+or the cluster has no sufficient resources for them. In this case, the placeholders will be cleaned up after a certain
+amount of time, defined by the `placeholderTimeoutInSeconds` scheduling policy parameter.
+
+*Solution*: Note, if the placeholder timeout reaches, currently the app will transit to failed state and can not be scheduled
+anymore. You can increase the placeholder timeout value if you are willing to wait for a longer time. In the future, a fallback policy
+might be added to provide some retry other than failing the app.
+
+### 3. Not all placeholders are swapped
+
+*Reason*: This usually means the actual app's pods are less than the minMembers defined in the taskGroups.
+
+*Solution*: Check the `minMember` in the taskGroup field and ensure it is correctly set. The `minMember` can be less than
+the actual pods, setting it to bigger than the actual number of pods is invalid.
+
+### 4.Placeholders are not cleaned up when the app terminated
+
+*Reason*: All the placeholders are set an [ownerReference](https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
+to the first real pod of the app, or the controller reference. If the placeholder could not be cleaned up, that means
+the garbage collection is not working properly. 
+
+*Solution*: check the placeholder `ownerReference` and the garbage collector in Kubernetes.    
+
+
 ## Still got questions?
 
 No problem! The Apache YuniKorn community will be happy to help. You can reach out to the community with the following options:
