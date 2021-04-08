@@ -496,7 +496,6 @@ partitions:
   - name: tag
     create: true
     value: namespace
-checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
 ```
 
 ## Configuration update
