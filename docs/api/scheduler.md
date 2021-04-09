@@ -245,6 +245,42 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 ]
 ```
 
+## Nodes utilization
+
+Shows how nodes are distributed with regarding the utilization
+
+**URL** : `/ws/v1/nodes/utilization`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```text
+[
+    {
+     partition: default,
+     utilization: [ {
+        type: "cpu",
+        total: 100,
+        used: 50,
+        usage: 50%
+      },
+      {
+         type: "memory",
+         total: 1000,
+         used: 500,
+         usage: 50%
+      }
+     ]
+    }, 
+    ...
+]
+```
+
 ## Goroutines info
 
 Dumps the stack traces of the currently running goroutines.
@@ -432,6 +468,98 @@ Reponse
     "allowed": false,
     "reason": "yaml: unmarshal errors:\n  line 7: cannot unmarshal !!str `wrong_text` into configs.PartitionConfig"
 }
+```
+## Configuration
+
+Endpoint to retrieve the current scheduler configuration
+
+**URL** : `/ws/v1/config`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```yaml
+partitions:
+- name: default
+  queues:
+  - name: root
+    parent: true
+    submitacl: '*'
+  placementrules:
+  - name: tag
+    create: true
+    value: namespace
+checksum: D75996C07D5167F41B33E27CCFAEF1D5C55BE3C00EE6526A7ABDF8435DB4078E
+```
+
+## Configuration update
+
+Endpoint to override scheduler configuration. 
+
+**URL** : `/ws/v1/config`
+
+**Method** : `PUT`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```yaml
+partitions:
+  -
+    name: default
+    placementrules:
+      - name: tag
+        value: namespace
+        create: true
+    queues:
+      - name: root
+        submitacl: '*'
+        properties:
+          application.sort.policy: stateaware
+```
+
+### Failure response
+
+The configuration update can fail due to invalid configuration 
+
+In this case the transaction will be rolled back, and the proper 
+error message will be returned as a response.
+
+**Code** : `409 Conflict`
+
+**Message example** :  root queue must not have resource limits set
+
+**Content example**
+
+```yaml
+partitions:
+  -
+    name: default
+    placementrules:
+      - name: tag
+        value: namespace
+        create: true
+    queues:
+      - name: root
+        submitacl: '*'
+        resources:
+          guaranteed:
+            memory: "512"
+            vcore: "1"
+        properties:
+          application.sort.policy: stateaware
 ```
 
 ## Application history
