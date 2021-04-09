@@ -496,6 +496,7 @@ partitions:
   - name: tag
     create: true
     value: namespace
+checksum: D75996C07D5167F41B33E27CCFAEF1D5C55BE3C00EE6526A7ABDF8435DB4078E
 ```
 
 ## Configuration update
@@ -527,21 +528,14 @@ partitions:
         submitacl: '*'
         properties:
           application.sort.policy: stateaware
-checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
 ```
-**Note:** the checksum is the base configuration checksum on top of what we want to make the changes.
-If the provided checksum in the request differs from the base version, the configuration update will fail. 
-This is to avoid applying any unintentional changes to the running version. 
-Subsequently, the client needs to retrieve the latest version from the scheduler and send another update with the up-to-date checksum.
 
 ### Failure response
 
-The configuration update can fail due to different reasons such as: 
-- invalid configuration, 
-- outdated base checksum.
+The configuration update can fail due to invalid configuration 
 
-In each case the transaction will be rolled back, and the proper 
-error message will be returned in the response.
+In this case the transaction will be rolled back, and the proper 
+error message will be returned as a response.
 
 **Code** : `409 Conflict`
 
@@ -566,7 +560,6 @@ partitions:
             vcore: "1"
         properties:
           application.sort.policy: stateaware
-checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
 ```
 
 ## Application history
