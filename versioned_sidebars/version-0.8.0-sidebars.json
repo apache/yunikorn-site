@@ -5,8 +5,9 @@
       "label": "Get Started",
       "items": [
         {
-          "type": "doc",
-          "id": "version-0.8.0/get_started/release_notes"
+          "type": "link",
+          "label": "Release Note",
+          "href": "/release-announce/0.8.0/"
         },
         {
           "type": "doc",
