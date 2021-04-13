@@ -6,6 +6,11 @@
       "label": "Get Started",
       "items": [
         {
+          "type": "link",
+          "label": "Release Notes",
+          "href": "/release-announce/0.9.0/"
+        },
+        {
           "type": "doc",
           "id": "version-0.9.0/get_started/user_guide"
         },
