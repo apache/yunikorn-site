@@ -21,20 +21,8 @@ title: Gang scheduling design
  * limitations under the License.
  -->
 # Gang Scheduling Implementation
-## Change log
-
-| Change Date | Editors               | Description                                    |
-| ----------- | --------------------- | ---------------------------------------------- |
-| 2020-11-25  | Wilfred Spiegelenburg | Initial document                               |
-| 2020-11-26  | Wilfred Spiegelenburg | Allocation release definition, order change    |
-| 2020-11-27  | Wilfred Spiegelenburg | Sequence diagram                               |
-| 2020-12-12  | Wilfred Spiegelenburg | Application submit and cleanup                 |
-| 2020-12-15  | Wilfred Spiegelenburg | AllocationRelease message and cleanup sequence |
-| 2020-12-24  | Wilfred Spiegelenburg | Allocation changes for recovery                |
-| 2021-02-15  | Wilfred Spiegelenburg | Placeholder allocation and ask cleanup         |
-
-YUNIKORN-2 describes a new format for scheduling applications by taking into account the overall demand the application will have.
-It guarantees the specified resources for the application by reserving the resources.
+A new way of scheduling applications by taking into account the demand for resources the application expects it will generate over time.
+It guarantees the expected demand resources for the application by reserving the resources.
 
 There are two parts to this implementation:
 *   Kubernetes Shim
@@ -44,7 +32,6 @@ This document describes the implementation on the core side.
 
 ## Goals
 Define the following points:
-
 1. Define changes required for the shim to core communication (scheduler interface)
 2. Scheduler storage object changes
 3. Scheduler logic changes
@@ -55,7 +42,6 @@ Excluding the following major points:
 2. Generalised preemption on the core side
 
 ## Generic flow
-As described in the YUNIKORN-2 design documentation we have the following flow.
 The flow is triggered by a pod that is submitted which triggers the application creation.
 This first pod is in the case of a Spark application, the driver pod.
 In case the flow is triggered from the creation of an application CRD there will not be a first pod.
@@ -80,7 +66,6 @@ After the first, real, pod is started the following pods should all be handled i
 *   A real pod is created on k8s.
 *   The pod is processed and an AllocationAsk is created.
 *   The scheduler processes the AllocationAsk (more detail below) and replaces a placeholder with the real allocation.
-
 
 ## Application submit handling
 ### Total placeholder size
@@ -146,7 +131,6 @@ This could also leverage preemption in certain use cases, like preempting alloca
 
 Further enhancements could be added by allowing specifying the time and application will wait for the placeholders to be allocated, or the time to start using the held resources.
 
-
 ## Scheduler logic changes
 The scheduler logic change needs to account for two parts of cycle:
 *   The placeholder asks and their allocation.
@@ -200,7 +184,6 @@ The scheduler processes the AllocationAsk as follows:
     * On success: a new Allocation is created.
     * On Failure: try to allocate on a different node, if that fails the AllocationAsk becomes unschedulable triggering scale up. 
 6. Communicate the allocation back to the shim (if applicable, based on step 5)
-
 
 ## Application completion
 Application completion has been a long standing issue.
@@ -314,7 +297,6 @@ Combined flow for the shim and core during cleanup of an application:
 *   After all placeholders are released the core moves the application to the completed state removing it from the queue (6).
 *   The state change is finalised in the core and shim. (7)
 
-
 ## Application recovery
 During application recovery the placeholder pods are recovered as any other pod on a node.
 These pods are communicated to the core by the shim as part of the node as an existing allocation.
@@ -381,7 +363,6 @@ message AllocationAsk {
 ...
 }
 ```
-
 
 The last part of the task group information that needs to be communicated is the size of the task group.
 This does not require a change in the interface as the current AllocationAsk object can support both possible options.
