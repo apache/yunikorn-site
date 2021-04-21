@@ -30,16 +30,16 @@ There are two parts to this implementation:
 
 This document describes the implementation on the core side.
 
-## Goals
-Define the following points:
+## Document goals
+This document describes the following implementation design points:
 1. Define changes required for the shim to core communication (scheduler interface)
 2. Scheduler storage object changes
 3. Scheduler logic changes
 
-## Non Goals
-Excluding the following major points:
-1. Kubernetes shim side implementation
-2. Generalised preemption on the core side
+## Excluded design points
+Currently, the Kubernetes shim side implementation is not covered in this design document.
+
+Generalised preemption on the core side will _not_ be discussed in this design.
 
 ## Generic flow
 The flow is triggered by a pod that is submitted which triggers the application creation.
@@ -90,18 +90,19 @@ This total placeholderAsk is added as an optional field to the AddApplicationReq
 The calculation can be made by the shim based on the CRD or annotation provided in the pod description.
 
 If the placeholderAsk is larger than the queue quota set on the queue the application must be rejected.
-This rejection is based on the fact that we cannot in any way honor the request For all other cases the application is accepted and will be scheduled as per normal.
+This rejection is based on the fact that we cannot in any way honor the request.
+For all other cases the application is accepted and will be scheduled as per normal.
 
 ### Handling queue with a FAIR sort policy
 If an application is submitted to a queue that has a FAIR sort policy set it must be rejected.
-Queue sorting for the queue that an application with gang requests runs in must be set to FIFO or StateAware.
+Queue sorting for the queue that the application runs in must be set to _FIFO_ or _StateAware_.
 
-Other queue policies cannot guarantee that there is only one New application processed at a time.
-In the case of the FAIR policy we could be allocating multiple New applications at the same time making quota management impossible to enforce.
-The other side effect of using FAIR as a policy could be that we get multiple applications with only a partial allocated guarantee.
+Other queue policies cannot guarantee that there is only one _New_ application processed at a time.
+In the case of the _FAIR_ policy we could be allocating multiple _New_ applications at the same time making quota management impossible to enforce.
+The other side effect of using _FAIR_ as a policy could be that we get multiple applications with only a partial allocated guarantee.
 
 Auto-scaling can be triggered due to the fact that the core can not place the placeholders on any node.
-In case the queue would use the FAIR sorting this could lead to other applications taking the scaled up nodes instead of the placeholders again breaking the gang.
+In case the queue would use the _FAIR_ sorting this could lead to other applications taking the scaled up nodes instead of the placeholders again breaking the gang.
 
 ## Scheduling in queues with a quota set
 The main case already described above is handling a total placeholder request size that is larger than the quota set on the queue.
@@ -140,14 +141,6 @@ The basic assumption is that all pods will generate a placeholder pod request to
 This includes the pod that triggered the application creation if we do not use the application CRD.
 This assumption is needed to make sure that the scheduler core can behave in the same way for both ways of submitting the application.
 The placeholder pods must be communicated to the core before the real pod.
-
-Queue sorting for the queue that the application runs in must be set to _FIFO_ or _StateAware_.
-Other queue policies cannot guarantee that there is only one _New_ application processed at a time.
-In the case of the _FAIR_ policy we could be allocating multiple _New_ applications at the same time making quota management impossible to enforce.
-The other side effect of using _FAIR_ as a policy could be that we get multiple applications with only a partial allocated guarantee.
-
-Auto-scaling can be triggered due to the fact that the core can not place the placeholders on any node.
-In case the queue would use the _FAIR_ sorting this could lead to other applications taking the scaled up nodes instead of the placeholders again breaking the gang.
 
 Changes for the placeholder AllocationAsks are the first step.
 As part of the creation of the application the AllocationAsks get added.
