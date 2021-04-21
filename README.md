@@ -163,7 +163,7 @@ First step is to update the `latest release` line to the correct version.
 Second step is to update the table: copy an existing entry and change the links and details to point to the new release.
 All links must be updated:
 * 3 for the download (source tar, checksum and signature)
-* 2 for the docker images (scheduler and admission controller)
+* 3 for the docker images (scheduler, admission controller and web)
 * 1 release announcement 
 
 ### Update announcementBar
