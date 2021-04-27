@@ -52,7 +52,7 @@ The tool can be run locally and will be integrated into the GitHub PR flow.
 
 ### Installing and running locally
 Depending on your development system the instructions might differ slightly.
-Follow the [installation instructions](https://github.com/golangci/golangci-lint#install) provided by the project.
+Follow the [installation instructions](https://golangci-lint.run/usage/install/#local-installation) provided by the project.
 
 After the tool is installed you can run it using the standard command line: 
 ```shell script
@@ -61,7 +61,7 @@ golangci-lint run
 The projects still generate a number of warnings.
 The high impact warnings have been fixed or ignored via comments, see [False positives](#false-positives).
 
-If you have been working on a new feature or a bug you only want to check the files that have changed.
+If you have been working on a new feature, or a bug fix you only want to check the files that have changed.
 You can run the tool with the option `--new` or `--new-from-rev` option.
 The `--new` option will only check uncommitted files.
 The `--new-from-rev` option will check changes against a specific committed revision.
@@ -72,14 +72,22 @@ golangci-lint run --new
 # for committed changes against a revision
 golangci-lint run --new-from-rev=origin/master
 ```
-The `make` integration checks two locations for the executable and uses the `--new` command line option.
-* `go env GOPATH)/bin/`
-* `./bin/` (relative to the project)
 
 The make target is `lint`:
 ```shell script
 make lint
 ```
+
+The `make` integration checks two locations for the linter executable:
+* `$(go env GOPATH)/bin/`
+* `./bin/`
+  
+The location for a standard installation is slightly different for a developer and CI install.
+By checking both locations we can run locally and during our automated builds.
+
+The make integration uses the `--new-from-rev` command line option.
+The revision to check against is determined as part of the run to allow it to run on different branches and on pull requests during our CI build.
+A lint check is part of the standard CI build run for the project. 
 
 See the golangci-lint product documentation for more options and information on how to run the tool.
 
@@ -121,7 +129,24 @@ There are three tabs to configure, the first two are crucial to comply with the 
 | Imports |![imports](/img/goland_ide_pref_imports.png)|
 | Other |![other](/img/goland_ide_pref_other.png)|
 
+The imports as configured above should create 3 groups of imports in a file when they are used:
+1. standard library imports
+2. third-party imports
+3. YuniKorn internal imports
+
+In the file it will give you an import that looks like this:
+```go
+import (
+  // standard libraries
+
+  // third-party
+
+  // YuniKorn project imports
+)
+```
+
 ### Inspections
-The default inspections except for one that helps highlight shadowing variables. 
+The default inspections can be used except for one that helps highlight shadowing variables.
+Shadowing can cause difficult to trace and obscure bugs in the code and should be prevented whenever possible. 
 
 ![inspections](/img/goland_ide_pref_inspections.png)
