@@ -24,15 +24,18 @@ under the License.
 
 # Apache YuniKorn (Incubating)
 
-Apache YuniKorn (Incubating) is released as source code tarballs. The downloads are distributed via mirror sites and should be checked for tampering using GPG or SHA-512.
+Apache YuniKorn (Incubating) is released as source code tarballs.
+The downloads for the latest release are distributed via mirror sites.
+Older releases can be downloaded from the Apache archive site.
+All release artifacts should be checked for tampering using GPG or SHA-512.
 
-The latest release of Apache YuniKorn is v0.10.0.
+The latest release of Apache YuniKorn is: v0.10.0.
 
 |  Version   | Release date  | Source download  | Docker images  | Release notes  |
 |  ----  | ----  | ----  | ----  | ----  |
 | v0.10.0  | 2021-04-09 | [Download](https://www.apache.org/dyn/closer.cgi/incubator/yunikorn/0.10.0/apache-yunikorn-0.10.0-incubating-src.tar.gz)<br />[Checksum](https://downloads.apache.org/incubator/yunikorn/0.10.0/apache-yunikorn-0.10.0-incubating-src.tar.gz.sha512) & [Signature](https://downloads.apache.org/incubator/yunikorn/0.10.0/apache-yunikorn-0.10.0-incubating-src.tar.gz.asc) | [scheduler](https://hub.docker.com/layers/apache/yunikorn/scheduler-0.10.0/images/sha256-e8f44044876fb15e254a081ee43c9dd4c899069670ea1aa7b5021b86c0b1dcd1)<br />[admission-controller](https://hub.docker.com/layers/apache/yunikorn/admission-0.10.0/images/sha256-3cf0d833f09d3bc6a5af73b51316a532d91162fecd59c60ec35dd1c894eefa73)<br />[web](https://hub.docker.com/layers/apache/yunikorn/web-0.10.0/images/sha256-e0a8c3b44c4dbecacf403e5ff89ce3ddeb9b57fd68b58961173c3d1b9f95896e) | [Announcement](../release-announce/0.10.0) |
-| v0.9.0  | 2020-08-28 | [Download](https://www.apache.org/dyn/closer.cgi/incubator/yunikorn/0.9.0/apache-yunikorn-0.9.0-incubating-src.tar.gz)<br />[Checksum](https://downloads.apache.org/incubator/yunikorn/0.9.0/apache-yunikorn-0.9.0-incubating-src.tar.gz.sha512) & [Signature](https://downloads.apache.org/incubator/yunikorn/0.9.0/apache-yunikorn-0.9.0-incubating-src.tar.gz.asc) | [scheduler](https://hub.docker.com/layers/apache/yunikorn/scheduler-0.9.0/images/sha256-2835a6a0988c44e7802c2e4cfa6a7c446e1188abd4d058b0d9fe370d4ec4419b)<br />[admission-controller](https://hub.docker.com/layers/apache/yunikorn/admission-0.9.0/images/sha256-ee56a910698d1c49bc57646472ea39f0fc1a99ad96a77bec391fe0151d417d34)<br />[web](https://hub.docker.com/layers/apache/yunikorn/web-0.9.0/images/sha256-db8432986475dc9f569ecbc0da72b4c6bdcecc89877240c0a6cec9af2f59ae46) | [Announcement](../release-announce/0.9.0) |
-| v0.8.0  | 2020-05-04 | [Download](https://www.apache.org/dyn/closer.cgi/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz)<br />[Checksum](https://downloads.apache.org/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz.sha512) & [Signature](https://downloads.apache.org/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz.asc) | [scheduler](https://hub.docker.com/layers/apache/yunikorn/scheduler-0.8.0/images/sha256-0b35f9bb767f06af7f84f58799401ba7de7b8991f3c9724f40f733bc517193df)<br />[admission-controller](https://hub.docker.com/layers/apache/yunikorn/admission-0.8.0/images/sha256-700e9bf7bc5597ab144be9f29b489fb82d7e012ee46d34bbc26cfb91bf364124)<br />[web](https://hub.docker.com/layers/apache/yunikorn/web-0.8.0/images/sha256-83faa83ec9d1c90b40ca5bee9977c31fba31ba34f3ae9c785d994adbb545a273) | [Announcement](../release-announce/0.8.0) |
+| v0.9.0  | 2020-08-28 | [Download](https://archive.apache.org/dist/incubator/yunikorn/0.9.0/apache-yunikorn-0.9.0-incubating-src.tar.gz)<br />[Checksum](https://archive.apache.org/dist/incubator/yunikorn/0.9.0/apache-yunikorn-0.9.0-incubating-src.tar.gz.sha512) & [Signature](https://archive.apache.org/dist/incubator/yunikorn/0.9.0/apache-yunikorn-0.9.0-incubating-src.tar.gz.asc) | [scheduler](https://hub.docker.com/layers/apache/yunikorn/scheduler-0.9.0/images/sha256-2835a6a0988c44e7802c2e4cfa6a7c446e1188abd4d058b0d9fe370d4ec4419b)<br />[admission-controller](https://hub.docker.com/layers/apache/yunikorn/admission-0.9.0/images/sha256-ee56a910698d1c49bc57646472ea39f0fc1a99ad96a77bec391fe0151d417d34)<br />[web](https://hub.docker.com/layers/apache/yunikorn/web-0.9.0/images/sha256-db8432986475dc9f569ecbc0da72b4c6bdcecc89877240c0a6cec9af2f59ae46) | [Announcement](../release-announce/0.9.0) |
+| v0.8.0  | 2020-05-04 | [Download](https://archive.apache.org/dist/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz)<br />[Checksum](https://archive.apache.org/dist/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz.sha512) & [Signature](https://archive.apache.org/dist/incubator/yunikorn/0.8.0-incubating/apache-yunikorn-0.8.0-incubating-src.tar.gz.asc) | [scheduler](https://hub.docker.com/layers/apache/yunikorn/scheduler-0.8.0/images/sha256-0b35f9bb767f06af7f84f58799401ba7de7b8991f3c9724f40f733bc517193df)<br />[admission-controller](https://hub.docker.com/layers/apache/yunikorn/admission-0.8.0/images/sha256-700e9bf7bc5597ab144be9f29b489fb82d7e012ee46d34bbc26cfb91bf364124)<br />[web](https://hub.docker.com/layers/apache/yunikorn/web-0.8.0/images/sha256-83faa83ec9d1c90b40ca5bee9977c31fba31ba34f3ae9c785d994adbb545a273) | [Announcement](../release-announce/0.8.0) |
 
 ## Verifying the signature
 
@@ -58,10 +61,8 @@ To verify the integrity of Apache YuniKorn release using the SHA-512 checksum:
 ## All releases
 
 You can find all previous releases in the [Archive incubating repository](https://archive.apache.org/dist/incubator/yunikorn/).
+This might include releases not mentioned in the table above.
 
 ## License
 
 The software is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-
-
