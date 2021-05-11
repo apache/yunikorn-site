@@ -23,6 +23,7 @@ module.exports = {
         'User Guide': [
             'user_guide/queue_config',
             'user_guide/placement_rules',
+            'user_guide/usergroup_resolution',            
             'user_guide/sorting_policies',
             'user_guide/acls',
             'user_guide/resource_quota_management',
