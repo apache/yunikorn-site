@@ -25,15 +25,12 @@ under the License.
 The basis for the queue configuration is given in the [configuration design document](design/scheduler_configuration.md).
 
 This document provides the generic queue configuration.
-It references both the [Access control lists](user_guide/acls.md) and [placement rule](user_guide/placement_rules.md) documentation.
+It references both the [Access Control Lists](user_guide/acls.md) and [Placement rules](user_guide/placement_rules.md) documentation.
 
 This document explains how to create the partition and queue configuration for the scheduler with examples.
 
 The scheduler relies on the shim to reliably provide user information as part of the application submission.
-In the current shim there is no reliable way to identify the user and the groups the user belongs to.
-The user and group information provided by the shim is incomplete in the best case.
-This shim limitation impacts the behaviour of user based limits and access control in the scheduler.
-The current implementation only provides the framework in the scheduler and will not be fully functional until the shim changes are added. 
+The current shim identifies the user and the groups the user belongs to using the methodology provided in [User & Group Resolution](usergroup_resolution) 
 
 ## Configuration
 The configuration file for the scheduler that is described here only provides the configuration for the partitions and queues.
