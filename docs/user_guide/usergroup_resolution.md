@@ -38,13 +38,16 @@ metadata:
   labels:
     yunikorn.apache.org/username: "john"
 ```
-NOTE: 
+:::tip 
 In order to make this field uniquiely identifiable to the authorized user, the suggestion is to add this label as an immutable field by the user identification tool used by the cluster administrators. The cluster administrators or users are free to use any method or tool to add this field and value. This includes adding it manually at the time of submission. 
+:::
 
+:::note Assumption 
 Assumption:
   Yunikorn assumes that all pods belonging to an application are owned by the same user. We recommend that the user label is added to every pod of an app. This is to ensure that there is no discrepency. 
+:::
 
-The `yunikorn.apache.org/username` key can customized by overriding the default value using the `USER_LABEL_KEY`env variable to the [K8s](https://github.com/apache/incubator-yunikorn-release/blob/744ce13ec88c49596f965ad0908c25f555cd356c/helm-charts/yunikorn/templates/deployment.yaml#L48). This is particularly useful in scenarios where the user label is already being added or if the label has to be modified for some secuirty reasons. 
+The `yunikorn.apache.org/username` key can be customized by overriding the default value using the `USER_LABEL_KEY`env variable to the [K8s](https://github.com/apache/incubator-yunikorn-release/blob/744ce13ec88c49596f965ad0908c25f555cd356c/helm-charts/yunikorn/templates/deployment.yaml#L48). This is particularly useful in scenarios where the user label is already being added or if the label has to be modified for some secuirty reasons. 
 
 ```yaml          
             env:
