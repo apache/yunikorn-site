@@ -47,7 +47,7 @@ Assumption:
   Yunikorn assumes that all pods belonging to an application are owned by the same user. We recommend that the user label is added to every pod of an app. This is to ensure that there is no discrepency. 
 :::
 
-The `yunikorn.apache.org/username` key can be customized by overriding the default value using the `USER_LABEL_KEY`env variable to the [K8s](https://github.com/apache/incubator-yunikorn-release/blob/744ce13ec88c49596f965ad0908c25f555cd356c/helm-charts/yunikorn/templates/deployment.yaml#L48). This is particularly useful in scenarios where the user label is already being added or if the label has to be modified for some secuirty reasons. 
+The `yunikorn.apache.org/username` key can be customized by overriding the default value using the `USER_LABEL_KEY`env variable to the [K8s](https://github.com/apache/incubator-yunikorn-release/blob/master/helm-charts/yunikorn/templates/deployment.yaml). This is particularly useful in scenarios where the user label is already being added or if the label has to be modified for some secuirty reasons. 
 
 ```yaml          
             env:
