@@ -22,9 +22,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-:::caution
-User information is currently not passed to the core scheduler from the kubernetes shim.
-Therefore, the recommendation is to use the wildcard ACL on the root queue for now as per the default configuration.
+:::info
+User information is passed to the core scheduler from the kubernetes shim using the methodology defined [here](usergroup_resolution)
 :::
 
 ## Usage
@@ -117,27 +116,4 @@ If a check matches the ACL allows access and checking is stopped.
 If none of the checks match the ACL denies access.
 
 ## User and Group information
-ACLs require the user's name and group membership.
-User information must be provided by the shims to the core scheduler.
-The current expectation is that the shims only provide the user information and leave the group information empty.
-
-User information is passed around in the scheduler as a combined user and groups object.
-These objects are cached to allow fast lookup and minimise resolution of the groups.
-
-Based on the fact that the shims do not have to provide group information the core has the possibility to resolve the group memberships.
-Group membership resolution is pluggable, see [resolution](#resolution) below.
-If the resolution of the groups of a user fails the result is still cached with a shortened lifetime.
-Users resolution is cached, negatively and positively, per partition.
-Users resolution like many other configs can differ between partition.
-
-### Resolution
-Groups do not have to be part of provided user and group object.
-When the object is added to the cache the groups are automatically resolved based on the resolution that is configured.
-The resolver which is linked to the cache can be set per partition.
-
-The default group resolver is "no resolver".
-This resolver just echos the user name and a primary group with the same name as the user.
-
-Other resolvers are:
-* OS resolver
-* test resolver
+For User & Group resolution, please follow instructions defined [here](usergroup_resolution)
