@@ -60,6 +60,20 @@ As an example, here is a response from a 2-node cluster with 3 applications and 
 ]
 ```
 
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
 ## Clusters utilization
 
 Returns statistical data related the cluster resource utilization
@@ -96,4 +110,18 @@ Returns statistical data related the cluster resource utilization
         ]
     }
 ]
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
 ```
