@@ -138,33 +138,21 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 ### Error response
 
-**Code** : `500 Internal Server Error`
+**Code** : `400 Bad Request`
 
 **Content examples**
 
 ```json
 {
-    "status_code": 500,
+    "status_code": 400,
     "message": "Partition is missing in URL path. Please check the usage documentation",
     "description": "Partition is missing in URL path. Please check the usage documentation"
 }
 ```
 
-```json
-{
-    "status_code": 500,
-    "message": "Incorrect URL path. Please check the usage documentation",
-    "description": "Incorrect URL path. Please check the usage documentation"
-}
-```
+**Code** : `500 Internal Server Error`
 
-```json
-{
-    "status_code": 500,
-    "message": "Partition not found",
-    "description": "Partition not found"
-}
-```
+**Content examples**
 
 ```json
 {
@@ -307,49 +295,21 @@ In the example below there are three allocations belonging to two applications.
 
 ### Error response
 
-**Code** : `500 Internal Server Error`
+**Code** : `400 Bad Request`
 
 **Content examples**
 
 ```json
 {
-    "status_code": 500,
+    "status_code": 400,
     "message": "Partition is missing in URL path. Please check the usage documentation",
     "description": "Partition is missing in URL path. Please check the usage documentation"
 }
 ```
 
-```json
-{
-    "status_code": 500,
-    "message": "Queue is missing in URL path. Please check the usage documentation",
-    "description": "Queue is missing in URL path. Please check the usage documentation"
-}
-```
+**Code** : `500 Internal Server Error`
 
-```json
-{
-    "status_code": 500,
-    "message": "Incorrect URL path. Please check the usage documentation",
-    "description": "Incorrect URL path. Please check the usage documentation"
-}
-```
-
-```json
-{
-    "status_code": 500,
-    "message": "Partition not found",
-    "description": "Partition not found"
-}
-```
-
-```json
-{
-    "status_code": 500,
-    "message": "Queue not found",
-    "description": "Queue not found"
-}
-```
+**Content examples**
 
 ```json
 {
@@ -524,33 +484,21 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 
 ### Error response
 
-**Code** : `500 Internal Server Error`
+**Code** : `400 Bad Request`
 
 **Content examples**
 
 ```json
 {
-    "status_code": 500,
+    "status_code": 400,
     "message": "Partition is missing in URL path. Please check the usage documentation",
     "description": "Partition is missing in URL path. Please check the usage documentation"
 }
 ```
 
-```json
-{
-    "status_code": 500,
-    "message": "Incorrect URL path. Please check the usage documentation",
-    "description": "Incorrect URL path. Please check the usage documentation"
-}
-```
+**Code** : `500 Internal Server Error`
 
-```json
-{
-    "status_code": 500,
-    "message": "Partition not found",
-    "description": "Partition not found"
-}
-```
+**Content examples**
 
 ```json
 {
@@ -954,33 +902,21 @@ Response
 
 ### Error response
 
-**Code** : `500 Internal Server Error`
+**Code** : `400 Bad Request`
 
 **Content examples**
 
 ```json
 {
-    "status_code": 500,
+    "status_code": 400,
     "message": "Dry run param is missing. Please check the usage documentation",
     "description": "Dry run param is missing. Please check the usage documentation"
 }
 ```
 
-```json
-{
-    "status_code": 500,
-    "message": "Invalid \"dry_run\" query param. Currently, only dry_run=1 is supported. Please check the usage documentation",
-    "description": "Invalid \"dry_run\" query param. Currently, only dry_run=1 is supported. Please check the usage documentation"
-}
-```
+**Code** : `500 Internal Server Error`
 
-```json
-{
-    "status_code": 500,
-    "message": "Invalid query parameters. Please check the usage documentation",
-    "description": "Invalid query parameters. Please check the usage documentation"
-}
-```
+**Content examples**
 
 ```json
 {
