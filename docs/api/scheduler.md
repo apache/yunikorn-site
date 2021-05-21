@@ -22,7 +22,159 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-## Queues
+## Partitions
+
+Displays general information about the partition like name, state, capacity, used capacity and node sorting policy. 
+
+**URL** : `/ws/v1/partitions`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+[
+    {
+        "name": "[mycluster]default",
+        "state": "Active",
+        "lastStateTransitionTime": "2021-05-20 12:25:49.018953 +0530 IST m=+0.005949717",
+        "capacity": {
+            "capacity": "[memory:1000 vcore:1000]",
+            "usedcapacity": "[memory:800 vcore:500]"
+        },
+        "nodeSortingPolicy": "fair",
+        "applications": {
+            "New": 5,
+            "Pending": 5,
+            "total": 10
+        }
+    },
+    {
+        "name": "[mycluster]gpu",
+        "state": "Active",
+        "lastStateTransitionTime": "2021-05-19 12:25:49.018953 +0530 IST m=+0.005949717",
+        "capacity": {
+            "capacity": "[memory:2000 vcore:2000]",
+            "usedcapacity": "[memory:500 vcore:300]"
+        },
+        "nodeSortingPolicy": "fair",
+        "applications": {
+            "New": 5,
+            "Running": 10,
+            "Pending": 5,
+            "total": 20
+        }
+    }
+]
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## Queues (Newer Version)
+
+Displays general information about the queues like name, status, capacities and properties. 
+The queues' hierarchy is kept in the response json.  
+
+**URL** : `/ws/v1/partition/{partitionName}/queues`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+For the default queue hierarchy (only `root.default` leaf queue exists) a similar response to the following is sent back to the client:
+
+```json
+[
+   {
+
+       "queuename": "root",
+       "status": "Active",
+       "maxResource": "[memory:8000 vcore:8000]",
+       "guaranteedResource": "[memory:54 vcore:80]",
+       "allocatedResource": "[memory:54 vcore:80]",
+       "isLeaf": "false",
+       "isManaged": "false",
+       "parent": "",
+       "partition": "[mycluster]default",
+       "children": [
+           {
+               "queuename": "root.default",
+               "status": "Active",
+               "maxResource": "[memory:8000 vcore:8000]",
+               "guaranteedResource": "[memory:54 vcore:80]",
+               "allocatedResource": "[memory:54 vcore:80]",
+               "isLeaf": "true",
+               "isManaged": "false",
+               "parent": "root"
+            }
+        ]
+    } 
+]
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "Partition is missing in URL path. Please check the usage documentation",
+    "description": "Partition is missing in URL path. Please check the usage documentation"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "Incorrect URL path. Please check the usage documentation",
+    "description": "Incorrect URL path. Please check the usage documentation"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "Partition not found",
+    "description": "Partition not found"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## Queues (Deprecated)
 
 Displays general information about the queues like name, status, capacities and properties. 
 The queues' hierarchy is kept in the response json.  
@@ -77,7 +229,137 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 }
 ```
 
-## Applications
+## Applications (Newer Version)
+
+Displays general information about the applications like used resources, queue name, submission time and allocations.
+
+**URL** : `/ws/v1/partition/{partitioName}/queue/{queueName}/applications`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+In the example below there are three allocations belonging to two applications. 
+
+```json
+[
+    {
+        "applicationID": "application-0001",
+        "usedResource": "[memory:4000 vcore:4000]",
+        "partition": "[mycluster]default",
+        "queueName": "root.default",
+        "submissionTime": 1595939756253216000,
+        "allocations": [
+            {
+                "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
+                "allocationTags": null,
+                "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+                "resource": "[memory:4000 vcore:4000]",
+                "priority": "<nil>",
+                "queueName": "root.default",
+                "nodeId": "node-0001",
+                "applicationId": "application-0002",
+                "partition": "default"
+            }
+        ],
+        "applicationState": "Running"
+    },
+    {
+        "applicationID": "application-0002",
+        "usedResource": "[memory:4000 vcore:4000]",
+        "partition": "[mycluster]default",
+        "queueName": "root.default",
+        "submissionTime": 1595939756253460000,
+        "allocations": [
+            {
+                "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
+                "allocationTags": null,
+                "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
+                "resource": "[memory:2000 vcore:2000]",
+                "priority": "<nil>",
+                "queueName": "root.default",
+                "nodeId": "node-0001",
+                "applicationId": "application-0002",
+                "partition": "default"
+            },
+            {
+                "allocationKey": "af3bd2f3-31c5-42dd-8f3f-c2298ebdec81",
+                "allocationTags": null,
+                "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
+                "resource": "[memory:2000 vcore:2000]",
+                "priority": "<nil>",
+                "queueName": "root.default",
+                "nodeId": "node-0002",
+                "applicationId": "application-0002",
+                "partition": "default"
+            }
+        ],
+        "applicationState": "Running"
+    }
+]
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "Partition is missing in URL path. Please check the usage documentation",
+    "description": "Partition is missing in URL path. Please check the usage documentation"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "Queue is missing in URL path. Please check the usage documentation",
+    "description": "Queue is missing in URL path. Please check the usage documentation"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "Incorrect URL path. Please check the usage documentation",
+    "description": "Incorrect URL path. Please check the usage documentation"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "Partition not found",
+    "description": "Partition not found"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "Queue not found",
+    "description": "Queue not found"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## Applications (Deprecated)
 
 Displays general information about the applications like used resources, queue name, submission time and allocations.
 
@@ -159,7 +441,126 @@ In the example below there are three allocations belonging to two applications.
 ]
 ```
 
-## Nodes
+## Nodes (Newer Version)
+
+Displays general information about the nodes managed by YuniKorn. 
+Node details include host and rack name, capacity, resources and allocations.
+
+**URL** : `/ws/v1/partition/{partitionName}/nodes`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+Here you can see an example response from a 2-node cluster having 3 allocations.
+
+```json
+[
+    {
+        "nodeID": "node-0001",
+        "hostName": "",
+        "rackName": "",
+        "capacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:14577 pods:110 vcore:10000]",
+        "allocated": "[memory:6000 vcore:6000]",
+        "occupied": "[memory:154 vcore:750]",
+        "available": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:6423 pods:110 vcore:1250]",
+        "allocations": [
+            {
+                "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
+                "allocationTags": null,
+                "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
+                "resource": "[memory:2000 vcore:2000]",
+                "priority": "<nil>",
+                "queueName": "root.default",
+                "nodeId": "node-0001",
+                "applicationId": "application-0001",
+                "partition": "default"
+            },
+            {
+                "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
+                "allocationTags": null,
+                "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+                "resource": "[memory:4000 vcore:4000]",
+                "priority": "<nil>",
+                "queueName": "root.default",
+                "nodeId": "node-0001",
+                "applicationId": "application-0002",
+                "partition": "default"
+            }
+        ],
+        "schedulable": true
+    },
+    {
+        "nodeID": "node-0002",
+        "hostName": "",
+        "rackName": "",
+        "capacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:14577 pods:110 vcore:10000]",
+        "allocated": "[memory:2000 vcore:2000]",
+        "occupied": "[memory:154 vcore:750]",
+        "available": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:6423 pods:110 vcore:1250]",
+        "allocations": [
+            {
+                "allocationKey": "af3bd2f3-31c5-42dd-8f3f-c2298ebdec81",
+                "allocationTags": null,
+                "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
+                "resource": "[memory:2000 vcore:2000]",
+                "priority": "<nil>",
+                "queueName": "root.default",
+                "nodeId": "node-0002",
+                "applicationId": "application-0001",
+                "partition": "default"
+            }
+        ],
+        "schedulable": true
+    }
+]
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "Partition is missing in URL path. Please check the usage documentation",
+    "description": "Partition is missing in URL path. Please check the usage documentation"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "Incorrect URL path. Please check the usage documentation",
+    "description": "Incorrect URL path. Please check the usage documentation"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "Partition not found",
+    "description": "Partition not found"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## Nodes (Deprecated)
 
 Displays general information about the nodes managed by YuniKorn. 
 Node details include host and rack name, capacity, resources and allocations.
@@ -358,6 +759,20 @@ created by os/signal.init.0
 ...
 ```
 
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
 ## Metrics
 
 Endpoint to retrieve metrics from the Prometheus server. 
@@ -411,7 +826,7 @@ yunikorn_scheduler_vcore_nodes_usage{range="(90%,100%]"} 0
 yunikorn_scheduler_vcore_nodes_usage{range="[0,10%]"} 0
 ```
 
-## Configuration validation
+## Configuration validation (Deprecated)
 
 **URL** : `/ws/v1/validate-conf`
 
@@ -469,6 +884,112 @@ Reponse
     "reason": "yaml: unmarshal errors:\n  line 7: cannot unmarshal !!str `wrong_text` into configs.PartitionConfig"
 }
 ```
+
+## Configuration Create
+
+Endpoint to create scheduler configuration, but currently limited for configuration validation purpose alone
+
+**URL** : `/ws/v1/config`
+
+**Method** : `POST`
+
+**Query Params** : 
+
+1. dry_run
+
+Mandatory Parameter. Only dry_run=1 is allowed and can be used for configuration validation only, not for the actual config creation.
+
+**Auth required** : NO
+
+### Success response
+
+Regardless whether the configuration is allowed or not if the server was able to process the request, it will yield a 200 HTTP status code.
+
+**Code** : `200 OK`
+
+#### Allowed configuration
+
+Sending the following simple configuration yields an accept
+
+```yaml
+partitions:
+  - name: default
+    queues:
+      - name: root
+        queues:
+          - name: test
+```
+
+Response
+
+```json
+{
+    "allowed": true,
+    "reason": ""
+}
+```
+
+#### Disallowed configuration
+
+The following configuration is not allowed due to the "wrong_text" field put into the yaml file.
+
+```yaml
+partitions:
+  - name: default
+    queues:
+      - name: root
+        queues:
+          - name: test
+  - wrong_text
+```
+
+Response
+
+```json
+{
+    "allowed": false,
+    "reason": "yaml: unmarshal errors:\n  line 7: cannot unmarshal !!str `wrong_text` into configs.PartitionConfig"
+}
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "Dry run param is missing. Please check the usage documentation",
+    "description": "Dry run param is missing. Please check the usage documentation"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "Invalid \"dry_run\" query param. Currently, only dry_run=1 is supported. Please check the usage documentation",
+    "description": "Invalid \"dry_run\" query param. Currently, only dry_run=1 is supported. Please check the usage documentation"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "Invalid query parameters. Please check the usage documentation",
+    "description": "Invalid query parameters. Please check the usage documentation"
+}
+```
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
 ## Configuration
 
 Endpoint to retrieve the current scheduler configuration
@@ -570,6 +1091,20 @@ partitions:
 checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
 ```
 
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
 ## Application history
 
 Endpoint to retrieve historical data about the number of total applications by timestamp.
@@ -609,6 +1144,20 @@ Endpoint to retrieve historical data about the number of total applications by t
         "totalApplications": "2"
     }
 ]
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
 ```
 
 ## Container history
@@ -651,3 +1200,18 @@ Endpoint to retrieve historical data about the number of total containers by tim
     }
 ]
 ```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
