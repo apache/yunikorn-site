@@ -66,8 +66,8 @@ import TabItem from '@theme/TabItem';
     {label: 'America/EU/India', value: 'scheduleEN'},
     {label: '中文/Mandarin', value: 'scheduleCN'},
   ]}>
-  <TabItem value="scheduleEN">Bi-weekly 9:30 AM US Pacific Time on Wednesdays.</TabItem>
-  <TabItem value="scheduleCN">Every 4 weeks 12:30 PM China Standard Time (GMT+8) on Thursdays.</TabItem>
+  <TabItem value="scheduleEN"> 📆 Bi-weekly 9:30 AM US Pacific Time on Wednesdays. <a href="https://cloudera.zoom.us/j/721195559">Click here to join the Zoom meeting.</a> </TabItem>
+  <TabItem value="scheduleCN"> 📆 Weekly 1:00 PM China Standard Time (GMT+8) on Wednesday.  <a href="https://cloudera.zoom.us/j/721195559">Click here to join the Zoom meeting.</a> </TabItem>
 </Tabs>
 
 #### Resources
