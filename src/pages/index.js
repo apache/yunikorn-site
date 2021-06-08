@@ -19,6 +19,14 @@ import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
+import useThemeContext from '@theme/hooks/useThemeContext';
+
+const ImageSwitcher = ({lightImageSrc, darkImageSrc}) => {
+    const { isDarkTheme } = useThemeContext();
+    return (
+        <img src={isDarkTheme ? darkImageSrc : lightImageSrc} alt="why" className={styles.timelineImage} />
+    )
+}
 
 const features = [
   {
@@ -104,8 +112,9 @@ function Home() {
 
             <section className="features_src-pages-">
                 <div className="container">
-                    <h3 className="text--center">Project Timeline</h3>
-                    <img src="img/project-timeline.png" className={styles.timelineImage}/>
+                    <h1 className="text--center">☺ WHY YUNIKORN?</h1>
+                    {/*<img src="img/why-dark.png" className={styles.timelineImage}/>*/}
+                    <ImageSwitcher darkImageSrc={"img/why-dark.png"} lightImageSrc={"img/why.png"} />
                 </div>
             </section>
         </main>

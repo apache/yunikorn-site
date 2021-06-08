@@ -22,105 +22,31 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# RoadMap
+# What's next (future development)
 
-## What's next (future development)
-
-- Application and task priority support [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1)
-- Logging and tracing enhancement using OpenTracing [YUNIKORN-387](https://issues.apache.org/jira/browse/YUNIKORN-387)
-- REST API redesign [YUNIKORN-413](https://issues.apache.org/jira/browse/YUNIKORN-413)
+- [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1) Application and task priority support
+- [YUNIKORN-387](https://issues.apache.org/jira/browse/YUNIKORN-387) Logging and tracing enhancement using OpenTracing
 - Application level preemption
+- Application centric diagnostic info tracker
 
-## v0.10.0
+# Current Release Development
 
-In this version, the Apache YuniKorn (Incubating) community is focusing on improving the stability, and configuration handling
-The main features delivered in this release includes:
+Release status:
+- Version: Release-0.11
+- Target release date: July 16, 2021
+- Development status: [issue tracker](https://issues.apache.org/jira/projects/YUNIKORN/versions/12350025)
 
-- Gang scheduling [YUNIKORN-2](https://issues.apache.org/jira/browse/YUNIKORN-2)
-- Core scheduler cache removal [YUNIKORN-317](https://issues.apache.org/jira/browse/YUNIKORN-317)
-- Application tracking API and CRD phase 1 [YUNIKORN-201](https://issues.apache.org/jira/browse/YUNIKORN-201)
-- Web UI refurbishment [YUNIKORN-320](https://issues.apache.org/jira/browse/YUNIKORN-320)
+Planned features:
+- [YUNIKORN-568](https://issues.apache.org/jira/browse/YUNIKORN-568) Gang Scheduling stabilization and enhancement
+- [YUNIKORN-413](https://issues.apache.org/jira/browse/YUNIKORN-413) REST API redesign
+- [YUNIKORN-568](https://issues.apache.org/jira/browse/YUNIKORN-568) UI usability enhancements
+- [YUNIKORN-649](https://issues.apache.org/jira/browse/YUNIKORN-649) Improvements for user identity retrieval and ACLs
+- [YUNIKORN-669](https://issues.apache.org/jira/browse/YUNIKORN-669) Kubernetes 1.19 support
 
-## v0.9.0 (28 August 2020)
+# Past Releases
 
-This release ships a number of improvements focused on the user experience.
-
-### Resource Quota Management
-
-This version YuniKorn provides a seamless way to manage resource quota for a Kubernetes cluster, it can work as an
-alternative to the [namespace resource quota](https://kubernetes.io/docs/concepts/policy/resource-quotas/). There are
-2 main advantages of using this feature comparing to the namespace resource quota:
-
-1. The namespace resource quota is counting resources at the admission phase, irrespective of the pod is using the resources or not.
-This can lead up to issues that the namespace resources could not be efficiently used.
-2. The namespace resource quota is flat, it doesn't support hierarchy resource quota management.
-3. The resource quota admission controller rejects the pods as long as it goes over the quota, this increases the complexity
-of the client side code.
-
-By using the resource quota management provided by YuniKorn, it is more efficient, seamlessly setup and it provides the
-job queue to handle common scheduling ordering requirements.
-
-### Job Ordering Policy: StateAware (optimized FIFO)
-
-The `StateAware` app sorting policy orders jobs in a queue in FIFO order, and schedule them one by one on conditions.
-The condition is to wait for the application enters a runnable state. This avoids the common race condition while submitting
-lots of batch jobs, e.g Spark, to a single namespace (or cluster). By enforcing the certain ordering of jobs, it also improves
-the scheduling of jobs to be more predictable. More explanation of this feature can be found in doc here.
-
-### Work with the cluster-autoscaler
-
-In this release, YuniKorn has been tested heavily to work nicely with the Kubernetes [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler).
-It brings the maximum elasticity to the Kubernetes cluster by working efficiently with the cluster-autoscaler. Some bugs
-are fixed and some improvements are done in this release.
-
-### Even cache system
-
-In this release, an efficient even cache system is added into the scheduler. This system caches some key scheduling
-events in a memory store and publishes them to Kubernetes event system when needed. More scheduling events are visible
-directly from Kubernetes by using kubectl command. This helps to improve the usability and debuggability a lot.
-
-### More comprehensive web UI
-
-YuniKorn UI provides a better centralized view for resource management. An nodes page has been added to the UI, to display
-the detailed nodes info in the cluster. The apps page has been enhanced, it now provides a search box to search apps by
-queue or application ID.
-
-## v0.8.0 (4 May 2020)
-
-This release ships a fully functional resource scheduler for Kubernetes with a number of useful features that empower
-to run Big Data workloads on K8s. See more at [Release Notes](http://yunikorn.apache.org/docs/get_started/release_notes#release-notes-v080).
-
-**yunikorn-scheduler-interface**
-
-* Communication protocols between RM and scheduler-shim.
-* gRPC interfaces.
-* Scheduler plugin interfaces.
-
-**yunikorn-core**
-
-* Hierarchy queues with min/max resource quotas.
-* Resource fairness between queues, users and apps.
-* Cross-queue preemption based on fairness.
-* Fair/Bin-packing scheduling policies.
-* Placement rules (auto queue creation/mapping).
-* Customized resource types (like GPU) scheduling support.
-* Rich placement constraints support.
-* Automatically map incoming container requests to queues by policies.
-* Node partition: partition cluster to sub-clusters with dedicated quota/ACL management.
-* Configuration hot-refresh.
-* Stateful recovery.
-* Metrics framework.
-
-**yunikorn-k8shim**
-
-* Support K8s predicates. Such as pod affinity/anti-affinity, node selectors.
-* Support Persistent Volumes, Persistent Volume Claims, etc.
-* Load scheduler configuration from configmap dynamically (hot-refresh).
-* 3rd Operator/controller integration, pluggable app discovery.
-* Helm chart support.
-
-**yunikorn-web**
-
-* Cluster overview page with brief info about the cluster.
-* Read-only application view, including app info and task breakdown info.
-* Read-only queue view, displaying queue structure, queue resource, usage info dynamically.
+| Version 	| Release Date  	| Release Manager 	    | Release Note         	                             |
+|---------	|:-------------:	|:---------------:	    |----------------------	                             |
+| 0.10.0  	| 2021-04-09    	| Tao Yang        	    | [0.10.0-release-notes](../release-announce/0.10.0) |
+| 0.9.0   	| 2020-08-28        | Wilfred Spiegelenburg | [0.9.0-release-notes](../release-announce/0.9.0)   |
+| 0.8.0   	| 2020-05-04	    | Weiwei Yang     	    | [0.8.0-release-notes](../release-announce/0.8.0)   |
