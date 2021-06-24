@@ -61,11 +61,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: spark
+  namespace: spark-test
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: spark-cluster-role
+  namespace: spark-test
 rules:
 - apiGroups: [""]
   resources: ["pods"]
@@ -78,9 +80,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: spark-cluster-role-binding
+  namespace: spark-test
 subjects:
 - kind: ServiceAccount
   name: spark
+  namespace: spark-test
 roleRef:
   kind: ClusterRole
   name: spark-cluster-role
@@ -110,7 +114,7 @@ ${SPARK_HOME}/bin/spark-submit --master k8s://http://localhost:8001 --deploy-mod
    --conf spark.kubernetes.namespace=spark-test \
    --conf spark.kubernetes.executor.request.cores=1 \
    --conf spark.kubernetes.container.image=apache/yunikorn:spark-2.4.4 \
-   --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
+   --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark-test:spark \
    local:///opt/spark/examples/jars/spark-examples_2.11-2.4.4.jar
 ```
 
