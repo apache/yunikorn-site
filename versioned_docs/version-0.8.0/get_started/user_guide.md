@@ -48,6 +48,12 @@ kubectl create namespace yunikorn
 helm install yunikorn yunikorn/yunikorn --namespace yunikorn --version 0.8.0
 ```
 
+If the admission controller enters a crashloopbackoff you may need to manually approve the certificate request.
+
+```shell script
+kubectl certificate approve yunikorn-admission-controller-service.yunikorn
+```
+
 Uninstall yunikorn:
 ```shell script
 helm uninstall yunikorn --namespace yunikorn
