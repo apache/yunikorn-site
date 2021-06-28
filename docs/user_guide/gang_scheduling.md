@@ -101,6 +101,14 @@ could not schedule all the placeholder pods, it will eventually give up after a 
 freed up and used by other apps. If non of the placeholders can be allocated, this timeout won't kick-in. To avoid the placeholder
 pods stuck forever, please refer to [troubleshooting](trouble_shooting.md#gang-scheduling) for solutions.
 
+` gangSchedulingStyle`
+
+Possible values: *Soft*, *Hard*
+
+Default value: *Soft*.
+This parameter defines the fallback mechanism if the app encounters gang issues due to placeholder pod allocation.
+See more details in [Gang Scheduling styles](#gang-scheduling-styles) section
+
 More scheduling parameters will added in order to provide more flexibility while scheduling apps.
 
 #### Example
@@ -205,6 +213,64 @@ Annotations:
 
 Once the job is submitted to the scheduler, the job won’t be scheduled immediately.
 Instead, the scheduler will ensure it gets its minimal resources before actually starting the driver/executors. 
+
+## Gang scheduling Styles
+
+Initially when the app encountered gang issues due to placeholder pod allocation(failed due to various reasons), we marked the application failed without retrying it. This wasn’t a really user friendly experience, so it led to a demand of making the gangs scheduling style configurable and make it possible to succeed to schedule the app through a fallback mechanism.
+
+To solve this issue we defined two Gang scheduling styles: Soft and Hard.
+
+- `Hard style`: when this style is used, we will have the initial behavior, more precisely if the application cannot be scheduled according to gang scheduling rules, and it times out, it will be marked as failed, without retrying to schedule it.
+- `Soft style`: using this style will make it possible to schedule a gang application as a normal, simple application if it cannot be scheduled and started by following the gang scheduling rules. This means that in case of the placeholder timeout the placeholders will be deleted and the application state will transition to Resuming state. After all the placeholders are deleted, the application will transition into Accepted state and the app’s pods will be scheduled according to the non-gang application scheduling logic.
+
+**Default style used**: `Soft`
+
+**Enable a specific style**: the style can be changed by setting in the application definition the ‘gangSchedulingStyle’ parameter to Soft or Hard.
+
+#### Example
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gang-app-timeout
+spec:
+  completions: 4
+  parallelism: 4
+  template:
+    metadata:
+      labels:
+        app: sleep
+        applicationId: gang-app-timeout
+        queue: fifo
+      annotations:
+        yunikorn.apache.org/task-group-name: sched-style
+        yunikorn.apache.org/schedulingPolicyParameters: "placeholderTimeoutInSeconds=60 gangSchedulingStyle=Hard"
+        yunikorn.apache.org/task-groups: |-
+          [{
+              "name": "sched-style",
+              "minMember": 4,
+              "minResource": {
+                "cpu": "1",
+                "memory": "1000M"
+              },
+              "nodeSelector": {},
+              "tolerations": []
+          }]
+    spec:
+      schedulerName: yunikorn
+      restartPolicy: Never
+      containers:
+        - name: sleep30
+          image: "alpine:latest"
+          imagePullPolicy: "IfNotPresent"
+          command: ["sleep", "30"]
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1000M"
+
+```
 
 ## Verify Configuration
 
