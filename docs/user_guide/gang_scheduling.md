@@ -103,7 +103,7 @@ pods stuck forever, please refer to [troubleshooting](trouble_shooting.md#gang-s
 
 ` gangSchedulingStyle`
 
-Possible values: *Soft*, *Hard*
+Valid values: *Soft*, *Hard*
 
 Default value: *Soft*.
 This parameter defines the fallback mechanism if the app encounters gang issues due to placeholder pod allocation.
@@ -216,12 +216,10 @@ Instead, the scheduler will ensure it gets its minimal resources before actually
 
 ## Gang scheduling Styles
 
-Initially when the app encountered gang issues due to placeholder pod allocation(failed due to various reasons), we marked the application failed without retrying it. This wasn’t a really user friendly experience, so it led to a demand of making the gangs scheduling style configurable and make it possible to succeed to schedule the app through a fallback mechanism.
-
-To solve this issue we defined two Gang scheduling styles: Soft and Hard.
+There are 2 gang scheduling styles supported, Soft and Hard respectively. It can be configured per app-level to define how the app will behave in case the gang scheduling fails.
 
 - `Hard style`: when this style is used, we will have the initial behavior, more precisely if the application cannot be scheduled according to gang scheduling rules, and it times out, it will be marked as failed, without retrying to schedule it.
-- `Soft style`: using this style will make it possible to schedule a gang application as a normal, simple application if it cannot be scheduled and started by following the gang scheduling rules. This means that in case of the placeholder timeout the placeholders will be deleted and the application state will transition to Resuming state. After all the placeholders are deleted, the application will transition into Accepted state and the app’s pods will be scheduled according to the non-gang application scheduling logic.
+- `Soft style`: when the app cannot be gang scheduled, it will fall back to the normal scheduling, and the non-gang scheduling strategy will be used to achieve the best-effort scheduling. When this happens, the app transits to the Resuming state and all the remaining placeholder pods will be cleaned up.
 
 **Default style used**: `Soft`
 
