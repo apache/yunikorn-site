@@ -101,6 +101,14 @@ could not schedule all the placeholder pods, it will eventually give up after a 
 freed up and used by other apps. If non of the placeholders can be allocated, this timeout won't kick-in. To avoid the placeholder
 pods stuck forever, please refer to [troubleshooting](trouble_shooting.md#gang-scheduling) for solutions.
 
+` gangSchedulingStyle`
+
+Valid values: *Soft*, *Hard*
+
+Default value: *Soft*.
+This parameter defines the fallback mechanism if the app encounters gang issues due to placeholder pod allocation.
+See more details in [Gang Scheduling styles](#gang-scheduling-styles) section
+
 More scheduling parameters will added in order to provide more flexibility while scheduling apps.
 
 #### Example
@@ -205,6 +213,62 @@ Annotations:
 
 Once the job is submitted to the scheduler, the job won’t be scheduled immediately.
 Instead, the scheduler will ensure it gets its minimal resources before actually starting the driver/executors. 
+
+## Gang scheduling Styles
+
+There are 2 gang scheduling styles supported, Soft and Hard respectively. It can be configured per app-level to define how the app will behave in case the gang scheduling fails.
+
+- `Hard style`: when this style is used, we will have the initial behavior, more precisely if the application cannot be scheduled according to gang scheduling rules, and it times out, it will be marked as failed, without retrying to schedule it.
+- `Soft style`: when the app cannot be gang scheduled, it will fall back to the normal scheduling, and the non-gang scheduling strategy will be used to achieve the best-effort scheduling. When this happens, the app transits to the Resuming state and all the remaining placeholder pods will be cleaned up.
+
+**Default style used**: `Soft`
+
+**Enable a specific style**: the style can be changed by setting in the application definition the ‘gangSchedulingStyle’ parameter to Soft or Hard.
+
+#### Example
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gang-app-timeout
+spec:
+  completions: 4
+  parallelism: 4
+  template:
+    metadata:
+      labels:
+        app: sleep
+        applicationId: gang-app-timeout
+        queue: fifo
+      annotations:
+        yunikorn.apache.org/task-group-name: sched-style
+        yunikorn.apache.org/schedulingPolicyParameters: "placeholderTimeoutInSeconds=60 gangSchedulingStyle=Hard"
+        yunikorn.apache.org/task-groups: |-
+          [{
+              "name": "sched-style",
+              "minMember": 4,
+              "minResource": {
+                "cpu": "1",
+                "memory": "1000M"
+              },
+              "nodeSelector": {},
+              "tolerations": []
+          }]
+    spec:
+      schedulerName: yunikorn
+      restartPolicy: Never
+      containers:
+        - name: sleep30
+          image: "alpine:latest"
+          imagePullPolicy: "IfNotPresent"
+          command: ["sleep", "30"]
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1000M"
+
+```
 
 ## Verify Configuration
 
