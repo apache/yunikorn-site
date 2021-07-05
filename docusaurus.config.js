@@ -219,5 +219,9 @@ Copyright © ${new Date().getFullYear()} <a href="http://www.apache.org/">The Ap
 </div>
 `
     },
+    algolia: {
+      apiKey: 'test',
+      indexName: 'test',
+    },
   }
 };
