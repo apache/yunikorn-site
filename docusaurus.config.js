@@ -219,5 +219,9 @@ Copyright © ${new Date().getFullYear()} <a href="http://www.apache.org/">The Ap
 </div>
 `
     },
+    algolia: {
+      apiKey: '4e3b9e554923fe089858c5896fdeac85',
+      indexName: 'yunikorn-docsearch',
+    },
   }
 };

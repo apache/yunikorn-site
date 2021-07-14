@@ -19,5 +19,6 @@ ADD . /incubator-yunikorn-site
 WORKDIR /incubator-yunikorn-site
 
 RUN yarn install
+RUN yarn add @docusaurus/theme-search-algolia
 RUN yarn build
 ENTRYPOINT yarn start --host 0.0.0.0
