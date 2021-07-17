@@ -90,7 +90,7 @@ Displays general information about the partition like name, state, capacity, use
 
 ## Queues (Newer Version)
 
-Displays general information about the queues like name, status, capacities and properties. 
+Fetch all Queues associated with given Partition and displays general information about the queues like name, status, capacities and properties. 
 The queues' hierarchy is kept in the response json.  
 
 **URL** : `/ws/v1/partition/{partitionName}/queues`
@@ -162,9 +162,9 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 }
 ```
 
-## Queues (Deprecated)
+## Queues
 
-Displays general information about the queues like name, status, capacities and properties. 
+Fetch all Queues across different Partitions and displays general information about the queues like name, status, capacities and properties. 
 The queues' hierarchy is kept in the response json.  
 
 **URL** : `/ws/v1/queues`
@@ -219,7 +219,7 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 ## Applications (Newer Version)
 
-Displays general information about the applications like used resources, queue name, submission time and allocations.
+Fetch all Applications for the given Partition Queue combination and displays general information about the applications like used resources, queue name, submission time and allocations.
 
 **URL** : `/ws/v1/partition/{partitioName}/queue/{queueName}/applications`
 
@@ -319,9 +319,9 @@ In the example below there are three allocations belonging to two applications.
 }
 ```
 
-## Applications (Deprecated)
+## Applications
 
-Displays general information about the applications like used resources, queue name, submission time and allocations.
+Fetch all Applications across different Partitions and displays general information about the applications like used resources, queue name, submission time and allocations.
 
 **URL** : `/ws/v1/apps`
 
@@ -403,7 +403,7 @@ In the example below there are three allocations belonging to two applications.
 
 ## Nodes (Newer Version)
 
-Displays general information about the nodes managed by YuniKorn. 
+Fetch all Nodes associated with given Partition and displays general information about the nodes managed by YuniKorn. 
 Node details include host and rack name, capacity, resources and allocations.
 
 **URL** : `/ws/v1/partition/{partitionName}/nodes`
@@ -508,9 +508,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 }
 ```
 
-## Nodes (Deprecated)
+## Nodes
 
-Displays general information about the nodes managed by YuniKorn. 
+Fetch all Nodes acrosss different Partitions and displays general information about the nodes managed by YuniKorn. 
 Node details include host and rack name, capacity, resources and allocations.
 
 **URL** : `/ws/v1/nodes`
@@ -774,7 +774,7 @@ yunikorn_scheduler_vcore_nodes_usage{range="(90%,100%]"} 0
 yunikorn_scheduler_vcore_nodes_usage{range="[0,10%]"} 0
 ```
 
-## Configuration validation (Deprecated)
+## Configuration validation
 
 **URL** : `/ws/v1/validate-conf`
 
