@@ -220,8 +220,9 @@ Copyright © ${new Date().getFullYear()} <a href="http://www.apache.org/">The Ap
 `
     },
     algolia: {
-      apiKey: '4e3b9e554923fe089858c5896fdeac85',
-      indexName: 'yunikorn-docsearch',
+      apiKey: '65b6e69046d08b5364868a53ff974c2f',
+      indexName: 'yunikorn',
+      contextualSearch: true,
     },
   }
 };
