@@ -1151,3 +1151,81 @@ Endpoint to retrieve historical data about the number of total containers by tim
 }
 ```
 
+
+## Endpoint healthcheck
+
+Endpoint to retrieve historical data about critical logs, negative resource on node/cluster/app, ...
+
+**URL** : `/ws/v1/scheduler/healthcheck`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+    "Healthy": true,
+    "HealthChecks": [
+        {
+            "Name": "Scheduling errors",
+            "Succeeded": true,
+            "Description": "Check for scheduling error entries in metrics",
+            "DiagnosisMessage": "There were 0 scheduling errors logged in the metrics"
+        },
+        {
+            "Name": "Failed nodes",
+            "Succeeded": true,
+            "Description": "Check for failed nodes entries in metrics",
+            "DiagnosisMessage": "There were 0 failed nodes logged in the metrics"
+        },
+        {
+            "Name": "Negative resources",
+            "Succeeded": true,
+            "Description": "Check for negative resources in the partitions",
+            "DiagnosisMessage": "Partitions with negative resources: []"
+        },
+        {
+            "Name": "Negative resources",
+            "Succeeded": true,
+            "Description": "Check for negative resources in the nodes",
+            "DiagnosisMessage": "Nodes with negative resources: []"
+        },
+        {
+            "Name": "Consistency of data",
+            "Succeeded": true,
+            "Description": "Check if a node's allocated resource <= total resource of the node",
+            "DiagnosisMessage": "Nodes with inconsistent data: []"
+        },
+        {
+            "Name": "Consistency of data",
+            "Succeeded": true,
+            "Description": "Check if total partition resource == sum of the node resources from the partition",
+            "DiagnosisMessage": "Partitions with inconsistent data: []"
+        },
+        {
+            "Name": "Consistency of data",
+            "Succeeded": true,
+            "Description": "Check if node total resource = allocated resource + occupied resource + available resource",
+            "DiagnosisMessage": "Nodes with inconsistent data: []"
+        },
+        {
+            "Name": "Consistency of data",
+            "Succeeded": true,
+            "Description": "Check if node capacity >= allocated resources on the node",
+            "DiagnosisMessage": "Nodes with inconsistent data: []"
+        },
+        {
+            "Name": "Reservation check",
+            "Succeeded": true,
+            "Description": "Check the reservation nr compared to the number of nodes",
+            "DiagnosisMessage": "Reservation/node nr ratio: [0.000000]"
+        }
+    ]
+}
+```
