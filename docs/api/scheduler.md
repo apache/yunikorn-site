@@ -88,7 +88,9 @@ Displays general information about the partition like name, state, capacity, use
 }
 ```
 
-## Queues (Newer Version)
+## Queues
+
+### Single Partition
 
 Fetch all Queues associated with given Partition and displays general information about the queues like name, status, capacities and properties. 
 The queues' hierarchy is kept in the response json.  
@@ -162,7 +164,7 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 }
 ```
 
-## Queues
+### All Partitions
 
 Fetch all Queues across different Partitions and displays general information about the queues like name, status, capacities and properties. 
 The queues' hierarchy is kept in the response json.  
@@ -217,7 +219,9 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 }
 ```
 
-## Applications (Newer Version)
+## Applications
+
+### Single Partition
 
 Fetch all Applications for the given Partition Queue combination and displays general information about the applications like used resources, queue name, submission time and allocations.
 
@@ -319,7 +323,7 @@ In the example below there are three allocations belonging to two applications.
 }
 ```
 
-## Applications
+### All Partitions
 
 Fetch all Applications across different Partitions and displays general information about the applications like used resources, queue name, submission time and allocations.
 
@@ -401,7 +405,9 @@ In the example below there are three allocations belonging to two applications.
 ]
 ```
 
-## Nodes (Newer Version)
+## Nodes
+
+### Single Partition
 
 Fetch all Nodes associated with given Partition and displays general information about the nodes managed by YuniKorn. 
 Node details include host and rack name, capacity, resources and allocations.
@@ -508,7 +514,7 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 }
 ```
 
-## Nodes
+### All Partitions
 
 Fetch all Nodes acrosss different Partitions and displays general information about the nodes managed by YuniKorn. 
 Node details include host and rack name, capacity, resources and allocations.
