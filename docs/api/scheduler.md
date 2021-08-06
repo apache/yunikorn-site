@@ -120,6 +120,9 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
        "allocatedResource": "[memory:54 vcore:80]",
        "isLeaf": "false",
        "isManaged": "false",
+       "properties": {
+           "application.sort.policy":"stateaware"
+       },
        "parent": "",
        "partition": "[mycluster]default",
        "children": [
