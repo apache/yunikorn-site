@@ -44,8 +44,8 @@ To verify the Apache YuniKorn release using GPG:
 - Download the release apache-yunikorn-X.Y.Z-incubating-src.tar.gz from a mirror site.
 - Download the signature file apache-yunikorn-X.Y.Z-incubating-src.tar.gz.asc from Apache.
 - Download the Apache YuniKorn [KEYS](https://downloads.apache.org/incubator/yunikorn/KEYS) file.
-- gpg –-import KEYS
-- gpg –-verify apache-yunikorn-X.Y.Z-incubating-src.tar.gz.asc
+- `gpg --import KEYS`
+- `gpg --verify apache-yunikorn-X.Y.Z-incubating-src.tar.gz.asc`
 
 Note: On MacOS-X the GNU gpg utility does not read from a file when importing.
 The import command should be `gpg --import < KEYS`   
@@ -56,7 +56,9 @@ To verify the integrity of Apache YuniKorn release using the SHA-512 checksum:
 
 - Download the release apache-yunikorn-X.Y.Z-incubating-src.tar.gz from a mirror site.
 - Download the checksum apache-yunikorn-X.Y.Z-incubating-src.tar.gz.sha512 from Apache.
-- shasum –a 512 apache-yunikorn-X.Y.Z-incubating-src.tar.gz
+- Verify the checksum
+  - on MacOS-X: `shasum -c apache-yunikorn-X.Y.Z-incubating-src.tar.gz.sha512`
+  - on Linux: `sha256sum -c apache-yunikorn-X.Y.Z-incubating-src.tar.gz.sha512`
 
 ## All releases
 
