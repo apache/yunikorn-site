@@ -19,11 +19,11 @@
 ---
 ![auto-publish](https://github.com/apache/incubator-yunikorn-site/workflows/auto-publish/badge.svg)
 
-This readme will walk you through building and updating the Apache YuniKorn website
+This README will walk you through building and updating the Apache YuniKorn website.
 
 ## Introduction
 1. The `master` branch contains the website source code.
-Modifications of the web-site need to be merged into the master branch.
+Modifications of the website need to be merged into the master branch.
 
 2. The `asf-site` branch contains the deployed static pages, scripts and images of the website.
 This branch is maintained by `yunikorn-bot`.
@@ -32,28 +32,28 @@ Manually updating this branch should only happen as a last resort.
 The website running at https://yunikorn.apache.org will be updated automatically via the configuration set in the `.asf.yaml` file.
 
 ## Make changes
-You can build and run the web-site server locally in development mode with the following command:
+You can build and run the website server locally in development mode with the following command:
 ```shell script
 ./local-build.sh run
 ```
 
-This commands will build a docker image `yunikorn/yunikorn-website:latest` locally, and launch the web-server at URL: [http://localhost:3000](http://localhost:3000)
-The web-site will be built based on the content in the current directory.
-Any changes that are made within the directory will automatically trigger the update of the local web-server.
+This command will build a Docker image `yunikorn/yunikorn-website:latest` locally, and launch the web-server at this URL: [http://localhost:3000](http://localhost:3000)
+The website will be built based on the content in the current directory.
+Any changes that are made within the directory will automatically trigger the update of the local webserver.
 You can review your changes from the local endpoint to verify your changes.
-Once the development is done, you need to ctrl+c to exit the script mode.
+Once the development is done, you need to press `Control+C` to exit the script mode.
 
 A build via the script will generate the website in the `build` directory.
 
 The script also allows you to remove all dependencies and installed artefacts. 
-This will ensure the next build is a complete clean build like Github Action will run when publishing the site. 
+This will ensure the next build is a complete clean build like GitHub Actions will run when publishing the site. 
 ```shell script
 ./local-build.sh clean
 ```
 
 ## Local build
 Instead of running the build inside a docker image you can also run it locally when you have yarn installed. 
-This is faster than running the build inside a docker image:
+This is faster than running the build inside a Docker image:
 ```shell script
 yarn install
 yarn build
