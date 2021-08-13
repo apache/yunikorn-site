@@ -25,7 +25,7 @@ under the License.
 Yunikorn uses:
 * JIRA for issue tracking.
 * GitHub Pull Requests to manage code review and the change itself.
-* MarkDown in the source tree for the documentation.
+* Markdown in the source tree for the documentation.
 
 ## Find an issue
 We use JIRA issues to track bugs for this project. 
