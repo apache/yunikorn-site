@@ -302,3 +302,45 @@ resources:
     <resource name 2>: <0..maxint>
 ```
 Resources that are not specified in the list are not limited, for max resources, or guaranteed in the case of guaranteed resources. 
+
+### Child Template
+
+The parent queue can provide a template to define the behaviour of dynamic leaf queues below it. The supported configuration in template are shown below.
+1. application sort policy
+2. max resources
+3. guaranteed resources
+4. max application
+
+As an example:
+```yaml
+ partitions:
+   - name: default
+     placementrules:
+       - name: provided
+         create: true
+     queues:
+       - name: root
+         submitacl: '*'
+         childtemplate:
+           properties:
+             application.sort.policy: stateaware
+           resources:
+             max:
+               vcore: 20000
+               memory: 600000
+         queues:
+           - name: a0
+             childtemplate:
+               resources:
+                 max:
+                   vcore: 21000
+                   memory: 610000
+             queues:
+               - name: a00
+```
+In this case, the dynamic leaf (`root.b0`) uses the template of `root` to initialize `application.sort.policy`, max resource, and guaranteed resource.
+By contrast, the dynamic leaf (`root.a0.a10`) uses the template of `root.a0` (the closest parent) to initialize configurations.
+
+
+[DEPRECATED] Please migrate to template if your cluster is relying on old behavior that dynamic leaf queue can inherit
+`application.sort.policy` from parent (introduced by [YUNIKORN-195](https://issues.apache.org/jira/browse/YUNIKORN-195)). The old behavior will get removed in the future release.
