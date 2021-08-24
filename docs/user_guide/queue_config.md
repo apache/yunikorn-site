@@ -305,11 +305,14 @@ Resources that are not specified in the list are not limited, for max resources,
 
 ### Child Template
 
-The parent queue can provide a template to define the behaviour of dynamic leaf queues below it. The supported configuration in template are shown below.
+The parent queue can provide a template to define the behaviour of dynamic leaf queues below it. A parent queue having no child template inherits the child template
+from its parent if that parent has one defined. A child template can be defined at any level in the queue hierarchy on a queue that is of the type parent.
+
+The supported configuration in template are shown below.
 1. application sort policy
 2. max resources
 3. guaranteed resources
-4. max application
+4. max applications
 
 As an example:
 ```yaml
@@ -322,25 +325,29 @@ As an example:
        - name: root
          submitacl: '*'
          childtemplate:
+           maxapplications: 10
            properties:
              application.sort.policy: stateaware
            resources:
+             guaranteed:
+               vcore: 1000
+               memory: 1000
              max:
                vcore: 20000
                memory: 600000
          queues:
-           - name: a0
+           - name: parent
+             parent: true
              childtemplate:
                resources:
                  max:
                    vcore: 21000
                    memory: 610000
-             queues:
-               - name: a00
+           - name: notemplate
+             parent: true
 ```
-In this case, the dynamic leaf (`root.b0`) uses the template of `root` to initialize `application.sort.policy`, max resource, and guaranteed resource.
-By contrast, the dynamic leaf (`root.a0.a10`) uses the template of `root.a0` (the closest parent) to initialize configurations.
-
+In this case, `root.parent.sales` will directly use the child template of parent queue `root.parent`. By contrast,
+`root.notemplate.sales` will use the child template set on the queue `root` since its parent queue `root.notemplate` inherits the child template from the queue `root`.
 
 [DEPRECATED] Please migrate to template if your cluster is relying on old behavior that dynamic leaf queue can inherit
 `application.sort.policy` from parent (introduced by [YUNIKORN-195](https://issues.apache.org/jira/browse/YUNIKORN-195)). The old behavior will get removed in the future release.
