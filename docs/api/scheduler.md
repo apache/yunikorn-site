@@ -46,7 +46,7 @@ Displays general information about the partition like name, state, capacity, use
         "lastStateTransitionTime": "2021-05-20 12:25:49.018953 +0530 IST m=+0.005949717",
         "capacity": {
             "capacity": "[memory:1000 vcore:1000]",
-            "usedcapacity": "[memory:800 vcore:500]"
+            "usedCapacity": "[memory:800 vcore:500]"
         },
         "nodeSortingPolicy": "fair",
         "applications": {
@@ -61,7 +61,7 @@ Displays general information about the partition like name, state, capacity, use
         "lastStateTransitionTime": "2021-05-19 12:25:49.018953 +0530 IST m=+0.005949717",
         "capacity": {
             "capacity": "[memory:2000 vcore:2000]",
-            "usedcapacity": "[memory:500 vcore:300]"
+            "usedCapacity": "[memory:500 vcore:300]"
         },
         "nodeSortingPolicy": "fair",
         "applications": {
@@ -191,7 +191,7 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
     "partitionName": "[mycluster]default",
     "capacity": {
         "capacity": "map[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:80000 pods:110 vcore:60000]",
-        "usedcapacity": "0"
+        "usedCapacity": "0"
     },
     "nodes": null,
     "queues": {
@@ -199,9 +199,9 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
         "status": "Active",
         "capacities": {
             "capacity": "[]",
-            "maxcapacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:80000 pods:110 vcore:60000]",
-            "usedcapacity": "[memory:8000 vcore:8000]",
-            "absusedcapacity": "[memory:54 vcore:80]"
+            "maxCapacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:80000 pods:110 vcore:60000]",
+            "usedCapacity": "[memory:8000 vcore:8000]",
+            "absUsedCapacity": "[memory:54 vcore:80]"
         },
         "queues": [
             {
@@ -209,9 +209,9 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                 "status": "Active",
                 "capacities": {
                     "capacity": "[]",
-                    "maxcapacity": "[]",
-                    "usedcapacity": "[memory:8000 vcore:8000]",
-                    "absusedcapacity": "[]"
+                    "maxCapacity": "[]",
+                    "usedCapacity": "[memory:8000 vcore:8000]",
+                    "absUsedCapacity": "[]"
                 },
                 "queues": null,
                 "properties": {}

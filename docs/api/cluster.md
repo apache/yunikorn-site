@@ -43,6 +43,7 @@ As an example, here is a response from a 2-node cluster with 3 applications and 
 ```json
 [
     {
+        "partition": "[rm-123]default",
         "clusterName": "kubernetes",
         "totalApplications": "3",
         "failedApplications": "1",

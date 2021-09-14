@@ -302,3 +302,52 @@ resources:
     <resource name 2>: <0..maxint>
 ```
 Resources that are not specified in the list are not limited, for max resources, or guaranteed in the case of guaranteed resources. 
+
+### Child Template
+
+The parent queue can provide a template to define the behaviour of dynamic leaf queues below it. A parent queue having no child template inherits the child template
+from its parent if that parent has one defined. A child template can be defined at any level in the queue hierarchy on a queue that is of the type parent.
+
+The supported configuration in template are shown below.
+1. application sort policy
+2. max resources
+3. guaranteed resources
+4. max applications
+
+As an example:
+```yaml
+ partitions:
+   - name: default
+     placementrules:
+       - name: provided
+         create: true
+     queues:
+       - name: root
+         submitacl: '*'
+         childtemplate:
+           maxapplications: 10
+           properties:
+             application.sort.policy: stateaware
+           resources:
+             guaranteed:
+               vcore: 1000
+               memory: 1000
+             max:
+               vcore: 20000
+               memory: 600000
+         queues:
+           - name: parent
+             parent: true
+             childtemplate:
+               resources:
+                 max:
+                   vcore: 21000
+                   memory: 610000
+           - name: notemplate
+             parent: true
+```
+In this case, `root.parent.sales` will directly use the child template of parent queue `root.parent`. By contrast,
+`root.notemplate.sales` will use the child template set on the queue `root` since its parent queue `root.notemplate` inherits the child template from the queue `root`.
+
+[DEPRECATED] Please migrate to template if your cluster is relying on old behavior that dynamic leaf queue can inherit
+`application.sort.policy` from parent (introduced by [YUNIKORN-195](https://issues.apache.org/jira/browse/YUNIKORN-195)). The old behavior will get removed in the future release.
