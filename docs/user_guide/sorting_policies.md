@@ -146,6 +146,37 @@ Resources of the same type are compared for the nodes.
 This results in a node with the highest utilisation to be considered first for assigning new allocation.
 Resulting in a high(er) utilisation of a small(er) number of nodes, better suited for cloud deployments.   
 
+## Resource weighting
+Node sorting policies may use the utilization of a node to determine ordering. Because nodes can have several unique
+resource types, a node's utilization is determined by a weighted average of its individual resource types. Resource
+weighting can be customized by using the `resourceweights` section of `nodesortpolicy`. If `resourceweights` is not
+present or empty, the default configuration sets the weight of both `vcore` and `memory` equally to `1.0`. All other
+resource types are ignored. Only resource types explicitly mentioned will have a weight.
+
+YuniKorn tracks CPU resources internally as the `vcore` resource type. This maps to the Kubernetes resource type `cpu`.
+All other resource types have consistent naming between YuniKorn and Kubernetes.
+
+For example, in the default configuration, if a node has `90%` of its CPU and `50%` of its memory allocated, the node
+will be considered to be `70%` utilized.
+
+The following configuration entry sets the weight of `vcore` to `4.0` and `memory` to `1.0` for the partition `default`.
+This will weight CPU usage four times higher than memory usage:
+```yaml
+partitions:
+  - name: default
+    nodesortpolicy:
+      type: fair
+      resourceweights:
+        vcore: 4.0
+        memory: 1.0
+```
+
+With this configuration, In this example, if a node has `90%` of its CPU and `50%` of its memory allocated, the node
+will be considered to be `82%` utilized.
+
+Note that weights are relative to each other, so specifying weights of `{ 4.0, 1.0 }` is equivalent to
+`{ 1.0, 0.25 }`. Negative weights are not allowed.
+
 ## Request sorting
 There is currently one policy for sorting requests within an application.
 This policy is not configurable.
