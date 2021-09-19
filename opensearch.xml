@@ -4,8 +4,8 @@
   <ShortName>Apache YuniKorn (Incubating)</ShortName>
   <Description>Search Apache YuniKorn (Incubating)</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">http://yunikorn.apache.org/img/yunikorn.ico</Image>
-  <Url type="text/html" method="get" template="http://yunikorn.apache.org/search?q={searchTerms}"/>
-  <Url type="application/opensearchdescription+xml" rel="self" template="http://yunikorn.apache.org/opensearch.xml" />
-  <moz:SearchForm>http://yunikorn.apache.org</moz:SearchForm>
+  <Image width="16" height="16" type="image/x-icon">https://yunikorn.apache.org/img/yunikorn.ico</Image>
+  <Url type="text/html" method="get" template="https://yunikorn.apache.org/search?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://yunikorn.apache.org/opensearch.xml" />
+  <moz:SearchForm>https://yunikorn.apache.org</moz:SearchForm>
 </OpenSearchDescription>
