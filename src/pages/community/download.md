@@ -68,4 +68,4 @@ This might include releases not mentioned in the table above.
 
 ## License
 
-The software is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+The software is licensed under [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
