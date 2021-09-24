@@ -48,7 +48,13 @@ Displays general information about the partition like name, state, capacity, use
             "capacity": "[memory:1000 vcore:1000]",
             "usedCapacity": "[memory:800 vcore:500]"
         },
-        "nodeSortingPolicy": "fair",
+        "nodeSortingPolicy": {
+            "type": "fair",
+            "resourceWeights": {
+                "memory": 1.5,
+                "vcore": 1.3
+            }
+        },
         "applications": {
             "New": 5,
             "Pending": 5,
@@ -63,7 +69,13 @@ Displays general information about the partition like name, state, capacity, use
             "capacity": "[memory:2000 vcore:2000]",
             "usedCapacity": "[memory:500 vcore:300]"
         },
-        "nodeSortingPolicy": "fair",
+        "nodeSortingPolicy": {
+            "type": "binpacking",
+            "resourceWeights": {
+                "memory": 0,
+                "vcore": 4.11
+            }
+        },
         "applications": {
             "New": 5,
             "Running": 10,
