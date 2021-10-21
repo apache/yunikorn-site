@@ -115,13 +115,13 @@ The node status changes based on the status provided by the resource manager (sh
 ## K8Shim Resource Manager
 
 ### Application
-To be added
+![application state diagram](./../assets/k8shim-application-state.png)
 
 ### Task
-To be added
+![task state diagram](./../assets/k8shim-task-state.png)
 
 ### Node
-To be added
+![node state diagram](./../assets/k8shim-node-state.png)
 
 ### Scheduler
-To be added
+![scheduler state diagram](./../assets/k8shim-scheduler-state.png)
