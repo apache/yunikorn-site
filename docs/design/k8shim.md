@@ -41,18 +41,21 @@ The admission controller runs in a separate pod, it runs a
 and a [validation webhook](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook), where:
 
 1. The `mutation webhook` mutates pod spec by:
-   - adding `schedulerName: yunikorn`
-     - by explicitly specifying the scheduler name, the pod will be scheduled by YuniKorn scheduler
-   - adding `applicationId` label
-     - when a label `applicationId` exists, reuse the given applicationId
-     - when a label `spark-app-selector` exists, reuse the given spark app ID
-     - otherwise, assign a generated application ID for this pod, using convention: `yunikorn-<namespace>-autogen`. this is unique per namespace. 
-   - adding `queue` label
-     - when a label `queue` exists, reuse the given queue name. Note, if placement rule is enabled, values set in the label is ignored
-     - otherwise, adds `queue: root.default`
+   - Adding `schedulerName: yunikorn`
+     - By explicitly specifying the scheduler name, the pod will be scheduled by YuniKorn scheduler.
+   - Adding `applicationId` label
+     - When a label `applicationId` exists, reuse the given applicationId.
+     - When a label `spark-app-selector` exists, reuse the given spark app ID.
+     - Otherwise, assign a generated application ID for this pod, using convention: `yunikorn-<namespace>-autogen`. This is unique per namespace.
+   - Adding `queue` label
+     - When a label `queue` exists, reuse the given queue name. Note, if placement rule is enabled, values set in the label is ignored.
+     - Otherwise, adds `queue: root.default`
+   - Adding `disableStateAware` label
+     - If pod was assigned a generated applicationId by the admission controller, also set `disableStateAware: true`. This causes the generated application
+       to immediately transition from the `Starting` to `Running` state so that it will not block other applications.
 2. The `validation webhook` validates the configuration set in the configmap
-   - this is used to prevent writing malformed configuration into the configmap
-   - the validation webhook calls scheduler [validation REST API](api/scheduler.md#configuration-validation) to validate configmap updates
+   - This is used to prevent writing malformed configuration into the configmap.
+   - The validation webhook calls scheduler [validation REST API](api/scheduler.md#configuration-validation) to validate configmap updates.
 
 ### Admission controller deployment
 
