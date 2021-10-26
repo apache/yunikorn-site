@@ -93,7 +93,7 @@ module.exports = {
             },
             {
               to: 'community/sessions',
-              label: 'Sessions and Demos',
+              label: 'Resources',
               position: 'left',
             },
           ]
