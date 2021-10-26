@@ -46,9 +46,15 @@ Displays general information about the partition like name, state, capacity, use
         "lastStateTransitionTime": "2021-05-20 12:25:49.018953 +0530 IST m=+0.005949717",
         "capacity": {
             "capacity": "[memory:1000 vcore:1000]",
-            "usedcapacity": "[memory:800 vcore:500]"
+            "usedCapacity": "[memory:800 vcore:500]"
         },
-        "nodeSortingPolicy": "fair",
+        "nodeSortingPolicy": {
+            "type": "fair",
+            "resourceWeights": {
+                "memory": 1.5,
+                "vcore": 1.3
+            }
+        },
         "applications": {
             "New": 5,
             "Pending": 5,
@@ -61,9 +67,15 @@ Displays general information about the partition like name, state, capacity, use
         "lastStateTransitionTime": "2021-05-19 12:25:49.018953 +0530 IST m=+0.005949717",
         "capacity": {
             "capacity": "[memory:2000 vcore:2000]",
-            "usedcapacity": "[memory:500 vcore:300]"
+            "usedCapacity": "[memory:500 vcore:300]"
         },
-        "nodeSortingPolicy": "fair",
+        "nodeSortingPolicy": {
+            "type": "binpacking",
+            "resourceWeights": {
+                "memory": 0,
+                "vcore": 4.11
+            }
+        },
         "applications": {
             "New": 5,
             "Running": 10,
@@ -88,9 +100,11 @@ Displays general information about the partition like name, state, capacity, use
 }
 ```
 
-## Queues (Newer Version)
+## Queues
 
-Displays general information about the queues like name, status, capacities and properties. 
+### Partition queues
+
+Fetch all Queues associated with given Partition and displays general information about the queues like name, status, capacities and properties. 
 The queues' hierarchy is kept in the response json.  
 
 **URL** : `/ws/v1/partition/{partitionName}/queues`
@@ -118,6 +132,9 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
        "allocatedResource": "[memory:54 vcore:80]",
        "isLeaf": "false",
        "isManaged": "false",
+       "properties": {
+           "application.sort.policy":"stateaware"
+       },
        "parent": "",
        "partition": "[mycluster]default",
        "children": [
@@ -162,9 +179,9 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 }
 ```
 
-## Queues (Deprecated)
+### All Queues
 
-Displays general information about the queues like name, status, capacities and properties. 
+Fetch all Queues across different Partitions and displays general information about the queues like name, status, capacities and properties. 
 The queues' hierarchy is kept in the response json.  
 
 **URL** : `/ws/v1/queues`
@@ -186,7 +203,7 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
     "partitionName": "[mycluster]default",
     "capacity": {
         "capacity": "map[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:80000 pods:110 vcore:60000]",
-        "usedcapacity": "0"
+        "usedCapacity": "0"
     },
     "nodes": null,
     "queues": {
@@ -194,9 +211,9 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
         "status": "Active",
         "capacities": {
             "capacity": "[]",
-            "maxcapacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:80000 pods:110 vcore:60000]",
-            "usedcapacity": "[memory:8000 vcore:8000]",
-            "absusedcapacity": "[memory:54 vcore:80]"
+            "maxCapacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:80000 pods:110 vcore:60000]",
+            "usedCapacity": "[memory:8000 vcore:8000]",
+            "absUsedCapacity": "[memory:54 vcore:80]"
         },
         "queues": [
             {
@@ -204,9 +221,9 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                 "status": "Active",
                 "capacities": {
                     "capacity": "[]",
-                    "maxcapacity": "[]",
-                    "usedcapacity": "[memory:8000 vcore:8000]",
-                    "absusedcapacity": "[]"
+                    "maxCapacity": "[]",
+                    "usedCapacity": "[memory:8000 vcore:8000]",
+                    "absUsedCapacity": "[]"
                 },
                 "queues": null,
                 "properties": {}
@@ -217,9 +234,11 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 }
 ```
 
-## Applications (Newer Version)
+## Applications
 
-Displays general information about the applications like used resources, queue name, submission time and allocations.
+### Queue applications
+
+Fetch all Applications for the given Partition Queue combination and displays general information about the applications like used resources, queue name, submission time and allocations.
 
 **URL** : `/ws/v1/partition/{partitioName}/queue/{queueName}/applications`
 
@@ -319,9 +338,9 @@ In the example below there are three allocations belonging to two applications.
 }
 ```
 
-## Applications (Deprecated)
+### All applications
 
-Displays general information about the applications like used resources, queue name, submission time and allocations.
+Fetch all Applications across different Partitions and displays general information about the applications like used resources, queue name, submission time and allocations.
 
 **URL** : `/ws/v1/apps`
 
@@ -401,9 +420,11 @@ In the example below there are three allocations belonging to two applications.
 ]
 ```
 
-## Nodes (Newer Version)
+## Nodes
 
-Displays general information about the nodes managed by YuniKorn. 
+### Partition nodes
+
+Fetch all Nodes associated with given Partition and displays general information about the nodes managed by YuniKorn. 
 Node details include host and rack name, capacity, resources and allocations.
 
 **URL** : `/ws/v1/partition/{partitionName}/nodes`
@@ -508,9 +529,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 }
 ```
 
-## Nodes (Deprecated)
+### All nodes
 
-Displays general information about the nodes managed by YuniKorn. 
+Fetch all Nodes acrosss different Partitions and displays general information about the nodes managed by YuniKorn. 
 Node details include host and rack name, capacity, resources and allocations.
 
 **URL** : `/ws/v1/nodes`
@@ -774,7 +795,7 @@ yunikorn_scheduler_vcore_nodes_usage{range="(90%,100%]"} 0
 yunikorn_scheduler_vcore_nodes_usage{range="[0,10%]"} 0
 ```
 
-## Configuration validation (Deprecated)
+## Configuration validation
 
 **URL** : `/ws/v1/validate-conf`
 
@@ -1151,3 +1172,81 @@ Endpoint to retrieve historical data about the number of total containers by tim
 }
 ```
 
+
+## Endpoint healthcheck
+
+Endpoint to retrieve historical data about critical logs, negative resource on node/cluster/app, ...
+
+**URL** : `/ws/v1/scheduler/healthcheck`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+    "Healthy": true,
+    "HealthChecks": [
+        {
+            "Name": "Scheduling errors",
+            "Succeeded": true,
+            "Description": "Check for scheduling error entries in metrics",
+            "DiagnosisMessage": "There were 0 scheduling errors logged in the metrics"
+        },
+        {
+            "Name": "Failed nodes",
+            "Succeeded": true,
+            "Description": "Check for failed nodes entries in metrics",
+            "DiagnosisMessage": "There were 0 failed nodes logged in the metrics"
+        },
+        {
+            "Name": "Negative resources",
+            "Succeeded": true,
+            "Description": "Check for negative resources in the partitions",
+            "DiagnosisMessage": "Partitions with negative resources: []"
+        },
+        {
+            "Name": "Negative resources",
+            "Succeeded": true,
+            "Description": "Check for negative resources in the nodes",
+            "DiagnosisMessage": "Nodes with negative resources: []"
+        },
+        {
+            "Name": "Consistency of data",
+            "Succeeded": true,
+            "Description": "Check if a node's allocated resource <= total resource of the node",
+            "DiagnosisMessage": "Nodes with inconsistent data: []"
+        },
+        {
+            "Name": "Consistency of data",
+            "Succeeded": true,
+            "Description": "Check if total partition resource == sum of the node resources from the partition",
+            "DiagnosisMessage": "Partitions with inconsistent data: []"
+        },
+        {
+            "Name": "Consistency of data",
+            "Succeeded": true,
+            "Description": "Check if node total resource = allocated resource + occupied resource + available resource",
+            "DiagnosisMessage": "Nodes with inconsistent data: []"
+        },
+        {
+            "Name": "Consistency of data",
+            "Succeeded": true,
+            "Description": "Check if node capacity >= allocated resources on the node",
+            "DiagnosisMessage": "Nodes with inconsistent data: []"
+        },
+        {
+            "Name": "Reservation check",
+            "Succeeded": true,
+            "Description": "Check the reservation nr compared to the number of nodes",
+            "DiagnosisMessage": "Reservation/node nr ratio: [0.000000]"
+        }
+    ]
+}
+```

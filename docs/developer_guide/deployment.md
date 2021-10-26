@@ -37,6 +37,7 @@ This command will build an image. The image will be tagged with a default versio
 
 **Note** the default build uses a hardcoded user and tag. You *must* update the `IMAGE_TAG` variable in the `Makefile` to push to an appropriate repository. 
 
+**Note** the latest yunikorn images in docker hub are not updated anymore due to ASF policy. Hence, you should build both scheduler image and web image locally before deploying them.
 
 ## Setup RBAC
 
