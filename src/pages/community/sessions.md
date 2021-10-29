@@ -25,7 +25,7 @@ under the License.
 Upcoming Meetup
 ---
 
-Join us on **4:00pm - 5:00pm, PST, Nov 18, 2021**
+Join us on **4:30pm - 6:00pm, PST, Nov 18, 2021**
 
 **Wilfred Spiegelenburg** will present a session to
 introduce the latest status in the YuniKorn community. Don't miss out!! Add this event to your calendar: [:calendar:](https://calendar.google.com/event?action=TEMPLATE&tmeid=NHE2a2Vvc3FucDRhbDhmamowNGllcmRka24gYXBhY2hlLnl1bmlrb3JuQG0&tmsrc=apache.yunikorn%40gmail.com)
