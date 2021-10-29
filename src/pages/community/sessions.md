@@ -25,7 +25,18 @@ under the License.
 Upcoming Meetup
 ---
 
-Upcoming Event:  **4:00pm - 5:00pm, PST**, Nov 18, 2021
+Join us on **4:00pm - 5:00pm, PST, Nov 18, 2021**
+
+**Wilfred Spiegelenburg** will present a session to
+introduce the latest status in the YuniKorn community. Don't miss out!! Add this event to your calendar: [:calendar:](https://calendar.google.com/event?action=TEMPLATE&tmeid=NHE2a2Vvc3FucDRhbDhmamowNGllcmRka24gYXBhY2hlLnl1bmlrb3JuQG0&tmsrc=apache.yunikorn%40gmail.com)
+
+_Abstract_: Apache YuniKorn (Incubating) has released v0.11 earlier this year with a number of new features and improvements
+like Gang scheduling, REST API enhancements and Kubernetes 1.19 support. In a month, we are planning the major
+v1.0.0 release with Kubernetes 1.20 & 1.21 support, improved node sorting and numerous small fixes & enhancements! In this meetup, we will deep dive into the implementation of Gang scheduling behind the use of temporary
+placeholder pods on Kubernetes, significant performance improvement with simplified scheduler core code and
+a new node sorting algorithm. Please find all the topics for this meetup [here](https://docs.google.com/document/d/1-NP0J22-Gp3cZ_hfKyA9htXJw7tlk-BmljF-7CBJg44). 
+
+----
 
 Past Conference Sessions
 ---
