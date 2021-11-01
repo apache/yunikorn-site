@@ -1,6 +1,6 @@
 ---
-id: sessions
-title: Resources
+id: events
+title: Events
 ---
 
 <!--
