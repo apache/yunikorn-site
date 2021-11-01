@@ -92,8 +92,8 @@ module.exports = {
               position: 'left',
             },
             {
-              to: 'community/sessions',
-              label: 'Resources',
+              to: 'community/events',
+              label: 'Events',
               position: 'left',
             },
           ]
