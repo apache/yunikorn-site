@@ -121,15 +121,33 @@ to avoid extra overhead introduced by GRPC.
 func (m *RMProxy) RegisterResourceManager(request *si.RegisterResourceManagerRequest, callback api.ResourceManagerCallback) (*si.RegisterResourceManagerResponse, error)
 ```
 
-Which indicate ResourceManager's name, a callback function for updateResponse. The design of core is be able to do scheduling for multiple clusters (such as multiple K8s cluster) just with one core instance.
+Which indicate ResourceManager's name, a callback function for different objects update response. The design of core is be able to do scheduling for multiple clusters (such as multiple K8s cluster) just with one core instance.
 
-**Shim interacts with core by invoking RMProxy's Update API frequently, which updates new allocation request, allocation to kill, node updates, etc.** 
+**Shim interacts with core by invoking RMProxy's corresponding Update API frequently for different objects separately** 
+
+**Allocation**
 
 ```go
-func (m *RMProxy) Update(request *si.UpdateRequest) error
+func (m *RMProxy) UpdateAllocation(request *si.AllocationRequest) error
 ```
 
-Response of update (such as new allocated container) will be received by registered callback.
+Response of update (such as new allocated container) will be received by corresponding registered callback.
+
+**Application**
+
+```go
+func (m *RMProxy) UpdateApplication(request *si.ApplicationRequest) error
+```
+
+Response of update (such as new application) will be received by corresponding registered callback.
+
+**Node**
+
+```go
+func (m *RMProxy) UpdateNode(request *si.NodeRequest) error
+```
+
+Response of update (such as new node) will be received by corresponding registered callback.
 
 ## Configurations & Semantics
 
@@ -245,7 +263,7 @@ For LeafQueue (which has applications inside the queue), it uses queue's own sor
 
 When it goes to Application, see (`scheduler_application.go: func (sa *SchedulingApplication) tryAllocate`), It first sort the pending resource requests belong to the application (based on requests' priority). And based on the selected request, and configured node-sorting policy, it sorts nodes belong to the partition and try to allocate resources on the sorted nodes. 
 
-When application trying to allocate resources on nodes, it will invokes PredicatePlugin to make sure Shim can confirm the node is good. (For example K8shim runs predicates check for allocation pre-check).
+When application trying to allocate resources on nodes, it invokes Predicates Implementation of ResourceManagerCallback Interface to make sure Shim can confirm the node is good. (For example K8shim runs predicates check for allocation pre-check).
 
 **Allocation completed by scheduler** 
 
@@ -259,29 +277,43 @@ RMProxy/Cache/Scheduler include local event queues and event handlers. RMProxy a
 
 We will talk about how events flowed between components: 
 
-**Events for ResourceManager registration and updates:**
+**Events for ResourceManager registration and allocation, application, node updates:**
 
 ```
-Update from ResourceManager -> RMProxy -> RMUpdateRequestEvent Send to Cache
+Update from ResourceManager -> RMProxy -> RMUpdateAllocationEvent Send to Cache
+Update from ResourceManager -> RMProxy -> RMUpdateApplicationEvent Send to Cache
+Update from ResourceManager -> RMProxy -> RMUpdateNodeEvent Send to Cache
 New ResourceManager registration -> RMProxy -> RegisterRMEvent Send to Cache
 ```
 
-**Cache Handles RM Updates** 
+**Cache Handles RM Updates for different objects using corresponding event** 
 
-There're many fields inside RM Update event (`RMUpdateRequestEvent`), among them, we have following categories: 
+Update for New allocation ask and release
 
 ```
-1) Update for Application-related updates
-2) Update for New allocation ask and release. 
-3) Node (Such as kubelet) update (New node, remove node, node resource change, etc.)
+RMUpdateAllocationEvent
+```
+
+Update for Application-related updates
+
+```
+RMUpdateApplicationEvent
+```
+
+Node (Such as kubelet) update (New node, remove node, node resource change, etc.)
+
+```
+RMUpdateNodeEvent
 ```
 
 More details can be found at: 
 
 ```
-func (m *ClusterInfo) processRMUpdateEvent(event *cacheevent.RMUpdateRequestEvent)
+func (rmp *RMProxy) processRMAllocationUpdateEvent(event *cacheevent.RMUpdateAllocationEvent)
+func (rmp *RMProxy) processRMApplicationUpdateEvent(event *cacheevent.RMUpdateApplicationEvent)
+func (rmp *RMProxy) processRMNodeUpdateEvent(event *cacheevent.RMUpdateNodeEvent)
 
-inside cluster_info.go
+inside rmproxy.go
 ```
 
 **Cache send RM updates to Scheduler**
