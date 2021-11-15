@@ -27,11 +27,11 @@ under the License.
 
 ## Overview
 
-The YuniKorn community continues to optimizes the peformance of the scheduler, ensures YuniKorn satisfies the performance requirements for large scale batch workloads. Thus, the community has built some useful tools to do performance benchmarking repetitively over releases. This document introduces all these tools and steps to achieve this.
+The YuniKorn community continues to optimize the performance of the scheduler, ensuring that YuniKorn satisfies the performance requirements of large-scale batch workloads. Thus, the community has built some useful tools for performance benchmarking that can be reused across releases. This document introduces all these tools and steps to run them.
 
 ## Hardware
 
-Be aware that performance result is highly variant depends on the underneath hardware, all the results published in the doc can only be used as references. We encourage each individaul to run similar tests on their own environments in order to get a result based on your own hardware. This doc is just for demonstration purpose.
+Be aware that performance result is highly variable depending on the underlying  hardware. All results published in the doc can only be used as references. We encourage each individual to run similar tests on their own environments in order to get a result based on your own hardware. This doc is just for demonstration purpose.
 
 A list of servers being used in this test are (Huge thanks to [National Taichung University of Education, Kuan-Chou Lai] for providing these servers for running tests):
 
@@ -83,17 +83,17 @@ root hard nofile 50000
 
 Before going into the details, here are the general steps used in our tests:
 
-1. Properly configure K8s API-Server and controller-manager, then join worker nodes.
-2. Deploy hollow node pod, to simulate worker node, then cordon all native node, avoid we allocated test pod to native node.
-3. Helm install yunikorn on the master node, and scale down deploy to 0, and modify port in prometheus.yml to service's port. 
-4. Deploy 50k nginx pods for testing, and api-server will create them, but yunikorn pod just scale down to 0, so they will stuck in pending.
-5. Scale up yunikorn deploy to 1, and cordon master, to avoid yunikorn allocate nginx pod to master. In this step, YuniKorn will start to collect the metrics.
-6. Observe the metrics which expose in Prometheus UI.
+1. Properly configure Kubernetes API server and controller manager, then add worker nodes.
+2. Deploy hollow pods,which will simulate worker nodes, name hollow nodes. After all hollow nodes in ready status, we need to cordon all native nodes, which are physical presence in the cluster, not the simulated nodes, to avoid we allocated test workload pod to native nodes.
+3. Deploy YuniKorn using the Helm chart on the master node, and scale down the Deployment to 0 replica, and modify the port in `prometheus.yml` to match the port of the service.
+4. Deploy 50k Nginx pods for testing, and the API server will create them. But since the YuniKorn scheduler Deployment has been scaled down to 0 replica, all Nginx pods will be stuck in pending.
+5. Scale up The YuniKorn Deployment back to 1 replica, and cordon the master node to avoid YuniKorn allocating Nginx pods there. In this step, YuniKorn will start collecting the metrics.
+6. Observe the metrics exposed in Prometheus UI.
 ---
 
 ## Setup Kubemark
 
-[Kubemark](https://github.com/kubernetes/kubernetes/tree/master/test/kubemark) is a performance testing tool which allows users to run experiments on simulated clusters. The primary use case is the scalability testing. The basic idea is to run tens or hundreds of fake kubelet nodes on one physical node in order to simulate large scale clusters. In our tests, we leveager kubemark to simulate up to 4K nodes cluster on less than 20 physical nodes.
+[Kubemark](https://github.com/kubernetes/kubernetes/tree/master/test/kubemark) is a performance testing tool which allows users to run experiments on simulated clusters. The primary use case is the scalability testing. The basic idea is to run tens or hundreds of fake kubelet nodes on one physical node in order to simulate large scale clusters. In our tests, we leverage Kubemark to simulate up to a 4K-node cluster on less than 20 physical nodes.
 
 ### 1. Build image
 
@@ -140,7 +140,7 @@ kubectl create secret generic kubeconfig --type=Opaque --namespace=kubemark --fr
 ```
 ### 3. Label node
 
-We need to lebel all native nodes, otherwise the scheduler might allocate hollow pod to other simulated hollows nodes. We can leverage Node selector in yaml to allocate hollow pods to native nodes.
+We need to label all native nodes, otherwise the scheduler might allocate hollow pods to other simulated hollow nodes. We can leverage Node selector in yaml to allocate hollow pods to native nodes.
 
 ```
 kubectl label node {node name} tag=tagName
@@ -263,7 +263,7 @@ kubectl apply -f hollow-node.yaml
 #### Install YuniKorn with helm
 
 We can install YuniKorn with Helm, please refer to this [doc](https://yunikorn.apache.org/docs/#install).
-We need to tune some parameters based on the default configuration, recommended to clone the release repo and modify the parameters in `value.yaml`.
+We need to tune some parameters based on the default configuration. We recommend to clone the [release repo](https://github.com/apache/incubator-yunikorn-release) and modify the parameters in `value.yaml`.
 
 ```
 git clone https://github.com/apache/incubator-yunikorn-release.git
@@ -317,7 +317,7 @@ Helm install yunikorn . --namespace yunikorn
 
 ## Setup Prometheus
 
-YuniKorn exposes its scheduling metrics via Promethus. Thus, we need to setup Promethus server to collect these metrics.
+YuniKorn exposes its scheduling metrics via Prometheus. Thus, we need to set up a Prometheus server to collect these metrics.
 
 ### 1. Download Prometheus release
 
@@ -354,7 +354,7 @@ scrape_configs:
 
 ## Collect and Observe YuniKorn metrics
 
-After Promethus is launched, YuniKorn metrics can be easily collected.Here is the [docs](https://yunikorn.apache.org/docs/performance/metrics) of YuniKorn metrics. YuniKorn tracks some key scheduling metircs which measure the latency of some critical scheduling paths. These metrics include:
+After Prometheus is launched, YuniKorn metrics can be easily collected. Here is the [docs](https://yunikorn.apache.org/docs/performance/metrics) of YuniKorn metrics. YuniKorn tracks some key scheduling metrics which measure the latency of some critical scheduling paths. These metrics include:
 
  - scheduling_latency_seconds
  - app_sorting_latency_seconds
@@ -362,7 +362,7 @@ After Promethus is launched, YuniKorn metrics can be easily collected.Here is th
  - queue_sorting_latency_seconds
  - container_allocation_attempt_total 
 
-you can select and generate graph on Promethus UI easily, such as:
+you can select and generate graph on Prometheus UI easily, such as:
 
 ![Prometheus Metrics List](./../assets/prometheus.png)
 
@@ -409,7 +409,7 @@ Modify CNI mask and resources.
 
 #### Api-Server
 
-In Api-Server, we need to modify two parameters: `max-mutating-requests-inflight` and `max-requests-inflight`. Those two parameters represent the api request bandwidth, cause we will apply large amount of pod request, so we need to increase those two parameters. Modify `/etc/kubernetes/manifest/kube-apiserver.yaml`:
+In the Kubernetes API server, we need to modify two parameters: `max-mutating-requests-inflight` and `max-requests-inflight`. Those two parameters represent the API request bandwidth. Because we will generate a large amount of pod request, we need to increase those two parameters. Modify `/etc/kubernetes/manifest/kube-apiserver.yaml`:
 
 ```
 --max-mutating-requests-inflight=3000
@@ -418,7 +418,7 @@ In Api-Server, we need to modify two parameters: `max-mutating-requests-inflight
 
 #### Controller-Manager
 
-In Controller-Manager, we need to modify three parameters: `node-cidr-mask-size`, `kube-api-burst` and `kube-api-qps`. `kube-api-burst` and `kube-api-qps` controls the server side requests' bandwidth, they need to be increased. `node-cidr-mask-size` represents the node cidr, it needs to be increased as well in order to scale up to thousands of nodes. 
+In the Kubernetes controller manager, we need to increase the value of three parameters: `node-cidr-mask-size`, `kube-api-burst` and `kube-api-qps`. `kube-api-burst` and `kube-api-qps` control the server side request bandwidth. `node-cidr-mask-size` represents the node CIDR. it needs to be increased as well in order to scale up to thousands of nodes. 
 
 
 Modify `/etc/kubernetes/manifest/kube-controller-manager.yaml`:
@@ -431,7 +431,7 @@ Modify `/etc/kubernetes/manifest/kube-controller-manager.yaml`:
 
 #### kubelet
 
-In single worker node, we can run 110 pods as default, to get higher node resource utilization, we need to add some parameters in kubelet launch command, and restart it.
+In single worker node, we can run 110 pods as default. But to get higher node resource utilization, we need to add some parameters in Kubelet launch command, and restart it.
 
 Modify start arg in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`, add `--max-Pods=300` behind the start arg and restart
 
