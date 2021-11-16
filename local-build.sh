@@ -34,7 +34,7 @@ function clean() {
 function build() {
   # build local docker image
   cat <<EOF >.dockerfile.tmp
-FROM node:12.18.0
+FROM node:16.13.0
 ADD . /incubator-yunikorn-site
 WORKDIR /incubator-yunikorn-site
 EOF
@@ -57,6 +57,10 @@ function run() {
   # install dependency in docker container
   docker exec -it yunikorn-site-local /bin/bash -c "yarn install"
   [ "$?" -ne 0 ] && echo "yarn install failed" && return 1
+
+  # install dependency in docker container
+  docker exec -it yunikorn-site-local /bin/bash -c "yarn add @docusaurus/theme-search-algolia"
+  [ "$?" -ne 0 ] && echo "yarn add failed" && return 1
 
   # run build inside the container
   docker exec -it yunikorn-site-local /bin/bash -c "yarn build"
