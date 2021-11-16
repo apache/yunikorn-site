@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:12.18.0
+FROM node:16.13.0
 
 ADD . /incubator-yunikorn-site
 WORKDIR /incubator-yunikorn-site

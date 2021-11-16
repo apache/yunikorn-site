@@ -56,6 +56,7 @@ Instead of running the build inside a docker image you can also run it locally w
 This is faster than running the build inside a docker image:
 ```shell script
 yarn install
+yarn add @docusaurus/theme-search-algolia
 yarn build
 yarn run start
 ```
