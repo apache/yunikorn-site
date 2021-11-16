@@ -110,12 +110,24 @@ module.exports = {
               href: 'https://incubator.apache.org/'
             },
             {
-              label: 'Apache License',
-              href: 'https://www.apache.org/licenses/LICENSE-2.0'
+              label: 'Events',
+              href: 'https://www.apache.org/events/current-event'
+            },
+            {
+              label: 'License',
+              href: 'https://www.apache.org/licenses/'
+            },
+            {
+              label: 'Sponsors',
+              href: 'https://www.apache.org/foundation/thanks.html'
             },
             {
               label: 'Sponsorship',
               href: 'https://www.apache.org/foundation/sponsorship.html'
+            },
+            {
+              label: 'Security',
+              href: 'https://www.apache.org/security/'
             }
           ]
         },
