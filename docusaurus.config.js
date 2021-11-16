@@ -60,46 +60,44 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/', label: 'Quick Start', position: 'left',
+          to: 'docs/',
+          label: 'Quick Start',
         },
         {
-          to: 'community/roadmap', label: 'Roadmap', position: 'left',
+          to: 'community/roadmap',
+          label: 'Roadmap',
         },
         {
-          to: 'community/download', label: 'Download', position: 'left',
+          to: 'community/download',
+          label: 'Download',
         },
         {
-          label: 'Community', position: 'left',
+          label: 'Community',
           items: [
             {
               to: 'community/get_involved',
               label: 'Get Involved',
-              position: 'left',
             },
             {
               to: 'community/how_to_contribute',
               label: 'How to Contribute',
-              position: 'left',
             },
             {
               to: 'community/coding_guidelines',
               label: 'Coding Guidelines',
-              position: 'left',
             },
             {
               to: 'community/reporting_issues',
               label: 'Reporting Issues',
-              position: 'left',
             },
             {
               to: 'community/events',
               label: 'Events',
-              position: 'left',
             },
           ]
         },
         {
-          label: 'Apache', position: 'left',
+          label: 'Apache',
           items: [
             {
               label: 'Apache Software Foundation',
@@ -110,12 +108,24 @@ module.exports = {
               href: 'https://incubator.apache.org/'
             },
             {
-              label: 'Apache License',
-              href: 'https://www.apache.org/licenses/LICENSE-2.0'
+              label: 'Events',
+              href: 'https://www.apache.org/events/current-event'
+            },
+            {
+              label: 'License',
+              href: 'https://www.apache.org/licenses/'
+            },
+            {
+              label: 'Sponsors',
+              href: 'https://www.apache.org/foundation/thanks.html'
             },
             {
               label: 'Sponsorship',
               href: 'https://www.apache.org/foundation/sponsorship.html'
+            },
+            {
+              label: 'Security',
+              href: 'https://www.apache.org/security/'
             }
           ]
         },
