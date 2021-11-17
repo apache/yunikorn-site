@@ -1289,13 +1289,13 @@ Endpoint to enable a state dump to be written periodically. By default, it is 60
 
 Trying to enable or disable this feature more than once in a row results in an error.
 
-**URL** : `/ws/v1/periodicstatedump/{switch}/{period}`
+**URL** : `/ws/v1/periodicstatedump/{switch}/{periodSeconds}`
 
-**Method** : `GET`
+**Method** : `PUT`
 
 **Auth required** : NO
 
-The value `{switch}` can be either `disable` or `enable`. The `{period}` defines in seconds how often state snapshots should be taken. It is expected to be a positive integer and only interpreted in case of `enable`.
+The value `{switch}` can be either `disable` or `enable`. The `{periodSeconds}` defines how often state snapshots should be taken. It is expected to be a positive integer and only interpreted in case of `enable`.
 
 ### Success response
 
