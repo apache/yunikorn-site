@@ -1250,3 +1250,67 @@ Endpoint to retrieve historical data about critical logs, negative resource on n
     ]
 }
 ```
+
+## Retrieve full state dump
+
+Endpoint to retrieve the following information in a single response:
+
+* List of partitions
+* List of applications (running and completed)
+* Application history
+* Nodes
+* Utilization of nodes
+* Generic cluster information
+* Cluster utilization
+* Container history
+* Queues
+
+**URL** : `/ws/v1/fullstatedump`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+The output of this REST query can be rather big and it is a combination of those which have already been demonstrated.
+
+### Failure response
+
+**Code**: `500 Internal Server Error`
+
+## Enable or disable periodic state dump to an external file inside the container which runs Yunikorn
+
+Endpoint to enable a state dump to be written periodically. By default, it is 60 seconds. The output goes to a file called `yunikorn-state.txt`. In the current version, the file is located in the current working directory of Yunikorn and it is not configurable.
+
+Trying to enable or disable this feature more than once in a row results in an error.
+
+**URL** : `/ws/v1/periodicstatedump/{switch}/{periodSeconds}`
+
+**Method** : `PUT`
+
+**Auth required** : NO
+
+The value `{switch}` can be either `disable` or `enable`. The `{periodSeconds}` defines how often state snapshots should be taken. It is expected to be a positive integer and only interpreted in case of `enable`.
+
+### Success response
+
+**Code** : `200 OK`
+
+### Error response
+
+**Code**: `400 Bad Request`
+
+**Content examples**
+
+```json
+{
+    "status_code": 400,
+    "message": "required parameter enabled/disabled is missing",
+    "description": "required parameter enabled/disabled is missing"
+}
+```
