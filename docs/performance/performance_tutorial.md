@@ -1,6 +1,6 @@
 ---
 id: performance_tutorial
-title: Setup tutorial
+title: Benchmarking Tutorial
 keywords:
  - performance
  - tutorial
@@ -33,7 +33,7 @@ The YuniKorn community continues to optimize the performance of the scheduler, e
 
 Be aware that performance result is highly variable depending on the underlying  hardware. All results published in the doc can only be used as references. We encourage each individual to run similar tests on their own environments in order to get a result based on your own hardware. This doc is just for demonstration purpose.
 
-A list of servers being used in this test are (Huge thanks to [National Taichung University of Education, Kuan-Chou Lai] for providing these servers for running tests):
+A list of servers being used in this test are (Huge thanks to [National Taichung University of Education](http://www.ntcu.edu.tw/newweb/index.htm), [Kuan-Chou Lai](http://www.ntcu.edu.tw/kclai/) for providing these servers for running tests):
 
 | Manchine Type         | CPU | Memory | Download/upload(Mbps) |
 | --------------------- | --- | ------ | --------------------- |
@@ -83,12 +83,12 @@ root hard nofile 50000
 
 Before going into the details, here are the general steps used in our tests:
 
-1. Properly configure Kubernetes API server and controller manager, then add worker nodes.
-2. Deploy hollow pods,which will simulate worker nodes, name hollow nodes. After all hollow nodes in ready status, we need to cordon all native nodes, which are physical presence in the cluster, not the simulated nodes, to avoid we allocated test workload pod to native nodes.
-3. Deploy YuniKorn using the Helm chart on the master node, and scale down the Deployment to 0 replica, and modify the port in `prometheus.yml` to match the port of the service.
-4. Deploy 50k Nginx pods for testing, and the API server will create them. But since the YuniKorn scheduler Deployment has been scaled down to 0 replica, all Nginx pods will be stuck in pending.
-5. Scale up The YuniKorn Deployment back to 1 replica, and cordon the master node to avoid YuniKorn allocating Nginx pods there. In this step, YuniKorn will start collecting the metrics.
-6. Observe the metrics exposed in Prometheus UI.
+- [Step 1](#Kubernetes): Properly configure Kubernetes API server and controller manager, then add worker nodes.
+- [Step 2](#Setup-Kubemark): Deploy hollow pods,which will simulate worker nodes, name hollow nodes. After all hollow nodes in ready status, we need to cordon all native nodes, which are physical presence in the cluster, not the simulated nodes, to avoid we allocated test workload pod to native nodes.
+- [Step 3](#Deploy-YuniKorn): Deploy YuniKorn using the Helm chart on the master node, and scale down the Deployment to 0 replica, and [modify the port](#Setup-Prometheus) in `prometheus.yml` to match the port of the service.
+- [Step 4](#Run-tests): Deploy 50k Nginx pods for testing, and the API server will create them. But since the YuniKorn scheduler Deployment has been scaled down to 0 replica, all Nginx pods will be stuck in pending.
+- [Step 5](../user_guide/trouble_shooting.md#restart-the-scheduler): Scale up The YuniKorn Deployment back to 1 replica, and cordon the master node to avoid YuniKorn allocating Nginx pods there. In this step, YuniKorn will start collecting the metrics.
+- [Step 6](#Collect-and-Observe-YuniKorn-metrics): Observe the metrics exposed in Prometheus UI.
 ---
 
 ## Setup Kubemark
@@ -351,16 +351,21 @@ scrape_configs:
 ```
 
 ---
+## Run tests
+
+Once the environment is setup, you are good to run workloads and collect results. YuniKorn community has some useful tools to run workloads and collect metrics, more details will be published here.
+
+---
 
 ## Collect and Observe YuniKorn metrics
 
-After Prometheus is launched, YuniKorn metrics can be easily collected. Here is the [docs](https://yunikorn.apache.org/docs/performance/metrics) of YuniKorn metrics. YuniKorn tracks some key scheduling metrics which measure the latency of some critical scheduling paths. These metrics include:
+After Prometheus is launched, YuniKorn metrics can be easily collected. Here is the [docs](metrics.md) of YuniKorn metrics. YuniKorn tracks some key scheduling metrics which measure the latency of some critical scheduling paths. These metrics include:
 
- - scheduling_latency_seconds
- - app_sorting_latency_seconds
- - node_sorting_latency_seconds
- - queue_sorting_latency_seconds
- - container_allocation_attempt_total 
+ - **scheduling_latency_seconds:** Latency of the main scheduling routine, in seconds.
+ - **app_sorting_latency_seconds**: Latency of all applications sorting, in seconds.
+ - **node_sorting_latency_seconds**: Latency of all nodes sorting, in seconds.
+ - **queue_sorting_latency_seconds**: Latency of all queues sorting, in seconds.
+ - **container_allocation_attempt_total**: Total number of attempts to allocate containers. State of the attempt includes `allocated`, `rejected`, `error`, `released`. Increase only.
 
 you can select and generate graph on Prometheus UI easily, such as:
 
@@ -441,10 +446,6 @@ systemctl restart kubelet
 ```
 
 ---
-
-## Run tests
-
-Once the environment is setup, you are good to run workloads and collect results. YuniKorn community has some useful tools to run workloads and collect metrics, more details will be published here.
 
 ## Summary
 
