@@ -75,6 +75,7 @@ module.exports = {
         ],
         'Performance': [
             'performance/evaluate_perf_function_with_kubemark',
+            'performance/performance_tutorial',
             'performance/metrics',
             'performance/profiling'
         ]
