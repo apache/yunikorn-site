@@ -30,8 +30,8 @@ and how to run a Tensorflow job with YuniKorn scheduler. The training-operator i
 Kubeflow. It not only supports TensorFlow but also PyTorch, XGboots, etc.
 
 ## Install training-operator
-You can run one command to install training operator in kubeflow namespace. If you have problems with installation,
-please refer to [this doc](https://github.com/kubeflow/training-operator#installation) for more details.
+You can use the following command to install training operator in kubeflow namespace by default. If you have problems with installation,
+please refer to [this doc](https://github.com/kubeflow/training-operator#installation) for details.
 ```
 kubectl apply -k "github.com/kubeflow/training-operator/manifests/overlays/standalone?ref=v1.3.0"
 ```
