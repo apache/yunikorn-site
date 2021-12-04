@@ -74,10 +74,8 @@ According to this factor,distribution of scheduling time is following.
 
 ![YK predicate latency](./../assets/predicate_4k.png)
 <p align="center">fig 4. predicate latency </p>
-
 ![YK scheduling with predicate](./../assets/scheduling_with_predicate_4k_.png)
 <p align="center">fig 5. predicate active </p>
-
 ![YK scheduling with no predicate](./../assets/scheduling_no_predicate_4k.png)
 <p align="center">fig 6. predicate inactive </p>
 
