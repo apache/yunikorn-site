@@ -25,79 +25,73 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-All the following tests are done with [Kubemark](https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/devel/kubemark-guide.md#starting-a-kubemark-cluster),
-a tool helps us to simulate large K8s cluster and run experimental workloads.
-There were 18 bare-metal servers being used to simulate 2000/4000 nodes for these tests. 
+The YuniKorn community concerns about the scheduler’s performance and continues to optimize over the releases. The community has developed some tools in order to test and tune the performance repeatedly.
+
+## Environment setup 
+
+We leverage [Kubemark](https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/devel/kubemark-guide.md#starting-a-kubemark-cluster) to evaluate scheduler’s performance. Kubemark is a testing tool that simulates large scale clusters. It create hollow nodes which runs hollow kubelet to pretend original kubelet behavior. Scheduled pods on these hollow nodes won’t actually execute. It is able to create a bigger cluster that meet our experiment requirement when we want to design a experiment to realize yunikorn scheduler performance. Please see the [detail steps](performance/performance_tutorial.md) about how to setup the environment.
 
 ## Scheduler Throughput
 
-When running Big Data batch workloads, e.g Spark, on K8s, scheduler throughput becomes to be one of the main concerns.
-In YuniKorn, we have done lots of optimizations to improve the performance, such as a fully async event-driven system
-and low-latency sorting policies. The following chart reveals the scheduler throughput (by using Kubemark simulated
-environment, and submitting 50,000 pods), comparing to the K8s default scheduler.
+We have designed some simple benchmarking scenarios on a simulated large scale environment in order to evaluate the scheduler performance. Our tools measure the [throughput](https://en.wikipedia.org/wiki/Throughput) and use this key metrics to evaluate the peformance. In a nutshull, scheduler throughput is the rate of processing pods from discovering them on the cluster to allocating them to nodes.
 
-![Scheduler Throughput](./../assets/throughput.png)
+In this experiment, we setup a simulated 2000/4000 nodes cluster with [Kubemark](https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/devel/kubemark-guide.md#starting-a-kubemark-cluster). Then we launch 10 [deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/), with setting replicas to 5000 in each deployment respectively. This simulates large scale workloads submitting to the K8s cluster simultaneously. Our tool peridocally monitors and checks pods status, counting number of started pods based on podSpec.StartTime as time elapses. As a comparision, we apply the same experiment to the default scheduler on the same environment. And we see the YuniKorn peformance advantage over the default scheduler as illustrated below:
+
+![Scheduler Throughput](./../assets/throughput_3types.png)
 
 The charts record the time spent until all pods are running on the cluster
 
-|                       	| THROUGHPUT (pods/sec) 	| THROUGHPUT (pods/sec) 	|
-|-----------------------	|:---------------------:	|:---------------------:	|
-| ENVIRONMENT (# nodes) 	|   Default Scheduler   	|        YuniKorn       	|
-| 2000                  	| 263                   	| 617                   	|
-| 4000                  	| 141                   	| 373                   	|
+|                       	| yunikorn 			| yunikorn 			| k8s default scheduler		|
+|-----------------------	|:---------------------:	|:---------------------:	|:---------------------:        |
+| ENVIRONMENT		 	| predicate inactive     	| predicate active              |                               |
+| 2000(nodes)                  	| 427(pods/sec)                 | 204(pods/sec)			| 49(pods/sec)			|
+| 4000(nodes)                 	| 359(pods/sec)                 | 115(pods/sec)			| 48(pods/sec)			|
 
-## Resource Fairness between queues
+## More insights
 
-Each of YuniKorn queues has its guaranteed and maximum capacity. When we have lots of jobs submitted to these queues,
-YuniKorn ensures each of them gets its fair share. When we monitor the resource usage of these queues, we can clearly
-see how fairness was enforced:
+The results we got from upon experiment is promising. We further take a deep dive to analysis the performance by observing more internal YuniKorn metrics, and we have more findings.
 
-![Queue Fairness](./../assets/queue-fairness.png)
+### the bottleneck
 
-We set up 4 heterogeneous queues on this cluster, and submit different workloads against these queues.
-From the chart, we can see the queue resources are increasing nearly in the same trend, which means the resource
-fairness across queues is honored.
+We found the overall performance actually is capped by the K8s master services, such as api-server, controller-manager and ETCD, we haven’t reached the limit of YuniKorn in all our experiments. If you look at the internal scheduling metrics, you can see
 
-## Node sorting policies
+![Allocation latency](./../assets/allocation_4k.png)
+<p align="center">fig 3. Yunikorn metric in 4k nodes </p>
 
-There are 2 node sorting policies available in YuniKorn, with regarding the pod distributing flavors. One is *FAIR*,
-which tries best to evenly distribute pods to nodes; the other one is *BIN-PACKING*, which tries best to bin pack pods
-to less number of nodes. The former one is suitable for the Data Center scenarios, it helps to balance the stress of
-cluster nodes; the latter one is suitable to be used on Cloud, it can minimize the number of instances when working
-with auto-scaler, in order to save cost.
+In fig3, prometheus shows that yunikorn use 122 seconds to schedule 50k pods before scheduled pods in fig2 were waiting k8s componment for 17 seconds to handle these submission.In each scheduling cycle, we found the most time-consuming phases are:
+1. node sorting
+2. pre-condition checks for a node
 
-### FAIR Policy
+To reduce complexity in average node sorting operation, [YUNIKORN-780](https://issues.apache.org/jira/browse/YUNIKORN-780) refactor node sorting policy and then [YUNIKORN-807](https://issues.apache.org/jira/browse/YUNIKORN-807) reduce complexity from O(nlog(n)) to O(log(n)) via implementing B-tree in nodeCollectiion instead of node list.
+We do two experiments whcih predicate function is active or inactive to check improvement of node sorting mechanism.
+Predicate execution time is fixed process in scheduling and mostly use 0.1 seconds as fig4.
+According to this factor,distribution of scheduling time is following.
 
-We group nodes into 10 buckets, each bucket represents for the number of nodes that has a similar resource
-utilization (a range).  To help you understand the chart, imagine the buckets have the following values at a certain
-point of time:
+|				| scheduling time distribution(second)	| predicate execution time distribution(second)	|
+|-----------------------	|:---------------------:		|:---------------------:			|
+| predicate active		| 0.01 - 0.1				| 0.01-0.1					|
+| predicate inactive		| 0.001 - 0.01				| none						|
 
-|   BUCKET 	| RESOURCE UTILIZATION RANGE 	| VALUE 	|
-|:--------:	|:--------------------------:	|:-----:	|
-| bucket-0 	| 0% - 10%                   	| 100   	|
-| bucket-1 	| 10% - 20%                  	| 300   	|
-| ...      	|                            	|       	|
-| bucket-9 	| 90% - 100%                 	| 0     	|
+![YK predicate latency](./../assets/predicate_4k.png)
+<p align="center">fig 4. predicate latency </p>
 
-This means at the given time, this cluster has 100 nodes whose utilization is in the range 0% to 10%;
-it has 300 nodes whose utilization is in the range 10% - 20%, and so on… Now, we run lots of workloads and
-collect metrics, see the below chart:
+![YK scheduling with predicate](./../assets/scheduling_with_predicate_4k_.png)
+<p align="center">fig 5. predicate active </p>
 
-![Node Fairness](./../assets/node-fair.png)
+![YK scheduling with no predicate](./../assets/scheduling_no_predicate_4k.png)
+<p align="center">fig 6. predicate inactive </p>
 
-We can see all nodes have 0% utilization, and then all of them move to bucket-1, then bucket-2 … and eventually
-all nodes moved to bucket-9, which means all capacity is used. In another word, nodes’ resource has been used in
-a fairness manner.
+* shorter scheduling chain
+In scheduling cycle, we don’t have too many steps or plugin to handle a application request.We get the partition, find the nodes which have suffcients resource and then try to allocate resources.
+* faster node sorting
+We use B-tree to reduce node sorting complexity instead of list.
+* less overhead while running predicates
+In this experiment, we apply applications which don’t have predicate requirement.
+So we can focus on the throughput inflution of larger cluster size with no predicate.
+* everything in-memory
+We update node related information in metadata and reduce much function call to avoid some overhead.
 
-### BIN-PACKING
+## Summary
 
-This is When the bin-packing policy is enabled, we can see the following pattern:
-
-![Node Bin-Packing](./../assets/node-bin-packing.png)
-
-On the contrary, all nodes are moving between 2 buckets, bucket-0 and bucket-9. Nodes in bucket-0 (0% - 10%)
-are decreasing in a linear manner, and nodes in bucket-9 (90% - 100%) are increasing with the same curve.
-In other words, node resources are being used up one by one.
-
-
-
+In fig1 and fig2, YK which hasn’t predicate overhead mostly keep same performance. In otherwise,its performance will reduce when predicate function is active and cluster size is getting larger.
+In future, we will start to set some condition to reduce preidacte overhead and YK can fulfill larger cluster scale reqiurements and keep scheduling performance.
