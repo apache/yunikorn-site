@@ -37,7 +37,8 @@ We have designed some simple benchmarking scenarios on a simulated large scale e
 
 In this experiment, we setup a simulated 2000/4000 nodes cluster with [Kubemark](https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/devel/kubemark-guide.md#starting-a-kubemark-cluster). Then we launch 10 [deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/), with setting replicas to 5000 in each deployment respectively. This simulates large scale workloads submitting to the K8s cluster simultaneously. Our tool peridocally monitors and checks pods status, counting number of started pods based on podSpec.StartTime as time elapses. As a comparision, we apply the same experiment to the default scheduler on the same environment. And we see the YuniKorn peformance advantage over the default scheduler as illustrated below:
 
-![Scheduler Throughput](./../assets/throughput_3types.png)
+![Scheduler Throughput](./../assets/yunirkonVSdefault.png)
+<p align="center">fig 1. Yunikorn and default scheduler throughput </p>
 
 The charts record the time spent until all pods are running on the cluster
 
@@ -56,15 +57,19 @@ The results we got from upon experiment is promising. We further take a deep div
 We found the overall performance actually is capped by the K8s master services, such as api-server, controller-manager and ETCD, we haven’t reached the limit of YuniKorn in all our experiments. If you look at the internal scheduling metrics, you can see
 
 ![Allocation latency](./../assets/allocation_4k.png)
-<p align="center">fig 3. Yunikorn metric in 4k nodes </p>
+<p align="center">fig 2. Yunikorn metric in 4k nodes </p>
 
-In fig3, prometheus shows that yunikorn use 122 seconds to schedule 50k pods before scheduled pods in fig2 were waiting k8s componment for 17 seconds to handle these submission.In each scheduling cycle, we found the most time-consuming phases are:
+In fig2, prometheus shows that yunikorn use 122 seconds to schedule 50k pods before scheduled pods and  were waiting k8s componment for 17 seconds to handle these submission.In each scheduling cycle, we found the most time-consuming phases are:
 1. node sorting
 2. pre-condition checks for a node
 
 To reduce complexity in average node sorting operation, [YUNIKORN-780](https://issues.apache.org/jira/browse/YUNIKORN-780) refactor node sorting policy and then [YUNIKORN-807](https://issues.apache.org/jira/browse/YUNIKORN-807) reduce complexity from O(nlog(n)) to O(log(n)) via implementing B-tree in nodeCollectiion instead of node list.
 We do two experiments whcih predicate function is active or inactive to check improvement of node sorting mechanism.
 Predicate execution time is fixed process in scheduling and mostly use 0.1 seconds as fig4.
+Fig 3 shows the preidcate latency that impact yunikron scheduling.
+![Allocation latency](./../assets/predicateComaparation.png)
+<p align="center">fig 3. Predicate effect comparation in yunikorn </p>
+
 According to this factor,distribution of scheduling time is following.
 
 |				| scheduling time distribution(second)	| predicate execution time distribution(second)	|
@@ -72,12 +77,15 @@ According to this factor,distribution of scheduling time is following.
 | predicate active		| 0.01 - 0.1				| 0.01-0.1					|
 | predicate inactive		| 0.001 - 0.01				| none						|
 
+
 ![YK predicate latency](./../assets/predicate_4k.png)
 <p align="center">fig 4. predicate latency </p>
+
 ![YK scheduling with predicate](./../assets/scheduling_with_predicate_4k_.png)
-<p align="center">fig 5. predicate active </p>
+<p align="center">fig 5. Scheduling time with predicate active </p>
+
 ![YK scheduling with no predicate](./../assets/scheduling_no_predicate_4k.png)
-<p align="center">fig 6. predicate inactive </p>
+<p align="center">fig 6. Scheduling time with predicate inactive </p>
 
 * shorter scheduling chain
 In scheduling cycle, we don’t have too many steps or plugin to handle a application request.We get the partition, find the nodes which have suffcients resource and then try to allocate resources.
@@ -91,5 +99,5 @@ We update node related information in metadata and reduce much function call to 
 
 ## Summary
 
-In fig1 and fig2, YK which hasn’t predicate overhead mostly keep same performance. In otherwise,its performance will reduce when predicate function is active and cluster size is getting larger.
+In fig1 and fig3, YK which hasn’t predicate overhead mostly keep same performance. In otherwise,its performance will reduce when predicate function is active and cluster size is getting larger.
 In future, we will start to set some condition to reduce preidacte overhead and YK can fulfill larger cluster scale reqiurements and keep scheduling performance.
