@@ -25,32 +25,27 @@ under the License.
 # What's next (future development)
 
 - [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1) Application and task priority support
-- [YUNIKORN-387](https://issues.apache.org/jira/browse/YUNIKORN-387) Logging and tracing enhancement using OpenTracing
 - Application level preemption
-- Application centric diagnostic info tracker
+- Offer an alternative mode of deployment as plugins to the default scheduler, in addition to the current standalone mode
+- Improve the robustness of the admission controller to allow for convenient upgrade and maintenance of the scheduler
 
-# Current Release Development
+# Future Release Development
 
 Release status:
-- Version: 0.12.0
-- Target release date: December 2021
-- Release manager: Chaoran Yu
-- Development status: [Issue tracker](https://issues.apache.org/jira/projects/YUNIKORN/versions/12350843)
+- Version: 1.0.0
+- Target release date: March 2021
+- Development status: [Issue tracker](https://issues.apache.org/jira/projects/YUNIKORN/versions/12350288)
 
 Planned features:
-- [YUNIKORN-861](https://issues.apache.org/jira/browse/YUNIKORN-861) Gang scheduling support for affinity
-- [YUNIKORN-807](https://issues.apache.org/jira/browse/YUNIKORN-807) Improve performance of node sorting
-- [YUNIKORN-940](https://issues.apache.org/jira/browse/YUNIKORN-940) Periodic &amp; on-demand state dump in YuniKorn
-- [YUNIKORN-33](https://issues.apache.org/jira/browse/YUNIKORN-33) Performance benchmark with kubemark
-- [YUNIKORN-872](https://issues.apache.org/jira/browse/YUNIKORN-872) Build against Kubernetes 1.20
-- [YUNIKORN-698](https://issues.apache.org/jira/browse/YUNIKORN-698) Kubernetes 1.20 support
-- [YUNIKORN-908](https://issues.apache.org/jira/browse/YUNIKORN-908) Kubernetes 1.21 support
+- [YUNIKORN-971](https://issues.apache.org/jira/browse/YUNIKORN-971) Implement YuniKorn as a Kubernetes scheduler plugin
+- [YUNIKORN-941](https://issues.apache.org/jira/browse/YUNIKORN-941) Split scheduler and admission controller deployment
 
 # Past Releases
 
-| Version 	| Release Date  	| Release Manager 	    | Release Note         	                             |
-|---------	|:-------------:	|:---------------:	    |----------------------	                             |
-| 0.11.0  	| 2021-08-18    	| Kinga Marton        	    | [0.11.0-release-notes](../release-announce/0.11.0) |
-| 0.10.0  	| 2021-04-09    	| Tao Yang        	    | [0.10.0-release-notes](../release-announce/0.10.0) |
-| 0.9.0   	| 2020-08-28        | Wilfred Spiegelenburg | [0.9.0-release-notes](../release-announce/0.9.0)   |
-| 0.8.0   	| 2020-05-04	    | Weiwei Yang     	    | [0.8.0-release-notes](../release-announce/0.8.0)   |
+| Version 	 | Release Date  	 |   Release Manager 	   | Release Note         	                             |
+|-----------|:---------------:|:---------------------:|----------------------------------------------------|
+| 0.12.1  	 | 2021-12-17    	 |  Chaoran Yu        	  | [0.12.1-release-notes](../release-announce/0.12.1) |
+| 0.11.0  	 | 2021-08-18    	 | Kinga Marton        	 | [0.11.0-release-notes](../release-announce/0.11.0) |
+| 0.10.0  	 | 2021-04-09    	 |   Tao Yang        	   | [0.10.0-release-notes](../release-announce/0.10.0) |
+| 0.9.0   	 |   2020-08-28    | Wilfred Spiegelenburg | [0.9.0-release-notes](../release-announce/0.9.0)   |
+| 0.8.0   	 |   2020-05-04	   |   Weiwei Yang     	   | [0.8.0-release-notes](../release-announce/0.8.0)   |
