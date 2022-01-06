@@ -55,7 +55,7 @@ module.exports = {
       title: 'Apache YuniKorn',
       logo: {
         alt: 'YuniKorn Site Logo',
-        src: 'img/yunikorn.ico',
+        src: 'img/logo/yunikorn_blue_logo.png',
         srcDark: 'img/logo/yunikorn_white_logo.png',
       },
       items: [
