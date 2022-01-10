@@ -96,6 +96,12 @@ The commit message must include the JIRA in the first line and should include a 
 A commit will automatically close the PR.
 The JIRA will not be closed automatically.
 
+## Report a security issue
+YuniKorn community cares deeply about the security and actively support for any security issues as
+the top priority. The community uses its private mailing list (private@yunikorn.apache.org) to discuss
+and track security related issues. If any security issue found, please email to the private
+mailing list. The community will evaluate the severity immediately and provide a plan accordingly.
+
 ## Still got questions?
 If you’re not sure about something, try to follow the style of the existing codebase.
 Look at whether there are other examples in the code that do a similar thing.
