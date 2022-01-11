@@ -80,20 +80,20 @@ import TabItem from '@theme/TabItem';
 
 Committers are the community members who have the write access to the project's repositories, i.e
 they can modify the code by themselves and accept others contributions to all YuniKorn repos.
-There is no strict rules about the qualification of a candidate, the PPMC votes for a candidate
+There is no strict rules about the qualification of a candidate. The PPMC votes for a candidate
 based on various considerations:
 
 - Code contributions
   - Consistent code contributions
   - Optimize the CI/CD pipeline
-  - Help the code reviews
+  - Help with the code reviews
   - Test and verify release candidates
   - Performance tuning and related tools development
   - Propose improvement proposals
 
 - Non-code contributions
   - Involvement in the community activities, such as meetings, meetups, etc.
-  - Provide feedback, report issues, roadmap discussions
+  - Provide feedback, report issues, and participate in roadmap discussions
   - Help on project releases
   - Improve project documentation
   - Help the project adoption
@@ -104,13 +104,13 @@ appreciates both code or non-code contributions.
 
 ## Become a PPMC member
 
-PPMC represents for Podling Project Management Committee, this committee is responsible for project
-management and governance, ensures the project can be operated under [Apache Way](https://www.apache.org/theapacheway/).
-The committee makes decisions based on the PPMC members' votes. A PPMC member has the authority to cast a binding cast
-a binding vote on various things, such as project releases, adding new committer or PPMC member, etc.
+PPMC stands for the Podling Project Management Committee. It is responsible for project
+management, governance and ensures the project can be operated under the [Apache Way](https://www.apache.org/theapacheway/).
+The committee makes decisions based on the PPMC members' votes. A PPMC member has the authority to cast a binding
+vote on various things, such as project releases, adding new committer or PPMC member, etc.
 
-A contributor must become a committer first before being a PPMC member.
-There is no strict rules of when a committer will be qualified for adding to PPMC. The management
+A contributor must become a committer first before becoming a PPMC member.
+There is no strict rules of when a committer will be qualified for being added to PPMC. The management
 committee makes a decision based on the involvement and impact of each committer. In general, a committer
 who makes consistent code or non-code contributions to the project should be considered as a PPMC candidate.
 

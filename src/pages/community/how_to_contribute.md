@@ -97,9 +97,9 @@ A commit will automatically close the PR.
 The JIRA will not be closed automatically.
 
 ## Report a security issue
-YuniKorn community cares deeply about the security and actively support for any security issues as
+YuniKorn community cares deeply about the security and actively addresses any security issues as
 the top priority. The community uses its private mailing list (private@yunikorn.apache.org) to discuss
-and track security related issues. If any security issue found, please email to the private
+and track security related issues. If any security issue found, please email the private
 mailing list. The community will evaluate the severity immediately and provide a plan accordingly.
 
 ## Still got questions?
