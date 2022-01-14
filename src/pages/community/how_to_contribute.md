@@ -98,9 +98,11 @@ The JIRA will not be closed automatically.
 
 ## Report a security issue
 YuniKorn community cares deeply about the security and actively addresses any security issues as
-the top priority. The community uses its private mailing list (private@yunikorn.apache.org) to discuss
-and track security related issues. If any security issue found, please email the private
-mailing list. The community will evaluate the severity immediately and provide a plan accordingly.
+the top priority. We follow the Apache security guidelines for handling security issues, please see the Apache doc
+about [handling security issues](https://www.apache.org/security/). If you find any security issue,
+please send a vulnerability report to security@apache.org, the YuniKorn security team will assess the issue
+immediately and work with the reporter on a plan to fix it. Please do not disclose the issue to any public forum
+before working with the security team.
 
 ## Still got questions?
 If you’re not sure about something, try to follow the style of the existing codebase.
