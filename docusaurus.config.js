@@ -24,6 +24,18 @@ module.exports = {
   favicon: 'img/yunikorn.ico',
   organizationName: 'apache',
   projectName: 'incubator-yunikorn-core',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'zh-cn'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+      },
+      "zh-cn": {
+        label: '中文',
+      },
+    },
+  },
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -150,6 +162,10 @@ module.exports = {
               to: `docs/${version}/`,
             })),
           ],
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
         },
         {
           href: 'https://github.com/apache/incubator-yunikorn-core',
