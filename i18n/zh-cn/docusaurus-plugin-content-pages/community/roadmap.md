@@ -1,6 +1,6 @@
 ---
 id: roadmap
-title: Roadmap
+title: 路线图
 ---
 
 <!--
@@ -22,33 +22,33 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Future development: long term goals
+# 未来发展：长期的目标
 
-- Application and task priority support
-- Preemption of allocations
-- User and group quota and limit enforcement
-- Offer an alternative mode of deployment as plugins to the default scheduler, in addition to the current standalone mode
+- 应用程序和任务优先级的支持
+- 抢占资源分配
+- 用户和组配额和限制执行
+- 除了当前的独立模式之外，还会提供另一种部署模式作为默认调度程序的插件
 
-# Next Release Development
+# 下一个发布研发内容
 
-Release Details:
-- Version: 1.0.0
-- Target release date: March 2022
-- Release manager: Wilfred Spiegelenburg
-- Development status: [Issue tracker](https://issues.apache.org/jira/issues/?filter=12348416)
+发布详情：
+- 版本：1.0.0
+- 目标发布日期：2022 年 3 月
+- 发布经理：Wilfred Spiegelenburg
+- 开发状态：[问题跟踪器](https://issues.apache.org/jira/issues/?filter=12348416)
 
-Planned major features:
-- [YUNIKORN-971](https://issues.apache.org/jira/browse/YUNIKORN-971) Implement YuniKorn as a Kubernetes scheduler plugin
-- [YUNIKORN-978](https://issues.apache.org/jira/browse/YUNIKORN-978) Admission controller deployment improvements
-- [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) Enforcing User and Group limits (phase 1)
-- [YUNIKORN-954](https://issues.apache.org/jira/browse/YUNIKORN-954) Remove old REST api
-- [YUNIKORN-720](https://issues.apache.org/jira/browse/YUNIKORN-720) Improved queue metrics
+计划的主要功能：
+- [YUNIKORN-971](https://issues.apache.org/jira/browse/YUNIKORN-971) 将 YuniKorn 实现为 Kubernetes 调度插件
+- [YUNIKORN-978](https://issues.apache.org/jira/browse/YUNIKORN-978) 准入控制器部署改进
+- [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) 实施用户和组限制（阶段 1）
+- [YUNIKORN-954](https://issues.apache.org/jira/browse/YUNIKORN-954) 移除旧的 REST api
+- [YUNIKORN-720](https://issues.apache.org/jira/browse/YUNIKORN-720) 改进了队列指标
 
-Supported Kubernetes versions and the Kubernetes dependency will be defined and finalised during the development cycle. 
+支持的 Kubernetes 版本和 Kubernetes 依赖项将在开发周期中进行选择和最终确定。
 
-# Past Releases
+# 过去的发布
 
-| Version   | Release Date   |   Release Manager 	 | Release Note                                       |
+| 版本   | 发布日期   |   发布经理 	 | 发布公告                                      |
 |-----------|:--------------:|:---------------------:|----------------------------------------------------|
 | 0.12.1    |   2021-12-26   | Chaoran Yu            | [0.12.1-release-notes](../release-announce/0.12.1) |
 | 0.11.0    |   2021-08-18   | Kinga Marton          | [0.11.0-release-notes](../release-announce/0.11.0) |

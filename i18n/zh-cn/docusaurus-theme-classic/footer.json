@@ -4,5 +4,11 @@
     },
     "link.item.label.Roster": {
         "message": "名册"
+    },   
+    "link.title.Blog": {
+        "message": "博客"
+    },
+    "link.title.Community": {
+        "message": "社区"
     }
 }

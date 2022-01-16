@@ -11,6 +11,21 @@
     "item.label.Community": {
         "message": "社区"
     },
+    "item.label.Get Involved": {
+        "message": "进行参与"
+    },    
+    "item.label.How to Contribute": {
+        "message": "如何贡献"
+    },
+    "item.label.Coding Guidelines": {
+        "message": "编码指南"
+    },    
+    "item.label.Reporting Issues": {
+        "message": "报告问题"
+    },    
+    "item.label.Events": {
+        "message": "事件"
+    },
     "item.label.Docs": {
         "message": "文档"
     }

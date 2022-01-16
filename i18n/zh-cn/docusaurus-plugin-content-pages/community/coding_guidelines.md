@@ -1,6 +1,6 @@
 ---
 id: coding_guidelines
-title: Coding Guidelines
+title: 编码指南
 ---
 
 <!--
@@ -22,106 +22,107 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Coding Guidelines
+# 编码指南
 
-## The basics
-GO as a language provides a build in formatter for the code: `gofmt`.
-The project uses the predefined format as implemented in `gofmt`.
-That means tabs and not spaces etc.
-Read the [Effective GO](https://golang.org/doc/effective_go.html) page for further details.
-Before creating a pull request make sure the code at least is formatted using `gofmt`.
+## 基础指南
+GO 作为一种语言为代码提供了内置的格式化程序：`gofmt`。
+该项目使用在 `gofmt` 中实现的预定义格式。
+这意味着例如：tabs而不是空格等。
+阅读 [Effective GO](https://golang.org/doc/effective_go.html) 页面了解更多详情。
+在创建拉取请求之前，请确保至少使用 `gofmt` 格式化代码。
 
-Beside the effective GO guide follow the recommendations from the [CodeReviewComments](https://github.com/golang/go/wiki/CodeReviewComments) wiki page.
-The wiki provides a good collection of comments from code reviews.
-Most of the comments will be checked in the automated checks described below.
+除了 Effective GO 指南之外，请遵循 [CodeReviewComments](https://github.com/golang/go/wiki/CodeReviewComments) wiki 页面中的建议。
+wiki 提供了一个很好的代码审查注释库。
+大多数注释将在下面描述的自动检查中进行检查。
 
-When using an IDE, like GoLand or Visual Studio Code, use the builtin options.
-Most IDEs will provide an extensive list of checks or formatting options that help formatting and point out code issues.
-See [IDE setup](#goland-ide-setup) for a basic setup for the GoLand IDE. 
+使用 IDE（如 GoLand 或 Visual Studio Code）时，请使用内置的选项。
+大多数 IDE 将提供大量检查或格式化选项列表，以帮助格式化和指出代码的问题。
+有关 GoLand IDE 的基本设置，请参阅 [IDE 设置](#goland-ide-setup)。
 
-## Automated checks
-Not all code will be written using an IDE.
-Even between contributors the settings might not be the same in all installs.
-To help keep code formatted consistently a [lint](https://en.wikipedia.org/wiki/Lint_(software)) tool is part of the code approval.   
+## 自动检查
+并非所有代码都会使用 IDE 进行编写。
+即使在贡献者之间，所有安装的设置也可能不同。
+为了帮助保持代码格式一致，[lint](https://en.wikipedia.org/wiki/Lint_(software)) 工具是代码批准的一部分。
 
-There are a large number of lint tools are available for Go.
-Most of the lint tools only check one specific thing.
-Some of the tools will aggregate a number of linters and provide an overview of all the issues found. 
-For the project we have chosen the [golangci-lint](https://github.com/golangci/golangci-lint) tool.
-The tool can be run locally and will be integrated into the GitHub PR flow.
+Go 有大量可用的 lint 工具。
+大多数 lint 工具只检查一件特定的事情。
+一些工具将聚合一些 linter，并提供所有发现的问题的概述。
+对于该项目，我们选择了 [golangci-lint](https://github.com/golangci/golangci-lint) 工具。
+该工具可以在本地运行，并将集成到 GitHub PR 流程中。
 
-### Installing and running locally
-Depending on your development system the instructions might differ slightly.
-Follow the [installation instructions](https://golangci-lint.run/usage/install/#local-installation) provided by the project.
+### 本地安装和运行
+我们可以按照项目提供的 [安装说明](https://golangci-lint.run/usage/install/#local-installation) 进行运行。
+不过根据您的开发系统，说明可能会略有不同。
 
-After the tool is installed you can run it using the standard command line: 
+安装工具后，您可以使用标准命令行运行它：
 ```shell script
 golangci-lint run
 ```
-The projects still generate a number of warnings.
-The high impact warnings have been fixed or ignored via comments, see [False positives](#false-positives).
 
-If you have been working on a new feature, or a bug fix you only want to check the files that have changed.
-You can run the tool with the option `--new` or `--new-from-rev` option.
-The `--new` option will only check uncommitted files.
-The `--new-from-rev` option will check changes against a specific committed revision.
+这些项目仍然会产生许多警告。
+高影响警告已通过评论修复或忽略，请参阅 [误报](#false-positives)。
+
+如果您一直在研究新功能或修复错误，您只想检查已更改的文件。
+您可以使用选项 `--new` 或 `--new-from-rev` 选项运行该工具。
+`--new` 选项只会检查未提交的文件。
+`--new-from-rev` 选项将根据特定提交的修订检查更改。
 
 ```shell script
-# for uncommitted changes
+# 对于未提交的更改
 golangci-lint run --new
-# for committed changes against a revision
+# 针对修订提交的更改
 golangci-lint run --new-from-rev=origin/master
 ```
 
-The make target is `lint`:
+make命令追加 `lint`:
 ```shell script
 make lint
 ```
 
-The `make` integration checks two locations for the linter executable:
+`make` 使用 linter 集成检查可执行文件的两个位置：
 * `$(go env GOPATH)/bin/`
 * `./bin/`
   
-The location for a standard installation is slightly different for a developer and CI install.
-By checking both locations we can run locally and during our automated builds.
+对于开发人员和 CI 安装，标准的安装位置略有不同。
+通过检查这两个位置，我们可以在本地和自动构建期间运行。
+ 
+make 集成使用 `--new-from-rev` 命令行选项。
+要检查的修改被确定为运行的一部分，以允许它在我们的 CI 构建期间在不同的分支和拉取请求上运行。
+lint 检查是项目的标准 CI 构建运行的一部分。
 
-The make integration uses the `--new-from-rev` command line option.
-The revision to check against is determined as part of the run to allow it to run on different branches and on pull requests during our CI build.
-A lint check is part of the standard CI build run for the project. 
+有关如何运行该工具的更多选项和信息，请参阅 golangci-lint 产品文档。
 
-See the golangci-lint product documentation for more options and information on how to run the tool.
+### 配置
+为使用它们的两个项目提供了预定义的配置：
+* [YuniKorn k8shim](https://github.com/apache/incubator-yunikorn-k8shim), 配置文件 [golangci.yml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/.golangci.yml).
+* [YuniKorn core](https://github.com/apache/incubator-yunikorn-core), 配置文件 [golangci.yml](https://github.com/apache/incubator-yunikorn-core/blob/master/.golangci.yml). 
 
-### Configuration
-A predefined configuration is provided for the two projects that use them:
-* [YuniKorn k8shim](https://github.com/apache/incubator-yunikorn-k8shim), configuration file [golangci.yml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/.golangci.yml).
-* [YuniKorn core](https://github.com/apache/incubator-yunikorn-core), configuration file [golangci.yml](https://github.com/apache/incubator-yunikorn-core/blob/master/.golangci.yml). 
+Web 界面是一个 javascript 项目，调度接口只生成了 Go 代码，因此不使用它。
 
-The web interface is a javascript project and the scheduler interface only has generated Go code and thus do not use it. 
+### 拉取请求中的集成
+计划是将 `golangci-lint` 检查集成到 GitHub PR 流程中。
 
-### Integration in pull requests
-The planning is to integrate the `golangci-lint` check into the GitHub PR flow. 
+## 误报
+工具从来都不是 100% 正确的，这个也不是。
+某些问题因太难纠正或不够重要而无法修复。
 
-## False positives
-Tools are never 100% correct and neither is this one.
-Certain issue are too hard to correct or are not important enough to fix.
-
-The tool allows adding a comment to the code to ignore the issue.
-These comments should be used sparingly as they could hide issues.
-If they are used they should be accompanied by a comment to explain why they are used.
+该工具允许向代码添加注释以忽略该问题。
+这些注释应该谨慎使用，因为它们可能会隐藏问题。
+如果使用它们，则应附有注明以解释使用它们的原因。
 ```go
 	var s1 = "ignored by all linters" //nolint
 	var s2 = "ignored by the linter unused" //nolint:unused
 ``` 
-Using the `nolint` comment without a specific linter is discouraged.  
+我们不鼓励使用没有特定 linter 的 `nolint` 注释。
 
-## GoLand IDE setup
-GoLand has a number of checks turned on by default.
-These defaults already provide a good coverage and mark a lot of issues found by the linters as issues.
-To extend the coverage further and help mark issues proactively check the following settings and change them to the settings as per the screenshots.
+## GoLand IDE 设置
+GoLand 默认开启了许多检查。
+这些默认值已经提供了很好的覆盖率，并将 linter 发现的许多问题标记为问题。
+要进一步扩大覆盖范围并帮助标记问题，请主动检查以下设置并将其更改为根据屏幕截图的设置。
 
-### Editor preferences
-Open the preferences pane and go to: Editor -> Code Style -> Go.
-There are three tabs to configure, the first two are crucial to comply with the basic rules from `gofmt` and `goimports`:
+### preferences 偏好
+打开 preferences 窗格并转到：Editor -> Code Style -> Go
+需要配置三个选项卡，前两个对于遵守 `gofmt` 和 `goimports` 的基本规则至关重要：
 
 | ||
 | -------- | ---------- |
@@ -129,24 +130,24 @@ There are three tabs to configure, the first two are crucial to comply with the 
 | Imports |![imports](/img/goland_ide_pref_imports.png)|
 | Other |![other](/img/goland_ide_pref_other.png)|
 
-The imports as configured above should create 3 groups of imports in a file when they are used:
-1. standard library imports
-2. third-party imports
-3. YuniKorn internal imports
+上面配置的导入在使用时应该在一个文件中创建 3 组导入：
+1. 标准库导入
+2. 第三方导入
+3. YuniKorn 内部导入
 
-In the file it will give you an import that looks like this:
+在文件中，它将为您提供如下所示的导入：
 ```go
 import (
-  // standard libraries
+  // 标准库导入
 
-  // third-party
+  // 第三方
 
-  // YuniKorn project imports
+  // YuniKorn 项目导入
 )
 ```
 
-### Inspections
-The default inspections can be used except for one that helps highlight shadowing variables.
-Shadowing can cause difficult to trace and obscure bugs in the code and should be prevented whenever possible. 
+### 检查
+除开有助于突出显示阴影变量的检查，我们才可以使用默认检查。
+阴影变量可能导致难以跟踪和掩盖代码中的错误，应尽可能防止。
 
-![inspections](/img/goland_ide_pref_inspections.png)
+![检查](/img/goland_ide_pref_inspections.png)

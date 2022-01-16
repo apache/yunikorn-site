@@ -1,6 +1,6 @@
 ---
 id: events
-title: Events
+title: 事件
 ---
 
 <!--
@@ -22,23 +22,21 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-Upcoming Meetup
+即将举行的会议
 ---
 
-Join us on **4:30pm - 6:00pm, PST, Nov 18, 2021**
+加入我们 **4:30pm - 6:00pm，太平洋标准时间，2021 年 11 月 18 日**
 
-**Wilfred Spiegelenburg** will present a session to
-introduce the latest status in the YuniKorn community. Don't miss out!! Add this event to your calendar: [:calendar:](https://calendar.google.com/event?action=TEMPLATE&tmeid=NHE2a2Vvc3FucDRhbDhmamowNGllcmRka24gYXBhY2hlLnl1bmlrb3JuQG0&tmsrc=apache.yunikorn%40gmail.com)
+**Wilfred Spiegelenburg** 将向我们介绍 YuniKorn 社区的最新状态。不要错过！将此事件添加到您的日历：[:calendar:](https://calendar.google.com/event?action=TEMPLATE&tmeid=NHE2a2Vvc3FucDRhbDhmamowNGllcmRka24gYXBhY2hlLnl1bmlrb3JuQG0&tmsrc=apache.yunikorn%40gmail.com)
 
-_Abstract_: Apache YuniKorn (Incubating) has released v0.11 earlier this year with a number of new features and improvements
-like Gang scheduling, REST API enhancements and Kubernetes 1.19 support. In a month, we are planning the major
-v1.0.0 release with Kubernetes 1.20 & 1.21 support, improved node sorting and numerous small fixes & enhancements! In this meetup, we will deep dive into the implementation of Gang scheduling behind the use of temporary
-placeholder pods on Kubernetes, significant performance improvement with simplified scheduler core code and
-a new node sorting algorithm. Please find all the topics for this meetup [here](https://docs.google.com/document/d/1-NP0J22-Gp3cZ_hfKyA9htXJw7tlk-BmljF-7CBJg44). 
+_Abstract_: Apache YuniKorn (Incubating) 今年早些时候发布了 v0.11 版本，其中包含了许多新功能和改进，比如 Gang 调度、REST API 增强和 Kubernetes 1.19 支持。
+在一个月内，我们计划发布主要的 v1.0.0 版本，它将支持 Kubernetes 1.20 和 1.21、改进的节点排序以及大量的小修复和增强功能！
+在本次会议中，我们将深入探讨在 Kubernetes 上使用临时占位 pod 背后的帮派调度实现、通过简化的调度器核心代码和新的节点排序算法显著提高性能。
+请在 [此处](https://docs.google.com/document/d/1-NP0J22-Gp3cZ_hfKyA9htXJw7tlk-BmljF-7CBJg44) 找到本次会议的所有主题。
 
 ----
 
-Past Conference Sessions
+过去的会议
 ---
 
 - ApacheCon 2021: [Next Level Spark on Kubernetes with Apache YuniKorn (Incubating)](https://youtu.be/gOST-iT-hj8) :busts_in_silhouette: Weiwei Yang, Chaoran Yu
@@ -50,15 +48,14 @@ Past Conference Sessions
 - Flink Forward 2020: [Energize multi-tenant Flink on K8s with YuniKorn](https://www.youtube.com/embed/NemFKL0kK9U) :busts_in_silhouette: Weiwei Yang, Wilfred Spiegelenburg
 
 
-Demo Videos
+演示视频
 ---
 
-Please subscribe to [YuniKorn Youtube Channel](https://www.youtube.com/channel/UCDSJ2z-lEZcjdK27tTj_hGw) to get notification about new demos!
+请订阅 [YuniKorn Youtube Channel](https://www.youtube.com/channel/UCDSJ2z-lEZcjdK27tTj_hGw) 获取有关新演示的通知！
 - [Running YuniKorn on Kubernetes - a 12 minutes Hello-world demo](https://www.youtube.com/watch?v=cCHVFkbHIzo)
 - [YuniKorn configuration hot-refresh introduction](https://www.youtube.com/watch?v=3WOaxoPogDY)
 - [Yunikorn scheduling and volumes on Kubernetes](https://www.youtube.com/watch?v=XDrjOkMp3k4)
 - [Yunikorn placement rules for applications](https://www.youtube.com/watch?v=DfhJLMjaFH0)
 - [Federated K8s compute pools with YuniKorn](https://www.youtube.com/watch?v=l7Ydg_ZGZw0&t)
 
-If you are a YuniKorn evangelist, and you have public conference talks, demo recording that related to YuniKorn.
-Please submit a PR to extend this list!
+如果您是 YuniKorn 的布道者，并且您有公开的会议演讲、与 YuniKorn 相关的演示录音，请提交 PR 以扩展此列表！
