@@ -34,7 +34,7 @@ under the License.
 发布详情：
 - 版本：1.0.0
 - 目标发布日期：2022 年 3 月
-- 发布经理：Wilfred Spiegelenburg
+- 发布负责人：Wilfred Spiegelenburg
 - 开发状态：[问题跟踪器](https://issues.apache.org/jira/issues/?filter=12348416)
 
 计划的主要功能：
@@ -48,7 +48,7 @@ under the License.
 
 # 过去的发布
 
-| 版本   | 发布日期   |   发布经理 	 | 发布公告                                      |
+| 版本   | 发布日期   |   发布负责人 	 | 发布公告                                      |
 |-----------|:--------------:|:---------------------:|----------------------------------------------------|
 | 0.12.1    |   2021-12-26   | Chaoran Yu            | [0.12.1-release-notes](../release-announce/0.12.1) |
 | 0.11.0    |   2021-08-18   | Kinga Marton          | [0.11.0-release-notes](../release-announce/0.11.0) |
