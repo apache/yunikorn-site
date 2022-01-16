@@ -1,0 +1,17 @@
+{
+    "item.label.Quick Start": {
+        "message": "快速开始"
+    },
+    "item.label.Roadmap": {
+        "message": "路线图"
+    },
+    "item.label.Download": {
+        "message": "下载"
+    },
+    "item.label.Community": {
+        "message": "社区"
+    },
+    "item.label.Docs": {
+        "message": "文档"
+    }
+}
