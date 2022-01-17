@@ -361,7 +361,6 @@ RM 可以请求添加、更新或删除节点。
 - 检索资源预留的状态
 
 ## 如何合并缓存和调度器对象
-Since there is no longer the requirement to distinguish the objects in the cache and scheduler the `scheduling` and `info` parts of the name will be dropped.
 由于不再需要区分缓存和调度器中的对象，因此 `调度` 和 `信息` 部分的名称将被删除。
 
 主体的调整和合并概述：

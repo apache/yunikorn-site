@@ -122,7 +122,6 @@ ${SPARK_HOME}/bin/spark-submit --master k8s://http://localhost:8001 --deploy-mod
 
 ![spark-pods](./../../assets/spark-pods.png)
 
-You can also view the job info from YuniKorn UI. If you do not know how to access the YuniKorn UI, please read the document
 您还可以从 YuniKorn UI 查看作业信息。如果您不知道如何访问 YuniKorn UI，请阅读文档
 [链接](../../get_started/get_started.md#access-the-web-ui).
 

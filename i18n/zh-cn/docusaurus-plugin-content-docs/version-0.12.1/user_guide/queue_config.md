@@ -109,11 +109,6 @@ Kubernetes 命名空间提供了 Kubernetes 资源的范围，包括安全上下
 _queues_ 内容是主要的配置元素。
 它定义了队列的层次结构。
 
-It can have a `root` queue defined but it is not a required element.
-If the `root` queue is not defined the configuration parsing will insert the root queue for consistency.
-The insertion of the root queue is triggered by:
-* If the configuration has more than one queue defined at the top level a root queue is inserted.
-* If there is only one queue defined at the top level and it is not called `root` a root queue is inserted.  
 我们可以定义一个 `root` 队列，但它不是必需的元素。
 如果没有定义 `root` 队列，配置解析将插入根队列以保持一致性。
 根队列的插入由以下情况触发：

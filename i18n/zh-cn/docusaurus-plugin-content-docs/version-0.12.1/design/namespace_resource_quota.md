@@ -152,7 +152,6 @@ spec:
           memory: "1000M"
 ```
 
-pod will not be able to submitted to api-server, because the requested cpu `200m` + used cpu `100m` = `300m` which exceeds the resource quota.
 因为请求的 cpu `200m` + 使用的 cpu `100m` = `300m` 超过了资源配额，所以pod 将无法提交到 api-server。
 
 ```
