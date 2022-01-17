@@ -33,7 +33,7 @@ under the License.
 
 **以下是最好的事情:**
 
-- 抢占很快（多亏了“猎枪”），回收数千个 contaier 并只需要1秒。
+- 抢占很快（多亏了“猎枪”），回收数千个容器只需要1秒。
 - 我们已经了解处理DRF、多个抢占策略（队列间/队列内、散弹枪/外科抢占等）是多么痛苦，并且我们已经开发了一些不错的逻辑来确保更好的模块化和插件能力。
 
 ## 回答一些有关设计/实现选择的问题
@@ -55,7 +55,7 @@ b. 控制抢占速度。
 我们可以通过抢占来进行资源的分配。
 这并不意味着容器将在发出抢占权后立即停止。
 相反，RM可以控制向容器发送信号和终止容器之间的延迟。
-比如在K8s中终止POD：https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
+比如在K8s中终止Pod：https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
 
 **2\. 我们是想对每个调度逻辑进行抢占，还是可以周期性地进行抢占？**
 

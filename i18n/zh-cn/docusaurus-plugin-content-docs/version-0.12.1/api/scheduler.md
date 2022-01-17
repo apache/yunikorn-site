@@ -119,7 +119,6 @@ under the License.
 
 **样例内容**
 
-For the default queue hierarchy (only `root.default` leaf queue exists) a similar response to the following is sent back to the client:
 对于默认队列层次结构（只有在 `root.default` leaf队列存在的时候），对以下内容的类似响应将发送回客户端：
 
 ```json
@@ -1176,7 +1175,7 @@ checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
 
 ## 健康检查请求
 
-用于检索有关关键日志、节点/群集/应用程序上的负资源的历史数据的请求...
+用于检索有关关键日志、节点/集群/应用程序上的负资源的历史数据的请求...
 
 **URL** : `/ws/v1/scheduler/healthcheck`
 
