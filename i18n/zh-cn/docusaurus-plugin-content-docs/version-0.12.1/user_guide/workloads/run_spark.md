@@ -25,7 +25,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-:::注意
+:::note 注意
 本文档假设您已安装YuniKorn及其准入控制器。请参阅 [开始](../../get_started/get_started.md) 查看如何操作。
 :::
 

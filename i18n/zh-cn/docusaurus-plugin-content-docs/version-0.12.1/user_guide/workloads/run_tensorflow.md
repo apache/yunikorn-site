@@ -1,7 +1,7 @@
 ---
 id: run_tf
-title: Run TensorFlow Jobs
-description: How to run TensorFlow jobs with YuniKorn
+title: 运行 TensorFlow 作业
+description: 如何使用 YuniKorn 运行 TensorFlow 作业
 keywords:
  - tensorflow
 ---
@@ -25,28 +25,27 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-This guide gives an overview of how to set up [training-operator](https://github.com/kubeflow/training-operator)
-and how to run a Tensorflow job with YuniKorn scheduler. The training-operator is a unified training operator maintained by
-Kubeflow. It not only supports TensorFlow but also PyTorch, XGboots, etc.
+本章节概述了如何设置 [training-operator](https://github.com/kubeflow/training-operator) 以及如何使用 YuniKorn 调度器运行 Tensorflow 作业。
+training-operator 是由 Kubeflow 维护的一体化集成的训练 operator。它不仅支持 TensorFlow，还支持 PyTorch、XGboots 等。
 
-## Install training-operator
-You can use the following command to install training operator in kubeflow namespace by default. If you have problems with installation,
-please refer to [this doc](https://github.com/kubeflow/training-operator#installation) for details.
+## 安装 training-operator
+您可以使用以下命令在 kubeflow 命名空间中默认安装 training operator。如果安装有问题，
+请参阅 [此文档](https://github.com/kubeflow/training-operator#installation) 来查找相关的详细信息。
 ```
 kubectl apply -k "github.com/kubeflow/training-operator/manifests/overlays/standalone?ref=v1.3.0"
 ```
 
-## Prepare the docker image
-Before you start running a TensorFlow job on Kubernetes, you'll need to build the docker image.
-1. Download files from [deployment/examples/tfjob](https://github.com/apache/incubator-yunikorn-k8shim/tree/master/deployments/examples/tfjob)
-2. To build this docker image with the following command
+## 准备 docker 镜像
+在开始于 Kubernetes 上运行 TensorFlow 作业之前，您需要构建 docker 镜像。
+1. 从 [deployment/examples/tfjob](https://github.com/apache/incubator-yunikorn-k8shim/tree/master/deployments/examples/tfjob) 上下载文件
+2. 使用以下命令构建这个 docker 镜像
 
 ```
 docker build -f Dockerfile -t kubeflow/tf-dist-mnist-test:1.0 .
 ```
 
-## Run a TensorFlow job
-Here is a TFJob yaml for MNIST [example](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/examples/tfjob/tf-job-mnist.yaml).
+## 运行一个 TensorFlow 作业
+以下是一个使用 MNIST [样例](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/examples/tfjob/tf-job-mnist.yaml) 的 TFJob yaml. 
 
 ```yaml
 apiVersion: kubeflow.org/v1
@@ -83,11 +82,12 @@ spec:
             - name: tensorflow
               image: kubeflow/tf-dist-mnist-test:1.0
 ```
-Create the TFJob
+创建 TFJob
 ```
 kubectl create -f deployments/examples/tfjob/tf-job-mnist.yaml
 ```
-You can view the job info from YuniKorn UI. If you do not know how to access the YuniKorn UI,
-please read the document [here](../../get_started/get_started.md#access-the-web-ui).
+
+您可以从 YuniKorn UI 中查看作业信息。 如果您不知道如何访问 YuniKorn UI，
+请阅读此 [文档](../../get_started/get_started.md#访问-Web-UI)。
 
 ![tf-job-on-ui](../../assets/tf-job-on-ui.png)
