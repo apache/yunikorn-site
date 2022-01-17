@@ -25,7 +25,7 @@ under the License.
 
 在阅读本指南之前，我们假设您有一个Kubernetes集群或本地Kubernetes开发环境，例如MiniKube。
 还假定 `kubectl` 在您的环境路径内，并且配置正确。
-遵循此 [指南](../developer_guide/env_setup.md) 来讲述如何使用 docker-desktop 设置本地Kubernetes群集。
+遵循此 [指南](../developer_guide/env_setup.md) 来讲述如何使用 docker-desktop 设置本地Kubernetes集群。
 
 ## 安装
 
