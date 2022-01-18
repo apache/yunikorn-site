@@ -38,7 +38,7 @@ We have designed some simple benchmarking scenarios on a simulated large scale e
 In this experiment, we setup a simulated 2000/4000 nodes cluster with [Kubemark](https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/devel/kubemark-guide.md#starting-a-kubemark-cluster). Then we launch 10 [deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/), with setting replicas to 5000 in each deployment respectively. This simulates large scale workloads submitting to the K8s cluster simultaneously. Our tool periodically monitors and checks pods status, counting the number of started pods based on `podSpec.StartTime` as time elapses. As a comparison, we apply the same experiment to the default scheduler in the same environment. And we see the YuniKorn performance advantage over the default scheduler as illustrated below:
 
 ![Scheduler Throughput](./../assets/yunirkonVSdefault.png)
-<p align="center">Fig 1. Yunikorn and default scheduler throughput </p>
+<p align="center">Fig 1. YuniKorn and default scheduler throughput </p>
 
 The charts record the time spent until all pods are running on the cluster:
 
@@ -64,7 +64,7 @@ The results we got from the experiment are promising. We further take a deep div
 We found the overall performance actually is capped by the K8s master services, such as api-server, controller-manager and etcd, it did not reached the limit of YuniKorn in all our experiments. If you look at the internal scheduling metrics, you can see:
 
 ![Allocation latency](./../assets/allocation_4k.png)
-<p align="center">Fig 2. Yunikorn metric in 4k nodes </p>
+<p align="center">Fig 2. YuniKorn metric in 4k nodes </p>
 
 Figure 2 is a screenshot from Prometheus, which records the [internal metrics](performance/metrics.md) `containerAllocation` in YuniKorn. They are the number of pods being allocated by the scheduler, but have not necessarily been bound to nodes. It consumes roughly 122 seconds to finish scheduling 50k pods, i.e 410 pod/sec. The actual throughput drops to 115 pods/sec, and the extra time was used to bind the pods on different nodes. If K8s side could catch up, we will see a better result. Actually, when we tune the performance on a large scale cluster, the first thing we do is to tune up some parameters in API-server, controller manager in order to increase the throughput. See more in the [performance tutorial doc](performance/performance_tutorial.md).
 

@@ -40,7 +40,7 @@ _Abstract_: Apache YuniKorn (Incubating) 今年早些时候发布了 v0.11 版�
 ---
 
 - ApacheCon 2021: [Next Level Spark on Kubernetes with Apache YuniKorn (Incubating)](https://youtu.be/gOST-iT-hj8) :busts_in_silhouette: Weiwei Yang, Chaoran Yu
-- ApacheCon Asia 2021: [State Of The Union With Apache Yunikorn (Incubating) - Cloud Native Scheduler For Big Data Usecases
+- ApacheCon Asia 2021: [State Of The Union With Apache YuniKorn (Incubating) - Cloud Native Scheduler For Big Data Usecases
   ](https://www.youtube.com/watch?v=c9UYxzqVMeg)  :busts_in_silhouette: Julia Kinga Marton, Sunil Govindan
 - Future of Data Meetup: [Apache YuniKorn: Cloud-native Resource Scheduling](https://www.youtube.com/watch?v=j-6ehu6GrwE) :busts_in_silhouette: Wangda Tan, Wilfred Spiegelenburg
 - ApacheCon 2020: [Integrate Apache Flink with Cloud Native Ecosystem](https://youtu.be/4hghJCuZk5M) :busts_in_silhouette: Yang Wang, Tao Yang
@@ -54,8 +54,8 @@ _Abstract_: Apache YuniKorn (Incubating) 今年早些时候发布了 v0.11 版�
 请订阅 [YuniKorn Youtube Channel](https://www.youtube.com/channel/UCDSJ2z-lEZcjdK27tTj_hGw) 获取有关新演示的通知！
 - [Running YuniKorn on Kubernetes - a 12 minutes Hello-world demo](https://www.youtube.com/watch?v=cCHVFkbHIzo)
 - [YuniKorn configuration hot-refresh introduction](https://www.youtube.com/watch?v=3WOaxoPogDY)
-- [Yunikorn scheduling and volumes on Kubernetes](https://www.youtube.com/watch?v=XDrjOkMp3k4)
-- [Yunikorn placement rules for applications](https://www.youtube.com/watch?v=DfhJLMjaFH0)
+- [YuniKorn scheduling and volumes on Kubernetes](https://www.youtube.com/watch?v=XDrjOkMp3k4)
+- [YuniKorn placement rules for applications](https://www.youtube.com/watch?v=DfhJLMjaFH0)
 - [Federated K8s compute pools with YuniKorn](https://www.youtube.com/watch?v=l7Ydg_ZGZw0&t)
 
 如果您是 YuniKorn 的布道者，并且您有公开的会议演讲、与 YuniKorn 相关的演示录音，请提交 PR 以扩展此列表！

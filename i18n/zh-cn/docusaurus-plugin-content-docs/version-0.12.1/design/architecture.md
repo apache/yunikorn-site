@@ -23,7 +23,7 @@ under the License.
 -->
 
 Apache YuniKorn (Incubating) 是一个用于容器编排器系统的轻量级通用资源调度器。
-它的创建是为了在大规模、多租户和云原生环境中高效地实现各种工作负载的细粒度资源共享。
+它创建的目标是为了在大规模、多租户和云原生的环境中高效地实现各种工作负载的细粒度资源调度以及共享。
 YuniKorn为无状态批处理和有状态服务组成的混合工作负载带来了统一的、跨平台的调度体验。
 
 YuniKorn现在支持K8s并可以作为自定义K8s调度程序部署。
@@ -31,7 +31,7 @@ YuniKorn的架构设计还允许添加不同的 shim（中介）层，并采用�
 
 ## 架构
 
-下图说明了YuniKorn的高级体系结构。
+下图说明了YuniKorn的系统架构。
 
 <img src={require('./../assets/architecture.png').default} />
 
@@ -50,7 +50,7 @@ YuniKorn的架构设计还允许添加不同的 shim（中介）层，并采用�
 
 ### Kubernetes shim
 
-YuniKorn Kubernetes shim负责与Kubernetes交互，它负责转换Kubernetes集群资源，并通过调度器接口将资源请求发送到调度器核心。
+YuniKorn Kubernetes shim负责与Kubernetes交互，它负责翻译Kubernetes集群的资源请求信息，并通过调度器接口将资源请求发送到调度器核心。
 当调度器做出决策时，它负责将pod绑定到特定节点。
 shim和调度器核心之间的所有通信都是通过 [调度器接口](https://github.com/apache/incubator-yunikorn-scheduler-interface) 进行的。
 请阅读更多关于Kubernetes shim的设计内容 [链接](k8shim.md)。

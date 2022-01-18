@@ -1,6 +1,6 @@
 ---
 id: sorting_policies
-title: Sorting Policies
+title: 排序策略
 ---
 
 <!--
@@ -21,13 +21,13 @@ title: Sorting Policies
  * limitations under the License.
  -->
 
-The scheduler uses policies allow changing the scheduling behaviour without code changes.
-Policies can be set for:
-* [Applications](#application-sorting)
-* [Nodes](#node-sorting)
-* [Requests](#request-sorting)
+调度器使用策略以允许在不更改代码的情况下更改调度行为。
+可以为下列项目设置策略：
+* [应用](#应用排序)
+* [节点](#节点排序)
+* [请求](#请求排序)
 
-## Application sorting
+## 应用排序
 The application sorting policy is set for each queue via the config.
 A sorting policy setting is only effective on a `leaf` queue.
 Each `leaf` queue can use a different policy.
@@ -109,7 +109,7 @@ For further details see the [Example run](design/state_aware_scheduling.md#examp
 The result is that already running applications that request resources will get resources first.
 A drip feed of one new applications is added to the list of running applications to be allocated after all running applications.  
 
-## Node sorting
+## 节点排序
 The node sorting policy is set for a partition via the config.
 Each partition can use a different policy.
 
@@ -177,7 +177,7 @@ will be considered to be `82%` utilized.
 Note that weights are relative to each other, so specifying weights of `{ 4.0, 1.0 }` is equivalent to
 `{ 1.0, 0.25 }`. Negative weights are not allowed.
 
-## Request sorting
+## 请求排序
 There is currently one policy for sorting requests within an application.
 This policy is not configurable.
 Sorting requests is only possible based on the priority of the request.

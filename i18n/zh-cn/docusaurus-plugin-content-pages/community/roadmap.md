@@ -42,7 +42,7 @@ under the License.
 - [YUNIKORN-978](https://issues.apache.org/jira/browse/YUNIKORN-978) 准入控制器部署改进
 - [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) 实施用户和组限制（阶段 1）
 - [YUNIKORN-954](https://issues.apache.org/jira/browse/YUNIKORN-954) 移除旧的 REST api
-- [YUNIKORN-720](https://issues.apache.org/jira/browse/YUNIKORN-720) 改进了队列指标
+- [YUNIKORN-720](https://issues.apache.org/jira/browse/YUNIKORN-720) 对调度器资源队列指标监测系统的改进
 
 支持的 Kubernetes 版本和 Kubernetes 依赖项将在开发周期中进行选择和最终确定。
 

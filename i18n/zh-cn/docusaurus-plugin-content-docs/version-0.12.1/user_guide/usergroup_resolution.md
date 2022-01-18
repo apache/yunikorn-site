@@ -44,7 +44,7 @@ metadata:
 
 :::note 假设 
 假设:
-  Yunikorn 假设属于一个应用程序的所有 pod 都归同一个用户所有。我们建议将用户标签添加到应用程序的每个 pod。这是为了确保没有差异。
+  YuniKorn 假设属于一个应用程序的所有 pod 都归同一个用户所有。我们建议将用户标签添加到应用程序的每个 pod。这是为了确保没有差异。
 :::
 
 `yunikorn.apache.org/username` 键可以通过使用 `USER_LABEL_KEY` 环境变量覆盖默认值来在 [K8s](https://github.com/apache/incubator-yunikorn-release/blob/master/helm-charts/yunikorn/templates/deployment.yaml) 来进行自定义。这在已经添加了用户标签或出于某些安全原因必须修改标签的情况下特别有用。

@@ -31,7 +31,7 @@ The client must implement a retry-mechanism and re-submit the pod if it needs th
 
 Contrary to quotas in Kubernetes YuniKorn does not enforce quotas on submission but only on actively consumed resources.
 To explain the difference: when using YuniKorn for quota enforcement a new pod submitted to Kubernetes is always accepted.
-Yunikorn will queue the pod without counting the queued pod's resources towards the consumed quota.
+YuniKorn will queue the pod without counting the queued pod's resources towards the consumed quota.
 When YuniKorn tries to schedule the pod it checks at scheduling time if the pod fits in the quota configured for the queue the pod is assigned to.
 If at that point the pod does not fit in the quota the pod is skipped and not counted in the resource consumption. 
 This means that until a scheduling attempt of a pod is successful a pod it is not consuming resources in the YuniKorn quota system.

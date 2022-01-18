@@ -22,10 +22,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-队列配置的基础在 [配置设计文档](design/scheduler_configuration.md) 中给出。
+队列配置的基本信息在 [配置设计文档](design/scheduler_configuration.md) 中有描述。
 
-本文档提供了通用队列配置。
-它引用了 [访问控制列表](user_guide/acls.md) 和 [放置规则](user_guide/placement_rules.md) 文档。
+本文档提供了通用队列配置的相关信息。
+请同时参考 [访问控制列表](user_guide/acls.md) 和 [放置规则](user_guide/placement_rules.md) 文档。
 
 本文档通过示例说明了如何为调度器创建分区和队列配置。
 
@@ -87,18 +87,18 @@ partitions:
       enabled: true
 ```
 注意:
-目前，Kubernetes 唯一的 shim 不支持除 `default` 分区之外的任何其他分区。
-这已为 shim 在 [jira](https://issues.apache.org/jira/browse/YUNIKORN-22) 上进行了记录。
+目前，YuniKorn 在 Kubernetes 上不支持除 `default` 分区之外的任何其他分区。
+详情请见 [YUNIKORN-22](https://issues.apache.org/jira/browse/YUNIKORN-22) 。
 
 ### 队列
 
 YuniKorn 通过利用资源队列来管理资源。资源队列具有以下特征：
-- 队列可以有 **等级制的** 结构
+- 队列可以有 **层级结构** 
 - 每个队列都可以预设 **最小/最大容量** ，其中最小容量定义了保障资源，最大容量定义了资源限制（又名资源配额）
-- 任务必须在某个子队列下运行
+- 任务必须在某个叶子队列下运行
 - 队列可以是 **静态的**（从配置文件加载）或 **动态的**（由 YuniKorn 内部管理）
 - 队列级别 **资源公平** 由调度器强制执行
-- 作业只能在特定队列下运行
+- 一个作业只能运行在某一个特定的队列，即一个作业无法垮队列运行。
 
 :::info
 YuniKorn 队列与 [Kubernetes 命名空间](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) 的区别：

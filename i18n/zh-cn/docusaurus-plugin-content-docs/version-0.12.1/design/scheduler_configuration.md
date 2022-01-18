@@ -22,7 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-The Yunikorn core scheduler configuration has two separate areas that need to be configured. The scheduler service itself, things like web service ports etc, and the queue configuration. The split between the two types of configuration is proposed with two points in mind:
+The YuniKorn core scheduler configuration has two separate areas that need to be configured. The scheduler service itself, things like web service ports etc, and the queue configuration. The split between the two types of configuration is proposed with two points in mind:
 * Separation of duty
 * Dynamic vs Static
 

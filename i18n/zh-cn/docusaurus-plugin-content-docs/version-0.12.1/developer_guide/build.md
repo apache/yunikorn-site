@@ -178,7 +178,7 @@ as long as the `$HOME/.kube/config` file is pointing to that remote cluster.
 
 ## Verify external interface changes with e2e tests
 
-Yunikorn has an external REST interface which is validated by end-to-end tests. However, the tests exist in the k8shim repository.
+YuniKorn has an external REST interface which is validated by end-to-end tests. However, the tests exist in the k8shim repository.
 Whenever a change is made to the external interface, make sure that it is validated by running e2e tests or adjust the test cases accordingly.
 
 How to run the tests locally is described [here](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/test/e2e/README.md).
