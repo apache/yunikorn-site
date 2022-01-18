@@ -77,9 +77,9 @@ function Home() {
                         <p className="hero__subtitle">释放在 Kubernetes 上运行大数据和机器学习资源调度的力量！</p>
                         <div className="container">
                             <div className="buttons_src-pages-">
-                                <a className="button button--primary button--lg" href="/docs/">GET STARTED</a>
-                                <a className="button button--primary button--lg" href="/community/download">DOWNLOAD</a>
-                                <a className="button button--primary button--lg" href="/community/roadmap">ROADMAP</a>
+                                <a className="button button--primary button--lg" href="/docs/">开始文档X</a>
+                                <a className="button button--primary button--lg" href="/community/download">下载</a>
+                                <a className="button button--primary button--lg" href="/community/roadmap">路线图</a>
                             </div>
                         </div>
                     </div>
