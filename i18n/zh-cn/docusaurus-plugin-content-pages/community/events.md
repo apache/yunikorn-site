@@ -29,9 +29,9 @@ under the License.
 
 **Wilfred Spiegelenburg** 将向我们介绍 YuniKorn 社区的最新状态。不要错过！将此事件添加到您的日历：[:calendar:](https://calendar.google.com/event?action=TEMPLATE&tmeid=NHE2a2Vvc3FucDRhbDhmamowNGllcmRka24gYXBhY2hlLnl1bmlrb3JuQG0&tmsrc=apache.yunikorn%40gmail.com)
 
-_Abstract_: Apache YuniKorn (Incubating) 今年早些时候发布了 v0.11 版本，其中包含了许多新功能和改进，比如 Gang 调度、REST API 增强和 Kubernetes 1.19 支持。
+_Abstract_: Apache YuniKorn (Incubating) 今年早些时候发布了 v0.11 版本，其中包含了许多新功能和改进，比如 Gang scheduling、REST API 增强和 Kubernetes 1.19 支持。
 在一个月内，我们计划发布主要的 v1.0.0 版本，它将支持 Kubernetes 1.20 和 1.21、改进的节点排序以及大量的小修复和增强功能！
-在本次会议中，我们将深入探讨在 Kubernetes 上使用临时占位 pod 背后的帮派调度实现、通过简化的调度器核心代码和新的节点排序算法显著提高性能。
+在本次会议中，我们将深入探讨在 Kubernetes 上使用临时占位 pod 背后的 Gang scheduling 实现、通过简化的调度器核心代码和新的节点排序算法显著提高性能。
 请在 [此处](https://docs.google.com/document/d/1-NP0J22-Gp3cZ_hfKyA9htXJw7tlk-BmljF-7CBJg44) 找到本次会议的所有主题。
 
 ----
