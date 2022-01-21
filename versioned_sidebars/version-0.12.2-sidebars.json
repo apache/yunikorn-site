@@ -1,0 +1,208 @@
+{
+  "version-0.12.2/docs": [
+    {
+      "type": "category",
+      "collapsed": true,
+      "collapsible": true,
+      "label": "Get Started",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.12.2/get_started/user_guide"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/get_started/core_features"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "collapsed": true,
+      "collapsible": true,
+      "label": "User Guide",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.12.2/user_guide/queue_config"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/user_guide/placement_rules"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/user_guide/usergroup_resolution"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/user_guide/sorting_policies"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/user_guide/acls"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/user_guide/resource_quota_management"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/user_guide/gang_scheduling"
+        },
+        {
+          "type": "category",
+          "label": "Workloads",
+          "items": [
+            {
+              "type": "doc",
+              "id": "version-0.12.2/user_guide/workloads/run_spark"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/user_guide/workloads/run_flink"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/user_guide/workloads/run_tf"
+            }
+          ],
+          "collapsible": true,
+          "collapsed": true
+        },
+        {
+          "type": "category",
+          "label": "REST APIs",
+          "items": [
+            {
+              "type": "doc",
+              "id": "version-0.12.2/api/cluster"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/api/scheduler"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/api/system"
+            }
+          ],
+          "collapsible": true,
+          "collapsed": true
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/user_guide/trouble_shooting"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "collapsed": true,
+      "collapsible": true,
+      "label": "Developer Guide",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.12.2/developer_guide/env_setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/developer_guide/build"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/developer_guide/deployment"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/developer_guide/openshift_development"
+        },
+        {
+          "type": "category",
+          "label": "Designs",
+          "items": [
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/architecture"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/scheduler_core_design"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/cache_removal"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/k8shim"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/cross_queue_preemption"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/namespace_resource_quota"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/pluggable_app_management"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/resilience"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/predicates"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/scheduler_configuration"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/state_aware_scheduling"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/scheduler_object_states"
+            },
+            {
+              "type": "doc",
+              "id": "version-0.12.2/design/gang_scheduling"
+            }
+          ],
+          "collapsible": true,
+          "collapsed": true
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "collapsed": true,
+      "collapsible": true,
+      "label": "Performance",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.12.2/performance/evaluate_perf_function_with_kubemark"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/performance/performance_tutorial"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/performance/metrics"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.12.2/performance/profiling"
+        }
+      ]
+    }
+  ]
+}

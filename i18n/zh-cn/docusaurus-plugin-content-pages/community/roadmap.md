@@ -50,6 +50,7 @@ under the License.
 
 | 版本     |    发布日期    |         发布负责人         | 发布公告                                               |
 |--------|:----------:|:---------------------:|----------------------------------------------------|
+| 0.12.2 | 2022-02-03 |     Craig Condit      | [0.12.2-release-notes](../release-announce/0.12.2) |
 | 0.12.1 | 2021-12-26 |      Chaoran Yu       | [0.12.1-release-notes](../release-announce/0.12.1) |
 | 0.11.0 | 2021-08-18 |     Kinga Marton      | [0.11.0-release-notes](../release-announce/0.11.0) |
 | 0.10.0 | 2021-04-09 |       Tao Yang        | [0.10.0-release-notes](../release-announce/0.10.0) |
