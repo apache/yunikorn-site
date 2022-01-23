@@ -59,3 +59,44 @@
   margin-right: auto;
 }
 
+.postContainer {
+  margin: 0 30%;
+  overflow: auto;
+}
+
+.postThumb {
+  height: 120px;
+  width: 120px;
+  float: left;
+  padding: 0 10px 10px 0
+}
+
+.postThumb img {
+  height: 120px;
+  width: 120px;
+  display: block
+}
+
+.postContent {
+  margin-left: 150px
+}
+
+.postTitle {
+  font-weight: bold;
+  font-size: 200%
+}
+
+.whyText {
+  text-align:center;
+  color: cadetblue;
+  margin-top: 50px;
+  margin-bottom: 50px
+}
+
+.learnMoreURL {
+  text-align:center;
+  color: cadetblue;
+  margin-bottom: 30px
+}
+
+
