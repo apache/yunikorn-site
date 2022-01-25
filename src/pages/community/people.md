@@ -39,7 +39,7 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 | Carlo Curino            	| curino     	| Microsoft    	| -8             	|
 | Chaoran Yu              	| yuchaoran  	| Apple        	| -8             	|
 | Chenya Zhang            	| chenya     	| Apple        	| -8             	|
-| Craig Condit            	| ccondit    	| Cloudera     	| -8             	|
+| Craig Condit            	| ccondit    	| Cloudera     	| -6             	|
 | DB Tsai                 	| dbtsai     	| Apple        	| -8             	|
 | Jonathan Hung           	| jhung      	| LinkedIn     	| -8             	|
 | Kinga Marton            	| kmarton    	| Cloudera     	| +1             	|
