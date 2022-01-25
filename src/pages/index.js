@@ -19,14 +19,6 @@ import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
-import useThemeContext from '@theme/hooks/useThemeContext';
-
-const ImageSwitcher = ({lightImageSrc, darkImageSrc}) => {
-    const { isDarkTheme } = useThemeContext();
-    return (
-        <img src={isDarkTheme ? darkImageSrc : lightImageSrc} alt="why" className={styles.timelineImage} />
-    )
-}
 
 const features = [
   {
@@ -62,6 +54,53 @@ const features = [
   },
 ];
 
+const why = [
+    {
+        title: <>Hierarchical Resource Queues</>,
+        imageUrl: '/img/why-hierarchical-queue.svg',
+        description: (
+            <>
+                Gives the fine-grained control over the resources quota for different tenants,
+                easily map to your organization structure. The queue min/max capacity offers the
+                over-commitment and ensures the guaranteed resources at the same time.
+            </>
+        ),
+    },
+    {
+        title: <>Application-aware Scheduling</>,
+        imageUrl: '/img/why-app.svg',
+        description: (
+            <>
+                Recognize users, apps, queues. Apps are queued and scheduled with certain order.
+                Apply the ordering based on resource fairness, submission time, and the priority.
+                You get the more predictable scheduling results.
+            </>
+        ),
+    },
+    {
+        title: <>Efficiency and Cost Saving</>,
+        imageUrl: '/img/why-save-cost.svg',
+        description: (
+            <>
+                Optimized for Cloud, and accommodate the elasticity as much as possible.
+                Gang Scheduling reduces the resource fragmentation, and triggers proactively up-scaling.
+                Bin-packing turns the usage curve and lower your cost while running on Cloud.
+            </>
+        ),
+    },
+    {
+        title: <>Central Management Console</>,
+        imageUrl: '/img/why-console.svg',
+        description: (
+            <>
+                No more lost tracking the resource usage of the tenants!
+                YuniKorn provides a central management UI and a one-stop-dashboard to track the resource
+                utilization of the cluster, queues, and apps. Start to plan and monitor the capacity for your teams!
+            </>
+        ),
+    },
+];
+
 function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
@@ -95,7 +134,7 @@ function Home() {
                     <div className="container">
                         <div className="row">
                             {features.map(({imageUrl, title, description}, idx) => (
-                                <div key={idx} className={clsx('col col--4', styles.feature)}>
+                                <div key={idx} className={clsx('col col--4')}>
                                     {imageUrl && (
                                         <div className="text--center">
                                             <img className={styles.featureImage} src={imageUrl} alt={title}/>
@@ -110,13 +149,19 @@ function Home() {
                 </section>
             )}
 
-            <section className="features_src-pages-">
-                <div className="container">
-                    <h1 className="text--center">☺ WHY YUNIKORN?</h1>
-                    {/*<img src="img/why-dark.png" className={styles.timelineImage}/>*/}
-                    <ImageSwitcher darkImageSrc={"img/why-dark.png"} lightImageSrc={"img/why.png"} />
+
+            <h1 className={styles.whyText}>☺ WHY YUNIKORN?</h1>
+            {why.map(({imageUrl, title, description}, idx) => (
+            <div className={styles.postContainer}>
+                <div className={styles.postThumb}><img src={imageUrl}/></div>
+                <div className={styles.postContent}>
+                    <h4>{title}</h4>
+                    <p>{description}</p>
                 </div>
-            </section>
+            </div>
+            ))}
+
+            <h3 className={styles.learnMoreURL}><a href="https://yunikorn.apache.org/docs/get_started/core_features">Learn more >>></a></h3>
         </main>
     </Layout>
   );
