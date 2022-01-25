@@ -66,15 +66,15 @@ import TabItem from '@theme/TabItem';
     {label: 'America/EU/India', value: 'scheduleEN'},
     {label: '中文/Mandarin', value: 'scheduleCN'},
   ]}>
-  <TabItem value="scheduleEN"> 📆 美国太平洋时间每周三上午 9:30 每两周一次。 <a href="https://cloudera.zoom.us/j/721195559">单击此处加入 Zoom 会议。</a> </TabItem>
-  <TabItem value="scheduleCN"> 📆 中国标准时间 (GMT+8) 每周三下午 1:00。  <a href="https://cloudera.zoom.us/j/721195559">单击此处加入 Zoom 会议。</a> </TabItem>
+  <TabItem value="scheduleEN"> 📆 美国太平洋时间每周三上午 9:30 每两周一次。 <a href="https://cloudera.zoom.us/j/92006147379">单击此处加入 Zoom 会议。</a> </TabItem>
+  <TabItem value="scheduleCN"> 📆 中国标准时间 (GMT+8) 每周三下午 1:00。  <a href="https://cloudera.zoom.us/j/97634075855">单击此处加入 Zoom 会议。</a> </TabItem>
 </Tabs>
 
 #### 资源
 
 - 会议记录: [Google 文档](https://docs.google.com/document/d/165gzC7uhcKc5XDWiMYSRKBiPQBy2tDtXADUPuhGlUa0/edit#heading=h.461goivmz24v)
 
-- 日历: [Google 日历](https://calendar.google.com/calendar/b/3/r/week/2020/3/26?cid=YXBhY2hlLnl1bmlrb3JuQGdtYWlsLmNvbQ) :point_left:
+- 日历: [Google 日历](https://calendar.google.com/calendar/u/0?cid=YXBhY2hlLnl1bmlrb3JuQGdtYWlsLmNvbQ) :point_left:
 
 ## 成为一个 Committer
 

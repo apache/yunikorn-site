@@ -19,14 +19,6 @@ import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
-import useThemeContext from '@theme/hooks/useThemeContext';
-
-const ImageSwitcher = ({lightImageSrc, darkImageSrc}) => {
-    const { isDarkTheme } = useThemeContext();
-    return (
-        <img src={isDarkTheme ? darkImageSrc : lightImageSrc} alt="why" className={styles.timelineImage} />
-    )
-}
 
 const features = [
   {
@@ -62,6 +54,53 @@ const features = [
   },
 ];
 
+const why = [
+    {
+        title: <>分层资源队列</>,
+        imageUrl: './img/why-hierarchical-queue.svg',
+        description: (
+            <>
+                对不同租户的资源配额进行细粒度控制，轻松映射到您的组织结构。
+                为队列的最小/最大资源提供了超额分配的功能，同时确保了有保障的资源。
+            </>
+        ),
+    },
+    {
+        title: <>应用感知调度</>,
+        imageUrl: './img/why-app.svg',
+        description: (
+            <>
+                识别用户、应用程序、队列。 
+                应用程序按特定顺序进行排队和调度。 
+                根据资源公平性、提交时间和优先级应用排序。 
+                您可以获得更可预测的调度结果。
+            </>
+        ),
+    },
+    {
+        title: <>效率和成本节约</>,
+        imageUrl: './img/why-save-cost.svg',
+        description: (
+            <>
+                针对云进行了优化，并尽可能地适应弹性伸缩。
+                Gang Scheduling 减少了资源碎片，并主动触发扩容。 
+                Bin-packing 在云上运行时可以改变使用曲线，并降低成本。
+            </>
+        ),
+    },
+    {
+        title: <>中央管理控制台</>,
+        imageUrl: './img/why-console.svg',
+        description: (
+            <>
+                不再丢失跟踪租户的资源使用情况！ 
+                YuniKorn 提供中央管理 UI 和一站式看板来跟踪集群、队列和应用程序的资源利用率。 
+                让我们开始为您的团队规划和监控资源！
+            </>
+        ),
+    },
+];
+
 function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
@@ -95,7 +134,7 @@ function Home() {
                     <div className="container">
                         <div className="row">
                             {features.map(({imageUrl, title, description}, idx) => (
-                                <div key={idx} className={clsx('col col--4', styles.feature)}>
+                                <div key={idx} className={clsx('col col--4')}>
                                     {imageUrl && (
                                         <div className="text--center">
                                             <img className={styles.featureImage} src={imageUrl} alt={title}/>
@@ -110,13 +149,18 @@ function Home() {
                 </section>
             )}
 
-            <section className="features_src-pages-">
-                <div className="container">
-                    <h1 className="text--center">☺ 为什么选YUNIKORN?</h1>
-                    {/*<img src="img/why-dark.png" className={styles.timelineImage}/>*/}
-                    <ImageSwitcher darkImageSrc={"./img/why-dark.png"} lightImageSrc={"./img/why.png"} />
+            <h1 className={styles.whyText}>☺ 为什么选YUNIKORN?</h1>
+            {why.map(({imageUrl, title, description}, idx) => (
+            <div className={styles.postContainer}>
+                <div className={styles.postThumb}><img src={imageUrl}/></div>
+                <div className={styles.postContent}>
+                    <h4>{title}</h4>
+                    <p>{description}</p>
                 </div>
-            </section>
+            </div>
+            ))}
+
+            <h3 className={styles.learnMoreURL}><a href="./docs/get_started/core_features">了解更多 >>></a></h3>
         </main>
     </Layout>
   );
