@@ -26,7 +26,7 @@ under the License.
 
 YuniKorn community is open, diverse, and collaborative. It is not owned
 by any entity. Project members share the responsibility to manage, and maintain the project.
-People in the community includes PPMC ([Podling Project Management Committee](https://incubator.apache.org/guides/ppmc.html))
+People in the community include Podling Project Management Committee ([PPMC](https://incubator.apache.org/guides/ppmc.html))
 members and [committers](https://infra.apache.org/new-committers-guide.html#what-is-a-committer).
 
 
@@ -62,7 +62,7 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 | Li Gao                  	| ligao      	| Databricks   	| -8       	|
 | Manikandan R            	| mani       	| Caastle      	| +5.5     	|
 | Peter Bacsko            	| pbacsko    	| Cloudera     	| +1       	|
-| Tingyao Huang           	| tingyao    	|              	| +8       	|
+| Tingyao Huang           	| tingyao    	| TrendMicro    | +8       	|
 | Yu Teng Chen            	| yuteng     	| NTCU         	| +8       	|
 
 ## Become a Committer
