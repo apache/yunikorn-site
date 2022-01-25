@@ -69,7 +69,8 @@ module.exports = {
                     'design/scheduler_configuration',
                     'design/state_aware_scheduling',
                     'design/scheduler_object_states',
-                    'design/gang_scheduling'
+                    'design/gang_scheduling',
+                    'design/scheduler_plugin',
                 ]
             },
         ],
