@@ -85,7 +85,7 @@ To expose the entirety of YuniKorn functionality, we implement three of the Sche
 PreFilter plugins are passed a reference to a Pod and return either `Success` or `Unschedulable`, depending
 on whether that pod should be considered for scheduling.
 
-For the YuniKorn implementation, we first check the Pod to see if we have an associated `applicationID`
+For the YuniKorn implementation, we first check the Pod to see if we have an associated `applicationId`
 defined. If not, we immediately return `Success`, which allows us to delegate to the default scheduler for
 non-batch workloads.
 
