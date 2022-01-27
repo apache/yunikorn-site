@@ -92,7 +92,7 @@ non-batch workloads.
 If an `applicationId` is present, then we determine if there is a pending pod allocation (meaning the
 YuniKorn core has already decided to allocate the pod). If so, we return `Success`, otherwise `Unschedulable`.
 Additionally, if an in-progress allocation is detected (indicating that we have previously attempted to
-schedule this pod), we trigger a `TaskFailed` event for the YuniKorn core so that the pod will be sent back
+schedule this pod), we trigger a `RejectTask` event for the YuniKorn core so that the pod will be sent back
 for scheduling later.
 
 ### Filter
