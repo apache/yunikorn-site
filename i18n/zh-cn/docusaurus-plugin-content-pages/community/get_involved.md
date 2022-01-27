@@ -37,7 +37,7 @@ Apache YuniKorn（Incubating）社区非常多样化，我们有来自阿里巴�
 
 ### 沟通渠道
 
-- Mailing lists:
+- 邮件列表:
   - 对于希望为项目开发做出贡献或讨论的人: [dev@yunikorn.apache.org](mailto:dev@yunikorn.apache.org)   
     订阅: dev@ [订阅](mailto:dev-subscribe@yunikorn.apache.org?subject="subscribe%20to%20YuniKorn%20dev%20list") ([退订](mailto:dev-unsubscribe@yunikorn.apache.org?subject="unsubscribe%20from%20YuniKorn%20dev%20list") [归档](https://lists.apache.org/list.html?dev@yunikorn.apache.org))
   - 对于 JIRA 问题更新订阅: issues@ [订阅](mailto:issues-subscribe@yunikorn.apache.org?subject="subscribe%20to%20YuniKorn%20issues%20list") ([退订](mailto:issues-unsubscribe@yunikorn.apache.org?subject="unsubscribe%20from%20YuniKorn%20issues%20list") [归档](https://lists.apache.org/list.html?issues@yunikorn.apache.org))
@@ -75,42 +75,6 @@ import TabItem from '@theme/TabItem';
 - 会议记录: [Google 文档](https://docs.google.com/document/d/165gzC7uhcKc5XDWiMYSRKBiPQBy2tDtXADUPuhGlUa0/edit#heading=h.461goivmz24v)
 
 - 日历: [Google 日历](https://calendar.google.com/calendar/u/0?cid=YXBhY2hlLnl1bmlrb3JuQGdtYWlsLmNvbQ) :point_left:
-
-## 成为一个 Committer
-
-Committers 是对项目存储库具有写入权限的社区成员，
-即他们可以自己修改代码并接受其他人对所有 YuniKorn 存储库的贡献。
-PPMC 根据各种考虑对候选人进行投票：
-
-- 代码贡献
-  - 一致的代码贡献
-  - 优化 CI/CD 管道
-  - 帮助进行代码审查
-  - 测试和验证候选版本
-  - 性能调优及相关工具开发
-  - 提出改进建议
-
-- 非代码贡献
-  - 参与社区活动，如会议、聚会等。
-  - 提供反馈、报告问题并参与路线图讨论
-  - 项目发布帮助
-  - 改进项目文档
-  - 帮助项目采用
-  - 与其他项目集成，扩展用例
-
-contributor 或非 contributor 都可以成为 committer，社区非常感谢代码或非代码贡献。
-
-## 成为 PPMC 成员
-
-PPMC 为 Podling Project Management Committee。
-它负责项目管理、治理并确保项目可以在 [Apache Way](https://www.apache.org/theapacheway/) 下运行。
-委员会根据 PPMC 成员的投票做出决定。
-PPMC 成员有权对各种事情进行有约束力的投票，例如项目发布、添加新的提交者或 PPMC 成员等。
-
-在成为 PPMC 成员之前，贡献者必须先成为提交者。
-提交者何时有资格被添加到 PPMC 没有严格的规定。
-管理委员会根据每个提交者的参与和影响做出决定。
-一般来说，对项目做出持续的代码或非代码贡献的贡献者应被视为 PPMC 候选人。
 
 ## 如何向 YuniKorn 社区分享反馈
 
