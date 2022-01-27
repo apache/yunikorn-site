@@ -106,6 +106,10 @@ module.exports = {
               to: 'community/events',
               label: 'Events',
             },
+            {
+              to: 'community/people',
+              label: 'People',
+            },
           ]
         },
         {
