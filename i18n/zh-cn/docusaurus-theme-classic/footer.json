@@ -1,0 +1,14 @@
+{
+    "link.item.label.Get Involved": {
+        "message": "参与"
+    },
+    "link.item.label.Roster": {
+        "message": "名册"
+    },   
+    "link.title.Blog": {
+        "message": "博客"
+    },
+    "link.title.Community": {
+        "message": "社区"
+    }
+}
