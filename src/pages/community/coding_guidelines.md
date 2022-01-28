@@ -123,11 +123,11 @@ To extend the coverage further and help mark issues proactively check the follow
 Open the preferences pane and go to: Editor -> Code Style -> Go.
 There are three tabs to configure, the first two are crucial to comply with the basic rules from `gofmt` and `goimports`:
 
-| ||
-| -------- | ---------- |
-| Tabs |![tabs](/img/goland_ide_pref_tabs.png)|
-| Imports |![imports](/img/goland_ide_pref_imports.png)|
-| Other |![other](/img/goland_ide_pref_other.png)|
+|         |                                              |
+|---------|----------------------------------------------|
+| Tabs    | ![tabs](/img/goland_ide_pref_tabs.png)       |
+| Imports | ![imports](/img/goland_ide_pref_imports.png) |
+| Other   | ![other](/img/goland_ide_pref_other.png)     |
 
 The imports as configured above should create 3 groups of imports in a file when they are used:
 1. standard library imports

@@ -124,11 +124,11 @@ GoLand 默认开启了许多检查。
 打开 preferences 窗格并转到：Editor -> Code Style -> Go
 需要配置三个选项卡，前两个对于遵守 `gofmt` 和 `goimports` 的基本规则至关重要：
 
-| ||
-| -------- | ---------- |
-| Tabs |![tabs](/img/goland_ide_pref_tabs.png)|
-| Imports |![imports](/img/goland_ide_pref_imports.png)|
-| Other |![other](/img/goland_ide_pref_other.png)|
+|         |                                              |
+|---------|----------------------------------------------|
+| Tabs    | ![tabs](/img/goland_ide_pref_tabs.png)       |
+| Imports | ![imports](/img/goland_ide_pref_imports.png) |
+| Other   | ![other](/img/goland_ide_pref_other.png)     |
 
 上面配置的导入在使用时应该在一个文件中创建 3 组导入：
 1. 标准库导入

@@ -40,8 +40,7 @@ _Abstract_: Apache YuniKorn (Incubating) 今年早些时候发布了 v0.11 版�
 ---
 
 - ApacheCon 2021: [Next Level Spark on Kubernetes with Apache YuniKorn (Incubating)](https://youtu.be/gOST-iT-hj8) :busts_in_silhouette: Weiwei Yang, Chaoran Yu
-- ApacheCon Asia 2021: [State Of The Union With Apache YuniKorn (Incubating) - Cloud Native Scheduler For Big Data Usecases
-  ](https://www.youtube.com/watch?v=c9UYxzqVMeg)  :busts_in_silhouette: Julia Kinga Marton, Sunil Govindan
+- ApacheCon Asia 2021: [State Of The Union With Apache YuniKorn (Incubating) - Cloud Native Scheduler For Big Data Usecases](https://www.youtube.com/watch?v=c9UYxzqVMeg)  :busts_in_silhouette: Julia Kinga Marton, Sunil Govindan
 - Future of Data Meetup: [Apache YuniKorn: Cloud-native Resource Scheduling](https://www.youtube.com/watch?v=j-6ehu6GrwE) :busts_in_silhouette: Wangda Tan, Wilfred Spiegelenburg
 - ApacheCon 2020: [Integrate Apache Flink with Cloud Native Ecosystem](https://youtu.be/4hghJCuZk5M) :busts_in_silhouette: Yang Wang, Tao Yang
 - Spark+AI Summit 2020: [Cloud-Native Spark Scheduling with YuniKorn Scheduler](https://www.youtube.com/embed/ZA6aPZ9r9wA) :busts_in_silhouette: Gao Li, Weiwei Yang
