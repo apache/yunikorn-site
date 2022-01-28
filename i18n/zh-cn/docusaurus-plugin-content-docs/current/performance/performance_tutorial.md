@@ -359,7 +359,7 @@ Once the environment is setup, you are good to run workloads and collect results
 
 ## Collect and Observe YuniKorn metrics
 
-After Prometheus is launched, YuniKorn metrics can be easily collected. Here is the [docs](./metrics.md) of YuniKorn metrics. YuniKorn tracks some key scheduling metrics which measure the latency of some critical scheduling paths. These metrics include:
+After Prometheus is launched, YuniKorn metrics can be easily collected. Here is the [docs](metrics.md) of YuniKorn metrics. YuniKorn tracks some key scheduling metrics which measure the latency of some critical scheduling paths. These metrics include:
 
  - **scheduling_latency_seconds:** Latency of the main scheduling routine, in seconds.
  - **app_sorting_latency_seconds**: Latency of all applications sorting, in seconds.
