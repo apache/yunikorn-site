@@ -47,6 +47,8 @@ The YuniKorn scheduler can also be deployed as a Kubernetes scheduler plugin by 
 flag to `true`. This will deploy an alternate Docker image which contains YuniKorn compiled together with the default
 scheduler. This new mode offers better compatibility with the default Kubernetes scheduler and is suitable for use with the
 admission controller delegating all scheduling to YuniKorn. Because this mode is still very new, it is not enabled by default.
+
+If you are unsure which deployment mode you should use, refer to our [side-by-side comparison](user_guide/deployment_modes).
  
 Further configuration options for installing YuniKorn via Helm are available in the [YuniKorn Helm hub page](https://hub.helm.sh/charts/yunikorn/yunikorn).
 
