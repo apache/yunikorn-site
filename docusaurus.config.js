@@ -103,6 +103,10 @@ module.exports = {
               label: 'Reporting Issues',
             },
             {
+              to: 'community/release_procedure',
+              label: 'Release Procedure',
+            },
+            {
               to: 'community/events',
               label: 'Events',
             },
