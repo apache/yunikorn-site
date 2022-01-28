@@ -29,7 +29,7 @@ under the License.
 
 ## 安装
 
-最简单的方法是使用我们的 Helm Charts 在现有的Kubernetes集群上部署YuniKorn。
+最简单的方法是使用我们的 Helm Chart 在现有的Kubernetes集群上部署YuniKorn。
 我们建议使用 Helm 3 或更高版本。
 
 ```shell script
@@ -39,11 +39,11 @@ kubectl create namespace yunikorn
 helm install yunikorn yunikorn/yunikorn --namespace yunikorn
 ```
 
-默认情况下，helm chart将在集群中安装调度器、web服务器和 admission-controller。
-`admission-controller` 一旦安装，它将把所有集群流量路由到 YuniKorn。
-这意味着资源调度会委托给 YuniKorn。在helm安装过程中，可以通过将 `embedAdmissionController` 标志设置为false来禁用它。
+默认情况下，Helm Chart 将在集群中安装调度器、web服务器和 admission-controller。
+`admission-controller` 一旦安装，它将把所有集群流量路由到YuniKorn。
+这意味着资源调度会委托给YuniKorn。在Helm安装过程中，可以通过将 `embedAdmissionController` 标志设置为false来禁用它。
 
-如果你不想使用 helm charts，您可以找到我们的细节教程 [点击这里](../developer_guide/deployment.md) 。
+如果你不想使用 Helm Chart，您可以找到我们的细节教程 [点击这里](../developer_guide/deployment.md) 。
 
 ## 卸载
 
