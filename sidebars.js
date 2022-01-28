@@ -21,6 +21,7 @@ module.exports = {
             'get_started/core_features'
         ],
         'User Guide': [
+            'user_guide/deployment_modes',
             'user_guide/queue_config',
             'user_guide/placement_rules',
             'user_guide/usergroup_resolution',            

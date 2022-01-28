@@ -33,7 +33,7 @@ The easiest way to get started is to use our Helm Charts to deploy YuniKorn on a
 It is recommended to use Helm 3 or later versions.
 
 ```shell script
-helm repo add yunikorn  https://apache.github.io/incubator-yunikorn-release
+helm repo add yunikorn https://apache.github.io/incubator-yunikorn-release
 helm repo update
 kubectl create namespace yunikorn
 helm install yunikorn yunikorn/yunikorn --namespace yunikorn
@@ -41,8 +41,15 @@ helm install yunikorn yunikorn/yunikorn --namespace yunikorn
 
 By default, the helm chart will install the scheduler, web-server and the admission-controller in the cluster.
 When `admission-controller` is installed, it simply routes all traffic to YuniKorn. That means the resource scheduling
-is delegated to YuniKorn. You can disable it by setting `embedAdmissionController` flag to false during the helm install.  
+is delegated to YuniKorn. You can disable it by setting `embedAdmissionController` flag to `false` during the helm install.
 
+The YuniKorn scheduler can also be deployed as a Kubernetes scheduler plugin by setting the Helm `enableSchedulerPlugin`
+flag to `true`. This will deploy an alternate Docker image which contains YuniKorn compiled together with the default
+scheduler. This new mode offers better compatibility with the default Kubernetes scheduler and is suitable for use with the
+admission controller delegating all scheduling to YuniKorn. Because this mode is still very new, it is not enabled by default.
+
+If you are unsure which deployment mode you should use, refer to our [side-by-side comparison](user_guide/deployment_modes).
+ 
 Further configuration options for installing YuniKorn via Helm are available in the [YuniKorn Helm hub page](https://hub.helm.sh/charts/yunikorn/yunikorn).
 
 If you don't want to use helm charts, you can find our step-by-step

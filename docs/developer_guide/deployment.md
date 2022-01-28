@@ -98,6 +98,11 @@ The deployment will run 2 containers from your pre-built docker images in 1 pod,
 * yunikorn-scheduler-core (yunikorn scheduler core and shim for K8s)
 * yunikorn-scheduler-web (web UI)
 
+Alternatively, the scheduler can be deployed as a K8S scheduler plugin:
+```
+kubectl create -f deployments/scheduler/plugin.yaml
+```
+
 The pod is deployed as a customized scheduler, it will take the responsibility to schedule pods which explicitly specifies `schedulerName: yunikorn` in pod's spec. In addition to the `schedulerName`, you will also have to add a label `applicationId` to the pod.
 ```yaml
   metadata:
