@@ -25,7 +25,7 @@ under the License.
 
 在阅读本指南之前，我们假设您有一个Kubernetes集群或本地 Kubernetes 开发环境，例如 MiniKube。
 还假定 `kubectl` 在您的环境路径内，并且配置正确。
-遵循此 [指南](../developer_guide/env_setup.md) 来讲述如何使用 docker-desktop 设置本地Kubernetes集群。
+遵循此 [指南](developer_guide/env_setup.md) 来讲述如何使用 docker-desktop 设置本地Kubernetes集群。
 
 ## 安装
 
@@ -43,7 +43,7 @@ helm install yunikorn yunikorn/yunikorn --namespace yunikorn
 `admission-controller` 一旦安装，它将把所有集群流量路由到YuniKorn。
 这意味着资源调度会委托给YuniKorn。在Helm安装过程中，可以通过将 `embedAdmissionController` 标志设置为false来禁用它。
 
-如果你不想使用 Helm Chart，您可以找到我们的细节教程 [点击这里](../developer_guide/deployment.md) 。
+如果你不想使用 Helm Chart，您可以找到我们的细节教程 [点击这里](developer_guide/deployment.md) 。
 
 ## 卸载
 
