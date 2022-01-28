@@ -184,6 +184,8 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 Fetch all Queues across different Partitions and displays general information about the queues like name, status, capacities and properties. 
 The queues' hierarchy is kept in the response json.  
 
+**Status** : Deprecated since v0.12.1, replaced by [Partition Queues](#partition-queues)
+
 **URL** : `/ws/v1/queues`
 
 **Method** : `GET`
@@ -341,6 +343,8 @@ In the example below there are three allocations belonging to two applications.
 ### All applications
 
 Fetch all Applications across different Partitions and displays general information about the applications like used resources, queue name, submission time and allocations.
+
+**Status** : Deprecated since v0.12.1, replaced by [Queue Applications](#queue-applications)
 
 **URL** : `/ws/v1/apps`
 
@@ -531,8 +535,10 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 
 ### All nodes
 
-Fetch all Nodes acrosss different Partitions and displays general information about the nodes managed by YuniKorn. 
+Fetch all Nodes across different Partitions and displays general information about the nodes managed by YuniKorn. 
 Node details include host and rack name, capacity, resources and allocations.
+
+**Status** : Deprecated since v0.12.1, replaced by [Partition Nodes](#partition-nodes)
 
 **URL** : `/ws/v1/nodes`
 
