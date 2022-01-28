@@ -47,5 +47,5 @@ workloads (traditional Kubernetes as well as queued applications).
 
 Plugin mode is currently very new and has therefore not yet reached the maturity level of standard mode.
 
-To activate plugin mode when deploying with Helm, set the variable `enableSchedulerPlugin` to true.
+To activate plugin mode when deploying with Helm, set the variable `enableSchedulerPlugin` to `true`.
 
