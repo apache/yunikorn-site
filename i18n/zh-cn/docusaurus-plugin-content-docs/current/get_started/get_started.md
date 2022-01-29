@@ -33,7 +33,7 @@ under the License.
 我们建议使用 Helm 3 或更高版本。
 
 ```shell script
-helm repo add yunikorn  https://apache.github.io/incubator-yunikorn-release
+helm repo add yunikorn https://apache.github.io/incubator-yunikorn-release
 helm repo update
 kubectl create namespace yunikorn
 helm install yunikorn yunikorn/yunikorn --namespace yunikorn
@@ -41,7 +41,13 @@ helm install yunikorn yunikorn/yunikorn --namespace yunikorn
 
 默认情况下，Helm Chart 将在集群中安装调度器、web服务器和 admission-controller。
 `admission-controller` 一旦安装，它将把所有集群流量路由到YuniKorn。
-这意味着资源调度会委托给YuniKorn。在Helm安装过程中，可以通过将 `embedAdmissionController` 标志设置为false来禁用它。
+这意味着资源调度会委托给YuniKorn。在Helm安装过程中，可以通过将 `embedAdmissionController` 标志设置为 `false` 来禁用它。
+通过将Helm的 `enableSchedulerPlugin` 标志设置为 `true`，YuniKorn调度器也可以以Kubernetes的调度器插件的方式进行部署。
+这种方式将会部署一个包含与默认调度器一起编译的YuniKorn备用Docker镜像。
+这种新模式借助默认的Kubernetes调度器提供了更好的兼容性，并且适合与将所有调度委托给YuniKorn的 admission-controller 协同使用。
+因为这个模式还是很新的，所以默认没有开启。
+
+如果您不确定应该使用哪种部署模式，请参阅我们 [并列比较](user_guide/deployment_modes) 章节的内容。
 
 如果你不想使用 Helm Chart，您可以找到我们的细节教程 [点击这里](developer_guide/deployment.md) 。
 
