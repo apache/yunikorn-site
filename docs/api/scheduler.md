@@ -24,7 +24,7 @@ under the License.
 
 ## Partitions
 
-Displays general information about the partition like name, state, capacity, used capacity and node sorting policy. 
+Displays general information about the partition like name, state, capacity, used capacity, utilization, and node sorting policy.
 
 **URL** : `/ws/v1/partitions`
 
@@ -46,7 +46,8 @@ Displays general information about the partition like name, state, capacity, use
         "lastStateTransitionTime": "2021-05-20 12:25:49.018953 +0530 IST m=+0.005949717",
         "capacity": {
             "capacity": "[memory:1000 vcore:1000]",
-            "usedCapacity": "[memory:800 vcore:500]"
+            "usedCapacity": "[memory:800 vcore:500]",
+            "utilization": "[memory:80 vcore:50]"
         },
         "nodeSortingPolicy": {
             "type": "fair",
@@ -67,7 +68,8 @@ Displays general information about the partition like name, state, capacity, use
         "lastStateTransitionTime": "2021-05-19 12:25:49.018953 +0530 IST m=+0.005949717",
         "capacity": {
             "capacity": "[memory:2000 vcore:2000]",
-            "usedCapacity": "[memory:500 vcore:300]"
+            "usedCapacity": "[memory:500 vcore:300]",
+            "utilization":"[memory:25 vcore:15]"
         },
         "nodeSortingPolicy": {
             "type": "binpacking",
@@ -429,7 +431,7 @@ In the example below there are three allocations belonging to two applications.
 ### Partition nodes
 
 Fetch all Nodes associated with given Partition and displays general information about the nodes managed by YuniKorn. 
-Node details include host and rack name, capacity, resources and allocations.
+Node details include host and rack name, capacity, resources, utilization, and allocations.
 
 **URL** : `/ws/v1/partition/{partitionName}/nodes`
 
@@ -455,6 +457,7 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
         "allocated": "[memory:6000 vcore:6000]",
         "occupied": "[memory:154 vcore:750]",
         "available": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:6423 pods:110 vcore:1250]",
+        "utilized":"[memory:3 vcore:13]",
         "allocations": [
             {
                 "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
@@ -489,6 +492,7 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
         "allocated": "[memory:2000 vcore:2000]",
         "occupied": "[memory:154 vcore:750]",
         "available": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:6423 pods:110 vcore:1250]",
+        "utilized":"[memory:8 vcore:38]",
         "allocations": [
             {
                 "allocationKey": "af3bd2f3-31c5-42dd-8f3f-c2298ebdec81",
@@ -624,6 +628,8 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 ## Nodes utilization
 
 Shows how nodes are distributed with regarding the utilization
+
+**Status** : Deprecated since v0.12.2, replaced by [Partition Nodes](#partition-nodes)
 
 **URL** : `/ws/v1/nodes/utilization`
 
