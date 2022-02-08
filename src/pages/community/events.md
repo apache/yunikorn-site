@@ -25,10 +25,28 @@ under the License.
 Upcoming Meetup
 ---
 
-Join us on **4:30pm - 6:00pm, PST, Nov 18, 2021**
+Join us on **4:30pm - 5:30pm, PST, Feb 16, 2022**
 
-**Wilfred Spiegelenburg** will present a session to
-introduce the latest status in the YuniKorn community. Don't miss out!! Add this event to your calendar: [:calendar:](https://calendar.google.com/event?action=TEMPLATE&tmeid=NHE2a2Vvc3FucDRhbDhmamowNGllcmRka24gYXBhY2hlLnl1bmlrb3JuQG0&tmsrc=apache.yunikorn%40gmail.com)
+We are hosting an Apache YuniKorn (Incubating) meetup on Wednesday February 16. Come join us! Since our first meetup held in November last year, lots of new development has happened in the community. We are excited to have three talks lined up! Add this event to your calendar: [:calendar:](https://calendar.google.com/calendar/u/0/r/eventedit/copy/N21jYmxiYWx0c211M2pvMTIydDZxZ2s5ajAgYXBhY2hlLnl1bmlrb3JuQG0/Y2hlbnlhemhhbmdjaGVueWFAZ21haWwuY29t?cid=YXBhY2hlLnl1bmlrb3JuQGdtYWlsLmNvbQ)
+
+Erica Lin, Luna Xu, and Sean Gorsky from Sync Computing will present their work on Spark autotuner and orchestrator.
+Description:
+Efficiently managing the infrastructure and schedules of thousands of data pipelines in multi-tenant and heterogeneous environments is a daunting task. Poor application tuning, resource allocation, and scheduling can lead to exorbitant costs on the cloud, sluggish performance, and failed jobs due to the intractable infrastructure search space. Addressing each of these codependent issues separately also often doesn't lead to the best results overall. Sync Computing will share how their autotuner and orchestrator addresses these issues jointly as a single optimization problem. As a result, the solution offers globally optimized Spark configurations, resource provisioning, and job scheduling with configurable optimization goals, enabling a seamless user experience of running DAG workflows in the cloud. We experimentally demonstrate on AWS up to 77% cost savings or 45% performance acceleration of a Spark and Airflow DAG. Simulations of our solution on a multi-day Alibaba cloud trace resulted in a 57% reduction in total DAG completion time for their batch workloads. This work could be complementary to Yunikorn and we would like to discuss potential integration strategies with the community.
+
+Craig Condit from Cloudera will talk about the latest YuniKorn release v0.12.2 and offer a glimpse of what the upcoming v1.0 release has in store.
+Description:
+v0.12.2 release offers a host of new features and bug fixes. Specifically, the admission controller implementation has been refactored to enable the YuniKorn scheduler to be seamless maintained and upgraded. In the upcoming v1.0 release, we will witness a major milestone of the YuniKorn project. An exciting feature is a new mode of deployment based on the Kubernetes Scheduling Framework, which offers better compatibility with the default scheduler and makes it easier for new users to try out YuniKorn.
+
+Tingyao Huang and Yuteng Chen are both YuniKorn committers. They have done extensive performance benchmarking using the latest YuniKorn codebase. Their results showed convincing throughput advantages of YuniKorn compared to the default scheduler.
+
+----
+
+Past Meetups
+---
+
+**4:30pm - 6:00pm, PST, Nov 18, 2021**
+
+**Wilfred Spiegelenburg** presented a session to introduce the latest status in the YuniKorn community.
 
 _Abstract_: Apache YuniKorn (Incubating) has released v0.11 earlier this year with a number of new features and improvements
 like Gang scheduling, REST API enhancements and Kubernetes 1.19 support. In a month, we are planning the major
