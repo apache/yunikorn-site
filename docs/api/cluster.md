@@ -79,6 +79,8 @@ As an example, here is a response from a 2-node cluster with 3 applications and 
 
 Returns statistical data related the cluster resource utilization
 
+**Status** : Deprecated since v0.12.2, replaced by [Partitions](scheduler.md#partitions)
+
 **URL** : `/ws/v1/clusters/utilization`
 
 **Method** : `GET`
