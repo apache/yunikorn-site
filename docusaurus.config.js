@@ -258,7 +258,8 @@ Copyright © 2020-${new Date().getFullYear()} <a href="https://www.apache.org/">
 </div>`
     },
     algolia: {
-      apiKey: '65b6e69046d08b5364868a53ff974c2f',
+      appId: 'Q1V951BG2V',
+      apiKey: '9ae3e2f7a01a21300490729dfb9f2a51',
       indexName: 'yunikorn',
       contextualSearch: true,
     },
