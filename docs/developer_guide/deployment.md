@@ -24,7 +24,7 @@ under the License.
 
 The easiest way to deploy YuniKorn is to leverage our [helm charts](https://hub.helm.sh/charts/yunikorn/yunikorn),
 you can find the guide [here](get_started/get_started.md). This document describes the manual process to deploy YuniKorn
-scheduler and it is majorly for developers.
+scheduler and admission controller. It is primarily intended for developers.
 
 ## Build docker image
 
@@ -39,7 +39,7 @@ This command will build an image. The image will be tagged with a default versio
 
 **Note** the latest yunikorn images in docker hub are not updated anymore due to ASF policy. Hence, you should build both scheduler image and web image locally before deploying them.
 
-## Setup RBAC
+## Setup RBAC for Scheduler
 
 The first step is to create the RBAC role for the scheduler, see [yunikorn-rbac.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/scheduler/yunikorn-rbac.yaml)
 ```
@@ -113,7 +113,33 @@ The pod is deployed as a customized scheduler, it will take the responsibility t
     schedulerName: yunikorn
 ```
 
-Note: Admission controller abstracts the addition of `schedulerName` and `applicationId` from the user and hence, routes all traffic to YuniKorn. If you use helm chart to deploy, it will install admission controller along with the scheduler.
+Note: Admission controller abstracts the addition of `schedulerName` and `applicationId` from the user and hence, routes all traffic to YuniKorn. If you use helm chart to deploy, it will install admission controller along with the scheduler. Otherwise, proceed to the steps
+below to manually deploy the admission controller if running non-example workloads where `schedulerName` and `applicationId` are not present in the pod spec and metadata, respectively.
+
+## Setup RBAC for Admission Controller
+
+Before the admission controller is deployed, we must create its RBAC role, see [admission-controller-rbac.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller-rbac.yaml).
+
+```
+kubectl create -f scheduler/admission-controller-rbac.yaml
+```
+
+## Create the Secret
+
+Since the admission controller intercepts calls to the API server to validate/mutate incoming requests, we must deploy an empty secret
+used by the webhook server to store TLS certificates and keys. See [admission-controller-secrets.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller-secrets.yaml).
+
+```
+kubectl create -f scheduler/admission-controller-secrets.yaml
+```
+
+## Deploy the Admission Controller
+
+Now we can deploy the admission controller as a service. This will automatically validate/modify incoming requests and objects, respectively, in accordance with the [example in Deploy the Scheduler](#Deploy-the-Scheduler). See the contents of the admission controller deployment and service in [admission-controller.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller.yaml).
+
+```
+kubectl create -f scheduler/admission-controller.yaml
+```
 
 ## Access to the web UI
 
