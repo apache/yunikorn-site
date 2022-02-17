@@ -2,8 +2,11 @@
     "link.item.label.Get Involved": {
         "message": "参与"
     },
-    "link.item.label.Roster": {
-        "message": "名册"
+    "link.title.Code Repositories": {
+        "message": "代码库"
+    },
+    "link.item.label.People": {
+        "message": "人们"
     },   
     "link.title.Blog": {
         "message": "博客"

@@ -198,29 +198,33 @@ module.exports = {
               href: 'https://blog.cloudera.com/yunikorn-a-universal-resources-scheduler/'
             },
             {
-              label: 'What\'s new in YuniKorn 0.8.0?',
-              href: 'https://blog.cloudera.com/apache-yunikorn-incubating-0-8-release-whats-new-and-upcoming/'
+              label: 'Spark on Kubernetes – Gang Scheduling with YuniKorn',
+              href: 'https://blog.cloudera.com/spark-on-kubernetes-gang-scheduling-with-yunikorn/'
             }
           ]
         },
         {
-          title: 'Github',
+          title: 'Code Repositories',
           items: [
             {
-              label: 'scheduler-core',
+              label: 'Core scheduler',
               href: 'https://github.com/apache/incubator-yunikorn-core/'
             },
             {
-              label: 'kubernetes-shim',
+              label: 'Kubernetes shim',
               href: 'https://github.com/apache/incubator-yunikorn-k8shim'
             },
             {
-              label: 'scheduler-interface',
+              label: 'Scheduler Interface',
               href: 'https://github.com/apache/incubator-yunikorn-scheduler-interface'
             },
             {
-              label: 'scheduler-web',
+              label: 'WEB application',
               href: 'https://github.com/apache/incubator-yunikorn-web'
+            },
+            {
+              label: 'Website',
+              href: 'https://github.com/apache/incubator-yunikorn-site'
             }
           ]
         },
@@ -232,8 +236,8 @@ module.exports = {
               to: 'community/get_involved'
             },
             {
-              label: 'Roster',
-              href: 'https://people.apache.org/phonebook.html?podling=yunikorn'
+              label: 'People',
+              href: 'community/people'
             },
             {
               label: 'Issues',
