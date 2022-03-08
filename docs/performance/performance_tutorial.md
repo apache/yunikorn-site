@@ -355,6 +355,52 @@ scrape_configs:
 
 Once the environment is setup, you are good to run workloads and collect results. YuniKorn community has some useful tools to run workloads and collect metrics, more details will be published here.
 
+### 1. Scenarios 
+In performance tools, there are three types of tests and feedbacks.
+
+|	test type	|						description						|	diagram	|  		log		|
+| ---------------------	| -----------------------------------------------------------------------------------------------------	| ------------- | ----------------------------- |
+|	e2e test	|	Simulate and record the time in each steps							|	none	|	exist(QPS, timecost)	|
+|	node fairness	|	Monitor node resource usage(allocated/capicity) with lots of pods requests			| 	exist	|	exist			|
+|	thourghput	|	Allocate `pod.spec.starttime` to calculate throughput(pods/sec) with lots of pods requests	|	exist	|	none			|
+
+### 2. Build tool
+Performance tool is in [yunikorn release](https://github.com/apache/incubator-yunikorn-release.git), so clone it to your host. 
+```
+git clone https://github.com/apache/incubator-yunikorn-release.git
+```
+Go to performance tool directory and build it
+```
+cd incubator-yunikorn-release/perf-tools/
+go mod tidy
+go build
+```
+It will look like this.
+![Build-perf-tools](./../assets/perf-tutorial-build.png)
+
+### 3. Set test configuration
+Before start tests, check configuration whether meet your except.
+Default output path is `\tmp`, you can modify `common.outputrootpath` to change it.
+In each scenarios, it contains followings and we can set
+
+|	field			|			description					|
+| ----------------------------- | --------------------------------------------------------------------- |
+|	schedulerNames		|	List of scheduler will run these cases 				|
+|	showNumOfLastTasks	|	Show the last tasks in scheduling				|
+|	cleanUpDelayMs		|	It is Period to check pod status when delete pods		| 	
+|	cases			|	In same scenarios, you can set multiple cases in this field 	|
+
+In `cases` field, you can set `repeat` to  decide number of deployment or `numPods` to change pods per deployment.
+If you set these fields with large number to cause timeout problem, increase value in `common.maxwaitseconds` to allow it.
+###  4. diagrams and logs
+Run executable file.
+`./perf-tools`
+It will show result log when each case finished.
+When tests finished, it will look like
+![Result log](./../assets/perf-tutorial-resultLog.png)
+We can find result diagrams and logs in `common.outputrootpath` which is in conf.yaml.
+Related diagrams and logs will be like this.
+![Result diagrams and logs](./../assets/perf-tutorial-resultDiagrams.png)
 ---
 
 ## Collect and Observe YuniKorn metrics
