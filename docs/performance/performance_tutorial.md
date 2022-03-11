@@ -358,18 +358,17 @@ Once the environment is setup, you are good to run workloads and collect results
 ### 1. Scenarios 
 In performance tools, there are three types of tests and feedbacks.
 
-|	test type	|						description						|	diagram	|  		log		|
-| ---------------------	| -----------------------------------------------------------------------------------------------------	| ------------- | ----------------------------- |
-|	e2e test	|	Simulate and record the time in each steps							|	none	|	exist(QPS, timecost)	|
-|	node fairness	|	Monitor node resource usage(allocated/capicity) with lots of pods requests			| 	exist	|	exist			|
-|	thourghput	|	Allocate `pod.spec.starttime` to calculate throughput(pods/sec) with lots of pods requests	|	exist	|	none			|
+|	Test type	|						Description									|	Diagram	|  		Log		|
+| ---------------------	| ------------------------------------------------------------------------------------------------------------------------	| ------------- | ----------------------------- |
+|	node fairness	|	Monitor node resource usage(allocated/capicity) with lots of pods requests						| 	Exist	|	Exist			|
+|	thourghput	|	Measure schedulers' throughput by calculating how many pods are allocated per second based on the pod start time	|	Exist	|	None			|
 
 ### 2. Build tool
-Performance tool is in [yunikorn release](https://github.com/apache/incubator-yunikorn-release.git), so clone it to your host. 
+The performance tool is available in [yunikorn release repo](https://github.com/apache/incubator-yunikorn-release.git),clone the repo to your workspace. 
 ```
 git clone https://github.com/apache/incubator-yunikorn-release.git
 ```
-Go to performance tool directory and build it
+Build the tool:
 ```
 cd incubator-yunikorn-release/perf-tools/
 go mod tidy
@@ -380,7 +379,7 @@ It will look like this.
 
 ### 3. Set test configuration
 Before start tests, check configuration whether meet your except.
-Default output path is `\tmp`, you can modify `common.outputrootpath` to change it.
+Default output path is `/tmp`, you can modify `common.outputrootpath` to change it.
 In each scenarios, it contains followings and we can set
 
 |	field			|			description					|
