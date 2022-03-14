@@ -422,7 +422,7 @@ In the example below there are three allocations belonging to two applications a
             }
         ],
         "applicationState": "Running"
-    }
+    },
     {
         "applicationID": "application-0003",
         "usedResource": "[]",
