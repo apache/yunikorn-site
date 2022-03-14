@@ -371,8 +371,8 @@ git clone https://github.com/apache/incubator-yunikorn-release.git
 Build the tool:
 ```
 cd incubator-yunikorn-release/perf-tools/
-go mod tidy
-go build
+make build
+cd target/perf-tools-bin
 ```
 It will look like this.
 ![Build-perf-tools](./../assets/perf-tutorial-build.png)
@@ -380,20 +380,45 @@ It will look like this.
 ### 3. Set test configuration
 Before start tests, check configuration whether meet your except.
 Default output path is `/tmp`, you can modify `common.outputrootpath` to change it.
-In each scenarios, it contains followings and we can set
-
-|	field			|			description					|
-| ----------------------------- | --------------------------------------------------------------------- |
-|	schedulerNames		|	List of scheduler will run these cases 				|
-|	showNumOfLastTasks	|	Show the last tasks in scheduling				|
-|	cleanUpDelayMs		|	It is Period to check pod status when delete pods		| 	
-|	cases			|	In same scenarios, you can set multiple cases in this field 	|
-
-In `cases` field, you can set `repeat` to  decide number of deployment or `numPods` to change pods per deployment.
 If you set these fields with large number to cause timeout problem, increase value in `common.maxwaitseconds` to allow it.
-###  4. diagrams and logs
-Run executable file.
-`./perf-tools`
+
+#### Throughput case
+
+|	Field			|			Description											|
+| ---				| ---									 						|
+|	SchedulerNames		|	List of scheduler will run the test											|
+|	ShowNumOfLastTasks	|	Show metadata of last number of pods										|
+|	CleanUpDelayMs		|	Controll period to refresh deployments status and print log							| 	
+|	RequestConfigs		|	Set resource request and decide number of deployments and pods per deployment with `repeat` and `numPods`	|
+
+In this case,yunikorn and default scheduler will sequentially separately create ten deployments which contains fifty pods.
+It will look like these.
+![throughputConf](./../assets/throughput_conf.png)
+![ThroughputDeployment](./../assets/perf_throughput.png)
+
+#### Node fairness case
+
+|	Field			|	Description									|
+| --- 				| ---											|
+|	SchedulerNames		|	List of schduler will run the test						|
+|	NumPodsPerNode		|	It equals that total pods divided by nodes					|
+|	AllocatePercentage	|	Allow how much percentage of allocatable resource is allowed to allocate	|
+
+Total number of pods will be multiplication of number of ready nodes and `NumPodsPerNode`.
+In following figure, there are thirteen ready nodes and `NumPodsPerNode` is eighty.
+There will be one thousand fourty pods created.
+![nodeFairnessConf](./../assets/node_fairness_conf.png)
+![nodeFairnessDeployment](./../assets/perf_node_fairness.png)
+
+#### e2e perf case
+Its field is similar to throughput one but there is only scheduler in each case.
+![scheduleTestConf](./../assets/perf_e2e_test_conf.png)
+![scheduleTest](./../assets/perf_e2e_test.png)
+
+###  4. Diagrams and logs
+```
+./perf-tools
+```
 It will show result log when each case finished.
 When tests finished, it will look like
 ![Result log](./../assets/perf-tutorial-resultLog.png)
