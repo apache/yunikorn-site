@@ -24,7 +24,7 @@ under the License.
 
 ## Clusters
 
-Returns general information about the clusters managed by the YuniKorn Scheduler. Information includes number of (total, failed, pending, running, completed) applications and containers.  
+Returns general information about the clusters managed by the YuniKorn Scheduler. Information includes number of (total, failed, pending, running, completed) applications and containers and the build information of resource managers.  
 
 **URL** : `/ws/v1/clusters`
 
@@ -38,11 +38,20 @@ Returns general information about the clusters managed by the YuniKorn Scheduler
 
 **Content examples**
 
-As an example, here is a response from a 2-node cluster with 3 applications and 4 running containers.
+As an example, here is a response from a 2-node cluster with 3 applications and 4 running containers and 1 resource manager.
 
 ```json
 [
     {
+        "scheduleStartDate": "2022-02-21T11:12:05+0000",
+        "rmBuildInformation": [
+          {
+            "buildDate": "2022-02-21T19:09:16+0800",
+            "buildVersion": "latest",
+            "isPluginVersion": "false",
+            "rmId": "rm-123"
+          }
+        ],
         "partition": "[rm-123]default",
         "clusterName": "kubernetes",
         "totalApplications": "3",
