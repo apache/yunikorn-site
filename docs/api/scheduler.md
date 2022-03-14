@@ -344,7 +344,7 @@ In the example below there are three allocations belonging to two applications.
 
 ### All applications
 
-Fetch all Applications across different Partitions and displays general information about the applications like used resources, queue name, submission time and allocations.
+Fetch all Applications across different Partitions and displays general information about the applications like used resources, queue name, submission time and allocations. 
 
 **Status** : Deprecated since v0.12.1, replaced by [Queue Applications](#queue-applications)
 
@@ -366,7 +366,7 @@ The fully qualified queue name used to filter the applications that run within t
 
 **Content examples**
 
-In the example below there are three allocations belonging to two applications. 
+In the example below there are three allocations belonging to two applications and one rejected application. 
 
 ```json
 [
@@ -422,6 +422,19 @@ In the example below there are three allocations belonging to two applications.
             }
         ],
         "applicationState": "Running"
+    }
+    {
+        "applicationID": "application-0003",
+        "usedResource": "[]",
+        "maxUsedResource": "[]",
+        "partition": "default",
+        "queueName": "",
+        "submissionTime": 1646757410878163500,
+        "finishedTime": 1646757410878225400,
+        "allocations": [],
+        "applicationState": "Rejected",
+        "user": "nobody",
+        "rejectedMessage": "failed to place application application-0003: application rejected: no placment rule matched"
     }
 ]
 ```
