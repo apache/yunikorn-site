@@ -344,7 +344,7 @@ In the example below there are three allocations belonging to two applications.
 
 ### All applications
 
-Fetch all Applications across different Partitions and displays general information about the applications like used resources, queue name, submission time and allocations. 
+Fetch all Applications across different Partitions and displays general information about the applications like used resources, queue name, submission time and allocations.
 
 **Status** : Deprecated since v0.12.1, replaced by [Queue Applications](#queue-applications)
 
