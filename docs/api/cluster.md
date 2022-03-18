@@ -45,12 +45,12 @@ As an example, here is a response from a 2-node cluster with 3 applications and 
     {
         "scheduleStartDate": "2022-02-21T11:12:05+0000",
         "rmBuildInformation": [
-          {
-            "buildDate": "2022-02-21T19:09:16+0800",
-            "buildVersion": "latest",
-            "isPluginVersion": "false",
-            "rmId": "rm-123"
-          }
+            {
+                "buildDate": "2022-02-21T19:09:16+0800",
+                "buildVersion": "latest",
+                "isPluginVersion": "false",
+                "rmId": "rm-123"
+            }
         ],
         "partition": "[rm-123]default",
         "clusterName": "kubernetes",
