@@ -22,6 +22,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+# Overview
+
+The scheduler REST API returns information about various objects used by the YuniKorn Scheduler.
+
+Many of these APIs return collections of resources. Internally, all resources are represented as raw
+64-bit signed integer types. When interpreting responses from the REST API, resources of type `memory`
+are returned in units of bytes while resources of type `vcore` are returned in units of millicores
+(thousands of a core). All other resource types have no specific unit assigned.
+
 ## Partitions
 
 Displays general information about the partition like name, state, capacity, used capacity, utilization, and node sorting policy.
