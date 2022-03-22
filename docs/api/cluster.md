@@ -45,7 +45,7 @@ As an example, here is a response from a 2-node cluster with 3 applications and 
     {
         "startTime": "2022-03-22T14:54:13+0000",
         "rmBuildInformation": [
-            "buildDate": "2022-03-22T09:51:21+0000,
+            "buildDate": "2022-03-22T09:51:21+0000",
             "buildVersion": "latest",
             "isPluginVersion": "false",
             "rmId": "mycluster"
