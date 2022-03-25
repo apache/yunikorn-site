@@ -15,8 +15,8 @@
 
 FROM node:16.13.0
 
-ADD . /incubator-yunikorn-site
-WORKDIR /incubator-yunikorn-site
+ADD . /yunikorn-site
+WORKDIR /yunikorn-site
 
 RUN yarn install
 RUN yarn add @docusaurus/theme-search-algolia

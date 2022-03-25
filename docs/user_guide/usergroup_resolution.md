@@ -24,7 +24,7 @@ under the License.
 
 ## User resolution
 
-User information is an important aspect of the scheduling cycle. It is one of the key identifier that can be used to determine the queue to which a job should be submitted. The Yunikorn Scheduler relies on the K8s Shim to provide user information. In the world of Kubernetes, there is no object defined that identfies the actual user. This is by design and more information can be found [here](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#users-in-kubernetes)
+User information is an important aspect of the scheduling cycle. It is one of the key identifier that can be used to determine the queue to which a job should be submitted. The Yunikorn Scheduler relies on the K8s Shim to provide user information. In the world of Kubernetes, there is no object defined that identfies the actual user. This is by design and more information can be found [here](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#users-in-kubernetes).
 
 Since, Kubernetes has no pre-defined field or resource for user information and individual cluster deployments with unique user identification tools can vary, we have defined a standard way of identifying the user. Yunikorn requires a Kubernetes [Label](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) added. Using the [recommendation](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/) provided here, the default label is defined as below:
 
@@ -47,7 +47,7 @@ Assumption:
   Yunikorn assumes that all pods belonging to an application are owned by the same user. We recommend that the user label is added to every pod of an app. This is to ensure that there is no discrepency. 
 :::
 
-The `yunikorn.apache.org/username` key can be customized by overriding the default value using the `USER_LABEL_KEY`env variable to the [K8s](https://github.com/apache/incubator-yunikorn-release/blob/master/helm-charts/yunikorn/templates/deployment.yaml). This is particularly useful in scenarios where the user label is already being added or if the label has to be modified for some secuirty reasons. 
+The `yunikorn.apache.org/username` key can be customized by overriding the default value using the `USER_LABEL_KEY`env variable in the [K8s Deployment](https://github.com/apache/yunikorn-release/blob/master/helm-charts/yunikorn/templates/deployment.yaml). This is particularly useful in scenarios where the user label is already being added or if the label has to be modified for some secuirty reasons. 
 
 ```yaml          
             env:

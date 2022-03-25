@@ -24,7 +24,7 @@ under the License.
 
 # Get Involved
 
-Apache YuniKorn (Incubating) community is quite diverse, we have engineers from Alibaba, Apple, 
+The Apache YuniKorn community is quite diverse, we have engineers from Alibaba, Apple, 
 Cloudera, Linkedin, Microsoft, Nvidia, Tencent, Uber, etc. (sorted by alphabetical order). The community deeply believes in the
 importance of this diversity and the value of "The Apache Way".  We welcome any form of contributions, code, documentation or suggestions!
 :smiley: Don't wait, join us now!

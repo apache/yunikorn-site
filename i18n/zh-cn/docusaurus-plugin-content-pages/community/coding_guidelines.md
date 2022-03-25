@@ -94,8 +94,8 @@ lint 检查是项目的标准 CI 构建运行的一部分。
 
 ### 配置
 为使用它们的两个项目提供了预定义的配置：
-* [YuniKorn k8shim](https://github.com/apache/incubator-yunikorn-k8shim), 配置文件 [golangci.yml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/.golangci.yml).
-* [YuniKorn core](https://github.com/apache/incubator-yunikorn-core), 配置文件 [golangci.yml](https://github.com/apache/incubator-yunikorn-core/blob/master/.golangci.yml). 
+* [YuniKorn k8shim](https://github.com/apache/yunikorn-k8shim), 配置文件 [golangci.yml](https://github.com/apache/yunikorn-k8shim/blob/master/.golangci.yml).
+* [YuniKorn core](https://github.com/apache/yunikorn-core), 配置文件 [golangci.yml](https://github.com/apache/yunikorn-core/blob/master/.golangci.yml). 
 
 Web 界面是一个 javascript 项目，调度接口只生成了 Go 代码，因此不使用它。
 

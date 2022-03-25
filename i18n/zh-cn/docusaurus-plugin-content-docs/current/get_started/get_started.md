@@ -33,7 +33,7 @@ under the License.
 我们建议使用 Helm 3 或更高版本。
 
 ```shell script
-helm repo add yunikorn https://apache.github.io/incubator-yunikorn-release
+helm repo add yunikorn https://apache.github.io/yunikorn-release
 helm repo update
 kubectl create namespace yunikorn
 helm install yunikorn yunikorn/yunikorn --namespace yunikorn

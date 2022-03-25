@@ -27,12 +27,12 @@ This document will not be maintained and is just for historical reference.
 See [scheduler cache removal design](cache_removal.md)
 :::
 
-Github repo: https://github.com/apache/incubator-yunikorn-core/
+Github repo: https://github.com/apache/yunikorn-core
 
 Scheduler core encapsulates all scheduling algorithms, it collects resources from underneath resource management
 platforms (like YARN/K8s), and is responsible for container allocation requests. It makes the decision where is the
 best spot for each request and then sends response allocations to the resource management platform.
-Scheduler core is agnostic about underneath platforms, all the communications are through the [scheduler interface](https://github.com/apache/incubator-yunikorn-scheduler-interface).
+Scheduler core is agnostic about underneath platforms, all the communications are through the [scheduler interface](https://github.com/apache/yunikorn-scheduler-interface).
 
 ## Components:
 
@@ -110,8 +110,8 @@ will be handled by event handler.
 
 ## Communication between Shim and Core 
 
-YuniKorn-Shim (like https://github.com/apache/incubator-yunikorn-k8shim) communicates with core by
-using scheduler-interface (https://github.com/apache/incubator-yunikorn-scheduler-interface).
+YuniKorn-Shim (like https://github.com/apache/yunikorn-k8shim) communicates with core by
+using scheduler-interface (https://github.com/apache/yunikorn-scheduler-interface).
 Scheduler interface has Go API or GRPC. Currently, yunikorn-k8shim is using Go API to communicate with yunikorn-core
 to avoid extra overhead introduced by GRPC. 
 

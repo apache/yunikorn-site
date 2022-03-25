@@ -263,10 +263,10 @@ kubectl apply -f hollow-node.yaml
 #### Install YuniKorn with helm
 
 We can install YuniKorn with Helm, please refer to this [doc](https://yunikorn.apache.org/docs/#install).
-We need to tune some parameters based on the default configuration. We recommend to clone the [release repo](https://github.com/apache/incubator-yunikorn-release) and modify the parameters in `value.yaml`.
+We need to tune some parameters based on the default configuration. We recommend to clone the [release repo](https://github.com/apache/yunikorn-release) and modify the parameters in `value.yaml`.
 
 ```
-git clone https://github.com/apache/incubator-yunikorn-release.git
+git clone https://github.com/apache/yunikorn-release.git
 cd helm-charts/yunikorn
 ```
 
@@ -364,13 +364,13 @@ In performance tools, there are three types of tests and feedbacks.
 |	thourghput	|	Measure schedulers' throughput by calculating how many pods are allocated per second based on the pod start time	|	Exist	|	None			|
 
 ### 2. Build tool
-The performance tool is available in [yunikorn release repo](https://github.com/apache/incubator-yunikorn-release.git),clone the repo to your workspace. 
+The performance tool is available in [yunikorn release repo](https://github.com/apache/yunikorn-release.git),clone the repo to your workspace. 
 ```
-git clone https://github.com/apache/incubator-yunikorn-release.git
+git clone https://github.com/apache/yunikorn-release.git
 ```
 Build the tool:
 ```
-cd incubator-yunikorn-release/perf-tools/
+cd yunikorn-release/perf-tools/
 make build
 cd target/perf-tools-bin
 ```

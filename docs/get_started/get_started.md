@@ -33,7 +33,7 @@ The easiest way to get started is to use our Helm Charts to deploy YuniKorn on a
 It is recommended to use Helm 3 or later versions.
 
 ```shell script
-helm repo add yunikorn https://apache.github.io/incubator-yunikorn-release
+helm repo add yunikorn https://apache.github.io/yunikorn-release
 helm repo update
 kubectl create namespace yunikorn
 helm install yunikorn yunikorn/yunikorn --namespace yunikorn

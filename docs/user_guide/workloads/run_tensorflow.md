@@ -38,7 +38,7 @@ kubectl apply -k "github.com/kubeflow/training-operator/manifests/overlays/stand
 
 ## Prepare the docker image
 Before you start running a TensorFlow job on Kubernetes, you'll need to build the docker image.
-1. Download files from [deployment/examples/tfjob](https://github.com/apache/incubator-yunikorn-k8shim/tree/master/deployments/examples/tfjob)
+1. Download files from [deployment/examples/tfjob](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/examples/tfjob)
 2. To build this docker image with the following command
 
 ```
@@ -46,7 +46,7 @@ docker build -f Dockerfile -t kubeflow/tf-dist-mnist-test:1.0 .
 ```
 
 ## Run a TensorFlow job
-Here is a TFJob yaml for MNIST [example](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/examples/tfjob/tf-job-mnist.yaml).
+Here is a TFJob yaml for MNIST [example](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/examples/tfjob/tf-job-mnist.yaml).
 
 ```yaml
 apiVersion: kubeflow.org/v1

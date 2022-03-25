@@ -17,13 +17,13 @@
 const versions = require('./versions.json');
 
 module.exports = {
-  title: 'Apache YuniKorn (Incubating)',
+  title: 'Apache YuniKorn',
   tagline: 'Unleash the power of resource scheduling for running Big Data & ML on Kubernetes!',
   url: 'https://yunikorn.apache.org',
   baseUrl: '/',
   favicon: 'img/yunikorn.ico',
   organizationName: 'apache',
-  projectName: 'incubator-yunikorn-core',
+  projectName: 'yunikorn-core',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'zh-cn'],
@@ -128,10 +128,6 @@ module.exports = {
               href: 'https://www.apache.org/'
             },
             {
-              label: 'Apache Incubator',
-              href: 'https://incubator.apache.org/'
-            },
-            {
               label: 'Events',
               href: 'https://www.apache.org/events/current-event'
             },
@@ -180,7 +176,7 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://github.com/apache/incubator-yunikorn-core',
+          href: 'https://github.com/apache/yunikorn-core',
           position: 'right',
           className: 'header-github-link',
           'aria-label': 'GitHub repository',
@@ -208,23 +204,23 @@ module.exports = {
           items: [
             {
               label: 'Core scheduler',
-              href: 'https://github.com/apache/incubator-yunikorn-core/'
+              href: 'https://github.com/apache/yunikorn-core/'
             },
             {
               label: 'Kubernetes shim',
-              href: 'https://github.com/apache/incubator-yunikorn-k8shim'
+              href: 'https://github.com/apache/yunikorn-k8shim'
             },
             {
               label: 'Scheduler Interface',
-              href: 'https://github.com/apache/incubator-yunikorn-scheduler-interface'
+              href: 'https://github.com/apache/yunikorn-scheduler-interface'
             },
             {
               label: 'WEB application',
-              href: 'https://github.com/apache/incubator-yunikorn-web'
+              href: 'https://github.com/apache/yunikorn-web'
             },
             {
               label: 'Website',
-              href: 'https://github.com/apache/incubator-yunikorn-site'
+              href: 'https://github.com/apache/yunikorn-site'
             }
           ]
         },
@@ -246,18 +242,11 @@ module.exports = {
           ]
         },
       ],
-      logo: {
-        alt: 'Apache Incubator Logo',
-        src: 'https://incubator.apache.org/images/incubator_feather_egg_logo.png',
-        href: 'https://incubator.apache.org/',
-      },
       copyright: `
 <div style="font-size: 70%">
 Copyright © 2020-${new Date().getFullYear()} <a href="https://www.apache.org/">The Apache Software Foundation</a>. Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <br>
 <div style="padding:20px; margin: 10px; color: #4d4d4d;">
-<p>Apache YuniKorn is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache Incubator. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.</p>
-
-<p>The Apache Software Foundation Apache YuniKorn, YuniKorn, Apache, the Apache feather, and the Apache YuniKorn project logo are either registered trademarks or trademarks of the Apache Software Foundation.  Apache YuniKorn is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the name of Apache TLP sponsor.</p>
+<p>The Apache Software Foundation Apache YuniKorn, YuniKorn, Apache, the Apache feather, and the Apache YuniKorn project logo are either registered trademarks or trademarks of the Apache Software Foundation.</p>
 </div>
 </div>`
     },

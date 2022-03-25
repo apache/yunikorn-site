@@ -30,7 +30,7 @@ It references both the [Access Control Lists](user_guide/acls.md) and [Placement
 This document explains how to create the partition and queue configuration for the scheduler with examples.
 
 The scheduler relies on the shim to reliably provide user information as part of the application submission.
-The current shim identifies the user and the groups the user belongs to using the methodology provided in [User & Group Resolution](usergroup_resolution) 
+The current shim identifies the user and the groups the user belongs to using the methodology provided in [User & Group Resolution](usergroup_resolution).
 
 ## Configuration
 The configuration file for the scheduler that is described here only provides the configuration for the partitions and queues.
@@ -39,7 +39,7 @@ By default we use the file called `queues.yaml` in our deployments.
 The filename can be changed via the command line flag `policyGroup` of the scheduler.
 Changing the filename must be followed by corresponding changes in the deployment details, either the `configmap` or the file included in the docker container.
 
-The example file for the configuration is located in the scheduler core's [queues.yaml](https://github.com/apache/incubator-yunikorn-core/blob/master/config/queues.yaml).  
+The example file for the configuration is located in the scheduler core's [queues.yaml](https://github.com/apache/yunikorn-core/blob/master/config/queues.yaml).  
 
 ## Partitions
 Partitions are the top level of the scheduler configuration.

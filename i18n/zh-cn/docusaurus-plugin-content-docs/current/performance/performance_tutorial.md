@@ -263,10 +263,10 @@ kubectl apply -f hollow-node.yaml
 #### Install YuniKorn with helm
 
 We can install YuniKorn with Helm, please refer to this [doc](https://yunikorn.apache.org/docs/#install).
-We need to tune some parameters based on the default configuration. We recommend to clone the [release repo](https://github.com/apache/incubator-yunikorn-release) and modify the parameters in `value.yaml`.
+We need to tune some parameters based on the default configuration. We recommend to clone the [release repo](https://github.com/apache/yunikorn-release) and modify the parameters in `value.yaml`.
 
 ```
-git clone https://github.com/apache/incubator-yunikorn-release.git
+git clone https://github.com/apache/yunikorn-release.git
 cd helm-charts/yunikorn
 ```
 
