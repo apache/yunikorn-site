@@ -24,9 +24,9 @@ under the License.
 
 YuniKorn 社区是开放的、多样化的和协作的。
 它不隶属于任何组织，并由项目成员分担管理和维护项目的责任。
-社区中的成员包括孵化项目管理委员会 ([PPMC](https://incubator.apache.org/guides/ppmc.html)) 的成员和 [Committers](https://infra.apache.org/new-committers-guide.html#what-is-a-committer)。
+社区中的成员包括孵化项目管理委员会 ([PMC](https://www.apache.org/dev/pmc.html)) 的成员和 [Committers](https://infra.apache.org/new-committers-guide.html#what-is-a-committer)。
 
-## PPMC
+## PMC
 
 | 公开名称                    | ApacheID   | 组织        | 时区 (UTC) |
 |-------------------------|------------|-----------|----------|
@@ -50,7 +50,7 @@ YuniKorn 社区是开放的、多样化的和协作的。
 
 ## Committer
 
-> 以下列表不包括 PPMC 成员
+> 以下列表不包括 PMC 成员
 
 | 名称             | ApacheID | 组织         | 时区   |
 |----------------|----------|------------|------|
@@ -65,7 +65,7 @@ YuniKorn 社区是开放的、多样化的和协作的。
 
 Committers 是对项目存储库具有写入权限的社区成员，
 即他们可以自己修改代码并接受其他人对所有 YuniKorn 存储库的贡献。
-PPMC 根据各种考虑对候选人进行投票：
+PMC 根据各种考虑对候选人进行投票：
 
 - 代码贡献
   - 一致的代码贡献
@@ -85,14 +85,14 @@ PPMC 根据各种考虑对候选人进行投票：
 
 contributor 或非 contributor 都可以成为 committer，社区非常感谢代码或非代码贡献。
 
-## 成为 PPMC 成员
+## 成为 PMC 成员
 
-PPMC 为 Podling Project Management Committee。
+PMC 为 Podling Project Management Committee。
 它负责项目管理、治理并确保项目可以在 [Apache Way](https://www.apache.org/theapacheway/) 下运行。
-委员会根据 PPMC 成员的投票做出决定。
-PPMC 成员有权对各种事情进行有约束力的投票，例如项目发布、添加新的提交者或 PPMC 成员等。
+委员会根据 PMC 成员的投票做出决定。
+PMC 成员有权对各种事情进行有约束力的投票，例如项目发布、添加新的提交者或 PMC 成员等。
 
-在成为 PPMC 成员之前，贡献者必须先成为提交者。
-提交者何时有资格被添加到 PPMC 没有严格的规定。
+在成为 PMC 成员之前，贡献者必须先成为提交者。
+提交者何时有资格被添加到 PMC 没有严格的规定。
 管理委员会根据每个提交者的参与和影响做出决定。
-一般来说，对项目做出持续的代码或非代码贡献的贡献者应被视为 PPMC 候选人。
+一般来说，对项目做出持续的代码或非代码贡献的贡献者应被视为 PMC 候选人。

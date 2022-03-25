@@ -17,7 +17,7 @@
  -->
 # Apache YuniKorn website
 ---
-![auto-publish](https://github.com/apache/incubator-yunikorn-site/workflows/auto-publish/badge.svg)
+![auto-publish](https://github.com/apache/yunikorn-site/workflows/auto-publish/badge.svg)
 
 This README will walk you through building and updating the Apache YuniKorn website.
 

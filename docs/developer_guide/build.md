@@ -22,7 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-YuniKorn always works with a container orchestrator system. Currently, a Kubernetes shim [yunikorn-k8shim](https://github.com/apache/incubator-yunikorn-k8shim)
+YuniKorn always works with a container orchestrator system. Currently, a Kubernetes shim [yunikorn-k8shim](https://github.com/apache/yunikorn-k8shim)
 is provided in our repositories, you can leverage it to develop YuniKorn scheduling features and integrate with Kubernetes.
 This document describes resources how to setup dev environment and how to do the development.
 
@@ -35,14 +35,14 @@ Read the [environment setup guide](developer_guide/env_setup.md) first to setup 
 Prerequisite:
 - Go 1.16+
 
-You can build the scheduler for Kubernetes from [yunikorn-k8shim](https://github.com/apache/incubator-yunikorn-k8shim) project.
+You can build the scheduler for Kubernetes from [yunikorn-k8shim](https://github.com/apache/yunikorn-k8shim) project.
 The build procedure will build all components into a single executable that can be deployed and running on Kubernetes.
 
 Start the integrated build process by pulling the `yunikorn-k8shim` repository:
 ```bash
 mkdir $HOME/yunikorn/
 cd $HOME/yunikorn/
-git clone https://github.com/apache/incubator-yunikorn-k8shim.git
+git clone https://github.com/apache/yunikorn-k8shim.git
 ```
 At this point you have an environment that will allow you to build an integrated image for the YuniKorn scheduler.
 
@@ -68,7 +68,7 @@ make image
 ```
 
 The image with the build in configuration can be deployed directly on kubernetes.
-Some sample deployments that can be used are found under [deployments](https://github.com/apache/incubator-yunikorn-k8shim/tree/master/deployments/scheduler) directory.
+Some sample deployments that can be used are found under [deployments](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/scheduler) directory.
 For the deployment that uses a config map you need to set up the ConfigMap in kubernetes.
 How to deploy the scheduler with a ConfigMap is explained in the [scheduler configuration deployment](developer_guide/deployment.md) document.
 
@@ -140,17 +140,17 @@ There is no need to change any of the imports in the source code. The change mus
 
 Using `replace` to use of a forked dependency, such as:
 ```
-replace github.com/apache/incubator-yunikorn-core => example.com/some/forked-yunikorn
+replace github.com/apache/yunikorn-core => example.com/some/forked-yunikorn
 ```
 
 There is no requirement to fork and create a new repository. If you do not have a repository you can use a local checked out copy too. 
 Using `replace` to use of a local directory as a dependency:
 ```
-replace github.com/apache/incubator-yunikorn-core => /User/example/local/checked-out-yunikorn
+replace github.com/apache/yunikorn-core => /User/example/local/checked-out-yunikorn
 ```
 and for the same dependency using a relative path:
 ```
-replace github.com/apache/incubator-yunikorn-core => ../checked-out-yunikorn
+replace github.com/apache/yunikorn-core => ../checked-out-yunikorn
 ```
 Note: if the `replace` directive is using a local filesystem path, then the target must have the `go.mod` file at that location.
 
@@ -158,7 +158,7 @@ Further details on the modules' wiki: [When should I use the 'replace' directive
 
 ## Build the web UI
 
-Example deployments reference the [YuniKorn web UI](https://github.com/apache/incubator-yunikorn-web). 
+Example deployments reference the [YuniKorn web UI](https://github.com/apache/yunikorn-web). 
 The YuniKorn web UI has its own specific requirements for the build. The project has specific requirements for the build follow the steps in the README to prepare a development environment and build how to build the projects.
 The scheduler is fully functional without the web UI. 
 
@@ -187,4 +187,4 @@ as long as the `$HOME/.kube/config` file is pointing to that remote cluster.
 Yunikorn has an external REST interface which is validated by end-to-end tests. However, the tests exist in the k8shim repository.
 Whenever a change is made to the external interface, make sure that it is validated by running e2e tests or adjust the test cases accordingly.
 
-How to run the tests locally is described [here](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/test/e2e/README.md).
+How to run the tests locally is described [here](https://github.com/apache/yunikorn-k8shim/blob/master/test/e2e/README.md).

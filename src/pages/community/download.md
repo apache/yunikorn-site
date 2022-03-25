@@ -1,6 +1,6 @@
 ---
 id: download
-title: Apache YuniKorn (Incubating)
+title: Apache YuniKorn
 ---
 
 <!--
@@ -22,9 +22,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Apache YuniKorn (Incubating)
+# Apache YuniKorn
 
-Apache YuniKorn (Incubating) is released as source code tarballs.
+Apache YuniKorn is released as source code tarballs.
 The downloads for the latest release are distributed via mirror sites.
 Older releases can be downloaded from the Apache archive site.
 All release artifacts should be checked for tampering using GPG or SHA-512.

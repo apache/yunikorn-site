@@ -24,13 +24,13 @@ under the License.
 
 ## Project Members
 
-YuniKorn community is open, diverse, and collaborative. It is not owned
+The YuniKorn community is open, diverse, and collaborative. It is not owned
 by any entity. Project members share the responsibility to manage, and maintain the project.
-People in the community include Podling Project Management Committee ([PPMC](https://incubator.apache.org/guides/ppmc.html))
+People in the community include Project Management Committee ([PMC](https://www.apache.org/dev/pmc.html))
 members and [committers](https://infra.apache.org/new-committers-guide.html#what-is-a-committer).
 
 
-## PPMC
+## PMC
 
 | Public Name             | ApacheID   | Organization | Timezone (UTC) |
 |-------------------------|------------|--------------|----------------|
@@ -54,7 +54,7 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 
 ## Committer
 
-> The listing below excludes the PPMC members
+> The listing below excludes the PMC members
 
 | Name           | ApacheID | Organization | Timezone |
 |----------------|----------|--------------|----------|
@@ -69,7 +69,7 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 
 Committers are the community members who have the write access to the project's repositories, i.e
 they can modify the code by themselves and accept others contributions to all YuniKorn repos.
-There is no strict rules about the qualification of a candidate. The PPMC votes for a candidate
+There is no strict rules about the qualification of a candidate. The PMC votes for a candidate
 based on various considerations:
 
 - Code contributions
@@ -91,14 +91,14 @@ based on various considerations:
 Contributor or non-contributor can both make their paths to committer, the community deeply
 appreciates both code or non-code contributions.
 
-## Become a PPMC member
+## Become a PMC member
 
-PPMC stands for the Podling Project Management Committee. It is responsible for project
+PMC stands for the Podling Project Management Committee. It is responsible for project
 management, governance and ensures the project can be operated under the [Apache Way](https://www.apache.org/theapacheway/).
-The committee makes decisions based on the PPMC members' votes. A PPMC member has the authority to cast a binding
-vote on various things, such as project releases, adding new committer or PPMC member, etc.
+The committee makes decisions based on the PMC members' votes. A PMC member has the authority to cast a binding
+vote on various things, such as project releases, adding new committer or PMC member, etc.
 
-A contributor must become a committer first before becoming a PPMC member.
-There is no strict rules of when a committer will be qualified for being added to PPMC. The management
+A contributor must become a committer first before becoming a PMC member.
+There is no strict rules of when a committer will be qualified for being added to PMC. The management
 committee makes a decision based on the involvement and impact of each committer. In general, a committer
-who makes consistent code or non-code contributions to the project should be considered as a PPMC candidate.
+who makes consistent code or non-code contributions to the project should be considered as a PMC candidate.

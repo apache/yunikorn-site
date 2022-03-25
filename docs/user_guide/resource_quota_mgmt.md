@@ -219,7 +219,7 @@ In this case the property `application.sort.policy` is in this configuration set
 This is a simple app sorting policy applicable for batch jobs, you can find more document [here](sorting_policies.md#StateAwarePolicy).
 
 You can change the configuration using the helm charts during the installation by overwriting the configuration in the
-[helm chart template](https://github.com/apache/incubator-yunikorn-release/blob/master/helm-charts/yunikorn/values.yaml#L71-L81).
+[helm chart template](https://github.com/apache/yunikorn-release/blob/master/helm-charts/yunikorn/values.yaml#L71-L81).
 
 ### Namespace quota
 Namespaces in Kubernetes contain the quota information. 

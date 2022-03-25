@@ -1,6 +1,6 @@
 ---
 id: download
-title: Apache YuniKorn (Incubating)
+title: Apache YuniKorn
 ---
 
 <!--
@@ -22,9 +22,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Apache YuniKorn (Incubating)
+# Apache YuniKorn
 
-Apache YuniKorn (Incubating) 作为源代码压缩包发布。
+Apache YuniKorn 作为源代码压缩包发布。
 最新版本的下载通过镜像站点进行分发。
 旧版本可以从 Apache 存档站点进行下载。
 应使用 GPG 或 SHA-512 检查所有发布工件是否被篡改。

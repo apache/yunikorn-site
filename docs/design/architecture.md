@@ -22,7 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-Apache YuniKorn (Incubating) is a light-weight, universal resource scheduler for container orchestrator systems.
+Apache YuniKorn is a light-weight, universal resource scheduler for container orchestrator systems.
 It is created to achieve fine-grained resource sharing for various workloads efficiently on a large scale, multi-tenant,
 and cloud-native environment. YuniKorn brings a unified, cross-platform, scheduling experience for mixed workloads that
 consist of stateless batch workloads and stateful services.
@@ -41,7 +41,7 @@ Following chart illustrates the high-level architecture of YuniKorn.
 
 ### Scheduler interface
 
-[Scheduler interface](https://github.com/apache/incubator-yunikorn-scheduler-interface) is an abstract layer
+[Scheduler interface](https://github.com/apache/yunikorn-scheduler-interface) is an abstract layer
 which resource management platform (like YARN/K8s) will speak with, via API like GRPC/programing language bindings.
 
 ### Scheduler core
@@ -49,7 +49,7 @@ which resource management platform (like YARN/K8s) will speak with, via API like
 Scheduler core encapsulates all scheduling algorithms, it collects resources from underneath resource management
 platforms (like YARN/K8s), and is responsible for container allocation requests. It makes the decision where is the
 best spot for each request and then sends response allocations to the resource management platform.
-Scheduler core is agnostic about underneath platforms, all the communications are through the [scheduler interface](https://github.com/apache/incubator-yunikorn-scheduler-interface).
+Scheduler core is agnostic about underneath platforms, all the communications are through the [scheduler interface](https://github.com/apache/yunikorn-scheduler-interface).
 Please read more about the design of schedule core [here](scheduler_core_design.md).
 
 ### Kubernetes shim
@@ -57,6 +57,6 @@ Please read more about the design of schedule core [here](scheduler_core_design.
 The YuniKorn Kubernetes shim is responsible for talking to Kubernetes, it is responsible for translating the Kubernetes
 cluster resources, and resource requests via scheduler interface and send them to the scheduler core.
 And when a scheduler decision is made, it is responsible for binding the pod to the specific node. All the communication
-between the shim and the scheduler core is through the [scheduler interface](https://github.com/apache/incubator-yunikorn-scheduler-interface).
-Please read more about the design of the Kubernetes shim [here](k8shim.md)
+between the shim and the scheduler core is through the [scheduler interface](https://github.com/apache/yunikorn-scheduler-interface).
+Please read more about the design of the Kubernetes shim [here](k8shim.md).
 

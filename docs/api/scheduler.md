@@ -682,23 +682,23 @@ Dumps the stack traces of the currently running goroutines.
 ```text
 goroutine 356 [running
 ]:
-github.com/apache/incubator-yunikorn-core/pkg/webservice.getStackInfo.func1(0x30a0060,
+github.com/apache/yunikorn-core/pkg/webservice.getStackInfo.func1(0x30a0060,
 0xc003e900e0,
 0x2)
-	/yunikorn/go/pkg/mod/github.com/apache/incubator-yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/handlers.go: 41 +0xab
-github.com/apache/incubator-yunikorn-core/pkg/webservice.getStackInfo(0x30a0060,
+	/yunikorn/go/pkg/mod/github.com/apache/yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/handlers.go: 41 +0xab
+github.com/apache/yunikorn-core/pkg/webservice.getStackInfo(0x30a0060,
 0xc003e900e0,
 0xc00029ba00)
-	/yunikorn/go/pkg/mod/github.com/apache/incubator-yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/handlers.go: 48 +0x71
+	/yunikorn/go/pkg/mod/github.com/apache/yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/handlers.go: 48 +0x71
 net/http.HandlerFunc.ServeHTTP(0x2df0e10,
 0x30a0060,
 0xc003e900e0,
 0xc00029ba00)
 	/usr/local/go/src/net/http/server.go: 1995 +0x52
-github.com/apache/incubator-yunikorn-core/pkg/webservice.Logger.func1(0x30a0060,
+github.com/apache/yunikorn-core/pkg/webservice.Logger.func1(0x30a0060,
 0xc003e900e0,
 0xc00029ba00)
-	/yunikorn/go/pkg/mod/github.com/apache/incubator-yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/webservice.go: 65 +0xd4
+	/yunikorn/go/pkg/mod/github.com/apache/yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/webservice.go: 65 +0xd4
 net/http.HandlerFunc.ServeHTTP(0xc00003a570,
 0x30a0060,
 0xc003e900e0,

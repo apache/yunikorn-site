@@ -22,7 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-Github repo: https://github.com/apache/incubator-yunikorn-k8shim
+Github repo: https://github.com/apache/yunikorn-k8shim
 
 Please read the [architecture](architecture.md) doc before reading this one, you will need to understand
 the 3 layer design of YuniKorn before getting to understand what is the Kubernetes shim.
@@ -60,7 +60,7 @@ and a [validation webhook](https://kubernetes.io/docs/reference/access-authn-aut
 ### Admission controller deployment
 
 Currently, the deployment of the admission-controller is done as a `post-start` hook in the scheduler deployment, similarly, the
-uninstall is done as a `pre-stop` hook. See the related code [here](https://github.com/apache/incubator-yunikorn-release/blob/56e580af24ed3433e7d73d9ea556b19ad7b74337/helm-charts/yunikorn/templates/deployment.yaml#L80-L85).
+uninstall is done as a `pre-stop` hook. See the related code [here](https://github.com/apache/yunikorn-release/blob/56e580af24ed3433e7d73d9ea556b19ad7b74337/helm-charts/yunikorn/templates/deployment.yaml#L80-L85).
 During the installation, it is expected to always co-locate the admission controller with the scheduler pod, this is done
 by adding the pod-affinity in the admission-controller pod, like:
 
