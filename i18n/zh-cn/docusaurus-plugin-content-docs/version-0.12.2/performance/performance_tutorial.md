@@ -157,7 +157,7 @@ metadata:
   name: hollow-node
   namespace: kubemark
 spec:
-  replicas: 2000  // the node number you want to simulate
+  replicas: 2000  # the node number you want to simulate
   selector:
       name: hollow-node
   template:
@@ -165,13 +165,13 @@ spec:
       labels:
         name: hollow-node
     spec:
-      nodeSelector:  // leverage label to allocate to native node
+      nodeSelector:  # leverage label to allocate to native node
         tag: tagName  
       initContainers:
       - name: init-inotify-limit
         image: docker.io/busybox:latest
         imagePullPolicy: IfNotPresent
-        command: ['sysctl', '-w', 'fs.inotify.max_user_instances=200'] // set as same as max_user_instance in actual node 
+        command: ['sysctl', '-w', 'fs.inotify.max_user_instances=200'] # set as same as max_user_instance in actual node 
         securityContext:
           privileged: true
       volumes:
@@ -183,7 +183,7 @@ spec:
           path: /var/log
       containers:
       - name: hollow-kubelet
-        image: 0yukali0/kubemark:1.20.10 // the kubemark image you build 
+        image: 0yukali0/kubemark:1.20.10 # the kubemark image you build 
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 4194
@@ -209,13 +209,13 @@ spec:
         - name: logs-volume
           mountPath: /var/log
         resources:
-          requests:    // the resource of hollow pod, can modify it.
+          requests:    # the resource of hollow pod, can modify it.
             cpu: 20m
             memory: 50M
         securityContext:
           privileged: true
       - name: hollow-proxy
-        image: 0yukali0/kubemark:1.20.10 // the kubemark image you build 
+        image: 0yukali0/kubemark:1.20.10 # the kubemark image you build 
         imagePullPolicy: IfNotPresent
         env:
         - name: NODE_NAME
@@ -237,7 +237,7 @@ spec:
           readOnly: true
         - name: logs-volume
           mountPath: /var/log
-        resources:  // the resource of hollow pod, can modify it.
+        resources:  # the resource of hollow pod, can modify it.
           requests:
             cpu: 20m
             memory: 50M
@@ -342,7 +342,7 @@ scrape_configs:
     metrics_path: '/ws/v1/metrics'
     static_configs:
     - targets: ['docker.for.mac.host.internal:9080'] 
-    // 9080 is internal port, need port forward or modify 9080 to service's port
+    # 9080 is internal port, need port forward or modify 9080 to service's port
 ```
 
 ### 3. Launch Prometheus
