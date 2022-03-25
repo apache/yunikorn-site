@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
                        xmlns:moz="http://www.mozilla.org/2006/browser/search/">
-  <ShortName>Apache YuniKorn (Incubating)</ShortName>
-  <Description>Search Apache YuniKorn (Incubating)</Description>
+  <ShortName>Apache YuniKorn</ShortName>
+  <Description>Search Apache YuniKorn</Description>
   <InputEncoding>UTF-8</InputEncoding>
   <Image width="16" height="16" type="image/x-icon">https://yunikorn.apache.org/img/yunikorn.ico</Image>
   <Url type="text/html" method="get" template="https://yunikorn.apache.org/search?q={searchTerms}"/>
