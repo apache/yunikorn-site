@@ -601,8 +601,9 @@ In the example below there are three allocations belonging to two applications a
                 "partition": "default"
             }
         ],
+        "applicationState": "Running",
         "user": "nobody",
-        "applicationState": "Running"
+	"rejectedMessage": ""
     },
     {
         "applicationID": "application-0003",
