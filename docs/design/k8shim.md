@@ -59,28 +59,16 @@ and a [validation webhook](https://kubernetes.io/docs/reference/access-authn-aut
 
 ### Admission controller deployment
 
-Currently, the deployment of the admission-controller is done as a `post-start` hook in the scheduler deployment, similarly, the
-uninstall is done as a `pre-stop` hook. See the related code [here](https://github.com/apache/yunikorn-release/blob/56e580af24ed3433e7d73d9ea556b19ad7b74337/helm-charts/yunikorn/templates/deployment.yaml#L80-L85).
-During the installation, it is expected to always co-locate the admission controller with the scheduler pod, this is done
-by adding the pod-affinity in the admission-controller pod, like:
+By default, the admission controller is deployed as part of the YuniKorn Helm chart installation. This can be disabled if necessary (though not recommended) by setting the Helm parameter `embedAdmissionController` to `false`.
 
-```yaml
-podAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-    - labelSelector:
-      matchExpressions:
-      - key: component
-        operator: In
-        values:
-        - yunikorn-scheduler
-      topologyKey: "kubernetes.io/hostname"
-```
+On startup, the admission controller performs a series of tasks to ensure that it is properly registered with Kubernetes:
+1. Loads a Kubernetes secret called `admission-controller-secrets`. This secret stores a pair of CA certificates which are used to sign the TLS server certificate used by the admission controller.
+2. If the secret cannot be found or either CA certificate is within 90 days of expiration, generates new certificate(s). If a certificate is expiring, a new one is generated with an expiration of 12 months in the future. If both certificates are missing or expiring, the second certificate is generated with an expiration of 6 months in the future. This ensures that both certificates do not expire at the same time, and that there is an overlap of trusted certificates.
+3. If the CA certificates were created or updated, writes the secrets back to Kubernetes.
+4. Generates an ephemeral TLS server certificate signed by the CA certificate with the latest expiration date.
+5. Validates, and if necessary, creates or updates the Kubernetes webhook configurations named `yunikorn-admission-controller-validations` and `yunikorn-admission-controller-mutations`. If the CA certificates have changed, the webhooks will also be updated. These webhooks allow the Kubernetes API server to connect to the admission controller service to perform configmap validations and pod mutations. 
+6. Starts up the admission controller HTTPS server.
 
-it also tolerates all the taints in case the scheduler pod has some toleration set.
+Additionally, the admission controller also starts a background task to wait for CA certificates to expire. Once either certificate is expiring within the next 30 days, new CA and server certificates are generated, the webhook configurations are updated, and the HTTPS server is quickly restarted. This ensures that certificates rotate properly without downtime.
 
-```yaml
-tolerations:
-- operator: "Exists"
-```
-
-
+In production clusters, it is recommended to deploy the admission controller with two replicas by setting the Helm parameter `admissionController.replicaCount` to `2`. This will ensure that at least one admission controller webhook is reachable by the Kubernetes API server at all times. In this configuration, the CA certificates and webhook configurations are shared between the instances.
