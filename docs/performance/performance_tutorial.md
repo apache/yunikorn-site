@@ -157,7 +157,7 @@ metadata:
   name: hollow-node
   namespace: kubemark
 spec:
-  replicas: 2000  // the node number you want to simulate
+  replicas: 2000  # the node number you want to simulate
   selector:
       name: hollow-node
   template:
@@ -165,13 +165,13 @@ spec:
       labels:
         name: hollow-node
     spec:
-      nodeSelector:  // leverage label to allocate to native node
+      nodeSelector:  # leverage label to allocate to native node
         tag: tagName  
       initContainers:
       - name: init-inotify-limit
         image: docker.io/busybox:latest
         imagePullPolicy: IfNotPresent
-        command: ['sysctl', '-w', 'fs.inotify.max_user_instances=200'] // set as same as max_user_instance in actual node 
+        command: ['sysctl', '-w', 'fs.inotify.max_user_instances=200'] # set as same as max_user_instance in actual node 
         securityContext:
           privileged: true
       volumes:
@@ -183,7 +183,7 @@ spec:
           path: /var/log
       containers:
       - name: hollow-kubelet
-        image: 0yukali0/kubemark:1.20.10 // the kubemark image you build 
+        image: 0yukali0/kubemark:1.20.10 # the kubemark image you build 
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 4194
@@ -209,13 +209,13 @@ spec:
         - name: logs-volume
           mountPath: /var/log
         resources:
-          requests:    // the resource of hollow pod, can modify it.
+          requests:    # the resource of hollow pod, can modify it.
             cpu: 20m
             memory: 50M
         securityContext:
           privileged: true
       - name: hollow-proxy
-        image: 0yukali0/kubemark:1.20.10 // the kubemark image you build 
+        image: 0yukali0/kubemark:1.20.10 # the kubemark image you build 
         imagePullPolicy: IfNotPresent
         env:
         - name: NODE_NAME
@@ -237,7 +237,7 @@ spec:
           readOnly: true
         - name: logs-volume
           mountPath: /var/log
-        resources:  // the resource of hollow pod, can modify it.
+        resources:  # the resource of hollow pod, can modify it.
           requests:
             cpu: 20m
             memory: 50M
@@ -263,10 +263,10 @@ kubectl apply -f hollow-node.yaml
 #### Install YuniKorn with helm
 
 We can install YuniKorn with Helm, please refer to this [doc](https://yunikorn.apache.org/docs/#install).
-We need to tune some parameters based on the default configuration. We recommend to clone the [release repo](https://github.com/apache/incubator-yunikorn-release) and modify the parameters in `value.yaml`.
+We need to tune some parameters based on the default configuration. We recommend to clone the [release repo](https://github.com/apache/yunikorn-release) and modify the parameters in `value.yaml`.
 
 ```
-git clone https://github.com/apache/incubator-yunikorn-release.git
+git clone https://github.com/apache/yunikorn-release.git
 cd helm-charts/yunikorn
 ```
 
@@ -342,7 +342,7 @@ scrape_configs:
     metrics_path: '/ws/v1/metrics'
     static_configs:
     - targets: ['docker.for.mac.host.internal:9080'] 
-    // 9080 is internal port, need port forward or modify 9080 to service's port
+    # 9080 is internal port, need port forward or modify 9080 to service's port
 ```
 
 ### 3. Launch Prometheus
@@ -355,6 +355,76 @@ scrape_configs:
 
 Once the environment is setup, you are good to run workloads and collect results. YuniKorn community has some useful tools to run workloads and collect metrics, more details will be published here.
 
+### 1. Scenarios 
+In performance tools, there are three types of tests and feedbacks.
+
+|	Test type	|						Description									|	Diagram	|  		Log		|
+| ---------------------	| ------------------------------------------------------------------------------------------------------------------------	| ------------- | ----------------------------- |
+|	node fairness	|	Monitor node resource usage(allocated/capicity) with lots of pods requests						| 	Exist	|	Exist			|
+|	thourghput	|	Measure schedulers' throughput by calculating how many pods are allocated per second based on the pod start time	|	Exist	|	None			|
+
+### 2. Build tool
+The performance tool is available in [yunikorn release repo](https://github.com/apache/yunikorn-release.git),clone the repo to your workspace. 
+```
+git clone https://github.com/apache/yunikorn-release.git
+```
+Build the tool:
+```
+cd yunikorn-release/perf-tools/
+make build
+cd target/perf-tools-bin
+```
+It will look like this.
+![Build-perf-tools](./../assets/perf-tutorial-build.png)
+
+### 3. Set test configuration
+Before start tests, check configuration whether meet your except.
+Default output path is `/tmp`, you can modify `common.outputrootpath` to change it.
+If you set these fields with large number to cause timeout problem, increase value in `common.maxwaitseconds` to allow it.
+
+#### Throughput case
+
+|	Field			|			Description											|
+| ---				| ---									 						|
+|	SchedulerNames		|	List of scheduler will run the test											|
+|	ShowNumOfLastTasks	|	Show metadata of last number of pods										|
+|	CleanUpDelayMs		|	Controll period to refresh deployments status and print log							| 	
+|	RequestConfigs		|	Set resource request and decide number of deployments and pods per deployment with `repeat` and `numPods`	|
+
+In this case,yunikorn and default scheduler will sequentially separately create ten deployments which contains fifty pods.
+It will look like these.
+![throughputConf](./../assets/throughput_conf.png)
+![ThroughputDeployment](./../assets/perf_throughput.png)
+
+#### Node fairness case
+
+|	Field			|	Description									|
+| --- 				| ---											|
+|	SchedulerNames		|	List of schduler will run the test						|
+|	NumPodsPerNode		|	It equals that total pods divided by nodes					|
+|	AllocatePercentage	|	Allow how much percentage of allocatable resource is allowed to allocate	|
+
+Total number of pods will be multiplication of number of ready nodes and `NumPodsPerNode`.
+In following figure, there are thirteen ready nodes and `NumPodsPerNode` is eighty.
+There will be one thousand fourty pods created.
+![nodeFairnessConf](./../assets/node_fairness_conf.png)
+![nodeFairnessDeployment](./../assets/perf_node_fairness.png)
+
+#### e2e perf case
+Its field is similar to throughput one but there is only scheduler in each case.
+![scheduleTestConf](./../assets/perf_e2e_test_conf.png)
+![scheduleTest](./../assets/perf_e2e_test.png)
+
+###  4. Diagrams and logs
+```
+./perf-tools
+```
+It will show result log when each case finished.
+When tests finished, it will look like
+![Result log](./../assets/perf-tutorial-resultLog.png)
+We can find result diagrams and logs in `common.outputrootpath` which is in conf.yaml.
+Related diagrams and logs will be like this.
+![Result diagrams and logs](./../assets/perf-tutorial-resultDiagrams.png)
 ---
 
 ## Collect and Observe YuniKorn metrics

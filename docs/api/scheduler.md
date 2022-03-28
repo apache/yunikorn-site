@@ -22,6 +22,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+# Overview
+
+The scheduler REST API returns information about various objects used by the YuniKorn Scheduler.
+
+Many of these APIs return collections of resources. Internally, all resources are represented as raw
+64-bit signed integer types. When interpreting responses from the REST API, resources of type `memory`
+are returned in units of bytes while resources of type `vcore` are returned in units of millicores
+(thousands of a core). All other resource types have no specific unit assigned.
+
 ## Partitions
 
 Displays general information about the partition like name, state, capacity, used capacity, utilization, and node sorting policy.
@@ -41,13 +50,27 @@ Displays general information about the partition like name, state, capacity, use
 ```json
 [
     {
-        "name": "[mycluster]default",
+        "clusterId": "mycluster",
+        "name": "default",
         "state": "Active",
         "lastStateTransitionTime": "2021-05-20 12:25:49.018953 +0530 IST m=+0.005949717",
         "capacity": {
-            "capacity": "[memory:1000 vcore:1000]",
-            "usedCapacity": "[memory:800 vcore:500]",
-            "utilization": "[memory:80 vcore:50]"
+            "capacity": {
+                "ephemeral-storage": 188176871424,
+                "hugepages-1Gi": 0,
+                "hugepages-2Mi": 0,
+                "memory": 1000000000,
+                "pods": 330,
+                "vcore": 1000
+            },
+            "usedCapacity": {
+                "memory": 800000000,
+                "vcore": 500
+            },
+            "utilization": {
+                "memory": 80,
+                "vcore": 50
+            }
         },
         "nodeSortingPolicy": {
             "type": "fair",
@@ -63,13 +86,23 @@ Displays general information about the partition like name, state, capacity, use
         }
     },
     {
-        "name": "[mycluster]gpu",
+        "clusterId": "mycluster",
+        "name": "gpu",
         "state": "Active",
         "lastStateTransitionTime": "2021-05-19 12:25:49.018953 +0530 IST m=+0.005949717",
         "capacity": {
-            "capacity": "[memory:2000 vcore:2000]",
-            "usedCapacity": "[memory:500 vcore:300]",
-            "utilization":"[memory:25 vcore:15]"
+            "capacity": {
+                "memory": 2000000000,
+                "vcore": 2000
+            },
+            "usedCapacity": {
+                "memory": 500000000,
+                "vcore": 300
+            },
+            "utilization": {
+                "memory": 25,
+                "vcore": 15
+            }
         },
         "nodeSortingPolicy": {
             "type": "binpacking",
@@ -125,32 +158,61 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 ```json
 [
-   {
-
-       "queuename": "root",
-       "status": "Active",
-       "maxResource": "[memory:8000 vcore:8000]",
-       "guaranteedResource": "[memory:54 vcore:80]",
-       "allocatedResource": "[memory:54 vcore:80]",
-       "isLeaf": "false",
-       "isManaged": "false",
-       "properties": {
-           "application.sort.policy":"stateaware"
-       },
-       "parent": "",
-       "partition": "[mycluster]default",
-       "children": [
-           {
-               "queuename": "root.default",
-               "status": "Active",
-               "maxResource": "[memory:8000 vcore:8000]",
-               "guaranteedResource": "[memory:54 vcore:80]",
-               "allocatedResource": "[memory:54 vcore:80]",
-               "isLeaf": "true",
-               "isManaged": "false",
-               "parent": "root"
+    {
+        "queuename": "root",
+        "status": "Active",
+        "maxResource": {
+            "ephemeral-storage": 188176871424,
+            "hugepages-1Gi": 0,
+            "hugepages-2Mi": 0,
+            "memory": 8000000000,
+            "pods": 330,
+            "vcore": 8000
+        },
+        "guaranteedResource": {
+            "memory": 54000000,
+            "vcore": 80
+        },
+        "allocatedResource": {
+            "memory": 54000000,
+            "vcore": 80
+        },
+        "isLeaf": "false",
+        "isManaged": "false",
+        "properties": {
+            "application.sort.policy":"stateaware"
+        },
+        "parent": "",
+        "template": null,
+        "partition": "default",
+        "children": [
+            {
+                "queuename": "root.default",
+                "status": "Active",
+                "maxResource": {
+                    "memory": 8000000000,
+                    "vcore": 8000
+                },
+                "guaranteedResource": {
+                    "memory": 54000000,
+                    "vcore": 80
+                },
+                "allocatedResource": {
+                    "memory": 54000000,
+                    "vcore": 80
+                },
+                "isLeaf": "true",
+                "isManaged": "false",
+                "parent": "root",
+                "template": null,
+                "children": [],
+                "absUsedCapacity": {}
             }
-        ]
+        ],
+        "absUsedCapacity": {
+            "memory": 1,
+            "vcore": 0
+        }
     } 
 ]
 ```
@@ -204,30 +266,60 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 ```json
 {
-    "partitionName": "[mycluster]default",
+    "partitionName": "default",
     "capacity": {
-        "capacity": "map[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:80000 pods:110 vcore:60000]",
-        "usedCapacity": "0"
+        "capacity": {
+            "ephemeral-storage": 75850798569,
+            "hugepages-1Gi": 0,
+            "hugepages-2Mi": 0,
+            "memory": 80000000000,
+            "pods": 110,
+            "vcore": 60000
+        },
+        "usedCapacity": {
+            "memory": 100000000,
+            "vcore": 100
+        },
+        "utilization": {
+            "memory": 1,
+            "vcore": 0
+        }
     },
     "nodes": null,
     "queues": {
         "queuename": "root",
         "status": "Active",
         "capacities": {
-            "capacity": "[]",
-            "maxCapacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:80000 pods:110 vcore:60000]",
-            "usedCapacity": "[memory:8000 vcore:8000]",
-            "absUsedCapacity": "[memory:54 vcore:80]"
+            "capacity": {},
+            "maxCapacity": {
+                "ephemeral-storage": 75850798569,
+                "hugepages-1Gi": 0,
+                "hugepages-2Mi": 0,
+                "memory": 80000000000,
+                "pods": 110,
+                "vcore": 60000
+            },
+            "usedCapacity": {
+              "memory": 8000000000,
+              "vcore": 8000
+            },
+            "absUsedCapacity": {
+                "memory": 54,
+                "vcore": 80
+            }
         },
         "queues": [
             {
                 "queuename": "default",
                 "status": "Active",
                 "capacities": {
-                    "capacity": "[]",
-                    "maxCapacity": "[]",
-                    "usedCapacity": "[memory:8000 vcore:8000]",
-                    "absUsedCapacity": "[]"
+                    "capacity": {},
+                    "maxCapacity": {},
+                    "usedCapacity": {
+                        "memory": 8000000000,
+                        "vcore": 8000,
+                    },
+                    "absUsedCapacity": {}
                 },
                 "queues": null,
                 "properties": {}
@@ -262,38 +354,72 @@ In the example below there are three allocations belonging to two applications.
 [
     {
         "applicationID": "application-0001",
-        "usedResource": "[memory:4000 vcore:4000]",
-        "partition": "[mycluster]default",
+        "usedResource": {
+          "memory": 4000000000,
+          "vcore": 4000
+        },
+        "maxUsedResource": {
+          "memory": 4000000000,
+          "vcore": 4000
+        },
+        "partition": "default",
         "queueName": "root.default",
         "submissionTime": 1595939756253216000,
         "allocations": [
             {
                 "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
-                "allocationTags": null,
+                "allocationTags": {
+                    "kubernetes.io/label/app": "sleep",
+                    "kubernetes.io/label/applicationId": "application-0001",
+                    "kubernetes.io/label/queue": "root.default",
+                    "kubernetes.io/meta/namespace": "default",
+                    "kubernetes.io/meta/podName": "task0"
+                },
                 "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
-                "resource": "[memory:4000 vcore:4000]",
-                "priority": "<nil>",
+                "resource": {
+                    "memory": 4000000000,
+                    "vcore": 4000
+                },
+                "priority": "0",
                 "queueName": "root.default",
                 "nodeId": "node-0001",
-                "applicationId": "application-0002",
+                "applicationId": "application-0001",
                 "partition": "default"
             }
         ],
-        "applicationState": "Running"
+        "applicationState": "Running",
+        "user": "nobody",
+        "rejectedMessage": ""
     },
     {
         "applicationID": "application-0002",
-        "usedResource": "[memory:4000 vcore:4000]",
-        "partition": "[mycluster]default",
+        "usedResource": {
+          "memory": 4000000000,
+          "vcore": 4000
+        },
+        "maxUsedResource": {
+          "memory": 4000000000,
+          "vcore": 4000
+        },
+        "partition": "default",
         "queueName": "root.default",
         "submissionTime": 1595939756253460000,
         "allocations": [
             {
                 "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
-                "allocationTags": null,
+                "allocationTags": {
+                    "kubernetes.io/label/app": "sleep",
+                    "kubernetes.io/label/applicationId": "application-0002",
+                    "kubernetes.io/label/queue": "root.default",
+                    "kubernetes.io/meta/namespace": "default",
+                    "kubernetes.io/meta/podName": "task0"
+                },
                 "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
-                "resource": "[memory:2000 vcore:2000]",
-                "priority": "<nil>",
+                "resource": {
+                    "memory": 2000000000,
+                    "vcore": 2000
+                },
+                "priority": "0",
                 "queueName": "root.default",
                 "nodeId": "node-0001",
                 "applicationId": "application-0002",
@@ -301,17 +427,28 @@ In the example below there are three allocations belonging to two applications.
             },
             {
                 "allocationKey": "af3bd2f3-31c5-42dd-8f3f-c2298ebdec81",
-                "allocationTags": null,
+                "allocationTags": {
+                    "kubernetes.io/label/app": "sleep",
+                    "kubernetes.io/label/applicationId": "application-0002",
+                    "kubernetes.io/label/queue": "root.default",
+                    "kubernetes.io/meta/namespace": "default",
+                    "kubernetes.io/meta/podName": "task1"
+                },
                 "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
-                "resource": "[memory:2000 vcore:2000]",
-                "priority": "<nil>",
+                "resource": {
+                    "memory": 2000000000,
+                    "vcore": 2000
+                },
+                "priority": "0",
                 "queueName": "root.default",
                 "nodeId": "node-0002",
                 "applicationId": "application-0002",
                 "partition": "default"
             }
         ],
-        "applicationState": "Running"
+        "applicationState": "Running",
+        "user": "nobody",
+        "rejectedMessage": ""
     }
 ]
 ```
@@ -371,67 +508,111 @@ In the example below there are three allocations belonging to two applications a
 ```json
 [
     {
-        "applicationID": "application-0002",
-        "usedResource": "[memory:4000 vcore:4000]",
-        "partition": "[mycluster]default",
+        "applicationID": "application-0001",
+        "usedResource": {
+          "memory": 4000000000,
+          "vcore": 4000
+        },
+        "maxUsedResource": {
+          "memory": 4000000000,
+          "vcore": 4000
+        },
+        "partition": "default",
         "queueName": "root.default",
         "submissionTime": 1595939756253216000,
         "allocations": [
             {
                 "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
-                "allocationTags": null,
+                "allocationTags": {
+                    "kubernetes.io/label/app": "sleep",
+                    "kubernetes.io/label/applicationId": "application-0001",
+                    "kubernetes.io/label/queue": "root.default",
+                    "kubernetes.io/meta/namespace": "default",
+                    "kubernetes.io/meta/podName": "task1"
+                },
                 "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
-                "resource": "[memory:4000 vcore:4000]",
-                "priority": "<nil>",
+                "resource": {
+                    "memory": 4000000000,
+                    "vcore": 4000
+                },
+                "priority": "0",
                 "queueName": "root.default",
                 "nodeId": "node-0001",
-                "applicationId": "application-0002",
+                "applicationId": "application-0001",
                 "partition": "default"
             }
         ],
-        "applicationState": "Running"
+        "applicationState": "Running",
+        "user": "nobody",
+        "rejectedMessage": ""
     },
     {
-        "applicationID": "application-0001",
-        "usedResource": "[memory:4000 vcore:4000]",
-        "partition": "[mycluster]default",
+        "applicationID": "application-0002",
+        "usedResource": {
+          "memory": 4000000000,
+          "vcore": 4000
+        },
+        "maxUsedResource": {
+          "memory": 4000000000,
+          "vcore": 4000
+        },
+        "partition": "default",
         "queueName": "root.default",
         "submissionTime": 1595939756253460000,
         "allocations": [
             {
                 "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
-                "allocationTags": null,
+                "allocationTags": {
+                    "kubernetes.io/label/app": "sleep",
+                    "kubernetes.io/label/applicationId": "application-0002",
+                    "kubernetes.io/label/queue": "root.default",
+                    "kubernetes.io/meta/namespace": "default",
+                    "kubernetes.io/meta/podName": "task0"
+                },
                 "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
-                "resource": "[memory:2000 vcore:2000]",
-                "priority": "<nil>",
+                "resource": {
+                    "memory": 2000000000,
+                    "vcore": 2000
+                },
+                "priority": "0",
                 "queueName": "root.default",
                 "nodeId": "node-0001",
-                "applicationId": "application-0001",
+                "applicationId": "application-0002",
                 "partition": "default"
             },
             {
                 "allocationKey": "af3bd2f3-31c5-42dd-8f3f-c2298ebdec81",
-                "allocationTags": null,
+                "allocationTags": {
+                    "kubernetes.io/label/app": "sleep",
+                    "kubernetes.io/label/applicationId": "application-0002",
+                    "kubernetes.io/label/queue": "root.default",
+                    "kubernetes.io/meta/namespace": "default",
+                    "kubernetes.io/meta/podName": "task1"
+                },
                 "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
-                "resource": "[memory:2000 vcore:2000]",
-                "priority": "<nil>",
+                "resource": {
+                    "memory": 2000000000,
+                    "vcore": 2000
+                },
+                "priority": "0",
                 "queueName": "root.default",
                 "nodeId": "node-0002",
-                "applicationId": "application-0001",
+                "applicationId": "application-0002",
                 "partition": "default"
             }
         ],
+        "user": "nobody",
         "applicationState": "Running"
     },
     {
         "applicationID": "application-0003",
-        "usedResource": "[]",
-        "maxUsedResource": "[]",
+        "usedResource": {},
+        "maxUsedResource": {},
         "partition": "default",
         "queueName": "",
         "submissionTime": 1646757410878163500,
         "finishedTime": 1646757410878225400,
-        "allocations": [],
+        "allocations": {},
         "applicationState": "Rejected",
         "user": "nobody",
         "rejectedMessage": "failed to place application application-0003: application rejected: no placment rule matched"
@@ -466,18 +647,50 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
         "nodeID": "node-0001",
         "hostName": "",
         "rackName": "",
-        "capacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:14577 pods:110 vcore:10000]",
-        "allocated": "[memory:6000 vcore:6000]",
-        "occupied": "[memory:154 vcore:750]",
-        "available": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:6423 pods:110 vcore:1250]",
-        "utilized":"[memory:3 vcore:13]",
+        "capacity": {
+            "ephemeral-storage": 75850798569,
+            "hugepages-1Gi": 0,
+            "hugepages-2Mi": 0,
+            "memory": 14577000000,
+            "pods": 110,
+            "vcore": 10000
+        },
+        "allocated": {
+            "memory": 6000000000,
+            "vcore": 6000
+        },
+        "occupied": {
+            "memory": 154000000,
+            "vcore" :750
+        },
+        "available": {
+            "ephemeral-storage": 75850798569,
+            "hugepages-1Gi": 0,
+            "hugepages-2Mi": 0,
+            "memory": 6423000000,
+            "pods": 110,
+            "vcore": 1250
+        },
+        "utilized": {
+            "memory": 3,
+            "vcore": 13
+        },
         "allocations": [
             {
                 "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
-                "allocationTags": null,
+                "allocationTags": {
+                    "kubernetes.io/label/app": "sleep",
+                    "kubernetes.io/label/applicationId": "application-0001",
+                    "kubernetes.io/label/queue": "root.default",
+                    "kubernetes.io/meta/namespace": "default",
+                    "kubernetes.io/meta/podName": "task0"
+                },
                 "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
-                "resource": "[memory:2000 vcore:2000]",
-                "priority": "<nil>",
+                "resource": {
+                    "memory": 2000000000,
+                    "vcore": 2000
+                },
+                "priority": "0",
                 "queueName": "root.default",
                 "nodeId": "node-0001",
                 "applicationId": "application-0001",
@@ -485,10 +698,19 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
             },
             {
                 "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
-                "allocationTags": null,
+                "allocationTags": {
+                    "kubernetes.io/label/app": "sleep",
+                    "kubernetes.io/label/applicationId": "application-0002",
+                    "kubernetes.io/label/queue": "root.default",
+                    "kubernetes.io/meta/namespace": "default",
+                    "kubernetes.io/meta/podName": "task0"
+                },
                 "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
-                "resource": "[memory:4000 vcore:4000]",
-                "priority": "<nil>",
+                "resource": {
+                    "memory": 4000000000,
+                    "vcore": 4000
+                },
+                "priority": "0",
                 "queueName": "root.default",
                 "nodeId": "node-0001",
                 "applicationId": "application-0002",
@@ -501,18 +723,50 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
         "nodeID": "node-0002",
         "hostName": "",
         "rackName": "",
-        "capacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:14577 pods:110 vcore:10000]",
-        "allocated": "[memory:2000 vcore:2000]",
-        "occupied": "[memory:154 vcore:750]",
-        "available": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:6423 pods:110 vcore:1250]",
-        "utilized":"[memory:8 vcore:38]",
+        "capacity": {
+            "ephemeral-storage": 75850798569,
+            "hugepages-1Gi": 0,
+            "hugepages-2Mi": 0,
+            "memory": 14577000000,
+            "pods": 110,
+            "vcore": 10000
+        },
+        "allocated": {
+            "memory": 2000000000,
+            "vcore": 2000
+        },
+        "occupied": {
+            "memory": 154000000,
+            "vcore" :750
+        },
+        "available": {
+            "ephemeral-storage": 75850798569,
+            "hugepages-1Gi": 0,
+            "hugepages-2Mi": 0,
+            "memory": 6423000000,
+            "pods": 110,
+            "vcore": 1250
+        },
+        "utilized": {
+            "memory": 8,
+            "vcore": 38
+        },
         "allocations": [
             {
                 "allocationKey": "af3bd2f3-31c5-42dd-8f3f-c2298ebdec81",
-                "allocationTags": null,
+                "allocationTags": {
+                    "kubernetes.io/label/app": "sleep",
+                    "kubernetes.io/label/applicationId": "application-0001",
+                    "kubernetes.io/label/queue": "root.default",
+                    "kubernetes.io/meta/namespace": "default",
+                    "kubernetes.io/meta/podName": "task1"
+                },
                 "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
-                "resource": "[memory:2000 vcore:2000]",
-                "priority": "<nil>",
+                "resource": {
+                    "memory": 2000000000,
+                    "vcore": 2000
+                },
+                "priority": "0",
                 "queueName": "root.default",
                 "nodeId": "node-0002",
                 "applicationId": "application-0001",
@@ -574,23 +828,56 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 ```json
 [
     {
-        "partitionName": "[mycluster]default",
+        "partitionName": "default",
         "nodesInfo": [
             {
                 "nodeID": "node-0001",
                 "hostName": "",
                 "rackName": "",
-                "capacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:14577 pods:110 vcore:10000]",
-                "allocated": "[memory:6000 vcore:6000]",
-                "occupied": "[memory:154 vcore:750]",
-                "available": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:6423 pods:110 vcore:1250]",
+                "capacity": {
+                    "ephemeral-storage": 75850798569,
+                    "hugepages-1Gi": 0,
+                    "hugepages-2Mi": 0,
+                    "memory": 14577000000,
+                    "pods": 110,
+                    "vcore": 10000
+                },
+                "allocated": {
+                    "memory": 6000000000,
+                    "vcore": 6000
+                },
+                "occupied": {
+                    "memory": 154000000,
+                    "vcore" :750
+                },
+                "available": {
+                    "ephemeral-storage": 75850798569,
+                    "hugepages-1Gi": 0,
+                    "hugepages-2Mi": 0,
+                    "memory": 6423000000,
+                    "pods": 110,
+                    "vcore": 1250
+                },
+                "utilized": {
+                    "memory": 3,
+                    "vcore": 13
+                },
                 "allocations": [
                     {
                         "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
-                        "allocationTags": null,
+                        "allocationTags": {
+                            "kubernetes.io/label/app": "sleep",
+                            "kubernetes.io/label/applicationId": "application-0001",
+                            "kubernetes.io/label/queue": "root.default",
+                            "kubernetes.io/meta/namespace": "default",
+                            "kubernetes.io/meta/podName": "task0"
+                        },
                         "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
-                        "resource": "[memory:2000 vcore:2000]",
-                        "priority": "<nil>",
+                        "resource": {
+                            "memory": 2000000000,
+                            "vcore": 2000
+                        },
+                        "priority": "0",
                         "queueName": "root.default",
                         "nodeId": "node-0001",
                         "applicationId": "application-0001",
@@ -598,10 +885,19 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                     },
                     {
                         "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
-                        "allocationTags": null,
+                        "allocationTags": {
+                            "kubernetes.io/label/app": "sleep",
+                            "kubernetes.io/label/applicationId": "application-0002",
+                            "kubernetes.io/label/queue": "root.default",
+                            "kubernetes.io/meta/namespace": "default",
+                            "kubernetes.io/meta/podName": "task0"
+                        },
                         "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
-                        "resource": "[memory:4000 vcore:4000]",
-                        "priority": "<nil>",
+                        "resource": {
+                            "memory": 4000000000,
+                            "vcore": 4000
+                        },
+                        "priority": "0",
                         "queueName": "root.default",
                         "nodeId": "node-0001",
                         "applicationId": "application-0002",
@@ -614,17 +910,50 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "nodeID": "node-0002",
                 "hostName": "",
                 "rackName": "",
-                "capacity": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:14577 pods:110 vcore:10000]",
-                "allocated": "[memory:2000 vcore:2000]",
-                "occupied": "[memory:154 vcore:750]",
-                "available": "[ephemeral-storage:75850798569 hugepages-1Gi:0 hugepages-2Mi:0 memory:6423 pods:110 vcore:1250]",
+                "capacity": {
+                    "ephemeral-storage": 75850798569,
+                    "hugepages-1Gi": 0,
+                    "hugepages-2Mi": 0,
+                    "memory": 14577000000,
+                    "pods": 110,
+                    "vcore": 10000
+                },
+                "allocated": {
+                    "memory": 2000000000,
+                    "vcore": 2000
+                },
+                "occupied": {
+                    "memory": 154000000,
+                    "vcore" :750
+                },
+                "available": {
+                    "ephemeral-storage": 75850798569,
+                    "hugepages-1Gi": 0,
+                    "hugepages-2Mi": 0,
+                    "memory": 6423000000,
+                    "pods": 110,
+                    "vcore": 1250
+                },
+                "utilized": {
+                    "memory": 8,
+                    "vcore": 38
+                },
                 "allocations": [
                     {
                         "allocationKey": "af3bd2f3-31c5-42dd-8f3f-c2298ebdec81",
-                        "allocationTags": null,
+                        "allocationTags": {
+                            "kubernetes.io/label/app": "sleep",
+                            "kubernetes.io/label/applicationId": "application-0001",
+                            "kubernetes.io/label/queue": "root.default",
+                            "kubernetes.io/meta/namespace": "default",
+                            "kubernetes.io/meta/podName": "task1"
+                        },
                         "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
-                        "resource": "[memory:2000 vcore:2000]",
-                        "priority": "<nil>",
+                        "resource": {
+                            "memory": 2000000000,
+                            "vcore": 2000
+                        },
+                        "priority": "0",
                         "queueName": "root.default",
                         "nodeId": "node-0002",
                         "applicationId": "application-0001",
@@ -695,23 +1024,23 @@ Dumps the stack traces of the currently running goroutines.
 ```text
 goroutine 356 [running
 ]:
-github.com/apache/incubator-yunikorn-core/pkg/webservice.getStackInfo.func1(0x30a0060,
+github.com/apache/yunikorn-core/pkg/webservice.getStackInfo.func1(0x30a0060,
 0xc003e900e0,
 0x2)
-	/yunikorn/go/pkg/mod/github.com/apache/incubator-yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/handlers.go: 41 +0xab
-github.com/apache/incubator-yunikorn-core/pkg/webservice.getStackInfo(0x30a0060,
+	/yunikorn/go/pkg/mod/github.com/apache/yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/handlers.go: 41 +0xab
+github.com/apache/yunikorn-core/pkg/webservice.getStackInfo(0x30a0060,
 0xc003e900e0,
 0xc00029ba00)
-	/yunikorn/go/pkg/mod/github.com/apache/incubator-yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/handlers.go: 48 +0x71
+	/yunikorn/go/pkg/mod/github.com/apache/yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/handlers.go: 48 +0x71
 net/http.HandlerFunc.ServeHTTP(0x2df0e10,
 0x30a0060,
 0xc003e900e0,
 0xc00029ba00)
 	/usr/local/go/src/net/http/server.go: 1995 +0x52
-github.com/apache/incubator-yunikorn-core/pkg/webservice.Logger.func1(0x30a0060,
+github.com/apache/yunikorn-core/pkg/webservice.Logger.func1(0x30a0060,
 0xc003e900e0,
 0xc00029ba00)
-	/yunikorn/go/pkg/mod/github.com/apache/incubator-yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/webservice.go: 65 +0xd4
+	/yunikorn/go/pkg/mod/github.com/apache/yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/webservice.go: 65 +0xd4
 net/http.HandlerFunc.ServeHTTP(0xc00003a570,
 0x30a0060,
 0xc003e900e0,
@@ -1066,7 +1395,7 @@ partitions:
         submitacl: '*'
         resources:
           guaranteed:
-            memory: "512"
+            memory: "512M"
             vcore: "1"
         properties:
           application.sort.policy: stateaware

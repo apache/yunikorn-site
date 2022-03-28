@@ -41,7 +41,7 @@ This command will build an image. The image will be tagged with a default versio
 
 ## Setup RBAC for Scheduler
 
-The first step is to create the RBAC role for the scheduler, see [yunikorn-rbac.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/scheduler/yunikorn-rbac.yaml)
+The first step is to create the RBAC role for the scheduler, see [yunikorn-rbac.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/yunikorn-rbac.yaml)
 ```
 kubectl create -f scheduler/yunikorn-rbac.yaml
 ```
@@ -54,7 +54,7 @@ This kubernetes environment can be either local or remote.
 
 - download configuration file if not available on the node to add to kubernetes:
 ```
-curl -o queues.yaml https://raw.githubusercontent.com/apache/incubator-yunikorn-k8shim/master/conf/queues.yaml
+curl -o queues.yaml https://raw.githubusercontent.com/apache/yunikorn-k8shim/master/conf/queues.yaml
 ```
 - create ConfigMap in kubernetes:
 ```
@@ -83,7 +83,7 @@ Second step is to link the mount point back to the configuration map created in 
         name: yunikorn-configs
 ``` 
 
-Both steps are part of the scheduler yaml file, an example can be seen at [scheduler.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/scheduler/scheduler.yaml)
+Both steps are part of the scheduler yaml file, an example can be seen at [scheduler.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/scheduler.yaml)
 for reference.
 
 ## Deploy the Scheduler
@@ -118,7 +118,7 @@ below to manually deploy the admission controller if running non-example workloa
 
 ## Setup RBAC for Admission Controller
 
-Before the admission controller is deployed, we must create its RBAC role, see [admission-controller-rbac.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller-rbac.yaml).
+Before the admission controller is deployed, we must create its RBAC role, see [admission-controller-rbac.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller-rbac.yaml).
 
 ```
 kubectl create -f scheduler/admission-controller-rbac.yaml
@@ -127,7 +127,7 @@ kubectl create -f scheduler/admission-controller-rbac.yaml
 ## Create the Secret
 
 Since the admission controller intercepts calls to the API server to validate/mutate incoming requests, we must deploy an empty secret
-used by the webhook server to store TLS certificates and keys. See [admission-controller-secrets.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller-secrets.yaml).
+used by the webhook server to store TLS certificates and keys. See [admission-controller-secrets.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller-secrets.yaml).
 
 ```
 kubectl create -f scheduler/admission-controller-secrets.yaml
@@ -135,7 +135,7 @@ kubectl create -f scheduler/admission-controller-secrets.yaml
 
 ## Deploy the Admission Controller
 
-Now we can deploy the admission controller as a service. This will automatically validate/modify incoming requests and objects, respectively, in accordance with the [example in Deploy the Scheduler](#Deploy-the-Scheduler). See the contents of the admission controller deployment and service in [admission-controller.yaml](https://github.com/apache/incubator-yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller.yaml).
+Now we can deploy the admission controller as a service. This will automatically validate/modify incoming requests and objects, respectively, in accordance with the [example in Deploy the Scheduler](#Deploy-the-Scheduler). See the contents of the admission controller deployment and service in [admission-controller.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller.yaml).
 
 ```
 kubectl create -f scheduler/admission-controller.yaml

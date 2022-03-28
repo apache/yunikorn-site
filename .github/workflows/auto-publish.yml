@@ -45,7 +45,7 @@ jobs:
         working-directory: './yunikorn-asf-site'
         run: |
           mkdir /tmp/site-backup
-          docker cp yunikorn-site:/incubator-yunikorn-site/build /tmp/site-backup/
+          docker cp yunikorn-site:/yunikorn-site/build /tmp/site-backup/
           echo "wipe out the content (except files starting with dot)"
           rm -rf ./*
           cp -R /tmp/site-backup/build/* .

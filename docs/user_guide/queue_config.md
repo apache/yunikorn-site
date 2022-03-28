@@ -30,7 +30,7 @@ It references both the [Access Control Lists](user_guide/acls.md) and [Placement
 This document explains how to create the partition and queue configuration for the scheduler with examples.
 
 The scheduler relies on the shim to reliably provide user information as part of the application submission.
-The current shim identifies the user and the groups the user belongs to using the methodology provided in [User & Group Resolution](usergroup_resolution) 
+The current shim identifies the user and the groups the user belongs to using the methodology provided in [User & Group Resolution](usergroup_resolution).
 
 ## Configuration
 The configuration file for the scheduler that is described here only provides the configuration for the partitions and queues.
@@ -39,7 +39,7 @@ By default we use the file called `queues.yaml` in our deployments.
 The filename can be changed via the command line flag `policyGroup` of the scheduler.
 Changing the filename must be followed by corresponding changes in the deployment details, either the `configmap` or the file included in the docker container.
 
-The example file for the configuration is located in the scheduler core's [queues.yaml](https://github.com/apache/incubator-yunikorn-core/blob/master/config/queues.yaml).  
+The example file for the configuration is located in the scheduler core's [queues.yaml](https://github.com/apache/yunikorn-core/blob/master/config/queues.yaml).  
 
 ## Partitions
 Partitions are the top level of the scheduler configuration.
@@ -182,9 +182,9 @@ partitions:
         parent: true
         resources:
           guaranteed:
-            {memory: 1000, vcore: 10}
+            {memory: 1G, vcore: 10}
           max:
-            {memory: 10000, vcore: 100}
+            {memory: 10G, vcore: 100}
 ```
 
 ### Placement rules
@@ -235,8 +235,8 @@ limits:
     - <group name>
     maxapplications: <1..maxint>
     maxresources:
-      <resource name 1>: <0..maxint>
-      <resource name 2>: <0..maxint>
+      <resource name 1>: <0..maxint>[suffix]
+      <resource name 2>: <0..maxint>[suffix]
 ```
 
 Limits are applied recursively in the case of a queue limit.
@@ -311,13 +311,18 @@ Basic `resources` yaml entry:
 ```yaml
 resources:
   guaranteed:
-    <resource name 1>: <0..maxint>
-    <resource name 2>: <0..maxint>
+    <resource name 1>: <0..maxint>[suffix]
+    <resource name 2>: <0..maxint>[suffix]
   max:
-    <resource name 1>: <0..maxint>
-    <resource name 2>: <0..maxint>
+    <resource name 1>: <0..maxint>[suffix]
+    <resource name 2>: <0..maxint>[suffix]
 ```
-Resources that are not specified in the list are not limited, for max resources, or guaranteed in the case of guaranteed resources. 
+Resources that are not specified in the list are not limited, for max resources, or guaranteed in the case of guaranteed resources.
+
+An optional suffix may be specified for resource quantities. Valid suffixes are `k`, `M`, `G`, `T`, `P`, and `E` for SI powers of 10,
+and `Ki`, `Mi`, `Gi`, `Ti`, `Pi`, and `Ei` for SI powers of 2. Additionally, resources of type `vcore` may have a suffix of `m` to indicate millicores. For example, `500m` is 50% of a vcore. Units of type `memory` are interpreted in bytes by default. All other resource types have no designated base unit.
+
+Note that this is a behavioral change as of YuniKorn 1.0. Prior versions interpreted `memory` as units of 1000000 (1 million) bytes and `vcore` as millicores.
 
 ### Child Template
 
@@ -346,19 +351,19 @@ As an example:
              application.sort.policy: stateaware
            resources:
              guaranteed:
-               vcore: 1000
-               memory: 1000
+               vcore: 1
+               memory: 1G
              max:
-               vcore: 20000
-               memory: 600000
+               vcore: 20
+               memory: 600G
          queues:
            - name: parent
              parent: true
              childtemplate:
                resources:
                  max:
-                   vcore: 21000
-                   memory: 610000
+                   vcore: 21
+                   memory: 610G
            - name: notemplate
              parent: true
 ```

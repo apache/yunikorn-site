@@ -43,7 +43,14 @@ As an example, here is a response from a 2-node cluster with 3 applications and 
 ```json
 [
     {
-        "partition": "[rm-123]default",
+        "startTime": "2022-03-22T14:54:13+0000",
+        "rmBuildInformation": [
+            "buildDate": "2022-03-22T09:51:21+0000",
+            "buildVersion": "latest",
+            "isPluginVersion": "false",
+            "rmId": "mycluster"
+        ],
+        "partition": "default",
         "clusterName": "kubernetes",
         "totalApplications": "3",
         "failedApplications": "1",
@@ -96,13 +103,13 @@ Returns statistical data related the cluster resource utilization
 ```json
 [
     {
-        "partition": "[mycluster]default",
+        "partition": "default",
         "utilization": [
             {
                 "type": "memory",
-                "total": 5076,
-                "used": 1500,
-                "usage": "29%"
+                "total": 6442450944,
+                "used": 1648361472,
+                "usage": "26%"
             },
             {
                 "type": "vcore",

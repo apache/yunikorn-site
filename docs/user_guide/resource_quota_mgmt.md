@@ -87,13 +87,12 @@ spec:
         hugepages-1Gi: "1"
 ```
 The above specification will set pod resources request for scheduling in YuniKorn to:
-* _vcore_ -> 250
-* _memory_ -> 1074
+* _vcore_ -> 250m
+* _memory_ -> 1073741824
 * _hugepages-1Gi_ -> 1
 
 Two remarks:  
-Multiple container specifications will be aggregated into one total pod resource request automatically.  
-All memory is reported in MB with unit conversions applied where needed. 
+Multiple container specifications will be aggregated into one total pod resource request automatically. All memory is reported in bytes.
 
 In the case that static queue definitions are used for a queue there is no limit on the type of resource that can be specified in a quota.
 Quota annotations on namespaces, used as part of the automatic queue creation, are limited to the equivalent _cpu_ and _memory_ resources.
@@ -150,27 +149,27 @@ partitions:
           - name: advertisement
             resources:
               guaranteed:
-                memory: 500000
-                vcore: 50000
+                memory: 500G
+                vcore: 50
               max:
-                memory: 800000
-                vcore: 80000
+                memory: 800G
+                vcore: 80
           - name: search
             resources:
               guaranteed:
-                memory: 400000
-                vcore: 40000
+                memory: 400G
+                vcore: 40
               max:
-                memory: 600000
-                vcore: 60000
+                memory: 600G
+                vcore: 60
           - name: sandbox
             resources:
               guaranteed:
-                memory: 100000
-                vcore: 10000
+                memory: 100G
+                vcore: 10
               max:
-                memory: 100000
-                vcore: 10000
+                memory: 100G
+                vcore: 10
 ```
 
 ### Run a workload
@@ -220,7 +219,7 @@ In this case the property `application.sort.policy` is in this configuration set
 This is a simple app sorting policy applicable for batch jobs, you can find more document [here](sorting_policies.md#StateAwarePolicy).
 
 You can change the configuration using the helm charts during the installation by overwriting the configuration in the
-[helm chart template](https://github.com/apache/incubator-yunikorn-release/blob/master/helm-charts/yunikorn/values.yaml#L71-L81).
+[helm chart template](https://github.com/apache/yunikorn-release/blob/master/helm-charts/yunikorn/values.yaml#L71-L81).
 
 ### Namespace quota
 Namespaces in Kubernetes contain the quota information. 

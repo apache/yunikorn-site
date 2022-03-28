@@ -35,8 +35,8 @@ function build() {
   # build local docker image
   cat <<EOF >.dockerfile.tmp
 FROM node:16.13.0
-ADD . /incubator-yunikorn-site
-WORKDIR /incubator-yunikorn-site
+ADD . /yunikorn-site
+WORKDIR /yunikorn-site
 EOF
 
   docker build -t yunikorn/yunikorn-website:latest -f .dockerfile.tmp .
@@ -50,7 +50,7 @@ function run() {
   # so that changes made in the repo can trigger the web-server auto-update
   docker run -it --name yunikorn-site-local -d \
     -p 3000:3000 \
-    -v $PWD:/incubator-yunikorn-site \
+    -v $PWD:/yunikorn-site \
     yunikorn/yunikorn-website:latest
   [ "$?" -ne 0 ] && echo "run local docker image failed" && return 1
 

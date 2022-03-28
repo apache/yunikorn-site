@@ -107,7 +107,7 @@ function Home() {
   return (
     <Layout
       title={`Welcome to ${siteConfig.title}`}
-      description="Apache YuniKorn (incubating) website">
+      description="Apache YuniKorn website">
         <header className={clsx('hero', styles.heroBanner)}>
             <div className="container">
                 <div className="row">

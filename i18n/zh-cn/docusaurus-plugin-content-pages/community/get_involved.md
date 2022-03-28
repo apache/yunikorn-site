@@ -24,7 +24,7 @@ under the License.
 
 # 进行参与
 
-Apache YuniKorn（Incubating）社区非常多样化，我们有来自阿里巴巴、苹果、Cloudera、Linkedin、微软、Nvidia、腾讯、优步等（按英文字母顺序排序）。
+Apache YuniKorn 社区非常多样化，我们有来自阿里巴巴、苹果、Cloudera、Linkedin、微软、Nvidia、腾讯、优步等（按英文字母顺序排序）。
 社区深信这种多样性的重要性和 “The Apache Way” 的价值。
 我们欢迎任何形式的贡献、代码、文档或建议！:smiley: 别等了，现在就加入我们吧！
 
