@@ -503,7 +503,7 @@ The fully qualified queue name used to filter the applications that run within t
 
 **Content examples**
 
-In the example below there are three allocations belonging to two applications. 
+In the example below there are three allocations belonging to two applications and one rejected application. 
 
 ```json
 [
@@ -604,6 +604,19 @@ In the example below there are three allocations belonging to two applications.
         "applicationState": "Running",
         "user": "nobody",
         "rejectedMessage": ""
+    },
+    {
+        "applicationID": "application-0003",
+        "usedResource": {},
+        "maxUsedResource": {},
+        "partition": "default",
+        "queueName": "",
+        "submissionTime": 1646757410878163500,
+        "finishedTime": 1646757410878225400,
+        "allocations": {},
+        "applicationState": "Rejected",
+        "user": "nobody",
+        "rejectedMessage": "failed to place application application-0003: application rejected: no placement rule matched"
     }
 ]
 ```
