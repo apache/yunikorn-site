@@ -389,7 +389,21 @@ In the example below there are three allocations belonging to two applications.
         ],
         "applicationState": "Running",
         "user": "nobody",
-        "rejectedMessage": ""
+        "rejectedMessage": "",
+        "stateLog": [
+            {
+                "time": 1648741409145224000,
+                "applicationState": "Accepted"
+            },
+            {
+                "time": 1648741409145509400,
+                "applicationState": "Starting"
+            },
+            {
+                "time": 1648741409147432100,
+                "applicationState": "Running"
+            }
+        ]
     },
     {
         "applicationID": "application-0002",
@@ -448,7 +462,21 @@ In the example below there are three allocations belonging to two applications.
         ],
         "applicationState": "Running",
         "user": "nobody",
-        "rejectedMessage": ""
+        "rejectedMessage": "",
+        "stateLog": [
+            {
+                "time": 1648741409145224000,
+                "applicationState": "Accepted"
+            },
+            {
+                "time": 1648741409145509400,
+                "applicationState": "Starting"
+            },
+            {
+                "time": 1648741409147432100,
+                "applicationState": "Running"
+            }
+        ]
     }
 ]
 ```
@@ -544,7 +572,21 @@ In the example below there are three allocations belonging to two applications a
         ],
         "applicationState": "Running",
         "user": "nobody",
-        "rejectedMessage": ""
+        "rejectedMessage": "",
+        "stateLog": [
+            {
+                "time": 1648741409145224000,
+                "applicationState": "Accepted"
+            },
+            {
+                "time": 1648741409145509400,
+                "applicationState": "Starting"
+            },
+            {
+                "time": 1648741409147432100,
+                "applicationState": "Running"
+            }
+        ]
     },
     {
         "applicationID": "application-0002",
@@ -603,7 +645,21 @@ In the example below there are three allocations belonging to two applications a
         ],
         "applicationState": "Running",
         "user": "nobody",
-        "rejectedMessage": ""
+        "rejectedMessage": "",
+        "stateLog": [
+            {
+                "time": 1648741409145224000,
+                "applicationState": "Accepted"
+            },
+            {
+                "time": 1648741409145509400,
+                "applicationState": "Starting"
+            },
+            {
+                "time": 1648741409147432100,
+                "applicationState": "Running"
+            }
+        ]
     },
     {
         "applicationID": "application-0003",
@@ -616,7 +672,13 @@ In the example below there are three allocations belonging to two applications a
         "allocations": {},
         "applicationState": "Rejected",
         "user": "nobody",
-        "rejectedMessage": "failed to place application application-0003: application rejected: no placement rule matched"
+        "rejectedMessage": "failed to place application application-0003: application rejected: no placement rule matched",
+        "stateLog": [
+            {
+                "time": 1648741409145224000,
+                "applicationState": "Rejected"
+            }
+        ]
     }
 ]
 ```
@@ -1632,7 +1694,7 @@ Endpoint to retrieve the following information in a single response:
 
 **Content examples**
 
-The output of this REST query can be rather big and it is a combination of those which have already been demonstrated.
+The output of this REST query can be rather large and it is a combination of those which have already been demonstrated.
 
 ### Failure response
 
