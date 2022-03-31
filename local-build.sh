@@ -31,7 +31,7 @@ function clean() {
   echo "  build output" && rm -rf build
 }
 
-function build() {
+function image_build() {
   # build local docker image
   cat <<EOF >.dockerfile.tmp
 FROM node:16.13.0
@@ -40,11 +40,21 @@ WORKDIR /yunikorn-site
 EOF
 
   docker build -t yunikorn/yunikorn-website:latest -f .dockerfile.tmp .
-  [ "$?" -ne 0 ] && echo "docker image build failed" && rm -rf .dockerfile.tmp && exit 1
+  [ $? -ne 0 ] && echo "docker image build failed" && rm -rf .dockerfile.tmp && exit 1
   rm -rf .dockerfile.tmp
 }
 
-function run() {
+function web() {
+  # start the web server
+  echo " Starting development server with locale $LOCALE"
+  docker exec -it yunikorn-site-local /bin/bash -c "yarn start --locale=$LOCALE --host 0.0.0.0"
+  RET=$?
+  [ ${RET} -eq 131 ] && echo "  ctrl-\ caught, restarting" && return 2
+  [ ${RET} -eq 130 ] && echo "  ctrl-c caught, exiting build" && return 0
+  [ ${RET} -ne 0 ] && echo "start web-server failed" && return 1
+}
+
+function run_base() {
   # run docker container
   # mount the repo root to the container working dir,
   # so that changes made in the repo can trigger the web-server auto-update
@@ -52,57 +62,85 @@ function run() {
     -p 3000:3000 \
     -v $PWD:/yunikorn-site \
     yunikorn/yunikorn-website:latest
-  [ "$?" -ne 0 ] && echo "run local docker image failed" && return 1
+  [ $? -ne 0 ] && echo "run local docker image failed" && return 1
 
   # install dependency in docker container
   docker exec -it yunikorn-site-local /bin/bash -c "yarn install"
-  [ "$?" -ne 0 ] && echo "yarn install failed" && return 1
+  [ $? -ne 0 ] && echo "yarn install failed" && return 1
 
   # install dependency in docker container
   docker exec -it yunikorn-site-local /bin/bash -c "yarn add @docusaurus/theme-search-algolia"
-  [ "$?" -ne 0 ] && echo "yarn add failed" && return 1
+  [ $? -ne 0 ] && echo "yarn add failed" && return 1
+  return 0
+}
 
-  # run build inside the container
-  docker exec -it yunikorn-site-local /bin/bash -c "yarn build"
-  [ "$?" -ne 0 ] && echo "yarn build failed" && return 1
+function run_web() {
+	while true; do
+		web
+		RET=$?
+		[ ${RET} -ne 2 ] && return ${RET}
+		read -r -p "locale for website: " LOCALE
+		LOCALE="${LOCALE:-en}"
+	done
+}
 
-  # start the web server
-  docker exec -it yunikorn-site-local /bin/bash -c "yarn start --host 0.0.0.0"
-  RET=$?
-  [ "$RET" -eq 130 ] && echo "  ctrl-c caught, exiting build" && return 0
-  [ "$RET" -ne 0 ] && echo "start web-server failed" && return 1
+function run_build() {
+	  # run build inside the container
+    docker exec -it yunikorn-site-local /bin/bash -c "yarn build"
+    [ $? -ne 0 ] && echo "yarn build failed" && return 1
+    return 0
 }
 
 function print_usage() {
   cat <<EOF
-Usage: $(basename "$0") run | clean | help
-    run        build the website, and launch the server in a docker image.
-    clean      remove old build and cached files.
-    help       print this message.
+Usage: $(basename "$0") run [locale] | build | clean | help
+    run     build the website, and launch the server in a docker image.
+            a locale can be specified, currently supported: "en", "zh-cn"
+    build   create a production build, input for manual update of the website.
+    clean   remove old build and cached files.
+    help    print this message.
 
 Description:
   This command builds and launches the website server inside a docker image,
   the server is built with the latest content from this repo. When changes are
   made in this directory, the site will be automatically rebuild. The server
   will be automatically refreshed. Be aware that some of the changes require
-  the server to be restarted, use ctrl-c to exit and run the command again.
+  the server to be restarted.
+  Use ctrl-\ to restart, allowing a locale change (SIGQUIT).
+  Use ctrl-c to exit (SIGINT).
 
   This script must be run from the top directory of the repository.
 EOF
 }
 
-if [ $# -ne 1 -o ! -f ./docusaurus.config.js ]; then
+if [ $# -eq 0 -o $# -gt 2 -o ! -f ./docusaurus.config.js ]; then
   print_usage
   exit 1
 fi
-opt=$1
-if [ "$opt" == "run" ]; then
+RUNOPT=$1
+if [ "${RUNOPT}" == "run" ]; then
+	LOCALE=en
+  if [ $# -eq 2 ]; then
+    LOCALE=$2
+  fi
   stop
-  build
-  run
-  [ "$?" -eq 1 ] && echo "build failed, leaving docker image" && exit 1
+  image_build
+  [ $? -eq 1 ] && echo "image build failed" && exit 1
+  run_base
+  [ $? -eq 1 ] && echo "base run failed, leaving docker image" && exit 1
+  run_web
+  [ $? -eq 1 ] && echo "web run failed, leaving docker image" && exit 1
   stop
-elif [ "$opt" == "clean" ]; then
+elif [ "${RUNOPT}" == "build" ]; then
+  stop
+  image_build
+  [ $? -eq 1 ] && echo "image build failed" && exit 1
+  run_base
+  [ $? -eq 1 ] && echo "base run failed, leaving docker image" && exit 1
+  run_build
+  [ $? -eq 1 ] && echo "build failed, leaving docker image" && exit 1
+  stop
+elif [ "${RUNOPT}" == "clean" ]; then
   clean
 else
   print_usage
