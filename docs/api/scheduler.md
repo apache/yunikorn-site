@@ -31,6 +31,8 @@ Many of these APIs return collections of resources. Internally, all resources ar
 are returned in units of bytes while resources of type `vcore` are returned in units of millicores
 (thousands of a core). All other resource types have no specific unit assigned.
 
+Under the `allocations` field in the response content for the app/node-related calls in the following spec, `placeholderUsed` refers to whether or not the allocation is a replacement for a placeholder. If true, `requestTime` is the creation time of its placeholder allocation, otherwise it's that of the allocation's ask. `allocationTime` is the creation time of the allocation, and `allocationDelay` is simply the difference between `allocationTime` and `requestTime`.
+
 ## Partitions
 
 Displays general information about the partition like name, state, capacity, used capacity, utilization, and node sorting policy.
@@ -348,7 +350,7 @@ Fetch all Applications for the given Partition Queue combination and displays ge
 
 **Content examples**
 
-In the example below there are three allocations belonging to two applications. 
+In the example below there are three allocations belonging to two applications.
 
 ```json
 [
@@ -364,7 +366,7 @@ In the example below there are three allocations belonging to two applications.
         },
         "partition": "default",
         "queueName": "root.default",
-        "submissionTime": 1595939756253216000,
+        "submissionTime": 1648754032076020293,
         "allocations": [
             {
                 "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
@@ -375,6 +377,9 @@ In the example below there are three allocations belonging to two applications.
                     "kubernetes.io/meta/namespace": "default",
                     "kubernetes.io/meta/podName": "task0"
                 },
+                "requestTime": 1648754034098912461,
+                "allocationTime": 1648754035973982920,
+                "allocationDelay": 1875070459,
                 "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
                 "resource": {
                     "memory": 4000000000,
@@ -384,7 +389,9 @@ In the example below there are three allocations belonging to two applications.
                 "queueName": "root.default",
                 "nodeId": "node-0001",
                 "applicationId": "application-0001",
-                "partition": "default"
+                "partition": "default",
+                "placeholder": false,
+                "placeholderUsed": false
             }
         ],
         "applicationState": "Running",
@@ -417,7 +424,7 @@ In the example below there are three allocations belonging to two applications.
         },
         "partition": "default",
         "queueName": "root.default",
-        "submissionTime": 1595939756253460000,
+        "submissionTime": 1648754032076020293,
         "allocations": [
             {
                 "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
@@ -428,6 +435,9 @@ In the example below there are three allocations belonging to two applications.
                     "kubernetes.io/meta/namespace": "default",
                     "kubernetes.io/meta/podName": "task0"
                 },
+                "requestTime": 1648754034098912461,
+                "allocationTime": 1648754035973982920,
+                "allocationDelay": 1875070459,
                 "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
                 "resource": {
                     "memory": 2000000000,
@@ -437,7 +447,9 @@ In the example below there are three allocations belonging to two applications.
                 "queueName": "root.default",
                 "nodeId": "node-0001",
                 "applicationId": "application-0002",
-                "partition": "default"
+                "partition": "default",
+                "placeholder": false,
+                "placeholderUsed": false
             },
             {
                 "allocationKey": "af3bd2f3-31c5-42dd-8f3f-c2298ebdec81",
@@ -448,6 +460,9 @@ In the example below there are three allocations belonging to two applications.
                     "kubernetes.io/meta/namespace": "default",
                     "kubernetes.io/meta/podName": "task1"
                 },
+                "requestTime": 1648754034098912461,
+                "allocationTime": 1648754035973982920,
+                "allocationDelay": 1875070459,
                 "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
                 "resource": {
                     "memory": 2000000000,
@@ -457,7 +472,9 @@ In the example below there are three allocations belonging to two applications.
                 "queueName": "root.default",
                 "nodeId": "node-0002",
                 "applicationId": "application-0002",
-                "partition": "default"
+                "partition": "default",
+                "placeholder": false,
+                "placeholderUsed": false
             }
         ],
         "applicationState": "Running",
@@ -531,7 +548,7 @@ The fully qualified queue name used to filter the applications that run within t
 
 **Content examples**
 
-In the example below there are three allocations belonging to two applications and one rejected application. 
+In the example below there are three allocations belonging to two applications and one rejected application.
 
 ```json
 [
@@ -547,7 +564,7 @@ In the example below there are three allocations belonging to two applications a
         },
         "partition": "default",
         "queueName": "root.default",
-        "submissionTime": 1595939756253216000,
+        "submissionTime": 1648754032076020293,
         "allocations": [
             {
                 "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
@@ -558,6 +575,9 @@ In the example below there are three allocations belonging to two applications a
                     "kubernetes.io/meta/namespace": "default",
                     "kubernetes.io/meta/podName": "task1"
                 },
+                "requestTime": 1648754034098912461,
+                "allocationTime": 1648754035973982920,
+                "allocationDelay": 1875070459,
                 "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
                 "resource": {
                     "memory": 4000000000,
@@ -567,7 +587,9 @@ In the example below there are three allocations belonging to two applications a
                 "queueName": "root.default",
                 "nodeId": "node-0001",
                 "applicationId": "application-0001",
-                "partition": "default"
+                "partition": "default",
+                "placeholder": false,
+                "placeholderUsed": false
             }
         ],
         "applicationState": "Running",
@@ -600,7 +622,7 @@ In the example below there are three allocations belonging to two applications a
         },
         "partition": "default",
         "queueName": "root.default",
-        "submissionTime": 1595939756253460000,
+        "submissionTime": 1648754032076020293,
         "allocations": [
             {
                 "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
@@ -611,6 +633,9 @@ In the example below there are three allocations belonging to two applications a
                     "kubernetes.io/meta/namespace": "default",
                     "kubernetes.io/meta/podName": "task0"
                 },
+                "requestTime": 1648754034098912461,
+                "allocationTime": 1648754035973982920,
+                "allocationDelay": 1875070459,
                 "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
                 "resource": {
                     "memory": 2000000000,
@@ -620,7 +645,9 @@ In the example below there are three allocations belonging to two applications a
                 "queueName": "root.default",
                 "nodeId": "node-0001",
                 "applicationId": "application-0002",
-                "partition": "default"
+                "partition": "default",
+                "placeholder": false,
+                "placeholderUsed": false
             },
             {
                 "allocationKey": "af3bd2f3-31c5-42dd-8f3f-c2298ebdec81",
@@ -631,6 +658,9 @@ In the example below there are three allocations belonging to two applications a
                     "kubernetes.io/meta/namespace": "default",
                     "kubernetes.io/meta/podName": "task1"
                 },
+                "requestTime": 1648754034098912461,
+                "allocationTime": 1648754035973982920,
+                "allocationDelay": 1875070459,
                 "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
                 "resource": {
                     "memory": 2000000000,
@@ -640,7 +670,9 @@ In the example below there are three allocations belonging to two applications a
                 "queueName": "root.default",
                 "nodeId": "node-0002",
                 "applicationId": "application-0002",
-                "partition": "default"
+                "partition": "default",
+                "placeholder": false,
+                "placeholderUsed": false
             }
         ],
         "applicationState": "Running",
@@ -748,6 +780,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                     "kubernetes.io/meta/namespace": "default",
                     "kubernetes.io/meta/podName": "task0"
                 },
+                "requestTime": 1648754034098912461,
+                "allocationTime": 1648754035973982920,
+                "allocationDelay": 1875070459,
                 "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
                 "resource": {
                     "memory": 2000000000,
@@ -757,7 +792,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "queueName": "root.default",
                 "nodeId": "node-0001",
                 "applicationId": "application-0001",
-                "partition": "default"
+                "partition": "default",
+                "placeholder": false,
+                "placeholderUsed": false
             },
             {
                 "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
@@ -768,6 +805,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                     "kubernetes.io/meta/namespace": "default",
                     "kubernetes.io/meta/podName": "task0"
                 },
+                "requestTime": 1648754034098912461,
+                "allocationTime": 1648754035973982920,
+                "allocationDelay": 1875070459,
                 "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
                 "resource": {
                     "memory": 4000000000,
@@ -777,7 +817,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "queueName": "root.default",
                 "nodeId": "node-0001",
                 "applicationId": "application-0002",
-                "partition": "default"
+                "partition": "default",
+                "placeholder": false,
+                "placeholderUsed": false
             }
         ],
         "schedulable": true
@@ -824,6 +866,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                     "kubernetes.io/meta/namespace": "default",
                     "kubernetes.io/meta/podName": "task1"
                 },
+                "requestTime": 1648754034098912461,
+                "allocationTime": 1648754035973982920,
+                "allocationDelay": 1875070459,
                 "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
                 "resource": {
                     "memory": 2000000000,
@@ -833,7 +878,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "queueName": "root.default",
                 "nodeId": "node-0002",
                 "applicationId": "application-0001",
-                "partition": "default"
+                "partition": "default",
+                "placeholder": false,
+                "placeholderUsed": false
             }
         ],
         "schedulable": true
@@ -935,6 +982,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                             "kubernetes.io/meta/namespace": "default",
                             "kubernetes.io/meta/podName": "task0"
                         },
+                        "requestTime": 1648754034098912461,
+                        "allocationTime": 1648754035973982920,
+                        "allocationDelay": 1875070459,
                         "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
                         "resource": {
                             "memory": 2000000000,
@@ -944,7 +994,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                         "queueName": "root.default",
                         "nodeId": "node-0001",
                         "applicationId": "application-0001",
-                        "partition": "default"
+                        "partition": "default",
+                        "placeholder": false,
+                        "placeholderUsed": false
                     },
                     {
                         "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
@@ -955,6 +1007,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                             "kubernetes.io/meta/namespace": "default",
                             "kubernetes.io/meta/podName": "task0"
                         },
+                        "requestTime": 1648754034098912461,
+                        "allocationTime": 1648754035973982920,
+                        "allocationDelay": 1875070459,
                         "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
                         "resource": {
                             "memory": 4000000000,
@@ -964,7 +1019,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                         "queueName": "root.default",
                         "nodeId": "node-0001",
                         "applicationId": "application-0002",
-                        "partition": "default"
+                        "partition": "default",
+                        "placeholder": false,
+                        "placeholderUsed": false
                     }
                 ],
                 "schedulable": true
@@ -1011,6 +1068,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                             "kubernetes.io/meta/namespace": "default",
                             "kubernetes.io/meta/podName": "task1"
                         },
+                        "requestTime": 1648754034098912461,
+                        "allocationTime": 1648754035973982920,
+                        "allocationDelay": 1875070459,
                         "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
                         "resource": {
                             "memory": 2000000000,
@@ -1020,7 +1080,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                         "queueName": "root.default",
                         "nodeId": "node-0002",
                         "applicationId": "application-0001",
-                        "partition": "default"
+                        "partition": "default",
+                        "placeholder": false,
+                        "placeholderUsed": false
                     }
                 ],
                 "schedulable": true
