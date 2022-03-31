@@ -24,15 +24,20 @@ under the License.
 
 # 报告问题
 
+## 报告安全问题
+YuniKorn 社区非常关心安全问题，并将积极解决任何安全问题作为重中之重。
+我们遵循 Apache 安全指南来处理安全问题，请参阅 Apache 文档关于 [处理安全问题](https://www.apache.org/security/)。
+如果您发现任何安全问题，请将漏洞报告发送至 security@apache.org，YuniKorn 安全团队将立即评估问题并与报告者一起制定修复计划。
+在与安全团队合作之前，请不要将问题透露给任何公共论坛。
+
 ## 对于 YuniKorn 用户
 如果您对 YuniKorn 操作有任何疑问，请遵循以下指南：
 
 如果您在设置、配置或在其他不符合您期望的行为方面遇到问题时，请加入用户邮件列表并在该论坛中提问。
-有关邮件列表的信息，请参见 [YuniKorn 网页](https://yunikorn.apache.org)。
+有关邮件列表的信息，请参见 [YuniKorn 网页](https://yunikorn.apache.org/zh-cn/community/get_involved)。
 您也可以向 YuniKorn slack 频道寻求帮助，查看网页了解如何加入的详细信息。
 如果您在代码或文档中有需要修复的错误，请按照下面的 [归档 JIRA](#为-YuniKorn-问题提交-JIRA) 中的步骤进行操作。
 
-## 对于 YuniKorn 开发人员
 Apache YuniKorn 项目使用 JIRA 来跟踪所有问题。
 这些包括：
 1. 添加新功能
@@ -56,23 +61,27 @@ Apache YuniKorn 项目使用 JIRA 来跟踪所有问题。
 
 如果您已将问题分到特定组件，请设置组件字段：
 
-| 组件 | 描述 |
-|-----------|-------------|
-| build| 项目构建、构建脚本和 git 问题 |
-| core - cache | 核心调度器缓存 |
-| core - common | 核心调度器的公共代码，如资源 |
-| core - scheduler | 核心调度问题 |
-| documentation | 文档修复和增强 |
-| scheduler-interface | 调度器接口规范 |
-| security | 安全相关问题 |
-| shim - kubernetes | K8shim 问题 |
-| shim - yarn | Hadoop YARN shim 问题 |
-| test - smoke | 冒烟测试失败 |
-| test - unit | 单元测试失败 |
-| webapp | 调度器的 Web UI |
+| 组件                  | 描述                  |
+|---------------------|---------------------|
+| build               | 项目构建、构建脚本和 git 问题   |
+| core - common       | 核心调度器的公共代码，如资源      |
+| core - scheduler    | 核心调度问题              |
+| documentation       | 文档修复和增强             |
+| scheduler-interface | 调度器接口规范             |
+| security            | 安全相关问题（加密、授权和身份验证）  |
+| shim - kubernetes   | K8shim 问题           |
+| shim - yarn         | Hadoop YARN shim 问题 |
+| test - smoke        | 冒烟测试失败              |
+| test - unit         | 单元测试失败              |
+| webapp              | 调度器的 Web UI         |
+| website             | 网站内容（不包括文档）         |
 
 影响版本字段可以设置为您发现错误的YuniKorn的最早版本。
 如果您不确定，则将其留空。
+
+:::note
+如果您认为对于还不熟悉该项目的人来说这是一个好问题，您可以将 JIRA 的标签设置为 *newbie*。
+:::
 
 如果您是打算修复该错误的开发人员，请将您的 JIRA ID 放在 Assignee 字段中。
 请注意，您需要在 Apache YuniKorn 的贡献者列表中才能分配 JIRA ticket。

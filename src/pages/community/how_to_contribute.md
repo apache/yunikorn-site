@@ -27,7 +27,7 @@ under the License.
 YuniKorn uses:
 * JIRA for issue tracking.
 * GitHub Pull Requests to manage code review and the change itself.
-* Markdown in the source tree for the documentation.
+* Markdown for documentation, versioned and stored in the website repository.
 
 ## Find an issue
 We use JIRA issues to track bugs for this project.
@@ -51,7 +51,8 @@ If you cannot assign the JIRA to yourself ask the community to help assign it an
 ## Fix an issue
 Fixes or improvement must be created on the `master` branch.
 Fork the relevant YuniKorn project into your own project and checkout the `master` branch.
-Make sure that you have an up to date code revision checked out before you start.
+If the same issue exist in an earlier release branch it can be back ported after the fix has been added to master. 
+Make sure that you have an up-to-date code revision checked out before you start. Use `git status` to see if you are up-to-date.
 Create a branch to work on, a good name to use is the JIRA ID you are working on.
 
 Now start coding! As you are writing your patch, please keep the following things in mind:
@@ -66,23 +67,102 @@ In general, if you find a bug while working on a specific feature, file a JIRA f
 This helps us to differentiate between bug fixes and features and allows us to build stable maintenance releases.
 
 Make sure you have observed the recommendations in the [coding guidelines](coding_guidelines).
-Before you commit you should also run the full test suite using `make test`.
-Make sure that all the tests pass.
+Before you commit your changes and create a pull request based on your changes you should run the code checks. 
+These same checks are run as part of the pull request workflow.
+The pull request workflow performs the following checks:
+* Apache license check: `make license-check`.
+* Go lint check: `make lint`.
+* Full unit test suite: `make test`.
+
+These three checks should pass locally before opening a pull request. 
+As part of the pull request workflow all checks must pass before the change is committed.
+For first time contributors to a repository the automated pull request workflow must be approved by a committer.
+Once the workflow has run and has given a pass (a +1 vote) a committer will review the patch.
+
+As part of the Kubernetes shim there is also a set of tests defined called the _end to end_ tests.
+These tests are more complex to execute as they require some extra tools to be installed.
+Execution, and a pass, of the tests is strongly recommended for changes to the Kubernetes shim repository.
+They can be executed locally via `make e2e_test`.
 
 Finally, please write a good, clear commit message, with a short, descriptive title.
 The descriptive title must start with the JIRA ID you are working on.
 An example is: `[YUNIKORN-2] Support Gang Scheduling`
-The commit message will be used to pre-fill the pull request information.
-The JIRA ID in the message will automatically link the pull request and the JIRA.
-The message that follows can be used to explain what the problem was, and how it was fixed.
+The body of the commit message is used to describe the change made. 
+The whole commit message will be used to pre-fill the pull request information.
+The body of the first commit message will be added to the PR Template.
+The JIRA ID in the message will automatically link the pull request and the JIRA this is an essential part of tracking JIRA progress.
+
+## Changes that modify multiple repositories
+Apache YuniKorn consists of a number of repositories. Certain bug fixes or features will require modification in 2 or more repositories.
+The dependencies are only relevant for the code repositories.
+
+| repository                   | depends on                                  |
+|------------------------------|---------------------------------------------|
+| yunikorn-core                | yunikorn-scheduler-interface                | 
+| yunikorn-k8shim              | yunikorn-scheduler-interface, yunikorn-core |
+| yunikorn-scheduler-interface | none                                        |
+| yunikorn-web                 | yunikorn-core                               |
+
+The dependency between the web UI and the core code is limited to the exposed REST API.
+Not all REST API end points are used in the web UI. Manually testing the web UI against the new REST API is required before approving and committing changes.
+As a general rule there is an impact on the web UI if a change in the REST API removes or updates existing fields or completely removes existing end points.
+Additional end points or fields should not require a web UI update but still require manual testing.
+
+The scheduler interface, core and K8shim have a dependency based on the [Go modules](https://go.dev/blog/using-go-modules) that they import.
+
+We follow the version numbering as described in the [version numbering](https://go.dev/doc/modules/version-numbers) for go modules.
+The master branch *must* use a pseudo version.
+See the [Go module dependencies](/docs/next/developer_guide/dependencies) for updating the pseudo version.
+The release branches *must* use branch version.
+See the [release procedure](release_procedure#tag-and-update-release-for-version) on when and how to update the tags and references during the release creation. 
+
+## Documentation updates
+Documentation is published and maintained as part of the website.
+The process for updating the documentation is the same as for making code changes: file a jira and open a pull-request with the change.
+Multiple versions of the documentation are published on the website.
+Changes are always made against the `master` branch.
+The versioned documents and sidebars should only be updated to fix errors that cannot wait for a release.
+
+Images that are part of a documentation page must be located in the `assets` directory as part of the documents, i.e. `docs/assets`.
+All other images that are used, for instance the homepage and menu, that do not change when or if the documentation is updated/versioned must be located in the `static/img` directory.
+
+The versioned documentation and sidebar are located in:
+- versioned_docs: the released version of documentation
+- versioned_sidebars: the sidebars for the corresponding released documentation
+
+Normal documentation maintenance must be performed by updating the non versioned documentation.
+New pages are added by:
+* adding a Markdown file
+* updating the `sidebar.js` file
+
+The page file must contain:
+* id and title definition (docusaurus syntax)
+* Apache license
+
+The id is used by docusaurus to link the page to the specific point in the documentation menu.
+The title is displayed in the menu.
+```
+---
+id: MyPageID
+title: My new documentation page
+---
+```
+Pages can be grouped in categories in the sidebar.
+The category should be represented as directories in the source tree.
+
+After making the changes you can build the website locally in development mode with the following command:
+```shell script
+./local-build.sh run
+```
+The only requirement is that you have docker installed as the build and server will be run inside a docker container. 
 
 ## Create a pull request
 Please create a pull request on github with your patch.
 See [opening a pull request](https://help.github.com/articles/using-pull-requests/) for all the details.
 
-For committers: You can create a new branch, push your change and create a PR using the GitHub UI.
-For contributors: you have already forked the repository and committed your changes to your fork.
+Recommendation is to use a fork of the repository and create a branch in your fork.
 Use the GitHub UI to create a PR using the `compare across forks` option.
+In most cases the GitHub UI, after a short delay, will provide you the option to create a PR when a commit is detected on a forked repository.
 
 The pull request description must include the JIRA reference that you are working on.
 If you set the commit message as described above the pull request will automatically pick it up.
@@ -91,20 +171,58 @@ For example a pull request linked to [YUNIKORN-2](https://issues.apache.org/jira
 `[YUNIKORN-2] Support Gang Scheduling`
 
 ## Committing a change
-When a change is approved it will be committed to the `master` branch of the repository.
-The commit message must include the JIRA in the first line and should include a `Closes #1` as a
-A commit will automatically close the PR.
-The JIRA will not be closed automatically.
+When a change is approved a committer will commit the change to the `master` branch of the repository.
+Commits follow the "squash and merge" approach. This squashes all commits for a pull request into one commit which is then merged.
 
-## Report a security issue
-YuniKorn community cares deeply about the security and actively addresses any security issues as
-the top priority. We follow the Apache security guidelines for handling security issues, please see the Apache doc
-about [handling security issues](https://www.apache.org/security/). If you find any security issue,
-please send a vulnerability report to security@apache.org, the YuniKorn security team will assess the issue
-immediately and work with the reporter on a plan to fix it. Please do not disclose the issue to any public forum
-before working with the security team.
+After committing a change the JIRA associated with the pull request will not be automatically closed.
+The JIRA status should be resolved manually and the correct `Fixed Version/s` should be set when resolving.
+If a patch is back ported into a branch the JIRA should show multiple `Fixed Version/s`.
+One for the upcoming version for the master and one for each branch the fix is ported back to.
+
+There are three options for committing a change:
+* use the script (recommended)
+* manually using the git command line
+* use the GitHub web UI "squash and merge" button 
+
+A [simple shell script](https://github.com/apache/yunikorn-release/tree/master/tools/merge-pr.sh) to help with a squash and merge is part of the release repository.
+The script handles the checkout, merge and commit message preparation.
+As part of the merge process conflicts can be resolved by the committer and added to the commit.
+The commit message is prepared but not finalised. The committer can edit, and cleanup, the message before the commit is made.
+Changes are pushed as the last step of the process.
+Abandoning the process leaves the local system in the same state as it was before the commit process started.
+
+:::caution
+Using the GitHub web UI there is no control over the author or committers details.
+
+The committer is always set to "GitHub <noreply@github.com>".
+The user logged into the GitHub web UI and performing the action is not tracked in the commit.
+The author name is influenced by the GitHub setting "Keep my email addresses private",
+this can cause author names like "username <12345678-username@users.noreply.github.com>" to be used.
+:::
+
+Commit messages **must** comply to a simple set of rules:
+* Subject line is the title of the change formatted as follows: `[JIRA reference] subject (#PR ID)`.  
+* Second line must be empty, separates the subject from the body.
+* The body of the message contains the description of the change.
+* All lines in the commit message should be wrapped at 72 characters.
+
+For all commits, via the command line or the GitHub web UI, the message body must be reviewed.
+During the pull request review process multiple commits could be added and some text that end up in the commit message might be irrelevant.
+Text like `review comment changes` or `fixed unit test` do not need to be part of the final commit message.
+
+The pull request will automatically be marked as `merged` when the GitHub UI is used.
+To close the pull request when using the git command line one of the magic phrases can be used in a commit message.
+Including one of these "magic words" followed by the pull request ID in the commit summary will automatically close the pull request.
+The script will automatically add the `Closes: #PR` phrase to the commit message.
+For more information check this [GitHub help page](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) for more magic phrases.
+
+An example of a pull request committed using the script see PR #329 for the YuniKorn core: [PR 329 commit](https://github.com/apache/yunikorn-core/commit/9e151829e14714b0e47b413bd9cecfdff6b44507)
 
 ## Still got questions?
 If you’re not sure about something, try to follow the style of the existing codebase.
 Look at whether there are other examples in the code that do a similar thing.
 Feel free to ask questions on the [dev@yunikorn.apache.org](mailto:dev@yunikorn.apache.org) list as well.
+
+See Also
+* [Apache contributor documentation](http://www.apache.org/dev/contributors.html)
+* [Apache voting documentation](http://www.apache.org/foundation/voting.html)
