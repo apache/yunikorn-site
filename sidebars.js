@@ -52,6 +52,7 @@ module.exports = {
         'Developer Guide': [
             'developer_guide/env_setup',
             'developer_guide/build',
+            'developer_guide/dependencies',
             'developer_guide/deployment',
             'developer_guide/openshift_development',
             {
