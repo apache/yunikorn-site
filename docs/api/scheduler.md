@@ -55,7 +55,7 @@ Displays general information about the partition like name, state, capacity, use
         "clusterId": "mycluster",
         "name": "default",
         "state": "Active",
-        "lastStateTransitionTime": "2021-05-20 12:25:49.018953 +0530 IST m=+0.005949717",
+        "lastStateTransitionTime": 1649167576110754000,
         "capacity": {
             "capacity": {
                 "ephemeral-storage": 188176871424,
@@ -91,7 +91,7 @@ Displays general information about the partition like name, state, capacity, use
         "clusterId": "mycluster",
         "name": "gpu",
         "state": "Active",
-        "lastStateTransitionTime": "2021-05-19 12:25:49.018953 +0530 IST m=+0.005949717",
+        "lastStateTransitionTime": 1649167576111236000,
         "capacity": {
             "capacity": {
                 "memory": 2000000000,
