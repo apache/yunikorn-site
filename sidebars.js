@@ -29,6 +29,7 @@ module.exports = {
             'user_guide/acls',
             'user_guide/resource_quota_management',
             'user_guide/gang_scheduling',
+            'user_guide/label_and_annotation_in_yunikorn',
             {
                 type: 'category',
                 label: 'Workloads',
