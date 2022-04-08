@@ -391,7 +391,7 @@ In the example below there are three allocations belonging to two applications.
                 "applicationId": "application-0001",
                 "partition": "default",
                 "placeholder": false,
-                "placeholderUsed": false
+                "placeholderUsed": true
             }
         ],
         "applicationState": "Running",
@@ -409,6 +409,18 @@ In the example below there are three allocations belonging to two applications.
             {
                 "time": 1648741409147432100,
                 "applicationState": "Running"
+            }
+        ],
+        "placeholderData": [
+            {
+                "taskGroupName": "task-group-example",
+                "count": 2,
+                "minResource": {
+                    "memory": 1000000000,
+                    "vcore": 100
+                },
+                "requiredNode": "",
+                "replaced": 2
             }
         ]
     },
@@ -493,7 +505,8 @@ In the example below there are three allocations belonging to two applications.
                 "time": 1648741409147432100,
                 "applicationState": "Running"
             }
-        ]
+        ],
+        "placeholderData": []
     }
 ]
 ```
@@ -608,7 +621,8 @@ In the example below there are three allocations belonging to two applications a
                 "time": 1648741409147432100,
                 "applicationState": "Running"
             }
-        ]
+        ],
+        "placeholderData": []
     },
     {
         "applicationID": "application-0002",
@@ -691,7 +705,8 @@ In the example below there are three allocations belonging to two applications a
                 "time": 1648741409147432100,
                 "applicationState": "Running"
             }
-        ]
+        ],
+        "placeholderData": []
     },
     {
         "applicationID": "application-0003",
@@ -710,7 +725,8 @@ In the example below there are three allocations belonging to two applications a
                 "time": 1648741409145224000,
                 "applicationState": "Rejected"
             }
-        ]
+        ],
+        "placeholderData": []
     }
 ]
 ```
