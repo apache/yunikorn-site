@@ -182,10 +182,22 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
         "isLeaf": "false",
         "isManaged": "false",
         "properties": {
-            "application.sort.policy":"stateaware"
+            "application.sort.policy": "stateaware"
         },
         "parent": "",
-        "template": null,
+        "template": {
+            "maxResource": {
+                "memory": 8000000000,
+                "vcore": 8000
+            },
+            "guaranteedResource": {
+                "memory": 54000000,
+                "vcore": 80
+            },
+            "properties": {
+                "application.sort.policy": "stateaware"
+            }
+        },
         "partition": "default",
         "children": [
             {
@@ -205,10 +217,16 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                 },
                 "isLeaf": "true",
                 "isManaged": "false",
+                "properties": {
+                    "application.sort.policy": "stateaware"
+                },
                 "parent": "root",
                 "template": null,
                 "children": [],
-                "absUsedCapacity": {}
+                "absUsedCapacity": {
+                    "memory": 1,
+                    "vcore": 0
+                }
             }
         ],
         "absUsedCapacity": {
