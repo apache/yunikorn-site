@@ -45,4 +45,4 @@ All annotations are under the namespace `yunikorn.apache.org`. For example `yuni
 | `schedulingPolicyParameters` | Arbitrary key-value pairs used to customize scheduling policies such as gang scheduling.                                                                                               |
 | `placeholder`                | Set if this pod represents a placeholder for gang scheduling. Set internally by YuniKorn.                                                                                              |
 
-For more details surrounding gang-scheduling labels and annotations, please refer to the documentation on [Gang Scheduling](gang_scheduling.md).
+For more details surrounding gang-scheduling labels and annotations, please refer to the documentation on [gang scheduling](gang_scheduling.md).
