@@ -123,7 +123,7 @@ function Home() {
                         </div>
                     </div>
                     <div className='hero_column_logo'>
-                        <img className={styles.heroImg} src="./img/logo/yunikorn_classic_logo.png"/>
+                        <img className={styles.heroImg} src="./img/logo/yunikorn_classic_logo.png" alt="YuniKorn logo"/>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@ function Home() {
                                 <div key={idx} className={clsx('col col--4')}>
                                     {imageUrl && (
                                         <div className="text--center">
-                                            <img className={styles.featureImage} src={imageUrl} alt={title}/>
+                                            <img className={styles.featureImage} src={imageUrl} alt={title.toString()}/>
                                         </div>
                                     )}
                                     <h3>{title}</h3>
@@ -148,19 +148,17 @@ function Home() {
                     </div>
                 </section>
             )}
-
-            <h1 className={styles.whyText}>☺ 为什么选YUNIKORN?</h1>
-            {why.map(({imageUrl, title, description}, idx) => (
             <div className={styles.postContainer}>
-                <div className={styles.postThumb}><img src={imageUrl}/></div>
-                <div className={styles.postContent}>
-                    <h4>{title}</h4>
-                    <p>{description}</p>
-                </div>
+                <h1 className={styles.whyText}>☺ 为什么选YuniKorn?</h1>
+                {why.map(({imageUrl, title, description}) => (
+                    <div className={styles.postContent}>
+                        <img src={imageUrl} alt={title.toString()}/>
+                        <h4>{title}</h4>
+                        <p>{description}</p>
+                    </div>
+                ))}
+                <h3 className={styles.learnMoreURL}><a href="./docs/get_started/core_features">了解更多 >>></a></h3>
             </div>
-            ))}
-
-            <h3 className={styles.learnMoreURL}><a href="./docs/get_started/core_features">了解更多 >>></a></h3>
         </main>
     </Layout>
   );

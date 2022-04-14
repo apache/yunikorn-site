@@ -60,43 +60,41 @@
 }
 
 .postContainer {
-  margin: 0 30%;
+  alignment: center;
+  min-width: 300px;
+  max-width: 800px;
+  margin: 0 20%;
   overflow: auto;
 }
 
-.postThumb {
+.postContent {
+  padding: 0 10px 10px 0;
+  float: right;
+  display: block;
+}
+
+.postContent img {
   height: 120px;
   width: 120px;
   float: left;
-  padding: 0 10px 10px 0
-}
-
-.postThumb img {
-  height: 120px;
-  width: 120px;
-  display: block
-}
-
-.postContent {
-  margin-left: 150px
+  padding: 0 10px 10px 0;
+  display: block;
 }
 
 .postTitle {
   font-weight: bold;
-  font-size: 200%
+  font-size: 200%;
 }
 
 .whyText {
   text-align:center;
   color: cadetblue;
   margin-top: 50px;
-  margin-bottom: 50px
+  margin-bottom: 50px;
 }
 
 .learnMoreURL {
   text-align:center;
   color: cadetblue;
-  margin-bottom: 30px
+  margin-bottom: 30px;
 }
-
-
