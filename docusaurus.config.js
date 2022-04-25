@@ -144,6 +144,10 @@ module.exports = {
               href: 'https://www.apache.org/foundation/sponsorship.html'
             },
             {
+              label: 'Privacy Policy',
+              href: 'https://privacy.apache.org/policies/privacy-policy-public.html'
+            },
+            {
               label: 'Security',
               href: 'https://www.apache.org/security/'
             }
