@@ -142,6 +142,7 @@ The release artifacts consist of three parts:
 - source tarball
 - signature file
 - checksum file
+
 The three artefacts need to be uploaded to: `https://dist.apache.org/repos/dist/dev/yunikorn/` 
 
 Create a release directory based on the version, i.e. `0.8.0`, add the three files to directory.
@@ -169,7 +170,7 @@ Cleanup of the older release is handled after the website has been updated in th
 
 #### Release Docker images
 The standard build process should be used to build the image.
-Run a `make image` in the `web`, and `k8shim` repositories to generate the three images required (web, scheduler and admission-controller):
+Run a `make image` in the `web`, and `k8shim` repositories to generate the four images required (web, scheduler, scheduler-plugin and admission-controller):
 ```shell script
 VERSION=0.8.0; make image
 ```
@@ -198,6 +199,7 @@ Contrary to the source code tar ball signing, signing the helm charts requires m
 The helm package will generate two files:
 - helm package: example `yunikorn-0.8.0.tgz`
 - provenance or signature file: example `yunikorn-0.8.0.tgz.prov`
+
 Both files should be attached to the [release in GIT](#create-the-git-releases) for the release repository.
 
 Last step is to update the [index.yaml](https://github.com/apache/yunikorn-release/blob/gh-pages/index.yaml) file in the `gh-pages` branch with the new release.
@@ -281,7 +283,9 @@ The page is in Markdown format and should follow the example of the already exis
 * Apache license
 * Following headings
     * Overview of the release (level 2)
-    * Highlights (level 2)
+    * Incompatible changes  
+      Details for incompatible changes at level 3 heading
+    * Highlights (level 2)  
       Chosen highlights at level 3 heading
     * Community update (level 2)
 
