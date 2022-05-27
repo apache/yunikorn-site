@@ -37,10 +37,10 @@ under the License.
 ## Native（原生）模式
 
 请关注 [原生 Kubernetes 设置](https://ci.apache.org/projects/flink/flink-docs-stable/ops/deployment/native_kubernetes.html) 以获取原生部署模式的细节和示例。
-只有 flink 1.11 或更高版本才支持在 native 模式下使用 YuniKorn 调度程序运行 flink 应用程序，我们可以利用两个 flink 配置 `kubernetes.jobmanager.labels` 和 `kubernetes.taskmanager.labels` 来设置所需的标签。
+只有 Flink 1.11 或更高版本才支持在 native 模式下使用 YuniKorn 调度程序运行 Flink 应用程序，我们可以利用两个 Flink 配置 `kubernetes.jobmanager.labels` 和 `kubernetes.taskmanager.labels` 来设置所需的标签。
 例子：
 
-* 启动一个 flink session
+* 启动一个 Flink session
 ```
 ./bin/kubernetes-session.sh \
   -Dkubernetes.cluster-id=<ClusterId> \
@@ -52,7 +52,7 @@ under the License.
   -Dkubernetes.taskmanager.labels=applicationId:MyOwnApplicationId,queue:root.sandbox
 ```
 
-* 启动一个 flink application
+* 启动一个 Flink application
 ```
 ./bin/flink run-application -p 8 -t kubernetes-application \
   -Dkubernetes.cluster-id=<ClusterId> \
