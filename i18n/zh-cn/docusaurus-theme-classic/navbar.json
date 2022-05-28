@@ -28,6 +28,9 @@
     },    
     "item.label.Reporting Issues": {
         "message": "报告问题"
+    },     
+    "item.label.Release Procedure": {
+        "message": "发布流程"
     },    
     "item.label.Events": {
         "message": "事件"
