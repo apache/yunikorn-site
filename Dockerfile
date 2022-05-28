@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:16.13.0
+FROM node:16.14
 
 ADD . /yunikorn-site
 WORKDIR /yunikorn-site
