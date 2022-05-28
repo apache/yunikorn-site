@@ -32,27 +32,17 @@ under the License.
 # 下一个发布研发内容
 
 发布详情：
-- 版本：1.0.0
-- 目标发布日期：2022 年 3 月
-- 发布负责人：Wilfred Spiegelenburg
+- 版本：1.1.0
+- 目标发布日期：2022 年 8 月
+- 发布负责人：尚未决定
 - 开发状态：[问题跟踪器](https://issues.apache.org/jira/issues/?filter=12348416)
 
 计划的主要功能：
-- [YUNIKORN-971](https://issues.apache.org/jira/browse/YUNIKORN-971) 将 YuniKorn 实现为 Kubernetes 调度插件
-- [YUNIKORN-978](https://issues.apache.org/jira/browse/YUNIKORN-978) 准入控制器部署改进
-- [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) 实施用户和组限制（阶段 1）
-- [YUNIKORN-954](https://issues.apache.org/jira/browse/YUNIKORN-954) 移除旧的 REST api
-- [YUNIKORN-720](https://issues.apache.org/jira/browse/YUNIKORN-720) 对调度器资源队列指标监测系统的改进
+- [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) 实施用户和组限制 (phase 1)
+- [YUNIKORN-725](https://issues.apache.org/jira/browse/YUNIKORN-725) 支持ARM64处理器
+- [YUNIKORN-1187](https://issues.apache.org/jira/browse/YUNIKORN-1187) 恢复稳定性
+- [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1) 应用优先级
+- [YUNIKORN-1196](https://issues.apache.org/jira/browse/YUNIKORN-1196) 更新K8s构建依赖
+- [YUNIKORN-1085](https://issues.apache.org/jira/browse/YUNIKORN-1085) 在自动缩放期间添加的新节点上，可能无法调度 DaemonSet pod
 
 支持的 Kubernetes 版本和 Kubernetes 依赖项将在开发周期中进行选择和最终确定。
-
-# 过去的发布
-
-| 版本     |    发布日期    |         发布负责人         | 发布公告                                               |
-|--------|:----------:|:---------------------:|----------------------------------------------------|
-| 0.12.2 | 2022-02-03 |     Craig Condit      | [0.12.2-release-notes](../release-announce/0.12.2) |
-| 0.12.1 | 2021-12-26 |      Chaoran Yu       | [0.12.1-release-notes](../release-announce/0.12.1) |
-| 0.11.0 | 2021-08-18 |     Kinga Marton      | [0.11.0-release-notes](../release-announce/0.11.0) |
-| 0.10.0 | 2021-04-09 |       Tao Yang        | [0.10.0-release-notes](../release-announce/0.10.0) |
-| 0.9.0  | 2020-08-28 | Wilfred Spiegelenburg | [0.9.0-release-notes](../release-announce/0.9.0)   |
-| 0.8.0  | 2020-05-04 |      Weiwei Yang      | [0.8.0-release-notes](../release-announce/0.8.0)   |
