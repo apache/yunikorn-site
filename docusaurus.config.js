@@ -114,10 +114,6 @@ module.exports = {
               to: 'community/people',
               label: 'People',
             },
-            {
-              to: 'community/maturity',
-              label: 'Incubation Maturity Assessment',
-            },
           ]
         },
         {
