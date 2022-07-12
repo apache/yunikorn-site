@@ -34,7 +34,7 @@ function clean() {
 function image_build() {
   # build local docker image
   cat <<EOF >.dockerfile.tmp
-FROM node:16.13.0
+FROM node:16.14
 ADD . /yunikorn-site
 WORKDIR /yunikorn-site
 EOF
