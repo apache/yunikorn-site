@@ -1,4 +1,5 @@
-#
+#!/usr/bin/env bash
+
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -14,7 +15,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 function stop() {
   echo "cleaning up docker image"
@@ -31,10 +31,19 @@ function clean() {
   echo "  build output" && rm -rf build
 }
 
+function node_version() {
+  NV_FILE=.nvmrc
+  if [ -r ${NV_FILE} ]; then
+    NODE_VERSION=$(<"$NV_FILE")
+  fi
+  # docusausrus 2.0.0-beta.18 and later ony work with node 16.14 later, use it as the default
+  NODE_VERSION=${NODE_VERSION:-16.14}
+}
+
 function image_build() {
   # build local docker image
   cat <<EOF >.dockerfile.tmp
-FROM node:16.14
+FROM node:${NODE_VERSION}
 ADD . /yunikorn-site
 WORKDIR /yunikorn-site
 EOF
@@ -124,6 +133,7 @@ if [ "${RUNOPT}" == "run" ]; then
     LOCALE=$2
   fi
   stop
+  node_version
   image_build
   [ $? -eq 1 ] && echo "image build failed" && exit 1
   run_base
@@ -133,6 +143,7 @@ if [ "${RUNOPT}" == "run" ]; then
   stop
 elif [ "${RUNOPT}" == "build" ]; then
   stop
+  node_version
   image_build
   [ $? -eq 1 ] && echo "image build failed" && exit 1
   run_base

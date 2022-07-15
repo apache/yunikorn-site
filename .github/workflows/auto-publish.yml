@@ -25,19 +25,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out latest code on master branch"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: './yunikorn-master'
       - name: "Build and run website locally"
         working-directory: './yunikorn-master'
         run: |
+          NODE_VERSION=$(cat .nvmrc) && NODE_VERSION=${NODE_VERSION:-16.14}
           git log master --pretty=format:"Auto refresh: %s" -n 1 > ../asf-site-commit.txt
-          docker build -t yunikorn/yunikorn-website:1.0.0 .
-          docker run --name yunikorn-site -d -p 3000:3000 yunikorn/yunikorn-website:1.0.0
+          docker build -t yunikorn/yunikorn-website:1.0.0 . --build-arg NODE_VERSION=${NODE_VERSION}
+          docker run --name yunikorn-site -d -p 3000:3000 yunikorn/yunikorn-website:2.0.0
           bash -c 'while true; do curl -Is http://localhost:3000 | head -n 1 | grep "OK"; [ $? -eq 0 ] && break; sleep 3; done'
         timeout-minutes: 10
       - name: "Checkout asf-site branch"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: './yunikorn-asf-site'
           ref: 'asf-site'

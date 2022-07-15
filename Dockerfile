@@ -13,7 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:16.14
+ARG NODE_VERSION=
+FROM node:${NODE_VERSION}
 
 ADD . /yunikorn-site
 WORKDIR /yunikorn-site
