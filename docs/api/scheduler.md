@@ -281,23 +281,66 @@ Fetch all Applications for the given Partition Queue combination and displays ge
 
 **Content examples**
 
-In the example below there are three allocations belonging to two applications.
+In the example below there are three allocations belonging to two applications, one with a pending request.
 
 ```json
 [
     {
         "applicationID": "application-0001",
         "usedResource": {
-          "memory": 4000000000,
-          "vcore": 4000
+            "memory": 4000000000,
+            "vcore": 4000
         },
         "maxUsedResource": {
-          "memory": 4000000000,
-          "vcore": 4000
+            "memory": 4000000000,
+            "vcore": 4000
         },
         "partition": "default",
         "queueName": "root.default",
         "submissionTime": 1648754032076020293,
+        "requests": [
+            {
+                "allocationKey": "f137fab6-3cfa-4536-93f7-bfff92689382",
+                "allocationTags": {
+                    "kubernetes.io/label/app": "sleep",
+                    "kubernetes.io/label/applicationId": "application-0001",
+                    "kubernetes.io/label/queue": "root.default",
+                    "kubernetes.io/meta/namespace": "default",
+                    "kubernetes.io/meta/podName": "task2"
+                },
+                "requestTime": 16487540320812345678,
+                "resource": {
+                    "memory": 4000000000,
+                    "vcore": 4000
+                },
+                "pendingCount": 1,
+                "priority": "0",
+                "queueName": "root.default",
+                "requiredNodeId": "",
+                "applicationId": "application-0001",
+                "partition": "default",
+                "placeholder": false,
+                "placeholderTimeout": 0,
+                "taskGroupName": "",
+                "allocationLog": [
+                    {
+                        "message": "node(s) didn't match Pod's node affinity, node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate",
+                        "lastOccurrence": 16487540320812346001,
+                        "count": 81
+                    },
+                    {
+                        "message": "node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate, node(s) didn't match Pod's node affinity",
+                        "lastOccurrence": 16487540320812346002,
+                        "count": 504
+                    },
+                    {
+                        "message": "node(s) didn't match Pod's node affinity",
+                        "lastOccurrence": 16487540320812346003,
+                        "count": 1170
+                    }
+                ]
+            }
+        ],
         "allocations": [
             {
                 "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
@@ -358,16 +401,17 @@ In the example below there are three allocations belonging to two applications.
     {
         "applicationID": "application-0002",
         "usedResource": {
-          "memory": 4000000000,
-          "vcore": 4000
+            "memory": 4000000000,
+            "vcore": 4000
         },
         "maxUsedResource": {
-          "memory": 4000000000,
-          "vcore": 4000
+            "memory": 4000000000,
+            "vcore": 4000
         },
         "partition": "default",
         "queueName": "root.default",
         "submissionTime": 1648754032076020293,
+        "requests": [],
         "allocations": [
             {
                 "allocationKey": "54e5d77b-f4c3-4607-8038-03c9499dd99d",
