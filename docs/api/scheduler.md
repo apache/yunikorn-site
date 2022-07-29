@@ -393,8 +393,8 @@ In the example below there are three allocations belonging to two applications, 
                     "memory": 1000000000,
                     "vcore": 100
                 },
-                "requiredNode": "",
-                "replaced": 2
+                "replaced": 1,
+                "timedout": 1
             }
         ]
     },
