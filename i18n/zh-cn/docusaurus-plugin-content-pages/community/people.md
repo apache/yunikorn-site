@@ -64,7 +64,7 @@ YuniKorn 社区是开放的、多样化的和协作的。
 |----------------|---------------|-------------|---------------|
 | Chia-Ping Tsai | chia7712      | Is-Land     | +8            |
 | Li Gao         | ligao         | Databricks  | -8            |
-| Ted Lin        | steinsgateted |             |               |
+| Ted Lin        | steinsgateted | NCKU        | +8            |
 | Tingyao Huang  | tingyao       | TrendMicro  | +8            |
 | Yu Teng Chen   | yuteng        | NTCU        | +8            |
 
