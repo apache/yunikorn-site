@@ -48,8 +48,11 @@ ADD . /yunikorn-site
 WORKDIR /yunikorn-site
 EOF
 
-  docker build -t yunikorn/yunikorn-website:latest -f .dockerfile.tmp .
-  [ $? -ne 0 ] && echo "docker image build failed" && rm -rf .dockerfile.tmp && exit 1
+  if ! docker build -t yunikorn/yunikorn-website:latest -f .dockerfile.tmp .; then
+    echo "docker image build failed"
+    rm -rf .dockerfile.tmp
+    exit 1
+  fi
   rm -rf .dockerfile.tmp
 }
 
@@ -67,19 +70,26 @@ function run_base() {
   # run docker container
   # mount the repo root to the container working dir,
   # so that changes made in the repo can trigger the web-server auto-update
-  docker run -it --name yunikorn-site-local -d \
+  if ! docker run -it --name yunikorn-site-local -d \
     -p 3000:3000 \
-    -v $PWD:/yunikorn-site \
-    yunikorn/yunikorn-website:latest
-  [ $? -ne 0 ] && echo "run local docker image failed" && return 1
+    -v "$PWD":/yunikorn-site \
+    yunikorn/yunikorn-website:latest; then
+
+    echo "run local docker image failed"
+    return 1
+  fi
 
   # install dependency in docker container
-  docker exec -it yunikorn-site-local /bin/bash -c "yarn install"
-  [ $? -ne 0 ] && echo "yarn install failed" && return 1
+  if ! docker exec -it yunikorn-site-local /bin/bash -c "yarn install"; then
+    echo "yarn install failed"
+    return 1
+  fi
 
   # install dependency in docker container
-  docker exec -it yunikorn-site-local /bin/bash -c "yarn add @docusaurus/theme-search-algolia"
-  [ $? -ne 0 ] && echo "yarn add failed" && return 1
+  if ! docker exec -it yunikorn-site-local /bin/bash -c "yarn add @docusaurus/theme-search-algolia"; then
+    echo "yarn add failed"
+    return 1
+  fi
   return 0
 }
 
@@ -94,10 +104,12 @@ function run_web() {
 }
 
 function run_build() {
-	  # run build inside the container
-    docker exec -it yunikorn-site-local /bin/bash -c "yarn build"
-    [ $? -ne 0 ] && echo "yarn build failed" && return 1
-    return 0
+  # run build inside the container
+  if ! docker exec -it yunikorn-site-local /bin/bash -c "yarn build"; then
+    echo "yarn build failed"
+    return 1
+  fi
+  return 0
 }
 
 function print_usage() {
@@ -122,7 +134,7 @@ Description:
 EOF
 }
 
-if [ $# -eq 0 -o $# -gt 2 -o ! -f ./docusaurus.config.js ]; then
+if [ $# -eq 0 ] || [ $# -gt 2 ] || [ ! -f ./docusaurus.config.js ]; then
   print_usage
   exit 1
 fi
