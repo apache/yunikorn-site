@@ -169,19 +169,50 @@ This is needed to allow the start the mirror sync process and allow for the down
 Cleanup of the older release is handled after the website has been updated in the [cleanup](#cleanup).
 
 #### Release Docker images
-The standard build process should be used to build the image.
-Run a `make image` in the `web`, and `k8shim` repositories to generate the four images required (web, scheduler, scheduler-plugin and admission-controller):
-```shell script
-VERSION=0.8.0; make image
-```
+As part of the release convenience images are build and uploaded to the Apache account on DockerHub.
+As we added multi architecture support the release of the images has become a bit more complex and is now tool driven.
 
-Make can also be used to build and push the image if you have access to the Apache docker hub YuniKorn container.
-Push the latest docker images to the apache docker hub using the release as tag.
-Make sure the docker image is built on the specific SHA.
+The Go compiler builtin in functionality is leveraged to cross-compile the executables for the scheduler and admission controller.
+The web UI is a javascript application which does not require any special handling.
+
+Besides that, the minimum requirement for building the multi architecture images is multi architecture support in Docker.
+Multi architecture support is needed to be able to build both `amd64` and `arm64` images on your local machine.
+Building the images for different architectures requires emulation of the non-native architecture to run the build instructions.
+
+Support for emulating different architectures is provided by [QEMU](https://www.qemu.org).
+The QEMU software is installed as part of Docker Desktop on Mac OSX and Windows.
+For linux based build machines a manual installation of the QEMU package has to be performed.
+The multi architecture build has been tested using Docker on Debian also. On Debian this only requires the `qemu-user-static` package.
+Other distribution might require different docker and or QEMU install instructions.
+
+The expectation is that this tool is run from the same location as the [release tool](#run-the-release-tool) was run from.
+Configuration and code used as the input for this build **must** be the same as that was used for the source release.
+
+Run the image release tool:
 ```shell script
-VERSION=0.8.0; DOCKER_USERNAME=<name>; DOCKER_PASSWORD=<password>; make push
+python3 build-image.py
 ```
-Publish an announcement email to the `dev@yunikorn.apache.org` email list.
+A standard run of the tool will ask for the docker hub credentials.
+The credentials used must have _write_ access to the `apache/yunikorn` docker hub area.
+
+The tool will then build the all the images:
+* admission
+* scheduler
+* scheduler-plugin
+* web
+
+Each image will be build twice, once for `amd64` and once for `arm64`.
+All images are pushed to the docker hub.
+When both architectures are build a manifest is created for the multi architecture image.
+The manifest is pushed to docker hub and a cleanup of unused tags is executed.
+
+The whole process can take a while as builds of executables and docker images are executed multiple times. 
+
+If you want to test the tool run to make sure it all works you can run the tool against a non apache repository.
+For this you provide the optional variable on the command line:
+```shell script
+python3 build-release.py --repository <name>
+```
 
 #### Release Helm Charts
 This step is part of the release tool if the release tool is used the packaging can be skipped.
@@ -224,6 +255,8 @@ The site can, and most likely will, contain an announcement bar.
 This announcement bar is part of the `docusaurus.config.js` file in the root of the source tree.
 Update the announcement bar to the correct release.
 
+Publish an announcement email to the `dev@yunikorn.apache.org` email list.
+
 #### Cleanup
 NOTE: this step should be performed after the website updates have been made as the download links change.
 
@@ -236,6 +269,11 @@ The releases need to clean up in two locations:
   For the location see [release candidate location](#upload-release-candidate-artifacts)
 * Remove the non-current release from the _release_ area by removing the old release directory.
   For the location see [release location](#publish-the-release)
+
+**NOTE**
+If there are multiple releases actively and maintained we could have multiple releases in the release area.
+We can have only one release per active branch in the _release_ area. 
+For detailed information you can check the [release distribution policy](https://infra.apache.org/release-distribution.html).   
 
 #### Create the GIT releases
 In the GIT repositories finish the release process by creating a release based on the git tag that was added.
