@@ -255,10 +255,10 @@ The site can, and most likely will, contain an announcement bar.
 This announcement bar is part of the `docusaurus.config.js` file in the root of the source tree.
 Update the announcement bar to the correct release.
 
-Publish an announcement email to the `dev@yunikorn.apache.org` email list.
+At this point all changes for the release are done and an announcement email can be sent to the `dev@yunikorn.apache.org` email list.
 
 #### Cleanup
-NOTE: this step should be performed after the website updates have been made as the download links change.
+**NOTE**: this step should be performed after the website updates have been made as the download links change.
 
 There should only be one release, the latest, in the release area.
 Any release that has been in the release area will be automatically copied to the archive.
@@ -270,9 +270,8 @@ The releases need to clean up in two locations:
 * Remove the non-current release from the _release_ area by removing the old release directory.
   For the location see [release location](#publish-the-release)
 
-**NOTE**
-If there are multiple releases actively and maintained we could have multiple releases in the release area.
-We can have only one release per active branch in the _release_ area. 
+**NOTE**: If there are multiple releases actively maintained then there could be multiple releases in the release area.
+We _must_ have only one release per active branch in the _release_ area, i.e. one for 1.0, one for 1.1 etc. 
 For detailed information you can check the [release distribution policy](https://infra.apache.org/release-distribution.html).   
 
 #### Create the GIT releases
