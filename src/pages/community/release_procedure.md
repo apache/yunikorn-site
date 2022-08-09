@@ -172,7 +172,7 @@ Cleanup of the older release is handled after the website has been updated in th
 As part of the release convenience images are build and uploaded to the Apache account on DockerHub.
 As we added multi architecture support the release of the images has become a bit more complex and is now tool driven.
 
-The Go compiler builtin in functionality is leveraged to cross-compile the executables for the scheduler and admission controller.
+The Go compiler built-in in functionality is leveraged to cross-compile the executables for the scheduler and admission controller.
 The web UI is a javascript application which does not require any special handling.
 
 Besides that, the minimum requirement for building the multi architecture images is multi architecture support in Docker.
@@ -195,15 +195,15 @@ python3 build-image.py
 A standard run of the tool will ask for the docker hub credentials.
 The credentials used must have _write_ access to the `apache/yunikorn` docker hub area.
 
-The tool will then build the all the images:
+The tool will then build all the images:
 * admission
 * scheduler
 * scheduler-plugin
 * web
 
-Each image will be build twice, once for `amd64` and once for `arm64`.
+Each image will be built twice, once for `amd64` and once for `arm64`.
 All images are pushed to the docker hub.
-When both architectures are build a manifest is created for the multi architecture image.
+When both architectures are built a manifest is created for the multi architecture image.
 The manifest is pushed to docker hub and a cleanup of unused tags is executed.
 
 The whole process can take a while as builds of executables and docker images are executed multiple times. 
