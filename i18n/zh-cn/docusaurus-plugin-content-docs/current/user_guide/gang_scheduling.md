@@ -77,8 +77,8 @@ one for the driver pod and the other one for the executor pods.
 
 #### How to define task groups?
 
-The task group definition is a copy of the app’s real pod definition, values for fields like resources, node-selector
-and toleration should be the same as the real pods. This is to ensure the scheduler can reserve resources with the
+The task group definition is a copy of the app’s real pod definition, values for fields like resources, node-selector, toleration 
+and affinity should be the same as the real pods. This is to ensure the scheduler can reserve resources with the
 exact correct pod specification.
 
 #### Scheduling Policy Parameters
@@ -142,7 +142,8 @@ spec:
                 "memory": "50M"
               },
               "nodeSelector": {},
-              "tolerations": []
+              "tolerations": [],
+              "affinity": {}
           }]
     spec:
       schedulerName: yunikorn
@@ -177,14 +178,15 @@ Annotations:
   yunikorn.apache.org/taskGroup: “
     TaskGroups: [
      {
-       Name: “spark-driver”
+       Name: “spark-driver”,
        minMember: 1,
        minResource: {
          Cpu: 1,
          Memory: 2Gi
        },
-       Node-selector: ...
-       Tolerations: ...
+       Node-selector: ...,
+       Tolerations: ...,
+       Affinity: ...
      },
       {
         Name: “spark-executor”,
@@ -253,7 +255,8 @@ spec:
                 "memory": "1000M"
               },
               "nodeSelector": {},
-              "tolerations": []
+              "tolerations": [],
+              "affinity": {}
           }]
     spec:
       schedulerName: yunikorn
@@ -277,7 +280,7 @@ To verify if the configuration has been done completely and correctly, check the
 If you define 2 task groups, 1 with minMember 1 and the other with minMember 5, that means we are expecting 6 placeholder
 gets created once the job is submitted.
 2. Verify the placeholder spec is correct. Each placeholder needs to have the same info as the real pod in the same taskGroup.
-Check field including: namespace, pod resources, node-selector, and toleration.
+Check field including: namespace, pod resources, node-selector, toleration and affinity.
 3. Verify the placeholders can be allocated on correct type of nodes, and verify the real pods are started by replacing the placeholder pods.
 
 ## Troubleshooting
