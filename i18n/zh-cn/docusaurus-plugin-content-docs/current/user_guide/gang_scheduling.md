@@ -77,7 +77,7 @@ one for the driver pod and the other one for the executor pods.
 
 #### How to define task groups?
 
-The task group definition is a copy of the app’s real pod definition, values for fields like resources, node-selector, toleration 
+The task group definition is a copy of the app’s real pod definition, values for fields like resources, node-selector, toleration
 and affinity should be the same as the real pods. This is to ensure the scheduler can reserve resources with the
 exact correct pod specification.
 
