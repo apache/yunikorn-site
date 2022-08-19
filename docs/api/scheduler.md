@@ -267,9 +267,9 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 ### Queue applications
 
-Fetch all Applications for the given Partition Queue combination and displays general information about the applications like used resources, queue name, submission time and allocations.
+Fetch all Applications for the given Partition/Queue combination and displays general information about the applications like used resources, queue name, submission time and allocations.
 
-**URL** : `/ws/v1/partition/{partitioName}/queue/{queueName}/applications`
+**URL** : `/ws/v1/partition/{partitionName}/queue/{queueName}/applications`
 
 **Method** : `GET`
 
@@ -480,6 +480,164 @@ In the example below there are three allocations belonging to two applications, 
         "placeholderData": []
     }
 ]
+```
+
+### Error response
+
+**Code** : `400 Bad Request`
+
+**Content examples**
+
+```json
+{
+    "status_code": 400,
+    "message": "Partition is missing in URL path. Please check the usage documentation",
+    "description": "Partition is missing in URL path. Please check the usage documentation"
+}
+```
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## Application
+
+### Queue application
+
+Fetch an Application given a Partition, Queue and Application ID and displays general information about the application like used resources, queue name, submission time and allocations.
+
+**URL** : `/ws/v1/partition/{partitionName}/queue/{queueName}/application/{appId}`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+    "applicationID": "application-0001",
+    "usedResource": {
+        "memory": 4000000000,
+        "vcore": 4000
+    },
+    "maxUsedResource": {
+        "memory": 4000000000,
+        "vcore": 4000
+    },
+    "partition": "default",
+    "queueName": "root.default",
+    "submissionTime": 1648754032076020293,
+    "requests": [
+        {
+            "allocationKey": "f137fab6-3cfa-4536-93f7-bfff92689382",
+            "allocationTags": {
+                "kubernetes.io/label/app": "sleep",
+                "kubernetes.io/label/applicationId": "application-0001",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/meta/namespace": "default",
+                "kubernetes.io/meta/podName": "task2"
+            },
+            "requestTime": 16487540320812345678,
+            "resource": {
+                "memory": 4000000000,
+                "vcore": 4000
+            },
+            "pendingCount": 1,
+            "priority": "0",
+            "requiredNodeId": "",
+            "applicationId": "application-0001",
+            "partition": "default",
+            "placeholder": false,
+            "placeholderTimeout": 0,
+            "taskGroupName": "",
+            "allocationLog": [
+                {
+                    "message": "node(s) didn't match Pod's node affinity, node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate",
+                    "lastOccurrence": 16487540320812346001,
+                    "count": 81
+                },
+                {
+                    "message": "node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate, node(s) didn't match Pod's node affinity",
+                    "lastOccurrence": 16487540320812346002,
+                    "count": 504
+                },
+                {
+                    "message": "node(s) didn't match Pod's node affinity",
+                    "lastOccurrence": 16487540320812346003,
+                    "count": 1170
+                }
+            ]
+        }
+    ],
+    "allocations": [
+        {
+            "allocationKey": "deb12221-6b56-4fe9-87db-ebfadce9aa20",
+            "allocationTags": {
+                "kubernetes.io/label/app": "sleep",
+                "kubernetes.io/label/applicationId": "application-0001",
+                "kubernetes.io/label/queue": "root.default",
+                "kubernetes.io/meta/namespace": "default",
+                "kubernetes.io/meta/podName": "task0"
+            },
+            "requestTime": 1648754034098912461,
+            "allocationTime": 1648754035973982920,
+            "allocationDelay": 1875070459,
+            "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+            "resource": {
+                "memory": 4000000000,
+                "vcore": 4000
+            },
+            "priority": "0",
+            "nodeId": "node-0001",
+            "applicationId": "application-0001",
+            "partition": "default",
+            "placeholder": false,
+            "placeholderUsed": true
+        }
+    ],
+    "applicationState": "Running",
+    "user": "nobody",
+    "rejectedMessage": "",
+    "stateLog": [
+        {
+            "time": 1648741409145224000,
+            "applicationState": "Accepted"
+        },
+        {
+            "time": 1648741409145509400,
+            "applicationState": "Starting"
+        },
+        {
+            "time": 1648741409147432100,
+            "applicationState": "Running"
+        }
+    ],
+    "placeholderData": [
+        {
+            "taskGroupName": "task-group-example",
+            "count": 2,
+            "minResource": {
+                "memory": 1000000000,
+                "vcore": 100
+            },
+            "replaced": 1,
+            "timedout": 1
+        }
+    ]
+}
 ```
 
 ### Error response
