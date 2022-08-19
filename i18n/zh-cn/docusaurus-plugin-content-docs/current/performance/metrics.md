@@ -1,8 +1,8 @@
 ---
 id: metrics
-title: Scheduler Metrics
+title: 调度程序指标
 keywords:
- - metrics
+ - 指标
 ---
 
 <!--
@@ -24,64 +24,62 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-YuniKorn leverages [Prometheus](https://prometheus.io/) to record metrics. The metrics system keeps tracking of
-scheduler's critical execution paths, to reveal potential performance bottlenecks. Currently, there are three categories
-for these metrics:
+YuniKorn 利用 [Prometheus](https://prometheus.io/) 记录指标。 度量系统不断跟踪调度程序的关键执行路径，以揭示潜在的性能瓶颈。 目前，这些指标分为三类：
 
-- scheduler: generic metrics of the scheduler, such as allocation latency, num of apps etc.
-- queue: each queue has its own metrics sub-system, tracking queue status.
-- event: record various changes of events in YuniKorn.
+- 调度器：调度器的通用指标，例如分配延迟、应用程序数量等。
+- 队列：每个队列都有自己的指标子系统，跟踪队列状态。
+- 事件：记录YuniKorn中事件的各种变化。
 
-all metrics are declared in `yunikorn` namespace.
-###    Scheduler Metrics
+所有指标都在 `yunikorn` 命名空间中声明。
+###    调度程序指标
 
-| Metrics Name          | Metrics Type  | Description  | 
+| 指标名称               | 指标类型        | 描述         | 
 | --------------------- | ------------  | ------------ |
-| containerAllocation   | Counter       | Total number of attempts to allocate containers. State of the attempt includes `allocated`, `rejected`, `error`, `released`. Increase only.  |
-| applicationSubmission | Counter       | Total number of application submissions. State of the attempt includes `accepted` and `rejected`. Increase only. |
-| applicationStatus     | Gauge         | Total number of application status. State of the application includes `running` and `completed`.  | 
-| totalNodeActive       | Gauge         | Total number of active nodes.                          |
-| totalNodeFailed       | Gauge         | Total number of failed nodes.                          |
-| nodeResourceUsage     | Gauge         | Total resource usage of node, by resource name.        |
-| schedulingLatency     | Histogram     | Latency of the main scheduling routine, in seconds.    |
-| nodeSortingLatency    | Histogram     | Latency of all nodes sorting, in seconds.              |
-| appSortingLatency     | Histogram     | Latency of all applications sorting, in seconds.       |
-| queueSortingLatency   | Histogram     | Latency of all queues sorting, in seconds.             |
-| tryNodeLatency        | Histogram     | Latency of node condition checks for container allocations, such as placement constraints, in seconds, in seconds. |
+| containerAllocation   | Counter       | 尝试分配容器的总次数。 尝试状态包括`allocated`, `rejected`, `error`, `released`。 该指标只会增加。  |
+| applicationSubmission | Counter       | 提交申请的总数。 尝试的状态包括 `accepted`和`rejected`。 该指标只会增加。 |
+| applicationStatus     | Gauge         | 申请状态总数。 应用程序的状态包括`running`和`completed`。  | 
+| totalNodeActive       | Gauge         | 活动节点总数。                          |
+| totalNodeFailed       | Gauge         | 失败节点的总数。                          |
+| nodeResourceUsage     | Gauge         | 节点的总资源使用情况，按资源名称。        |
+| schedulingLatency     | Histogram     | 主调度例程的延迟，以秒为单位。    |
+| nodeSortingLatency    | Histogram     | 所有节点排序的延迟，以秒为单位。              |
+| appSortingLatency     | Histogram     | 所有应用程序排序的延迟，以秒为单位。      |
+| queueSortingLatency   | Histogram     | 所有队列排序的延迟，以秒为单位。             |
+| tryNodeLatency        | Histogram     | 节点条件检查容器分配的延迟，例如放置约束，以秒为单位。 |
 
-###    Queue Metrics
+###    队列指标
 
-| Metrics Name              | Metrics Type  | Description |
+| 指标名称                   | 指标类型        | 描述        |
 | ------------------------- | ------------- | ----------- |
-| appMetrics                | Counter       | Application Metrics, record the total number of applications. State of the application includes `accepted`,`rejected` and `Completed`.     |
-| usedResourceMetrics       | Gauge         | Queue used resource.     |
-| pendingResourceMetrics    | Gauge         | Queue pending resource.  |
-| availableResourceMetrics  | Gauge         | Used resource metrics related to queues etc.    |
+| appMetrics                | Counter       | Application Metrics，记录申请总数。 应用程序的状态包括`accepted`、`rejected`和`Completed`。    |
+| usedResourceMetrics       | Gauge         | 排队使用的资源。     |
+| pendingResourceMetrics    | Gauge         | 排队等待的资源。  |
+| availableResourceMetrics  | Gauge         | 与队列等相关的已用资源指标。    |
 
-###    Event Metrics
+###    事件指标
 
-| Metrics Name             | Metrics Type  | Description |
+| 指标名称                   | 指标类型        | 描述        |
 | ------------------------ | ------------  | ----------- |
-| totalEventsCreated       | Gauge         | Total events created.          |
-| totalEventsChanneled     | Gauge         | Total events channeled.        |
-| totalEventsNotChanneled  | Gauge         | Total events not channeled.    |
-| totalEventsProcessed     | Gauge         | Total events processed.        |
-| totalEventsStored        | Gauge         | Total events stored.           |
-| totalEventsNotStored     | Gauge         | Total events not stored.       |
-| totalEventsCollected     | Gauge         | Total events collected.        |
+| totalEventsCreated       | Gauge         | 创建的事件总数。          |
+| totalEventsChanneled     | Gauge         | 引导的事件总数。        |
+| totalEventsNotChanneled  | Gauge         | 引导的事件总数。    |
+| totalEventsProcessed     | Gauge         | 处理的事件总数。        |
+| totalEventsStored        | Gauge         | 存储的事件总数。           |
+| totalEventsNotStored     | Gauge         | 未存储的事件总数。       |
+| totalEventsCollected     | Gauge         | 收集的事件总数。        |
 
-## Access Metrics
+## 访问指标
 
-YuniKorn metrics are collected through Prometheus client library, and exposed via scheduler restful service.
-Once started, they can be accessed via endpoint http://localhost:9080/ws/v1/metrics.
+YuniKorn 指标通过 Prometheus 客户端库收集，并通过调度程序 RESTful 服务公开。
+启动后，可以通过端点 http://localhost:9080/ws/v1/metrics 访问它们。
 
-## Aggregate Metrics to Prometheus
+## Prometheus 的聚合指标
 
-It's simple to setup a Prometheus server to grab YuniKorn metrics periodically. Follow these steps:
+设置 Prometheus 服务器以定期获取 YuniKorn 指标很简单。 按着这些次序：
 
-- Setup Prometheus (read more from [Prometheus docs](https://prometheus.io/docs/prometheus/latest/installation/))
+- 设置 Prometheus（从 [Prometheus 文档](https://prometheus.io/docs/prometheus/latest/installation/)了解更多信息）
 
-- Configure Prometheus rules: a sample configuration 
+- 配置 Prometheus 规则：示例配置
 
 ```yaml
 global:
@@ -96,14 +94,12 @@ scrape_configs:
     - targets: ['docker.for.mac.host.internal:9080']
 ```
 
-- start Prometheus
+- 启动 Prometheus
 
 ```shell script
 docker pull prom/prometheus:latest
 docker run -p 9090:9090 -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 ```
 
-Use `docker.for.mac.host.internal` instead of `localhost` if you are running Prometheus in a local docker container
-on Mac OS. Once started, open Prometheus web UI: http://localhost:9090/graph. You'll see all available metrics from
-YuniKorn scheduler.
+如果您在 Mac OS 上的本地 docker 容器中运行 Prometheus，请使用 `docker.for.mac.host.internal` 而不是 `localhost`。 启动后，打开 Prometheus 网页界面：http://localhost:9090/graph。 您将看到来自 YuniKorn 调度程序的所有可用指标。
 
