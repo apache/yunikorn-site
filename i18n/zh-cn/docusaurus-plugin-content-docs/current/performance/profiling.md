@@ -22,11 +22,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-使用[pprof](https://github.com/google/pprof)做 CPU，Memory profiling可以帮助你了解YuniKorn调度器的运行状态。YuniKorn REST服务中添加了分析工具，我们可以轻松地从HTTP端点检索和分析它们。
+使用[pprof](https://github.com/google/pprof)做CPU，Memory profiling可以帮助你了解YuniKorn调度器的运行状态。YuniKorn REST服务中添加了分析工具，我们可以轻松地从HTTP端点检索和分析它们。
 
 ## CPU 分析
 
-在这一步，确保你已经运行了 YuniKorn，它可以通过 `make run` 命令从本地运行，也可以部署为在 K8s 内运行的 pod。 然后运行
+在这一步，确保你已经运行了YuniKorn，它可以通过`make run`命令从本地运行，也可以部署为在K8s内运行的pod。 然后运行
 
 ```
 go tool pprof http://localhost:9080/debug/pprof/profile
@@ -90,7 +90,7 @@ Showing top 10 nodes out of 86
 
 ## 下载分析样本并在本地进行分析
 
-我们在调度程序 docker 映像中包含了基本的 go/go-tool 二进制文件，您应该能够进行一些基本的分析
+我们在调度程序docker映像中包含了基本的go/go-tool二进制文件，您应该能够进行一些基本的分析
 docker容器内的分析。 但是，如果您想深入研究一些问题，最好进行分析
 本地。 然后您需要先将示例文件复制到本地环境。 复制文件的命令如下：
 

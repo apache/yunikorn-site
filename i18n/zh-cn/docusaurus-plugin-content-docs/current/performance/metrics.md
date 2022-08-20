@@ -24,13 +24,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-YuniKorn 利用 [Prometheus](https://prometheus.io/) 记录指标。 度量系统不断跟踪调度程序的关键执行路径，以揭示潜在的性能瓶颈。 目前，这些指标分为三类：
+YuniKorn利用[Prometheus](https://prometheus.io/) 记录指标。 度量系统不断跟踪调度程序的关键执行路径，以揭示潜在的性能瓶颈。 目前，这些指标分为三类：
 
 - 调度器：调度器的通用指标，例如分配延迟、应用程序数量等。
 - 队列：每个队列都有自己的指标子系统，跟踪队列状态。
 - 事件：记录YuniKorn中事件的各种变化。
 
-所有指标都在 `yunikorn` 命名空间中声明。
+所有指标都在`yunikorn`命名空间中声明。
 ###    调度程序指标
 
 | 指标名称               | 指标类型        | 描述         | 
@@ -51,7 +51,7 @@ YuniKorn 利用 [Prometheus](https://prometheus.io/) 记录指标。 度量系�
 
 | 指标名称                   | 指标类型        | 描述        |
 | ------------------------- | ------------- | ----------- |
-| appMetrics                | Counter       | Application Metrics，记录申请总数。 应用程序的状态包括`accepted`、`rejected`和`Completed`。    |
+| appMetrics                | Counter       | 应用程序指标，记录申请总数。 应用程序的状态包括`accepted`、`rejected`和`Completed`。    |
 | usedResourceMetrics       | Gauge         | 排队使用的资源。     |
 | pendingResourceMetrics    | Gauge         | 排队等待的资源。  |
 | availableResourceMetrics  | Gauge         | 与队列等相关的已用资源指标。    |
@@ -70,16 +70,16 @@ YuniKorn 利用 [Prometheus](https://prometheus.io/) 记录指标。 度量系�
 
 ## 访问指标
 
-YuniKorn 指标通过 Prometheus 客户端库收集，并通过调度程序 RESTful 服务公开。
-启动后，可以通过端点 http://localhost:9080/ws/v1/metrics 访问它们。
+YuniKorn指标通过Prometheus客户端库收集，并通过调度程序RESTful服务公开。
+启动后，可以通过端点http://localhost:9080/ws/v1/metrics访问它们。
 
 ## Prometheus 的聚合指标
 
 设置 Prometheus 服务器以定期获取 YuniKorn 指标很简单。 按着这些次序：
 
-- 设置 Prometheus（从 [Prometheus 文档](https://prometheus.io/docs/prometheus/latest/installation/)了解更多信息）
+- 设置Prometheus（从[Prometheus 文档](https://prometheus.io/docs/prometheus/latest/installation/)了解更多信息）
 
-- 配置 Prometheus 规则：示例配置
+- 配置Prometheus规则：示例配置
 
 ```yaml
 global:
@@ -101,5 +101,5 @@ docker pull prom/prometheus:latest
 docker run -p 9090:9090 -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 ```
 
-如果您在 Mac OS 上的本地 docker 容器中运行 Prometheus，请使用 `docker.for.mac.host.internal` 而不是 `localhost`。 启动后，打开 Prometheus 网页界面：http://localhost:9090/graph。 您将看到来自 YuniKorn 调度程序的所有可用指标。
+如果您在Mac OS上的本地docker容器中运行Prometheus，请使用`docker.for.mac.host.internal`而不是`localhost`。 启动后，打开Prometheus网页界面：http://localhost:9090/graph。 您将看到来自YuniKorn调度程序的所有可用指标。
 
