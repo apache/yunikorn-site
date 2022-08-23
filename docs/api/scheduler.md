@@ -239,18 +239,6 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 ### Error response
 
-**Code** : `400 Bad Request`
-
-**Content examples**
-
-```json
-{
-    "status_code": 400,
-    "message": "Partition is missing in URL path. Please check the usage documentation",
-    "description": "Partition is missing in URL path. Please check the usage documentation"
-}
-```
-
 **Code** : `500 Internal Server Error`
 
 **Content examples**
@@ -484,18 +472,6 @@ In the example below there are three allocations belonging to two applications, 
 
 ### Error response
 
-**Code** : `400 Bad Request`
-
-**Content examples**
-
-```json
-{
-    "status_code": 400,
-    "message": "Partition is missing in URL path. Please check the usage documentation",
-    "description": "Partition is missing in URL path. Please check the usage documentation"
-}
-```
-
 **Code** : `500 Internal Server Error`
 
 **Content examples**
@@ -641,18 +617,6 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
 ```
 
 ### Error response
-
-**Code** : `400 Bad Request`
-
-**Content examples**
-
-```json
-{
-    "status_code": 400,
-    "message": "Partition is missing in URL path. Please check the usage documentation",
-    "description": "Partition is missing in URL path. Please check the usage documentation"
-}
-```
 
 **Code** : `500 Internal Server Error`
 
@@ -837,18 +801,6 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 ```
 
 ### Error response
-
-**Code** : `400 Bad Request`
-
-**Content examples**
-
-```json
-{
-    "status_code": 400,
-    "message": "Partition is missing in URL path. Please check the usage documentation",
-    "description": "Partition is missing in URL path. Please check the usage documentation"
-}
-```
 
 **Code** : `500 Internal Server Error`
 
