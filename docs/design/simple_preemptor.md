@@ -1,6 +1,6 @@
              ---
 id: simple_preemptor
-title: Simple Preemptor design
+title: DaemonSet Scheduling using Simple Preemptor
 ---
 
 <!--

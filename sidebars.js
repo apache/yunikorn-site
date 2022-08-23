@@ -75,6 +75,7 @@ module.exports = {
                     'design/state_aware_scheduling',
                     'design/scheduler_object_states',
                     'design/scheduler_core_design',
+                    'design/simple_preemptor'
                     'design/cross_queue_preemption',
                 ]
             },
