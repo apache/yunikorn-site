@@ -1,5 +1,5 @@
 ---
-id: interface_message_simplication
+id: interface_message_simplification
 title: Simplyfing Interface Messages
 ---
 
