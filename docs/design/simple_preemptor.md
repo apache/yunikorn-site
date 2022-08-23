@@ -49,7 +49,7 @@ Core should filter the pods based on the following criteria:
 
 All Daemonset pods should be filtered out completely irrespective of priority settings. Depending on the “requiredNode” value of pod spec, these pods can be filtered out and cannot be taken forward for the remaining process.
 
-![simple_preemptor](./../assets/YUNIKORN-1184.png)
+![simple_preemptor](./../assets/simple_preemptor.png)
 
 ##### Ordering Victim pods (4)
 
