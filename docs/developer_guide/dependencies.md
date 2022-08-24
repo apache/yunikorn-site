@@ -25,7 +25,7 @@ under the License.
 ## When to update
 The references in the `master` branches must be updated if a change is made in the scheduler interface.
 Updating the dependency of a shim in reference to the core might be needed even if the scheduler interface does not change.
-New functionality could be added that rely on changed content of the messages.
+New functionality could be added that rely on changed field content of the messages, not the field layout of the message.
 In that case just the shim dependency needs to be updated.
 
 ## Why a pseudo version
@@ -49,6 +49,15 @@ require (
 Release branches **must** not use pseudo versions.
 During the creation of a release, [tags](/community/release_procedure#tag-and-update-release-for-version) will be created.
 These tags will be used as the reference in the go.mod files for the release.    
+
+## Enforcement of pseudo version
+In the pull request checks for the `yunikorn-core` and `yunikorn-k8shim` repositories enforce the format of the versions.
+A build failure will be triggered if the version reference for the `yunikorn-core` or `yunikorn-scheduler-interface`
+repositories in the `master` branch is not a pseudo version.
+
+The check enforces that the start of the version reference is `v.0.0.0-`
+
+Pseudo versions are not enforced in the release branches as per [why a pseudo version](#why-a-pseudo-version) explanation above. 
 
 ## Updating the core dependency
 Before updating the core dependency must make sure that the scheduler interface changes are finalised.
