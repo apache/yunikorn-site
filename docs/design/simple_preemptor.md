@@ -1,4 +1,4 @@
-             ---
+---
 id: simple_preemptor
 title: DaemonSet Scheduling using Simple Preemptor
 ---

@@ -66,6 +66,7 @@ module.exports = {
                     'design/scheduler_plugin',
                     'design/gang_scheduling',
                     'design/cache_removal',
+                    'design/simple_preemptor',
                     'design/generic_resource',
                     'design/namespace_resource_quota',
                     'design/pluggable_app_management',
@@ -75,7 +76,6 @@ module.exports = {
                     'design/state_aware_scheduling',
                     'design/scheduler_object_states',
                     'design/scheduler_core_design',
-                    'design/simple_preemptor'
                     'design/cross_queue_preemption',
                 ]
             },
