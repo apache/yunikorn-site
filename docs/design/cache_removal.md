@@ -23,7 +23,7 @@ title: Scheduler cache removal design
 
 :::caution
 The Interface Message definitions described in this design doc has undergone major refactoring to reduce the complexity. [YUNIKORN-337](https://issues.apache.org/jira/browse/YUNIKORN-337) was committed and simplified the message communication between Core and Shim to greater extent. 
-See [Simplyfing Interface Messages and Breaking Shim build dependency on Core](interface_message_simplification.md) to know the updated message definitions.
+See [Simplifying Interface Messages and Breaking Shim build dependency on Core](interface_message_simplification.md) to know the updated message definitions.
 :::
 
 # Proposal to combine Cache and Scheduler's implementation in the core

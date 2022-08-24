@@ -1,6 +1,6 @@
 ---
 id: interface_message_simplification
-title: Simplyfing Interface Messages
+title: Simplifying Interface Messages
 ---
 
 <!--
@@ -21,7 +21,7 @@ title: Simplyfing Interface Messages
  * limitations under the License.
  -->
 
-# Simplyfing Interface Messages and Breaking Shim build dependency on Core
+# Simplifying Interface Messages and Breaking Shim build dependency on Core
 
 # Proposal
 This document describes a) complexity hidden behind existing Interface messages and 
@@ -39,7 +39,7 @@ The current interface allows us to only send one message between a shim and the 
 The complexity is however hidden in the message itself. Every message serves multiple purposes and when the message is received the core and shim need to unpack it and process each part separately and for certain parts in a real specific order.
 Because the message serves a number of purposes it has a large overhead. This might not show up in the code directly as the heavy lifting is done in the generated code. It will show up in the amount of data as a message, even if it does not have all fields, still needs to be encoded in a way that it unpacks correctly on the other side.
 
-## Simplfying Interface Messages
+## Simplifying Interface Messages
 
 Proposal is to split the one large message into 3 separate messages - one for each entity:
 
