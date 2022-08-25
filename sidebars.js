@@ -67,6 +67,7 @@ module.exports = {
                     'design/gang_scheduling',
                     'design/interface_message_simplification',
                     'design/cache_removal',
+                    'design/simple_preemptor',
                     'design/generic_resource',
                     'design/namespace_resource_quota',
                     'design/pluggable_app_management',
