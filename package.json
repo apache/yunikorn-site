@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@docusaurus/core": "2.0.1",
+    "@docusaurus/plugin-client-redirects": "^2.0.1",
     "@docusaurus/preset-classic": "2.0.1",
     "@docusaurus/theme-search-algolia": "^2.0.1",
     "@mdx-js/react": "^1.5.8",
