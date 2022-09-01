@@ -17,7 +17,8 @@
  -->
 # Apache YuniKorn website
 ---
-![auto-publish](https://github.com/apache/yunikorn-site/workflows/auto-publish/badge.svg)
+[![pre-commit](https://github.com/apache/yunikorn-site/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/apache/yunikorn-site/actions/workflows/pre-commit.yml)
+[![auto-publish](https://github.com/apache/yunikorn-site/actions/workflows/auto-publish.yml/badge.svg)](https://github.com/apache/yunikorn-site/actions/workflows/auto-publish.yml)
 
 This README will walk you through building and updating the Apache YuniKorn website.
 
