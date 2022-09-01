@@ -73,7 +73,7 @@ For example, artifacts used to build 0.8.0 RC2 should be tagged `v0.8.0-2` and r
 Once the release is finalized, git tags and GitHub releases should be created for `v0.8.0` pointing to the same commits.
 Under no circumstances should an existing tag be removed or moved. This will break golang dependency resolution for downstream users.
 
-The tagging is multi step process, all actions are done on the branch that will be released, like `branch-0.8`:
+The tagging is multistep process, all actions are done on the branch that will be released, like `branch-0.8`:
 1. Tag the web and scheduler interface with the release tag.
 2. Update the `go.mod` file in the core using `go get github.com/apache/yunikorn-scheduler-interface`  
 Add the tag and commit the changes.
@@ -95,7 +95,24 @@ Follow these steps to generate the list:
 ### Run the release tool
 A tool has been written to handle most of the release tasks.
 The tool requires a simple [json](https://github.com/apache/yunikorn-release/tree/master/tools/release-configs.json) input file to be updated before running.
-This configuration points to the current release tag. Only update the tag for each repository.
+This configuration points to the tag to use in the release and the version to release.
+Update the version to release and the tag for each repository.
+The version used must be the _exact_ version that you intend to release.
+So `0.8.0` or `0.12.2` **without** any additional references like a `RC1` or something similar.
+The version is used as part of the source code, inside the Makefile etc., and to name the release artefact and cannot be changed anymore.
+The tag format is as described in the [step tag and release version](#tag-and-update-release-for-version)
+
+As an example when releasing the first release candidate for `0.8.0` the json file should contain version and tag information like below:
+```json
+{
+  "release": {
+    "version": "0.8.0"
+  },
+
+  "tag": "v0.8.0-1",
+  "repository": "https://github..."
+}
+```
 
 The tool has one requirement outside of standard Python 3: [GitPython](https://gitpython.readthedocs.io/en/stable/intro.html)
 Make sure you have installed it by running `pip install gitpython`.
