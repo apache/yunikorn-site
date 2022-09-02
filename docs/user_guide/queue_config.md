@@ -228,10 +228,10 @@ A sample limits entry:
 limits:
   - limit: <description>
     users:
-    - <user name or "*"">
+    - <user name or "*">
     - <user name>
     groups:
-    - <group name or "*"">
+    - <group name or "*">
     - <group name>
     maxapplications: <1..maxint>
     maxresources:
