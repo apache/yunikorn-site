@@ -42,8 +42,8 @@ module.exports = {
       {
         redirects: [
           {
-            to: '/docs/',
-            from: '/docs/1.0.0',
+            to: '/docs/1.0.0',
+            from: '/docs/',
           },
         ],
       },
