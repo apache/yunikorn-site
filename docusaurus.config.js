@@ -58,7 +58,7 @@ module.exports = {
     announcementBar: {
       id: 'new_release',
       content:
-          '1.0.0 has been released, check the DOWNLOADS',
+          '1.1.0 has been released, check the DOWNLOADS',
       backgroundColor: '#fafbfc',
       textColor: '#091E42',
     },
