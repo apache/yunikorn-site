@@ -60,7 +60,7 @@ To verify the integrity of Apache YuniKorn release using the SHA-512 checksum:
 - Download the checksum apache-yunikorn-X.Y.Z-src.tar.gz.sha512 from Apache.
 - Verify the checksum
   - on MacOS-X: `shasum -c apache-yunikorn-X.Y.Z-src.tar.gz.sha512`
-  - on Linux: `sha256sum -c apache-yunikorn-X.Y.Z-src.tar.gz.sha512`
+  - on Linux: `sha512sum -c apache-yunikorn-X.Y.Z-src.tar.gz.sha512`
 
 ## Verifying the release
 
