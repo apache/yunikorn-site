@@ -36,19 +36,6 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    [
-      '@docusaurus/plugin-client-redirects',
-      {
-        redirects: [
-          {
-            to: '/docs/',
-            from: '/docs/1.0.0',
-          },
-        ],
-      },
-    ],
-  ],
   presets: [
     [
       '@docusaurus/preset-classic',
