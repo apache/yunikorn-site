@@ -58,7 +58,7 @@ Apache YuniKorn 的最新版本是 v1.0.0。
 - 从 Apache 下载校验和 apache-yunikorn-X.Y.Z-src.tar.gz.tar.gz.sha512。
 - 验证 checksum
   - 在 MacOS-X: `shasum -c apache-yunikorn-X.Y.Z-src.tar.gz.tar.gz.sha512`
-  - 在 Linux: `sha256sum -c apache-yunikorn-X.Y.Z-src.tar.gz.tar.gz.sha512`
+  - 在 Linux: `sha512sum -c apache-yunikorn-X.Y.Z-src.tar.gz.tar.gz.sha512`
 
 ## 验证发布
 
