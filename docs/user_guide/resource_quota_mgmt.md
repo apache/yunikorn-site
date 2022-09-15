@@ -242,9 +242,9 @@ The example above will limit the queue mapped to the annotated namespace to 64 C
 Above annotation would be deprecated from next major release and below annotation should be used instead of the above
 
 ```yaml
-yunikorn.apache.org/namespace.quota: "{"cpu": "64m", "memory": "100M", "nvidia.com/gpu": "1"}"
+yunikorn.apache.org/namespace.quota: "{\"cpu\": \"64m\", \"memory\": \"100M\", \"nvidia.com/gpu\": \"1\"}"
 ```
-
+Annotation value should be single json complaint string specifically to ensure double quotes doesn't cause any problems.
 The example above will limit the queue mapped to the annotated namespace to 64 vcores, 100 * 1000 * 1000 bytes of memory and 1 nvidia.com/gpu.
 
 ### Run a workload
