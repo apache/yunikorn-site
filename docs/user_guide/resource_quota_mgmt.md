@@ -227,15 +227,24 @@ If a quota is set on a namespace Kubernetes will automatically enforce the quota
 In the case that YuniKorn is used for quota enforcement no quota must be set on the namespace.
 
 To allow specifying a quota on the namespace the following annotations should be set in the namespace object:
+
+```yaml
+yunikorn.apache.org/namespace.quota: "{\"cpu\": \"64\", \"memory\": \"100G\", \"nvidia.com/gpu\": \"1\"}"
+```
+YuniKorn will parse these annotations and set the maximum capacity of the queue mapped to this namespace.
+The values specified follow the standard Kubernetes formatting and unit specification.
+Annotation value must be a single json compliant string. Ensure double quotes iare escaped properly to not cause any problems.
+
+The example above will limit the queue mapped to the annotated namespace to 64 CPUs, 100GB memory and 1 `nvidia.com/gpu`.
+
+[DEPRECATED]
+The below annotations are deprecated and will be removed from next major release.
+They only support mapping memory and cpu, not other resource types.
 ```yaml
 yunikorn.apache.org/namespace.max.cpu: "64"
 yunikorn.apache.org/namespace.max.memory: "100Gi"
 ```
-YuniKorn will parse these annotations and set the maximum capacity of the queue mapped to this namespace.
-The values specified follow the standard Kubernetes formatting and unit specification.
-Currently, we only support mapping memory and cpu not other resource types.
-
-The example above will limit the queue mapped to the annotated namespace to 64 CPUs and 100GB memory.
+The example for the deprecated annotation will set the queue quota to 64 CPUs and 100GB memory.
 
 ### Run a workload
 
