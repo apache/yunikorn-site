@@ -262,9 +262,43 @@ The star "*" is the wildcard character and matches all users or groups.
 Duplicate entries in the lists are ignored and do not cause a parsing error.
 Specifying a star beside other list elements is not allowed.
 
-_maxapplications_ is an unsigned integer value, larger than 1, which allows you to limit the number of running applications for the configured user or group.
+_maxapplications_ is an integer value, larger than 1, which allows you to limit the number of running applications for the configured user or group.
 Specifying a zero maximum applications limit is not allowed as it would implicitly deny access.
 Denying access must be handled via the ACL entries.  
+
+_parent_ queue _maxapplications_ value must be larger than _parent_ queue _maxapplications_ value.
+
+As an example: 
+```yaml
+partitions:
+  - name: default
+    nodesortpolicy:
+      type: fair
+    placementrules:
+      - name: provided
+        value: queue
+        create: true
+    queues:
+      - name: root
+        submitacl: '*'
+        queues:
+          - name: queue1
+            submitacl: '*'
+            maxapplications: 12
+            resources:
+              guaranteed:
+                {memory: 6290G, vcore: 816}
+              max:
+                {memory: 31450G, vcore: 4080}
+          - name: queue2
+            submitacl: '*'
+            maxapplications: 12
+            resources:
+              guaranteed:
+                {memory: 6290G, vcore: 816}
+              max:
+                {memory: 31450G, vcore: 4080}
+```
 
 The _maxresources_ parameter can be used to specify a limit for one or more resources.
 The _maxresources_ uses the same syntax as the [resources](#resources) parameter for the queue. 
