@@ -31,11 +31,11 @@ Release Details:
 - Development status: [Issue tracker](https://issues.apache.org/jira/issues/?filter=12348416)
 
 Planned major features:
-- [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) Enforcing User and Group limits (phase 1)
-- [YUNIKORN-1196](https://issues.apache.org/jira/browse/YUNIKORN-1196) Update K8s build dependency
+- [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) [Umbrella] User quota tracking
+- [YUNIKORN-1196](https://issues.apache.org/jira/browse/YUNIKORN-1196) Upgrade K8s build dependency
 - [YUNIKORN-1275](https://issues.apache.org/jira/browse/YUNIKORN-1275) Support arbitrary resources in namespace annotation
-- [YUNIKORN-1306](https://issues.apache.org/jira/browse/YUNIKORN-1306) Enhanced user and group handling
-- [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1) Application priority
+- [YUNIKORN-1306](https://issues.apache.org/jira/browse/YUNIKORN-1306) [Umbrella] Enhanced user and group handling
+- [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1) Support app/task priority aware scheduling
 
 Supported Kubernetes versions and the Kubernetes dependency will be defined and finalised during the development cycle.
 
