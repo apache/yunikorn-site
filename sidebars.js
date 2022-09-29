@@ -78,6 +78,7 @@ module.exports = {
                     'design/scheduler_object_states',
                     'design/scheduler_core_design',
                     'design/cross_queue_preemption',
+                    'design/user_group',
                 ]
             },
         ],
