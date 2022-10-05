@@ -65,6 +65,7 @@ module.exports = {
                     'design/k8shim',
                     'design/scheduler_plugin',
                     'design/gang_scheduling',
+                    'design/user_group',
                     'design/interface_message_simplification',
                     'design/cache_removal',
                     'design/simple_preemptor',
