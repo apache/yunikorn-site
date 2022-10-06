@@ -140,7 +140,11 @@ Assigning the applicationId and the queue path are possible.
 
 You'll see Spark driver and executors been created on Kubernetes:
 
-![spark-pods](./../../assets/spark-pods.png)
+![spark-pods](./../../assets/RunningSparkOnK8s.png)
+
+The spark-pi result is in the driver pod.
+
+![spark-pods](./../../assets/sparkResult.png)
 
 ## What happens behind the scenes?
 
