@@ -32,13 +32,15 @@ under the License.
 ## 为Spark准备docker镜像
 
 要在Kubernetes上运行Spark，您需要Spark的docker镜像。您可以
-1）使用YuniKorn团队提供的docker镜像
-2）从头开始构建一个镜像。如果你想建立自己的Spark的docker镜像，您可以
+1）使用Spark团队提供的docker镜像
+2）从头开始构建一个镜像。如果你想建立自己的Spark的docker镜像，您可以找到 [完整说明](https://spark.apache.org/docs/latest/building-spark.html)
+在 Spark 文档中。简化步骤:
 * 下载一个支持Kubernetes的Spark版本，URL: https://github.com/apache/spark
 * 构建支持Kubernetes的Spark版本:
 ```shell script
-mvn -Pyarn -Phadoop-2.7 -Dhadoop.version=2.7.4 -Phive -Pkubernetes -Phive-thriftserver -DskipTests package
+./buid/mvn -Pkubernetes -DskipTests clean package
 ```
+建议使用[dockerhub](https://hub.docker.com/r/apache/spark/tags)中不同spark版本的官方镜像
 
 ## 为Spark作业创建一个命名空间
 
@@ -53,7 +55,9 @@ metadata:
 EOF
 ```
 
-在 `spark-test` 命名空间下创建 service account 和 cluster role bindings :
+## 创建服务帐号和角色绑定
+
+在 `spark-test` 命名空间下创建 service account 和 role bindings :
 
 ```shell script
 cat <<EOF | kubectl apply -n spark-test -f -
@@ -64,9 +68,9 @@ metadata:
   namespace: spark-test
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
-  name: spark-cluster-role
+  name: spark-role
   namespace: spark-test
 rules:
 - apiGroups: [""]
@@ -77,17 +81,17 @@ rules:
   verbs: ["get", "create", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
-  name: spark-cluster-role-binding
+  name: spark-role-binding
   namespace: spark-test
 subjects:
 - kind: ServiceAccount
   name: spark
   namespace: spark-test
 roleRef:
-  kind: ClusterRole
-  name: spark-cluster-role
+  kind: Role
+  name: spark-role
   apiGroup: rbac.authorization.k8s.io
 EOF
 ```
@@ -104,28 +108,39 @@ EOF
 kubectl proxy
 ```
 
-运行一个简单的 SparkPi 作业（这假设Spark二进制文件已安装到 `/usr/local` 目录）。
+[dockerhub](https://hub.docker.com/r/apache/spark/tags)中有不同spark版本的官方镜像
+运行一个简单的 SparkPi 作业，假设 Spark 二进制文件本地安装在 `/usr/local` 目录中。
 ```shell script
-export SPARK_HOME=/usr/local/spark-2.4.4-bin-hadoop2.7/
+export SPARK_HOME=/usr/local/spark/
 ${SPARK_HOME}/bin/spark-submit --master k8s://http://localhost:8001 --deploy-mode cluster --name spark-pi \
    --master k8s://http://localhost:8001 --deploy-mode cluster --name spark-pi \
    --class org.apache.spark.examples.SparkPi \
    --conf spark.executor.instances=1 \
    --conf spark.kubernetes.namespace=spark-test \
    --conf spark.kubernetes.executor.request.cores=1 \
-   --conf spark.kubernetes.container.image=apache/yunikorn:spark-2.4.4 \
+   --conf spark.kubernetes.container.image=docker.io/spark:v3.3.0 \
    --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark-test:spark \
-   local:///opt/spark/examples/jars/spark-examples_2.11-2.4.4.jar
+   local:///opt/spark/examples/jars/spark-examples_2.12-3.3.0.jar
 ```
+:::note
+在 [spark](https://spark.apache.org/docs/latest/running-on-kubernetes.html#configuration) 中有更多设置驱动程序和执行程序的选项。
+可以分配 applicationId 和队列路径。
+```
+--conf spark.kubernetes.executor.label.applicationId=application-spark-0001
+--conf spark.kubernetes.driver.label.applicationId=application-spark-0001
+--conf spark.kubernetes.executor.label.queue=default.root.sandbox
+--conf spark.kubernetes.driver.label.queue=default.root.sandbox
+```
+:::
 
 您可以看见Spark的driver和executors在Kubernetes上创建:
 
-![spark-pods](./../../assets/spark-pods.png)
+![spark-pods](./../../assets/RunningSparkOnK8s.png)
 
-您还可以从 YuniKorn UI 查看作业信息。如果您不知道如何访问 YuniKorn UI，请阅读文档
+spark-pi 结果在驱动程序舱中。
 [链接](../../get_started/get_started.md#访问-web-ui).
 
-![spark-jobs-on-ui](./../../assets/spark-jobs-on-ui.png)
+![spark-pods](./../../assets/sparkResult.png)
 
 ## 幕后发生了什么？
 
