@@ -133,6 +133,7 @@ Supported parameters for the queues:
 * name
 * parent
 * queues
+* maxApplications
 * properties
 * adminacl
 * submitacl
@@ -180,11 +181,20 @@ partitions:
     queues:
       - name: namespaces
         parent: true
+        maxapplications: 12
         resources:
           guaranteed:
             {memory: 1G, vcore: 10}
           max:
             {memory: 10G, vcore: 100}
+        queues:
+          - name: level1
+            maxapplications: 8
+            resources:
+              guaranteed:
+                {memory: 0.5G, vcore: 5}
+              max:
+                {memory: 5G, vcore: 50}
 ```
 
 ### Placement rules
@@ -264,41 +274,8 @@ Specifying a star beside other list elements is not allowed.
 
 _maxapplications_ is an integer value, larger than 1, which allows you to limit the number of running applications for the configured user or group.
 Specifying a zero maximum applications limit is not allowed as it would implicitly deny access.
-Denying access must be handled via the ACL entries.  
-
+Denying access must be handled via the ACL entries.
 _parent_ queue _maxapplications_ value must be larger than _parent_ queue _maxapplications_ value.
-
-As an example: 
-```yaml
-partitions:
-  - name: default
-    nodesortpolicy:
-      type: fair
-    placementrules:
-      - name: provided
-        value: queue
-        create: true
-    queues:
-      - name: root
-        submitacl: '*'
-        queues:
-          - name: queue1
-            submitacl: '*'
-            maxapplications: 12
-            resources:
-              guaranteed:
-                {memory: 6290G, vcore: 816}
-              max:
-                {memory: 31450G, vcore: 4080}
-          - name: queue2
-            submitacl: '*'
-            maxapplications: 12
-            resources:
-              guaranteed:
-                {memory: 6290G, vcore: 816}
-              max:
-                {memory: 31450G, vcore: 4080}
-```
 
 The _maxresources_ parameter can be used to specify a limit for one or more resources.
 The _maxresources_ uses the same syntax as the [resources](#resources) parameter for the queue. 
