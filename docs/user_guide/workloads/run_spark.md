@@ -34,14 +34,12 @@ This document assumes you have YuniKorn and its admission-controller both instal
 
 To run Spark on Kubernetes, you'll need the Spark docker images. You can 1) use the docker images provided by the YuniKorn
 team, or 2) build one from scratch. If you want to build your own Spark docker image, you can
-* Download a Spark version that has Kubernetes support, URL: https://github.com/apache/spark
-* Build spark with Kubernetes support:
+* Download a Spark version that has Kubernetes support, URL: https://github.com/apache/spark 
+* (Optional)Build spark with Kubernetes support:
 ```shell script
-git clone https://github.com/apache/spark.git
-cd spark
 ./build/mvn -Pkubernetes -DskipTests clean package
 ```
- The spark document introduces how to build the spark image locally. The operations are in the [ref](https://spark.apache.org/docs/latest/running-on-kubernetes.html#submitting-applications-to-kubernetes)
+
 
 ## Create a namespace for Spark jobs
 
@@ -67,7 +65,7 @@ metadata:
   namespace: spark-test
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
   name: spark-cluster-role
   namespace: spark-test
@@ -78,15 +76,9 @@ rules:
 - apiGroups: [""]
   resources: ["configmaps"]
   verbs: ["get", "create", "delete"]
-- apiGroups: [""]
-  resources: ["services"]
-  verbs: ["get", "create", "delete"]
-- apiGroups: [""]
-  resources: ["persistentvolumeclaims"]
-  verbs: ["get", "create", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
   name: spark-cluster-role-binding
   namespace: spark-test
@@ -95,7 +87,7 @@ subjects:
   name: spark
   namespace: spark-test
 roleRef:
-  kind: ClusterRole
+  kind: Role
   name: spark-cluster-role
   apiGroup: rbac.authorization.k8s.io
 EOF
@@ -113,6 +105,7 @@ If this is running from local machine, you will need to start the proxy in order
 kubectl proxy
 ```
 
+There are official images with different spark versions in the [dockerhub](https://hub.docker.com/r/apache/spark/tags)
 Run a simple SparkPi job (this assumes that the Spark binaries are installed to `/usr/local` directory).
 ```shell script
 export SPARK_HOME=/usr/local/spark/
