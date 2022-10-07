@@ -32,13 +32,17 @@ This document assumes you have YuniKorn and its admission-controller both instal
 
 ## Prepare the docker image for Spark
 
-To run Spark on Kubernetes, you'll need the Spark docker images. You can 1) use the docker images provided by the YuniKorn
-team, or 2) build one from scratch. If you want to build your own Spark docker image, you can
-* Download a Spark version that has Kubernetes support, URL: https://github.com/apache/spark
+To run Spark on Kubernetes, you'll need the Spark docker images. You can 1) use the docker images provided by the Spark
+team, or 2) build one from scratch.
+If you want to build your own Spark docker image, you can find the [full instructions](https://spark.apache.org/docs/latest/building-spark.html)
+in the Spark documentation. Simplified steps:
+* Download a Spark version that has Kubernetes support, URL: https://github.com/apache/spark 
 * Build spark with Kubernetes support:
 ```shell script
-mvn -Pyarn -Phadoop-2.7 -Dhadoop.version=2.7.4 -Phive -Pkubernetes -Phive-thriftserver -DskipTests package
+./build/mvn -Pkubernetes -DskipTests clean package
 ```
+Recommendation is to use the official images with different spark versions in the [dockerhub](https://hub.docker.com/r/apache/spark/tags)
+
 
 ## Create a namespace for Spark jobs
 
@@ -53,7 +57,9 @@ metadata:
 EOF
 ```
 
-Create service account and cluster role bindings under `spark-test` namespace:
+## Create service account and role binding
+
+Create service account and role bindings inside the `spark-test` namespace:
 
 ```shell script
 cat <<EOF | kubectl apply -n spark-test -f -
@@ -64,7 +70,7 @@ metadata:
   namespace: spark-test
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
   name: spark-cluster-role
   namespace: spark-test
@@ -77,7 +83,7 @@ rules:
   verbs: ["get", "create", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
   name: spark-cluster-role-binding
   namespace: spark-test
@@ -86,7 +92,7 @@ subjects:
   name: spark
   namespace: spark-test
 roleRef:
-  kind: ClusterRole
+  kind: Role
   name: spark-cluster-role
   apiGroup: rbac.authorization.k8s.io
 EOF
@@ -104,28 +110,39 @@ If this is running from local machine, you will need to start the proxy in order
 kubectl proxy
 ```
 
-Run a simple SparkPi job (this assumes that the Spark binaries are installed to `/usr/local` directory).
+There are official images with different spark versions in the [dockerhub](https://hub.docker.com/r/apache/spark/tags)
+Run a simple SparkPi job, this assumes that the Spark binaries are installed locally in the `/usr/local` directory.
 ```shell script
-export SPARK_HOME=/usr/local/spark-2.4.4-bin-hadoop2.7/
+export SPARK_HOME=/usr/local/spark/
 ${SPARK_HOME}/bin/spark-submit --master k8s://http://localhost:8001 --deploy-mode cluster --name spark-pi \
    --master k8s://http://localhost:8001 --deploy-mode cluster --name spark-pi \
    --class org.apache.spark.examples.SparkPi \
    --conf spark.executor.instances=1 \
    --conf spark.kubernetes.namespace=spark-test \
    --conf spark.kubernetes.executor.request.cores=1 \
-   --conf spark.kubernetes.container.image=apache/yunikorn:spark-2.4.4 \
-   --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark-test:spark \
-   local:///opt/spark/examples/jars/spark-examples_2.11-2.4.4.jar
+   --conf spark.kubernetes.container.image=docker.io/apache/spark:v3.3.0 \
+   --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
+   local:///opt/spark/examples/jars/spark-examples_2.12-3.3.0.jar
 ```
+
+:::note
+There are more options for setting the driver and executor in the [spark](https://spark.apache.org/docs/latest/running-on-kubernetes.html#configuration).
+Assigning the applicationId and the queue path are possible.
+```
+--conf spark.kubernetes.executor.label.applicationId=application-spark-0001
+--conf spark.kubernetes.driver.label.applicationId=application-spark-0001  
+--conf spark.kubernetes.executor.label.queue=default.root.sandbox
+--conf spark.kubernetes.driver.label.queue=default.root.sandbox
+```
+:::
 
 You'll see Spark driver and executors been created on Kubernetes:
 
-![spark-pods](./../../assets/spark-pods.png)
+![spark-pods](./../../assets/RunningSparkOnK8s.png)
 
-You can also view the job info from YuniKorn UI. If you do not know how to access the YuniKorn UI, please read the document
-[here](../../get_started/get_started.md#access-the-web-ui).
+The spark-pi result is in the driver pod.
 
-![spark-jobs-on-ui](./../../assets/spark-jobs-on-ui.png)
+![spark-pods](./../../assets/sparkResult.png)
 
 ## What happens behind the scenes?
 
