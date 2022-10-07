@@ -133,7 +133,7 @@ Supported parameters for the queues:
 * name
 * parent
 * queues
-* maxApplications
+* maxapplications
 * properties
 * adminacl
 * submitacl
@@ -275,7 +275,6 @@ Specifying a star beside other list elements is not allowed.
 _maxapplications_ is an integer value, larger than 1, which allows you to limit the number of running applications for the configured user or group.
 Specifying a zero maximum applications limit is not allowed as it would implicitly deny access.
 Denying access must be handled via the ACL entries.
-_parent_ queue _maxapplications_ value must be larger than _parent_ queue _maxapplications_ value.
 
 The _maxresources_ parameter can be used to specify a limit for one or more resources.
 The _maxresources_ uses the same syntax as the [resources](#resources) parameter for the queue. 
