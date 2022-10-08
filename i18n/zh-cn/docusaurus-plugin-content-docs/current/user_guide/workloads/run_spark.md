@@ -118,7 +118,7 @@ ${SPARK_HOME}/bin/spark-submit --master k8s://http://localhost:8001 --deploy-mod
    --conf spark.executor.instances=1 \
    --conf spark.kubernetes.namespace=spark-test \
    --conf spark.kubernetes.executor.request.cores=1 \
-   --conf spark.kubernetes.container.image=docker.io/spark:v3.3.0 \
+   --conf spark.kubernetes.container.image=docker.io/apache/spark:v3.3.0 \
    --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark-test:spark \
    local:///opt/spark/examples/jars/spark-examples_2.12-3.3.0.jar
 ```
@@ -137,8 +137,7 @@ ${SPARK_HOME}/bin/spark-submit --master k8s://http://localhost:8001 --deploy-mod
 
 ![spark-pods](./../../assets/RunningSparkOnK8s.png)
 
-spark-pi 结果在驱动程序舱中。
-[链接](../../get_started/get_started.md#访问-web-ui).
+spark-pi结果在 driver pod中。
 
 ![spark-pods](./../../assets/sparkResult.png)
 
