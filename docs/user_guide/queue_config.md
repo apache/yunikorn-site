@@ -160,7 +160,7 @@ Trying to override a _parent_ queue type in the configuration will cause a parsi
 
 Sub queues for a parent queue are defined under the `queues` entry.
 The `queues` entry is a recursive entry for a queue level and uses the exact same set of parameters.  
-
+The _maxapplications_ property is an integer value, larger than 1, which allows you to limit the number of running applications for the queue. Specifying a zero for _maxapplications_ is not allowed as it would block all allocations for applications in the queue. The _maxapplications_ value for a _child_ queue must be smaller or equal to the value for the _parent_ queue.
 The `properties` parameter is a simple key value pair list. 
 The list provides a simple set of properties for the queue.
 There are no limitations on the key or value values, anything is allowed.
@@ -272,7 +272,7 @@ The star "*" is the wildcard character and matches all users or groups.
 Duplicate entries in the lists are ignored and do not cause a parsing error.
 Specifying a star beside other list elements is not allowed.
 
-_maxapplications_ is an integer value, larger than 1, which allows you to limit the number of running applications for the configured user or group.
+_maxapplications_ is an unsigned integer value, larger than 1, which allows you to limit the number of running applications for the configured user or group.
 Specifying a zero maximum applications limit is not allowed as it would implicitly deny access.
 Denying access must be handled via the ACL entries.
 
