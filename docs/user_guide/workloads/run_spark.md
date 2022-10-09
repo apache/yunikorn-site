@@ -36,7 +36,7 @@ To run Spark on Kubernetes, you'll need the Spark docker images. You can 1) use 
 team, or 2) build one from scratch.
 If you want to build your own Spark docker image, you can find the [full instructions](https://spark.apache.org/docs/latest/building-spark.html)
 in the Spark documentation. Simplified steps:
-* Download a Spark version that has Kubernetes support, URL: https://github.com/apache/spark 
+* Download a Spark version that has Kubernetes support, URL: https://github.com/apache/spark
 * Build spark with Kubernetes support:
 ```shell script
 ./build/mvn -Pkubernetes -DskipTests clean package
@@ -72,7 +72,7 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: spark-cluster-role
+  name: spark-role
   namespace: spark-test
 rules:
 - apiGroups: [""]
@@ -85,7 +85,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: spark-cluster-role-binding
+  name: spark-role-binding
   namespace: spark-test
 subjects:
 - kind: ServiceAccount
@@ -93,7 +93,7 @@ subjects:
   namespace: spark-test
 roleRef:
   kind: Role
-  name: spark-cluster-role
+  name: spark-role
   apiGroup: rbac.authorization.k8s.io
 EOF
 ```
@@ -130,7 +130,7 @@ There are more options for setting the driver and executor in the [spark](https:
 Assigning the applicationId and the queue path are possible.
 ```
 --conf spark.kubernetes.executor.label.applicationId=application-spark-0001
---conf spark.kubernetes.driver.label.applicationId=application-spark-0001  
+--conf spark.kubernetes.driver.label.applicationId=application-spark-0001
 --conf spark.kubernetes.executor.label.queue=default.root.sandbox
 --conf spark.kubernetes.driver.label.queue=default.root.sandbox
 ```
