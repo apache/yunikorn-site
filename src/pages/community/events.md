@@ -25,7 +25,48 @@ under the License.
 Upcoming Meetup
 ---
 
-Join us on **4:30pm - 5:30pm, PST, Feb 16, 2022**
+We are hosting an Apache YuniKorn meetup on Thursday, 20 October 2022. Come and join us!
+This is the first hybrid on-line and in-person meetup for Apache YuniKorn.
+
+Join us between **4:30pm - 6:00pm, PST, 20 October 2022**  
+Location: Cloudera office, 5470 Great America Pkwy, Santa Clara, CA
+
+A lot has changed since our last meetup a little over 6 months ago.
+We since then have graduated to an Apache TLP, released v1.0.0 and two minor releases as a follow-up.
+We had multiple presentations at: KubeCon Europe 2022, VISA Meetup and ApacheCON 2022.
+This is just a partial list of all that has happened and is going to happen.
+ 
+To add this event to your Google calendar [click here](https://calendar.google.com/event?action=TEMPLATE&tmeid=MmVqc2tkZ25yYzYwMDFodXRrcWpucXU3OGsgYXBhY2hlLnl1bmlrb3JuQG0&tmsrc=apache.yunikorn%40gmail.com).
+The invite includes a link for joining us virtually [using zoom](https://cloudera.zoom.us/j/91590835235).
+
+We have the following agenda lined up:  
+1. **Karpenter as an autoscaler**  
+Speaker : Weiwei, Apple  
+Abstract:
+Can we support Karpenter as an autoscaler with YuniKorn.
+In the current deployments YuniKorn is known to work with the cluster autoscaler.
+Karpenter does things slightly different.
+How does that work with YuniKorn as a scheduler.     
+2. **ApacheCON and YuniKorn : Feedback**  
+Speaker : Wilfred, Cloudera  
+Abstract:
+As a community we delivered two talks at ApacheCON NA.
+How did we do and what was the feedback on our two talks.
+Cloud native also had its own track: some observations from other talks.
+3. **YuniKorn roadmap**  
+Speaker : Wilfred / Craig, Cloudera  
+Abstract:
+For YuniKorn 1.2 we have a roadmap defined around User Quotas, Application Priority and a K8s upgrade. 
+Is that all we want and need. Do we want to add other things, and what do we want to do after this release?  
+
+There will also plenty of time to discuss community related things that are not on the agenda.
+
+---
+
+Past Meetups
+---
+
+**4:30pm - 5:30pm, PST, Feb 16, 2022**
 
 We are hosting an Apache YuniKorn (Incubating) meetup on Wednesday February 16. Come join us! Since our first meetup held in November last year, lots of new development has happened in the community. We are excited to have three talks lined up! Add this event to your calendar: [:calendar:](https://calendar.google.com/calendar/u/0/r/eventedit/copy/N21jYmxiYWx0c211M2pvMTIydDZxZ2s5ajAgYXBhY2hlLnl1bmlrb3JuQG0/Y2hlbnlhemhhbmdjaGVueWFAZ21haWwuY29t?cid=YXBhY2hlLnl1bmlrb3JuQGdtYWlsLmNvbQ)
 
@@ -39,11 +80,7 @@ v0.12.2 release offers a host of new features and bug fixes. Specifically, the a
 
 Tingyao Huang and Yuteng Chen are both YuniKorn committers. They have done extensive performance benchmarking using the latest YuniKorn codebase. Their results showed convincing throughput advantages of YuniKorn compared to the default scheduler.
 
-----
-
-Past Meetups
 ---
-
 **4:30pm - 6:00pm, PST, Nov 18, 2021**
 
 **Wilfred Spiegelenburg** presented a session to introduce the latest status in the YuniKorn community.
@@ -59,6 +96,8 @@ a new node sorting algorithm. Please find all the topics for this meetup [here](
 Past Conference Sessions
 ---
 
+- VISA Data Meetup: [Apache YuniKorn scheduling Apache Spark on Kubernetes](https://web.cvent.com/event/9ceb73f1-4ce7-480e-95ed-fe65dea09cc4/websitePage:e6b9cca5-1c3b-4b7a-99e7-62c045b1ce26?i=bn_TynKrfUao8DzBYW3XwA&locale=en-US) :busts_in_silhouette: Wilfred Spiegelenburg
+- KubeCon Batch & HPC day 2022: [Apache YuniKorn A Kubernetes Scheduler Plugin for Batch Workloads](https://www.youtube.com/watch?v=cQD_jwA4fqo) :busts_in_silhouette: Wilfred Spiegelenburg, Craig Condit 
 - ApacheCon 2021: [Next Level Spark on Kubernetes with Apache YuniKorn (Incubating)](https://youtu.be/gOST-iT-hj8) :busts_in_silhouette: Weiwei Yang, Chaoran Yu
 - ApacheCon Asia 2021: [State Of The Union With Apache Yunikorn (Incubating) - Cloud Native Scheduler For Big Data Usecases](https://www.youtube.com/watch?v=c9UYxzqVMeg)  :busts_in_silhouette: Julia Kinga Marton, Sunil Govindan
 - Future of Data Meetup: [Apache YuniKorn: Cloud-native Resource Scheduling](https://www.youtube.com/watch?v=j-6ehu6GrwE) :busts_in_silhouette: Wangda Tan, Wilfred Spiegelenburg
