@@ -133,6 +133,7 @@ Supported parameters for the queues:
 * name
 * parent
 * queues
+* maxapplications
 * properties
 * adminacl
 * submitacl
@@ -159,7 +160,7 @@ Trying to override a _parent_ queue type in the configuration will cause a parsi
 
 Sub queues for a parent queue are defined under the `queues` entry.
 The `queues` entry is a recursive entry for a queue level and uses the exact same set of parameters.  
-
+The _maxapplications_ property is an integer value, larger than 1, which allows you to limit the number of running applications for the queue. Specifying a zero for _maxapplications_ is not allowed as it would block all allocations for applications in the queue. The _maxapplications_ value for a _child_ queue must be smaller or equal to the value for the _parent_ queue.
 The `properties` parameter is a simple key value pair list. 
 The list provides a simple set of properties for the queue.
 There are no limitations on the key or value values, anything is allowed.
@@ -180,11 +181,20 @@ partitions:
     queues:
       - name: namespaces
         parent: true
+        maxapplications: 12
         resources:
           guaranteed:
             {memory: 1G, vcore: 10}
           max:
             {memory: 10G, vcore: 100}
+        queues:
+          - name: level1
+            maxapplications: 8
+            resources:
+              guaranteed:
+                {memory: 0.5G, vcore: 5}
+              max:
+                {memory: 5G, vcore: 50}
 ```
 
 ### Placement rules
@@ -264,7 +274,7 @@ Specifying a star beside other list elements is not allowed.
 
 _maxapplications_ is an unsigned integer value, larger than 1, which allows you to limit the number of running applications for the configured user or group.
 Specifying a zero maximum applications limit is not allowed as it would implicitly deny access.
-Denying access must be handled via the ACL entries.  
+Denying access must be handled via the ACL entries.
 
 The _maxresources_ parameter can be used to specify a limit for one or more resources.
 The _maxresources_ uses the same syntax as the [resources](#resources) parameter for the queue. 
