@@ -261,6 +261,7 @@ Result: `root.last_resort`
 
 ### Tag Rule
 Name to be used in the configuration: *tag*
+
 Retrieves the queue name from the applications tags.
 The tag name that is checked for its value is configured in the rule using the `value`.
 Configuring a tag rule without a `value` set is an error, however an application does not have to have the tag set.
