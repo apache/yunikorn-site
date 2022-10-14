@@ -135,7 +135,7 @@ Allocatable:
   nvidia.com/gpu:     16
 ...
 ```
-### Teasting TensorFlow job with GPUs
+### Testing TensorFlow job with GPUs
 This section covers a workload test scenario to validate TFJob with Time-slicing GPU.
 
 1. Create a workload test file `tf-gpu.yaml` as follows:
