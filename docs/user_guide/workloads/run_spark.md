@@ -131,8 +131,8 @@ Assigning the applicationId and the queue path are possible.
 ```
 --conf spark.kubernetes.executor.label.applicationId=application-spark-0001
 --conf spark.kubernetes.driver.label.applicationId=application-spark-0001
---conf spark.kubernetes.executor.label.queue=default.root.sandbox
---conf spark.kubernetes.driver.label.queue=default.root.sandbox
+--conf spark.kubernetes.executor.label.queue=root.default.sandbox
+--conf spark.kubernetes.driver.label.queue=root.default.sandbox
 ```
 :::
 
