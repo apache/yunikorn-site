@@ -37,7 +37,7 @@ We had multiple presentations at: KubeCon Europe 2022, VISA Meetup and ApacheCON
 This is just a partial list of all that has happened and is going to happen.
  
 To add this event to your Google calendar [click here](https://calendar.google.com/event?action=TEMPLATE&tmeid=MmVqc2tkZ25yYzYwMDFodXRrcWpucXU3OGsgYXBhY2hlLnl1bmlrb3JuQG0&tmsrc=apache.yunikorn%40gmail.com).
-The invite includes a link for joining us virtually [using zoom](https://cloudera.zoom.us/j/91590835235).
+The invite includes a link for joining us virtually [using zoom webinar](https://cloudera.zoom.us/webinar/register/WN_aS8yQZBETP-bj1MkF8king).
 
 We have the following agenda lined up:  
 1. **Karpenter as an autoscaler**  
