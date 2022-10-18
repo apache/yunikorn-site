@@ -35,6 +35,7 @@ module.exports = {
                 label: 'Workloads',
                 items: [
                     'user_guide/workloads/workload_overview',
+                    'user_guide/workloads/run_nvidia',
                     'user_guide/workloads/run_spark',
                     'user_guide/workloads/run_flink',
                     'user_guide/workloads/run_tf'
