@@ -92,141 +92,137 @@ please read the document [here](../../get_started/get_started.md#access-the-web-
 
 ![tf-job-on-ui](../../assets/tf-job-on-ui.png)
 
-## Using Time-Slicing GPU
+## Run a TensorFlow job with GPU scheduling
+To use Time-Slicing GPU your cluster must be configured to use [GPUs and Time-Slicing GPUs](https://yunikorn.apache.org/docs/next/user_guide/workloads/run_nvidia)
+This section covers a workload test scenario to validate TFJob with Time-slicing GPU.
 
-### Prerequisite
-To use Time-Slicing GPU your cluster must be configured to use GPUs and Time-Slicing GPUs.
-- Nodes must have GPUs attached.
-- Kubernetes version 1.24
-- GPU drivers must be installed on the cluster
-- Use the [GPU Operator](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/getting-started.html) to automatically setup and manage the NVIDA software components on the worker nodes.
-- Set the Configuration of [Time-Slicing GPUs in Kubernetes](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/gpu-sharing.html)
-
-
-
-Once the GPU Operator and Time-Slicing GPUs is installed, check the status of the pods to ensure all the containers are running and the validation is complete :
-```shell script
-kubectl get pod -n gpu-operator
-```
-```shell script
-NAME                                                          READY   STATUS      RESTARTS       AGE
-gpu-feature-discovery-fd5x4                                   2/2     Running     0              5d2h
-gpu-operator-569d9c8cb-kbn7s                                  1/1     Running     14 (39h ago)   5d2h
-gpu-operator-node-feature-discovery-master-84c7c7c6cf-f4sxz   1/1     Running     0              5d2h
-gpu-operator-node-feature-discovery-worker-p5plv              1/1     Running     8 (39h ago)    5d2h
-nvidia-container-toolkit-daemonset-zq766                      1/1     Running     0              5d2h
-nvidia-cuda-validator-5tldf                                   0/1     Completed   0              5d2h
-nvidia-dcgm-exporter-95vm8                                    1/1     Running     0              5d2h
-nvidia-device-plugin-daemonset-7nzvf                          2/2     Running     0              5d2h
-nvidia-device-plugin-validator-gj7nn                          0/1     Completed   0              5d2h
-nvidia-operator-validator-nz84d                               1/1     Running     0              5d2h
-```
-Verify that the time-slicing configuration is applied successfully :
-
-```shell script
+:::note
+Verify that the time-slicing configuration is applied successfully
+```bash
 kubectl describe node
 ```
 
-```shell script
+```bash
 Capacity:
-  nvidia.com/gpu:     16
+  nvidia.com/gpu:     8
 ...
 Allocatable:
-  nvidia.com/gpu:     16
+  nvidia.com/gpu:     8
 ...
 ```
-### Testing TensorFlow job with GPUs
-This section covers a workload test scenario to validate TFJob with Time-slicing GPU.
+:::
 
-1. Create a workload test file `tf-gpu.yaml` as follows:
-  ```shell script
-  vim tf-gpu.yaml
+Create a workload test file `tf-gpu.yaml`
+```yaml
+# tf-gpu.yaml
+apiVersion: "kubeflow.org/v1"
+kind: "TFJob"
+metadata:
+  name: "tf-smoke-gpu"
+  namespace: kubeflow
+spec:
+  tfReplicaSpecs:
+    PS:
+      replicas: 1
+      template:
+        metadata:
+          creationTimestamp: 
+          labels:
+            applicationId: "tf_job_20200521_001"
+        spec:
+          schedulerName: yunikorn
+          containers:
+            - args:
+                - python
+                - tf_cnn_benchmarks.py
+                - --batch_size=32
+                - --model=resnet50
+                - --variable_update=parameter_server
+                - --flush_stdout=true
+                - --num_gpus=1
+                - --local_parameter_device=cpu
+                - --device=cpu
+                - --data_format=NHWC
+              image: docker.io/kubeflow/tf-benchmarks-cpu:v20171202-bdab599-dirty-284af3
+              name: tensorflow
+              ports:
+                - containerPort: 2222
+                  name: tfjob-port
+              workingDir: /opt/tf-benchmarks/scripts/tf_cnn_benchmarks
+          restartPolicy: OnFailure
+    Worker:
+      replicas: 1
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            applicationId: "tf_job_20200521_001"
+        spec:
+          schedulerName: yunikorn
+          containers:
+            - args:
+                - python
+                - tf_cnn_benchmarks.py
+                - --batch_size=32
+                - --model=resnet50
+                - --variable_update=parameter_server
+                - --flush_stdout=true
+                - --num_gpus=1
+                - --local_parameter_device=cpu
+                - --device=gpu
+                - --data_format=NHWC
+              image: docker.io/kubeflow/tf-benchmarks-gpu:v20171202-bdab599-dirty-284af3
+              name: tensorflow
+              ports:
+                - containerPort: 2222
+                  name: tfjob-port
+              resources:
+                limits:
+                  nvidia.com/gpu: 2
+              workingDir: /opt/tf-benchmarks/scripts/tf_cnn_benchmarks
+          restartPolicy: OnFailure
+```
+Create the TFJob
+```bash
+kubectl apply -f tf-gpu.yaml
+kubectl get pods -n kubeflow
+```
+```bash
+NAME                                 READY   STATUS    RESTARTS   AGE
+tf-smoke-gpu-ps-0                    1/1     Running   0          18m
+tf-smoke-gpu-worker-0                1/1     Running   0          18m
+training-operator-7d98f9dd88-dd45l   1/1     Running   0          19m
+```
+
+Verify that TFJob are running.
+- In pod logs
+  ```bash
+  kubectl logs tf-smoke-gpu-worker-0 -n kubeflow
   ```
-  ```yaml
-  apiVersion: "kubeflow.org/v1"
-  kind: "TFJob"
-  metadata:
-    name: "tf-smoke-gpu"
-    namespace: kubeflow
-  spec:
-    tfReplicaSpecs:
-      PS:
-        replicas: 1
-        template:
-          metadata:
-            creationTimestamp: 
-            labels:
-              applicationId: "tf_job_20200521_001"
-          spec:
-            schedulerName: yunikorn
-            containers:
-              - args:
-                  - python
-                  - tf_cnn_benchmarks.py
-                  - --batch_size=32
-                  - --model=resnet50
-                  - --variable_update=parameter_server
-                  - --flush_stdout=true
-                  - --num_gpus=1
-                  - --local_parameter_device=cpu
-                  - --device=cpu
-                  - --data_format=NHWC
-                image: docker.io/kubeflow/tf-benchmarks-cpu:v20171202-bdab599-dirty-284af3
-                name: tensorflow
-                ports:
-                  - containerPort: 2222
-                    name: tfjob-port
-                workingDir: /opt/tf-benchmarks/scripts/tf_cnn_benchmarks
-            restartPolicy: OnFailure
-      Worker:
-        replicas: 1
-        template:
-          metadata:
-            creationTimestamp: null
-            labels:
-              applicationId: "tf_job_20200521_001"
-          spec:
-            schedulerName: yunikorn
-            containers:
-              - args:
-                  - python
-                  - tf_cnn_benchmarks.py
-                  - --batch_size=32
-                  - --model=resnet50
-                  - --variable_update=parameter_server
-                  - --flush_stdout=true
-                  - --num_gpus=1
-                  - --local_parameter_device=cpu
-                  - --device=gpu
-                  - --data_format=NHWC
-                image: docker.io/kubeflow/tf-benchmarks-gpu:v20171202-bdab599-dirty-284af3
-                name: tensorflow
-                ports:
-                  - containerPort: 2222
-                    name: tfjob-port
-                resources:
-                  limits:
-                    nvidia.com/gpu: 2
-                workingDir: /opt/tf-benchmarks/scripts/tf_cnn_benchmarks
-            restartPolicy: OnFailure
   ```
-2. Create the TFJob
-  ```shell script
-  kubectl apply -f tf-gpu.yaml
+  .......
+  ..Found device 0 with properties
+  ..name: NVIDIA GeForce RTX 3080 major: 8 minor: 6 memoryClockRate(GHz): 1.71
+
+  .......
+  ..Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6)
+  .......
   ```
-3. Verify that TFJob are running on YuniKorn:
+
+- In node
+  ```bash
+  ...
+  Allocated resources:
+    (Total limits may be over 100 percent, i.e., overcommitted.)
+    Resource           Requests     Limits
+    --------           --------     ------
+    ...
+    nvidia.com/gpu     2            2
+  ...
+  ```
+
+- In Yunikorn UI applications
   ![tf-job-gpu-on-ui](../../assets/tf-job-gpu-on-ui.png)
-    Check the log of the pod:
-    ```shell script
-    kubectl logs logs po/tf-smoke-gpu-worker-0 -n kubeflow
-    ```
-    ```
-    .......
-    ..Found device 0 with properties:
-    ..name: NVIDIA GeForce RTX 3080 major: 8 minor: 6 memoryClockRate(GHz): 1.71
 
-    .......
-    ..Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6)
-    .......
-    ```
-    ![tf-job-gpu-on-logs](../../assets/tf-job-gpu-on-logs.png)
+
+

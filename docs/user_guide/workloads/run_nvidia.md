@@ -205,7 +205,7 @@ Verify that all five replicas are running.
   nvidia-plugin-test-677775d6c5-lrl2c   1/1     Running   0          8m8s
   nvidia-plugin-test-677775d6c5-9r2pz   1/1     Running   0          8m8s
   ```
-- In Node
+- In node
   ```bash
   kubectl describe node <node-name>
   ```
@@ -220,7 +220,7 @@ Verify that all five replicas are running.
     nvidia.com/gpu     5           5
   ...
   ```
-- In NVIDIA System management Interface
+- In NVIDIA system management Interface
   ```bash
   nvidia-smi
   ```
