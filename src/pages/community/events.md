@@ -22,31 +22,35 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-Upcoming Meetup
+## Upcoming Meetup
+
+None planned at this moment, check for updates later...
+
 ---
+## Past Meetups
+
+**4:30pm - 6:00pm, PST, 20 October 2022**
+
+Presentations and recording links located [below](#past-conference--meetup-recordings)
 
 We are hosting an Apache YuniKorn meetup on Thursday, 20 October 2022. Come and join us!
 This is the first hybrid on-line and in-person meetup for Apache YuniKorn.
-
-Join us between **4:30pm - 6:00pm, PST, 20 October 2022**  
-Location: Cloudera office, 5470 Great America Pkwy, Santa Clara, CA
 
 A lot has changed since our last meetup a little over 6 months ago.
 We since then have graduated to an Apache TLP, released v1.0.0 and two minor releases as a follow-up.
 We had multiple presentations at: KubeCon Europe 2022, VISA Meetup and ApacheCON 2022.
 This is just a partial list of all that has happened and is going to happen.
  
-To add this event to your Google calendar [click here](https://calendar.google.com/event?action=TEMPLATE&tmeid=MmVqc2tkZ25yYzYwMDFodXRrcWpucXU3OGsgYXBhY2hlLnl1bmlrb3JuQG0&tmsrc=apache.yunikorn%40gmail.com).
-The invite includes a link for joining us virtually [using zoom webinar](https://cloudera.zoom.us/webinar/register/WN_aS8yQZBETP-bj1MkF8king).
+To add this event to your Google calendar [click here].
+The invite includes a link for joining us virtually [using zoom webinar].
 
 We have the following agenda lined up:  
-1. **Karpenter as an autoscaler**  
-Speaker : Weiwei, Apple  
+1. **YuniKorn @ Pinterest**  
+Speaker : Rainie, Pinterest  
 Abstract:
-Can we support Karpenter as an autoscaler with YuniKorn.
-In the current deployments YuniKorn is known to work with the cluster autoscaler.
-Karpenter does things slightly different.
-How does that work with YuniKorn as a scheduler.     
+Spark on YARN is used for production workloads.
+Using Apache YuniKorn we try to move from YARN to Kubernetes.
+A path of testing, comparing and changing at multiple levels.
 2. **ApacheCON and YuniKorn : Feedback**  
 Speaker : Wilfred, Cloudera  
 Abstract:
@@ -62,13 +66,9 @@ Is that all we want and need. Do we want to add other things, and what do we wan
 There will also plenty of time to discuss community related things that are not on the agenda.
 
 ---
-
-Past Meetups
----
-
 **4:30pm - 5:30pm, PST, Feb 16, 2022**
 
-We are hosting an Apache YuniKorn (Incubating) meetup on Wednesday February 16. Come join us! Since our first meetup held in November last year, lots of new development has happened in the community. We are excited to have three talks lined up! Add this event to your calendar: [:calendar:](https://calendar.google.com/calendar/u/0/r/eventedit/copy/N21jYmxiYWx0c211M2pvMTIydDZxZ2s5ajAgYXBhY2hlLnl1bmlrb3JuQG0/Y2hlbnlhemhhbmdjaGVueWFAZ21haWwuY29t?cid=YXBhY2hlLnl1bmlrb3JuQGdtYWlsLmNvbQ)
+We are hosting an Apache YuniKorn (Incubating) meetup on Wednesday February 16. Come join us! Since our first meetup held in November last year, lots of new development has happened in the community. We are excited to have three talks lined up! Add this event to your calendar: [calendar]
 
 Erica Lin, Luna Xu, and Sean Gorsky from Sync Computing will present their work on Spark autotuner and orchestrator.
 Description:
@@ -89,13 +89,13 @@ _Abstract_: Apache YuniKorn (Incubating) has released v0.11 earlier this year wi
 like Gang scheduling, REST API enhancements and Kubernetes 1.19 support. In a month, we are planning the major
 v1.0.0 release with Kubernetes 1.20 & 1.21 support, improved node sorting and numerous small fixes & enhancements! In this meetup, we will deep dive into the implementation of Gang scheduling behind the use of temporary
 placeholder pods on Kubernetes, significant performance improvement with simplified scheduler core code and
-a new node sorting algorithm. Please find all the topics for this meetup [here](https://docs.google.com/document/d/1-NP0J22-Gp3cZ_hfKyA9htXJw7tlk-BmljF-7CBJg44). 
+a new node sorting algorithm. Please find all the topics for this meetup [here](https://drive.google.com/file/d/1cbT3i6_kSvrvlj4M7OyNIvXohVrGRiEl/view?usp=sharing). 
 
 ----
 
-Past Conference Sessions
----
+## Past Conference & Meetup Recordings
 
+- Apache YuniKorn Meetup: [October 2022](https://youtu.be/l76NByMersg) | [Pinterest presentation](https://drive.google.com/file/d/1sSXRNx_ndk4mWaCICjtbddjoSUYN9TV7/view?usp=sharing) | [Cloudera presentation](https://drive.google.com/file/d/14jqfDNpCTTQr0R2ZBrghn-WGFBR89KI7/view?usp=sharing)
 - VISA Data Meetup: [Apache YuniKorn scheduling Apache Spark on Kubernetes](https://web.cvent.com/event/9ceb73f1-4ce7-480e-95ed-fe65dea09cc4/websitePage:e6b9cca5-1c3b-4b7a-99e7-62c045b1ce26?i=bn_TynKrfUao8DzBYW3XwA&locale=en-US) :busts_in_silhouette: Wilfred Spiegelenburg
 - KubeCon Batch & HPC day 2022: [Apache YuniKorn A Kubernetes Scheduler Plugin for Batch Workloads](https://www.youtube.com/watch?v=cQD_jwA4fqo) :busts_in_silhouette: Wilfred Spiegelenburg, Craig Condit 
 - ApacheCon 2021: [Next Level Spark on Kubernetes with Apache YuniKorn (Incubating)](https://youtu.be/gOST-iT-hj8) :busts_in_silhouette: Weiwei Yang, Chaoran Yu
@@ -106,8 +106,8 @@ Past Conference Sessions
 - Flink Forward 2020: [Energize multi-tenant Flink on K8s with YuniKorn](https://www.youtube.com/embed/NemFKL0kK9U) :busts_in_silhouette: Weiwei Yang, Wilfred Spiegelenburg
 
 
-Demo Videos
 ---
+## Demo Videos
 
 Please subscribe to [YuniKorn Youtube Channel](https://www.youtube.com/channel/UCDSJ2z-lEZcjdK27tTj_hGw) to get notification about new demos!
 - [Running YuniKorn on Kubernetes - a 12 minutes Hello-world demo](https://www.youtube.com/watch?v=cCHVFkbHIzo)
