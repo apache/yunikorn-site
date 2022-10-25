@@ -64,7 +64,15 @@ data:
             - name: nvidia.com/gpu
               replicas: 8
 ```
+
 :::note
+If the GPU type in nodes do not include the a100-40gb or rtx-3070, you could modify the yaml file based on existing GPU types.
+For example, there are only multiple rtx-2080ti in the local kubernetes cluster.
+MIG is not supported by rtx-2080ti, so it could not replace the a100-40gb.
+Time slicing is supported by rtx-2080ti, so it could replace rtx-3070.
+:::
+
+:::info
 MIG support was added to Kubernetes in 2020. Refer to [**Supporting MIG in Kubernetes**](https://www.google.com/url?q=https://docs.google.com/document/d/1mdgMQ8g7WmaI_XVVRrCvHPFPOMCm5LQD5JefgAh6N8g/edit&sa=D&source=editors&ust=1655578433019961&usg=AOvVaw1F-OezvM-Svwr1lLsdQmu3) for details on how this works.
 :::
 
@@ -99,7 +107,7 @@ Enabling shared access to GPUs with the NVIDIA GPU Operator.
 
 ## Applying the Time-Slicing Configuration
 There are two methods:
-- Across the Cluster
+- Across the cluster
 
   Install the GPU Operator by passing the time-slicing `ConfigMap` name and the default configuration.
   ```bash
@@ -108,7 +116,7 @@ There are two methods:
     -p '{"spec": {"devicePlugin": {"config": {"name": "time-slicing-config", "default": "rtx-3070"}}}}'
   ```
 
-- Per Node
+- On certain nodes
 
   Label the node with the required time-slicing configuration in the `ConfigMap`.
   ```bash
