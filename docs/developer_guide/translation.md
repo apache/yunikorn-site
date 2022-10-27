@@ -27,11 +27,11 @@ Docusaurus i18n system allows developer to translate documentations.
 For adding a new language translation, developers should do following operations.
 
 ## Modifying the docusaurus.config.js for supporting the new language
-Assume the translations with a **new language keyword**.
+Assume the translations by a **new language keyword**.
 Expected results will be like this figure.
 ![translation results](./../assets/translationDemo.png)
 
-Current Yunikorn website include the en and zh-cn documentaions
+Current Yunikorn website include the en and zh-cn documentaions.
 If developer want to add a new translation with **new language keyword** including fr, jp, the developers need to modify the `i18n` in `docusaurus.config.js`.
 ```
 i18n: {
@@ -51,14 +51,14 @@ i18n: {
   },
 ```
 ## Updating the help information in local-build.sh
-Adding the **new language keyword** to the currently supported locale in print_usage function
+Adding the **new language keyword** to the locale list in `print_usage` function.
 ```
 Usage: $(basename "$0") run [locale] | build | clean | help
     run     build the website, and launch the server in a docker image.
             a locale can be specified, currently supported: "en", "zh-cn", "<new language keyword>"
 ```
 
-## Copying latest files
+## Copying latest files to i18n
 ```
 mkdir -p i18n/<new language keyword>/docusaurus-plugin-content-docs/current
 cp -r docs/** i18n/<new language keyword>/docusaurus-plugin-content-docs/current
@@ -69,7 +69,7 @@ mkdir -p i18n/<new language keyword>/docusaurus-theme-classic
 
 ## Adding the translated information in sidebar.json and footer.json
 Create sidebar.json and and footer.json in docusaurus-theme-classic.
-For exmaple, the footer.json context is following.
+For example, the footer.json context is following.
 ```
 {
     "link.item.label.Get Involved": {
@@ -112,7 +112,7 @@ rm -rf assests
 ln -s ../../../../docs/assets
 ```
 
-## Adopting relative path
+## Adopting relative paths
 There are some image urls adopting absolute path in `src/pages/index.js` and adopting absolute path could cause png missing.
 Developers could make sure that the img link in `/i18n/new language keyword/docusaurus-plugin-content-pages/index.js` is work.
 For example, there is a `resource-scheduling.png` in `index.js` and the png url is `/img/resource-scheduling.png`.
