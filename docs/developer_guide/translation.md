@@ -23,7 +23,7 @@ under the License.
 -->
 
 Yunikorn website adopting Docusaurus manages documentations.
-Docusaurus i18n system allows developer to translate documentations.
+[Docusaurus i18n system](https://docusaurus.io/docs/i18n/tutorial) allows developer to translate documentations.
 For adding a new language translation, developers should do following operations.
 
 ## Modifying the docusaurus.config.js for supporting the new language
