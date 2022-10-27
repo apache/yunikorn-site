@@ -23,7 +23,7 @@ import styles from './styles.module.css';
 const features = [
   {
     title: <>Scheduling Capabilities</>,
-    imageUrl: '/img/resource-scheduling.png',
+    imageUrl: './img/resource-scheduling.png',
     description: (
       <>
       Builtin with comprehensive scheduling capabilities, including hierarchy
@@ -34,7 +34,7 @@ const features = [
   },
   {
     title: <>Resource Scheduler for K8s</>,
-    imageUrl: '/img/support-k8s.png',
+    imageUrl: './img/support-k8s.png',
     description: (
       <>
       Fully K8s compatible, an alternative of the default K8s
@@ -44,7 +44,7 @@ const features = [
   },
   {
     title: <>Cloud Native</>,
-    imageUrl: '/img/cloud-native.png',
+    imageUrl: './img/cloud-native.png',
     description: (
       <>
       Supports both on-prem and on-cloud use cases. When running on cloud, it works
@@ -57,7 +57,7 @@ const features = [
 const why = [
     {
         title: <>Hierarchical Resource Queues</>,
-        imageUrl: '/img/why-hierarchical-queue.svg',
+        imageUrl: './img/why-hierarchical-queue.svg',
         description: (
             <>
                 Gives the fine-grained control over the resources quota for different tenants,
@@ -68,7 +68,7 @@ const why = [
     },
     {
         title: <>Application-aware Scheduling</>,
-        imageUrl: '/img/why-app.svg',
+        imageUrl: './img/why-app.svg',
         description: (
             <>
                 Recognize users, apps, queues. Apps are queued and scheduled with certain order.
@@ -79,7 +79,7 @@ const why = [
     },
     {
         title: <>Efficiency and Cost Saving</>,
-        imageUrl: '/img/why-save-cost.svg',
+        imageUrl: './img/why-save-cost.svg',
         description: (
             <>
                 Optimized for Cloud, and accommodate the elasticity as much as possible.
@@ -90,7 +90,7 @@ const why = [
     },
     {
         title: <>Central Management Console</>,
-        imageUrl: '/img/why-console.svg',
+        imageUrl: './img/why-console.svg',
         description: (
             <>
                 No more lost tracking the resource usage of the tenants!
@@ -123,7 +123,7 @@ function Home() {
                         </div>
                     </div>
                     <div className='hero_column_logo'>
-                        <img className={styles.heroImg} src="/img/logo/yunikorn_classic_logo.png" alt="YuniKorn logo"/>
+                        <img className={styles.heroImg} src="./img/logo/yunikorn_classic_logo.png" alt="YuniKorn logo"/>
                     </div>
                 </div>
             </div>
