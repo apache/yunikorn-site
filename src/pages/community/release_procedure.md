@@ -115,7 +115,7 @@ As an example when releasing the first release candidate for `0.8.0` the json fi
 ```
 
 The tool has one requirement outside of standard Python 3: [GitPython](https://gitpython.readthedocs.io/en/stable/intro.html)
-Make sure you have installed it by running `pip install gitpython`.
+Make sure you have installed it by running `python3 -m pip install gitpython`.
 
 Run the tool:
 ```shell script
