@@ -81,6 +81,7 @@ module.exports = {
                     'design/cross_queue_preemption',
                 ]
             },
+            'developer_guide/translation',
         ],
         'Performance': [
             'performance/evaluate_perf_function_with_kubemark',
