@@ -34,7 +34,7 @@ importance of this diversity and the value of "The Apache Way".  We welcome any 
 Please join us through one of the following channels:
 
 ### Contribute through github
-- Basic steps of contributing to project is explained here - [How to contribute](how_to_contribute)
+- Basic steps of contributing to project is explained here - [How to contribute](/community/how_to_contribute)
 
 ### Communication Channels
 
@@ -81,9 +81,9 @@ import TabItem from '@theme/TabItem';
 We welcome you to try our latest releases and share your experiences.
 
 Any point, if you are facing any issues:
-- Raise an issue or a feedback in the JIRA as per our [guide](reporting_issues).
+- Raise an issue or a feedback in the JIRA as per our [guide](/community/reporting_issues).
 - Clarify / Seek help in the YuniKorn slack `#yunikorn-user` channel
 
 ### Other feedback mechanisms
-- If you think, we can add more inputs to this document or additional documentation links for developers including setup etc, please raise issue under YuniKorn Documentation. Refer our [guide](reporting_issues).
+- If you think, we can add more inputs to this document or additional documentation links for developers including setup etc, please raise issue under YuniKorn Documentation. Refer our [guide](/community/reporting_issues).
 - Any other support please request at YuniKorn slack `#general` channel
