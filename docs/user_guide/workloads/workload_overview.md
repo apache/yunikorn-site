@@ -56,3 +56,4 @@ Examples of more advanced use cases can be found here:
 * [Run Spark Jobs](run_spark)
 * [Run Flink Jobs](run_flink)
 * [Run TensorFlow Jobs](run_tf)
+* [Run MPI Jobs](run_mpi)
