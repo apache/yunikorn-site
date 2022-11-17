@@ -35,11 +35,10 @@ The current shim identifies the user and the groups the user belongs to using th
 ## Configuration
 The configuration file for the scheduler that is described here only provides the configuration for the partitions and queues.
 
-By default we use the file called `queues.yaml` in our deployments.
-The filename can be changed via the command line flag `policyGroup` of the scheduler.
-Changing the filename must be followed by corresponding changes in the deployment details, either the `configmap` or the file included in the docker container.
+By default the scheduler reads the ConfigMap section `queues.yaml` for partition and queue configuration. The section name can
+be changed by updating the `service.policyGroup` ConfigMap entry to be something other than `queues`.
 
-The example file for the configuration is located in the scheduler core's [queues.yaml](https://github.com/apache/yunikorn-core/blob/master/config/queues.yaml).  
+The example reference for the configuration is located in the scheduler core's [queues.yaml](https://github.com/apache/yunikorn-core/blob/master/config/queues.yaml) file.
 
 ## Partitions
 Partitions are the top level of the scheduler configuration.
