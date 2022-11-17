@@ -25,8 +25,8 @@ under the License.
 ## YuniKorn部署模式
 
 YuniKorn有两种部署模式: `标准模式`与`插件模式`。 
-在标准模式下，YuniKorn作为自定义模式运行 Kubernetes 调度程序。
-在插件模式下，YuniKorn被实现为默认 Kubernetes 调度框架之上的一组插件。
+在标准模式下，YuniKorn作为自定义模式运行Kubernetes调度程序。
+在插件模式下，YuniKorn被实现为默认Kubernetes调度框架之上的一组插件。
 
 在这两种情况下，建议同时运行准入控制器(admin controller)，这会确保只有一个调度程序在您的Kubernetes集群中处于活动状态。
 当准入控制器运行时，所有pod将会绕过Kubernetes的默认调度器，除了YuniKorn本身的pod。
@@ -40,7 +40,7 @@ YuniKorn有两种部署模式: `标准模式`与`插件模式`。
 
 ### 插件模式(Plugin)
 
-插件模式是一种新的部署模型，调度器是在默认的 Kubernetes 调度逻辑之上实现的，可以更好地兼容默认的 Kubernetes 调度器。
+插件模式是一种新的部署模型，调度器是在默认的Kubernetes调度逻辑之上实现的，可以更好地兼容默认的Kubernetes调度器。
 它非常适合混合工作负载，如传统的Kubernetes以及排队的应用程序。
 
 插件模式目前非常新，因此还没有达到标准模式的成熟度。
