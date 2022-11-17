@@ -22,7 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-YuniKorn 调度程序能够运行任何 Kubernetes 工作负载。所需要的只是确保将Pod规范的
+YuniKorn调度器支持任何的Kubernetes工作负载。所需要的只是确保将Pod规范的
 `schedulerName`字段设置为`yunikorn`并将`applicationId`标签设置为每个应用程序的唯一值：
 
 ```yaml
