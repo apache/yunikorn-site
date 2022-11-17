@@ -26,6 +26,14 @@ under the License.
 
 User information is an important aspect of the scheduling cycle. It is one of the key identifier that can be used to determine the queue to which a job should be submitted. The Yunikorn Scheduler relies on the K8s Shim to provide user information. In the world of Kubernetes, there is no object defined that identfies the actual user. This is by design and more information can be found [here](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#users-in-kubernetes).
 
+In Yunikorn, there are two ways of handling users and groups. The first is the legacy way, which uses the label `yunikorn.apache.org/username`. If this label is set on a pod, then the value is automatically extracted in the shim and will be used accordingly. Group resolution is also done in the shim and is disabled by default. The problem with this approach is twofold: user restrictions can be easily bypassed because the submitter is free to set this label to any value, therefore this only be used in a trusted environment. The second is that identifying the groups in the shim is too late: users can be assigned to multiple groups, but depending on the authentication mechanism (X509, tokens, LDAP, etc) it might be very difficult to look up which group a user belongs to. Since these limitations are significant, this method is kept for backward compatibility reasons and will likely be removed in the future.
+
+A more reliable and robust mechanism is using the `yunikorn.apache.org/user.info` annotation, where the user information can be set externally by an allowed list of users or groups or the admission controller can attach this automatically to every workload.
+
+## Legacy user handling
+
+### Using the `yunikorn.apache.org/username` label
+
 Since, Kubernetes has no pre-defined field or resource for user information and individual cluster deployments with unique user identification tools can vary, we have defined a standard way of identifying the user. Yunikorn requires a Kubernetes [Label](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) added. Using the [recommendation](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/) provided here, the default label is defined as below:
 
 | Label                                          | Value |
@@ -55,7 +63,7 @@ The `yunikorn.apache.org/username` key can be customized by overriding the defau
               value: "custom_user_label"
 ```
 
-## Group resolution
+### Group resolution
 
 Group membership resolution is pluggables and is defined here. Groups do not have to be part of provided user and group object. When the object is added to the cache the groups are automatically resolved based on the resolution that is configured.
 The resolver which is linked to the cache can be set per partition.
@@ -66,3 +74,47 @@ This resolver just echos the user name and a primary group with the same name as
 Other resolvers are:
 * OS resolver
 * test resolver
+
+## The new, recommended way of handling users
+
+Since Yunikorn 1.2 a more sophisticated way of user/group resolution is available.
+
+In this mode, Yunikorn no longer relies on the `yunikorn.apache.org/username` label, instead, the annotation `yunikorn.apache.org/user.info` is attached to the workload. The value is simple JSON, which defines the user name and groups:
+
+```yaml
+metadata:
+  annotations:
+    yunikorn.apache.org/user.info: "
+    {
+      username: \"yunikorn\",
+      groups: [
+        \"developers\",
+        \"devops\"
+      ]
+    }"
+```
+
+However, to enhance security, the following is enforced in the admission controller:
+* not every user in the cluster is allowed to attach this annotation, only those which are configured
+* if the annotation is missing, the admission controller will add this information automatically
+* attempts to change this annotation will be rejected
+
+We also no longer do this on pods only, but also on Deployments, ReplicaSets, DeamonSets, StatefulSets, Jobs and CronJobs.
+
+Group resolution is no longer necessary inside the shim.
+
+### Configuring the admission controller
+
+The following environment variables are available for the admission controller:
+
+|Variable|Default value|Description|
+|--|--|--|
+|`ADMISSION_CONTROLLER_BYPASS_AUTH`|false|Allow any external user to create pods with user information set|
+|`ADMISSION_CONTROLLER_TRUST_CONTROLLERS`|true|Allow Kubernetes controller users to create pods with user information set|
+|`ADMISSION_CONTROLLER_SYSTEM_USERS`|"system:serviceaccount:kube-system:*"|Regular expression for the allowed controller service account list|
+|`ADMISSION_CONTROLLER_EXTERNAL_USERS`|""|Regular expression for the allowed external user list|
+|`ADMISSION_CONTROLLER_EXTERNAL_GROUPS`|""|Regular expression for the allowed external group list|
+
+If `ADMISSION_CONTROLLER_BYPASS_AUTH` is set to true the admission controller will not add the annotation to a pod if the annotation is not present and the deprecated user labell is set. If the annotation is not set and the user label is not set the new annotation will be added. In the case that `BYPASS_AUTH` is false, the default, the admission controller will always add the new annotation, regardless of the existence of the deprecated label.
+
+In certain scenarios, users and groups must be provided to Yunikorn upon submission because the user and group management is provided by external systems and the lookup mechanism is not trivial. In these cases, the `ADMISSION_CONTROLLER_EXTERNAL_USERS` and `ADMISSION_CONTROLLER_EXTERNAL_GROUPS` can be configured which are treated as regular expressions. Matching users and groups are allowed to set the `yunikorn.apache.org/user.info` annotation to any arbitrary value. Since this has implications which affects scheduling inside Yunikorn, these properties must be set carefully.
