@@ -453,7 +453,7 @@ use the default values listed here:
       admissionController.filtering.noLabelNamespaces: ""
       admissionController.accessControl.bypassAuth: "false"
       admissionController.accessControl.trustControllers: "true"
-      admissionController.accessControl.systemUsers: "system:serviceaccount:kube-system:*"
+      admissionController.accessControl.systemUsers: "^system:serviceaccount:kube-system:"
       admissionController.accessControl.externalUsers: ""
       admissionController.accessControl.externalGroups: ""
       queues.yaml: |
