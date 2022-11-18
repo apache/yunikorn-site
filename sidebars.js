@@ -22,6 +22,7 @@ module.exports = {
         ],
         'User Guide': [
             'user_guide/deployment_modes',
+            'user_guide/service_config',
             'user_guide/queue_config',
             'user_guide/placement_rules',
             'user_guide/usergroup_resolution',            
@@ -79,6 +80,7 @@ module.exports = {
                     'design/scheduler_object_states',
                     'design/scheduler_core_design',
                     'design/cross_queue_preemption',
+                    'design/config_v2',
                 ]
             },
             'developer_guide/translation',
