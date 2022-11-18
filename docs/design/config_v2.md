@@ -188,7 +188,7 @@ specified. Note that these values are subject to change in future releases.
       admissionController.filtering.noLabelNamespaces: ""
       admissionController.accessControl.bypassAuth: "false"
       admissionController.accessControl.trustControllers: "true"
-      admissionController.accessControl.systemUsers: "system:serviceaccount:kube-system:*"
+      admissionController.accessControl.systemUsers: "^system:serviceaccount:kube-system:"
       admissionController.accessControl.externalUsers: ""
       admissionController.accessControl.externalGroups: ""
       queues.yaml: |
