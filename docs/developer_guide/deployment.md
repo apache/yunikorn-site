@@ -33,11 +33,13 @@ Under project root of the `yunikorn-k8shim`, run the command to build an image u
 make image
 ```
 
-This command will build an image. The image will be tagged with a default version and image tag.
+This command will build an image. The image will be tagged with a default version, image tag and your build architecture. 
 
 **Note** the default build uses a hardcoded user and tag. You *must* update the `IMAGE_TAG` variable in the `Makefile` to push to an appropriate repository. 
 
 **Note** the latest yunikorn images in docker hub are not updated anymore due to ASF policy. Hence, you should build both scheduler image and web image locally before deploying them.
+
+**Note** the imaging tagging includes your build architecture. For intel, it would be amd64 and for MacM1, it would be arm64v1.  
 
 ## Setup RBAC for Scheduler
 
