@@ -1,6 +1,6 @@
 ---
 id: run_nvidia
-title: Run NVIDIA GPU Scheduling Jobs
+title: Run NVIDIA GPU Jobs
 description: How to run generic example of GPU scheduling with Yunikorn.
 keywords:
  - NVIDIA GPU
@@ -25,13 +25,96 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-To know how the GPU scheduling works, please refer to [**Time-Slicing GPUs in Kubernetes | Introduction**](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/gpu-sharing.html#introduction). This page covers ways to enable GPU scheduling in Yunikorn using [**NVIDIA GPU Operator**](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/gpu-operator).
+## Yunikorn with NVIDIA GPUs
+This guide gives an overview of how to set up NVIDIA Device Plugin which enable user to run GPUs with Yunikorn, for more details please check [**Kubernetes with GPUs**](https://docs.nvidia.com/datacenter/cloud-native/kubernetes/install-k8s.html#option-2-installing-kubernetes-using-kubeadm).
 
-:::info
-Before following this guide, Yunikorn need to deploy on the [**Kubernetes with GPUs**](https://docs.nvidia.com/datacenter/cloud-native/kubernetes/install-k8s.html#install-kubernetes).
-:::
+### Prerequisite
+Before following the steps below, Yunikorn need to deploy on the [**Kubernetes with GPUs**](https://docs.nvidia.com/datacenter/cloud-native/kubernetes/install-k8s.html#install-kubernetes).
 
-## Configuration
+### Install NVIDIA Device Plugin
+Add the nvidia-device-plugin helm repository.
+```
+helm repo add nvdp https://nvidia.github.io/k8s-device-plugin
+helm repo update
+helm repo list
+```
+
+Verify the latest release version of the plugin is available.
+```
+helm search repo nvdp --devel
+NAME                     	  CHART VERSION  APP VERSION	   DESCRIPTION
+nvdp/nvidia-device-plugin	  0.12.3         0.12.3         A Helm chart for ...
+```
+
+Deploy the device plugin
+```
+kubectl create namespace nvidia
+helm install --generate-name nvdp/nvidia-device-plugin --namespace nvidia --version 0.12.3
+```
+
+Check the status of the pods to ensure NVIDIA device plugin is running
+```
+kubectl get pods -A
+
+NAMESPACE      NAME                                      READY   STATUS    RESTARTS      AGE
+kube-flannel   kube-flannel-ds-j24fx                     1/1     Running   1 (11h ago)   11h
+kube-system    coredns-78fcd69978-2x9l8                  1/1     Running   1 (11h ago)   11h
+kube-system    coredns-78fcd69978-gszrw                  1/1     Running   1 (11h ago)   11h
+kube-system    etcd-katlantyss-nzxt                      1/1     Running   3 (11h ago)   11h
+kube-system    kube-apiserver-katlantyss-nzxt            1/1     Running   4 (11h ago)   11h
+kube-system    kube-controller-manager-katlantyss-nzxt   1/1     Running   3 (11h ago)   11h
+kube-system    kube-proxy-4wz7r                          1/1     Running   1 (11h ago)   11h
+kube-system    kube-scheduler-katlantyss-nzxt            1/1     Running   4 (11h ago)   11h
+kube-system    nvidia-device-plugin-1659451060-c92sb     1/1     Running   1 (11h ago)   11h
+```
+
+### Testing NVIDIA Device Plugin
+Create a gpu test yaml file.
+```
+# gpu-pod.yaml
+	apiVersion: v1
+	kind: Pod
+	metadata:
+	  name: gpu-operator-test
+	spec:
+	  restartPolicy: OnFailure
+	  containers:
+	  - name: cuda-vector-add
+	    image: "nvidia/samples:vectoradd-cuda10.2"
+	    resources:
+	      limits:
+	         nvidia.com/gpu: 1
+```
+Deploy the application.
+```
+kubectl apply -f gpu-pod.yaml
+```
+Check the logs to ensure the app completed successfully.
+```
+kubectl get pods gpu-operator-test
+
+NAME                READY   STATUS      RESTARTS   AGE
+gpu-operator-test   0/1     Completed   0          9d
+```
+Check the result.
+```
+kubectl logs gpu-operator-test
+	
+[Vector addition of 50000 elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 196 blocks of 256 threads
+Copy output data from the CUDA device to the host memory
+Test PASSED
+Done
+```
+
+---
+## Enable GPU Time-Slicing(Optional)
+GPU time-slicing allow multi-tenant to share single GPU.
+To know how the GPU time-slicing works, please refer to [**Time-Slicing GPUs in Kubernetes**](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/gpu-sharing.html#introduction). This page covers ways to enable GPU scheduling in Yunikorn using [**NVIDIA GPU Operator**](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/gpu-operator).
+
+
+### Configuration
 Specify multiple configurations in a `ConfigMap` as in the following example.
 ```yaml
 # time-slicing-config.yaml
@@ -82,7 +165,7 @@ kubectl create namespace nvidia
 kubectl create -f time-slicing-config.yaml
 ```
 
-## Install NVIDIA GPU Operator
+### Install NVIDIA GPU Operator
 Add the nvidia-gpu-operator helm repository.
 ```bash
 helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
@@ -105,7 +188,7 @@ Enabling shared access to GPUs with the NVIDIA GPU Operator.
   -p '{"spec": {"devicePlugin": {"config": {"name": "time-slicing-config"}}}}'
   ```
 
-## Applying the Time-Slicing Configuration
+### Applying the Time-Slicing Configuration
 There are two methods:
 - Across the cluster
 
@@ -156,7 +239,7 @@ Allocatable:
 ...
 ```
 
-## Testing GPU Time-Slicing
+### Testing GPU Time-Slicing
 Create a wordload test file `plugin-test.yaml`.
 ```yaml
 # plugin-test.yaml
