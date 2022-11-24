@@ -33,7 +33,7 @@ Read the [environment setup guide](developer_guide/env_setup.md) first to setup 
 ## Build YuniKorn for Kubernetes
 
 Prerequisite:
-- Go 1.16+
+- Golang, check [yunikorn-k8shim/.go_version](https://github.com/apache/yunikorn-k8shim/blob/master/.go_version) to see the version of Yunikorn request.
 
 You can build the scheduler for Kubernetes from [yunikorn-k8shim](https://github.com/apache/yunikorn-k8shim) project.
 The build procedure will build all components into a single executable that can be deployed and running on Kubernetes.
