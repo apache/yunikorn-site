@@ -70,7 +70,7 @@ partitions:
 放置规则和限制在各自的章节中解释。
 
 `nodesortpolicy`定义节点为分区排序的方式。
-有关可以使用的节点排序策略值的详细信息，请参阅[排序策略](sorting_policies.md#node-sorting)文档。
+有关可以使用的节点排序策略值的详细信息，请参阅[排序策略](user_guide/sorting_policies.md#node-sorting)文档。
 
 抢占键目前只能有一个子键： _enabled_。
 这个布林值定义了整个分区的抢占行为。
@@ -160,11 +160,11 @@ _maxapplications_属性是一个大于 1 的整数值，它允许您限制队列
 不允许为_maxapplications_指定零，因为它会阻止队列中应用的任何分配。
 _子_队列的_maxapplications_值必须小于或等于_parent_队列的值。
 `properties`参数是一个简单的键值对列表，并为队列提供一组简单的属性。其中的键或值没有限制，任何东西都是允许的。
-目前，属性列表仅在调度器中用于定义leaf队列的[排序顺序](sorting_policies.md#application-sorting)。
+目前，属性列表仅在调度器中用于定义leaf队列的[排序顺序](user_guide/sorting_policies.md#application-sorting)。
 在未来的扩展中，添加比如打开或关闭队列抢占或其他排序策略的选项，让使用相同的属性构造而无需更改配置。
 
 通过`adminacl`设置对队列的访问权限以进行管理操作，并通过`submitacl`条目提交应用。
-访问控制列表(ACLs)的描述可见[访问控制列表(ACLs)](acls.md)文档。
+访问控制列表(ACLs)的描述可见[访问控制列表(ACLs)](user_guide/acls.md)文档。
 
 队列资源限制是通过`resources`参数设置。
 用户和群组的限制是通过`limits`参数设置。
@@ -195,7 +195,7 @@ partitions:
 
 ### 放置规则
 
-放置规则(placement rules)在[放置规则](placement_rules.md)文档中有相关定义和记录。
+放置规则(placement rules)在[放置规则](user_guide/placement_rules.md)文档中有相关定义和记录。
 
 每个分区只能定义一组放置规则。 
 如果没有定义规则，则放置管理器不会启动。
