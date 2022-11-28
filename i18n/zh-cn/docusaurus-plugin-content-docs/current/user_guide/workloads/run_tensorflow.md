@@ -91,3 +91,139 @@ kubectl create -f deployments/examples/tfjob/tf-job-mnist.yaml
 请阅读此 [文档](../../get_started/get_started.md#访问-web-ui)。
 
 ![tf-job-on-ui](../../assets/tf-job-on-ui.png)
+
+## 使用GPU Time-slicing
+### 前提
+要使用 Time-slicing GPU，您需要先设定丛集以让GPU和Time-slicing GPU能被使用。
+- 节点上必须连接GPU
+- Kubernetes版本为1.24
+- 丛集中需要安装 GPU drivers
+- 透过  [GPU Operator](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/getting-started.html) 自动化的建置与管理节点中的 NVIDIA 软体组件
+- 在Kubernetes中设定 [Time-Slicing GPUs in Kubernetes](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/gpu-sharing.html)
+
+
+在安装完 GPU Operator 及 Time-slicing GPU 以后，确认pods的状态以确保所有的containers正在运行或完成：
+```shell script
+kubectl get pod -n gpu-operator
+```
+```shell script
+NAME                                                          READY   STATUS      RESTARTS       AGE
+gpu-feature-discovery-fd5x4                                   2/2     Running     0              5d2h
+gpu-operator-569d9c8cb-kbn7s                                  1/1     Running     14 (39h ago)   5d2h
+gpu-operator-node-feature-discovery-master-84c7c7c6cf-f4sxz   1/1     Running     0              5d2h
+gpu-operator-node-feature-discovery-worker-p5plv              1/1     Running     8 (39h ago)    5d2h
+nvidia-container-toolkit-daemonset-zq766                      1/1     Running     0              5d2h
+nvidia-cuda-validator-5tldf                                   0/1     Completed   0              5d2h
+nvidia-dcgm-exporter-95vm8                                    1/1     Running     0              5d2h
+nvidia-device-plugin-daemonset-7nzvf                          2/2     Running     0              5d2h
+nvidia-device-plugin-validator-gj7nn                          0/1     Completed   0              5d2h
+nvidia-operator-validator-nz84d                               1/1     Running     0              5d2h
+```
+确认时间片设定是否被成功的使用：
+```shell script
+kubectl describe node
+```
+
+```shell script
+Capacity:
+  nvidia.com/gpu:     16
+...
+Allocatable:
+  nvidia.com/gpu:     16
+...
+```
+### 使用GPU测试TensorFlow job
+在这个段落中会在 Time-slicing GPU 的支援下，测试及验证TFJob的运行
+
+1. 新建一个workload的测试档案tf-gpu.yaml：
+  ```shell script
+  vim tf-gpu.yaml
+  ```
+  ```yaml
+  apiVersion: "kubeflow.org/v1"
+  kind: "TFJob"
+  metadata:
+    name: "tf-smoke-gpu"
+    namespace: kubeflow
+  spec:
+    tfReplicaSpecs:
+      PS:
+        replicas: 1
+        template:
+          metadata:
+            creationTimestamp: 
+            labels:
+              applicationId: "tf_job_20200521_001"
+          spec:
+            schedulerName: yunikorn
+            containers:
+              - args:
+                  - python
+                  - tf_cnn_benchmarks.py
+                  - --batch_size=32
+                  - --model=resnet50
+                  - --variable_update=parameter_server
+                  - --flush_stdout=true
+                  - --num_gpus=1
+                  - --local_parameter_device=cpu
+                  - --device=cpu
+                  - --data_format=NHWC
+                image: docker.io/kubeflow/tf-benchmarks-cpu:v20171202-bdab599-dirty-284af3
+                name: tensorflow
+                ports:
+                  - containerPort: 2222
+                    name: tfjob-port
+                workingDir: /opt/tf-benchmarks/scripts/tf_cnn_benchmarks
+            restartPolicy: OnFailure
+      Worker:
+        replicas: 1
+        template:
+          metadata:
+            creationTimestamp: null
+            labels:
+              applicationId: "tf_job_20200521_001"
+          spec:
+            schedulerName: yunikorn
+            containers:
+              - args:
+                  - python
+                  - tf_cnn_benchmarks.py
+                  - --batch_size=32
+                  - --model=resnet50
+                  - --variable_update=parameter_server
+                  - --flush_stdout=true
+                  - --num_gpus=1
+                  - --local_parameter_device=cpu
+                  - --device=gpu
+                  - --data_format=NHWC
+                image: docker.io/kubeflow/tf-benchmarks-gpu:v20171202-bdab599-dirty-284af3
+                name: tensorflow
+                ports:
+                  - containerPort: 2222
+                    name: tfjob-port
+                resources:
+                  limits:
+                    nvidia.com/gpu: 2
+                workingDir: /opt/tf-benchmarks/scripts/tf_cnn_benchmarks
+            restartPolicy: OnFailure
+  ```
+2. 创建TFJob
+  ```shell script
+  kubectl apply -f tf-gpu.yaml
+  ```
+3. 在Yunikorn中验证TFJob是否运行
+  ![tf-job-gpu-on-ui](../../assets/tf-job-gpu-on-ui.png)
+    察看pod的日志:
+    ```shell script
+    kubectl logs logs po/tf-smoke-gpu-worker-0 -n kubeflow
+    ```
+    ```
+    .......
+    ..Found device 0 with properties:
+    ..name: NVIDIA GeForce RTX 3080 major: 8 minor: 6 memoryClockRate(GHz): 1.71
+
+    .......
+    ..Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6)
+    .......
+    ```
+    ![tf-job-gpu-on-logs](../../assets/tf-job-gpu-on-logs.png)
