@@ -56,14 +56,14 @@ partitions:
 
 分区必须至少需要定义以下键：
 * name
-* [queues](#queues)
+* [queues](#队列)
 
 队列配置会在分区结束后介绍。
 
 可以选择为分区定义以下键：
-* [placementrules](#placement-rules)
-* [statedumpfilepath](#statedump-filepath)
-* [limits](#limits)
+* [placementrules](#放置规则)
+* [statedumpfilepath](#状态转储文件路径)
+* [limits](#限制)
 * nodesortpolicy
 * preemption
 
@@ -135,8 +135,8 @@ queues:
 * properties
 * adminacl
 * submitacl
-* [resources](#resources)
-* [limits](#limits)
+* [resources](#资源)
+* [limits](#限制)
 
 每个队列都必须有一个_name_并且队列的名称在定义队列的同一级别上必须是唯一的。
 由于队列结构是完全层次化的，层次结构中不同点的队列可能具有相同的名称。
@@ -201,9 +201,9 @@ partitions:
 如果没有定义规则，则放置管理器不会启动。
 此外，在提交应用时，*必须*为每个应用设置一个队列。
 
-### 状态转储文件路径(Statedump filepath)
+### 状态转储文件路径
 
-状态转储文件路径定义YuniKorn状态转储的输出文件并且它可以在分区级别上设置。
+状态转储文件路径(Statedump filepath)定义YuniKorn状态转储的输出文件并且它可以在分区级别上设置。
 如果设置转储文件路径，该字段的值可以是相对路径或绝对路径(此处相对路径是基于工作目录)。
 如果YuniKorn调度器没有足够的权限在指定路径创建状态转储文件，它将无法启动状态转储的功能。
 
