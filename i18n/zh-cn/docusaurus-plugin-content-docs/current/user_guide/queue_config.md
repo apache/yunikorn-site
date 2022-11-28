@@ -33,103 +33,101 @@ under the License.
 当前shim使用[用户和组解析](usergroup_resolution)中提供的方法识别用户和用户所属的组。
 
 ## 配置
-The configuration file for the scheduler that is described here only provides the configuration for the partitions and queues.
+此处描述的调度器的配置文件仅提供分区和队列的配置。
 
-By default we use the file called `queues.yaml` in our deployments.
-The filename can be changed via the command line flag `policyGroup` of the scheduler.
-Changing the filename must be followed by corresponding changes in the deployment details, either the `configmap` or the file included in the docker container.
+默认情况下，我们在部署中使用`queues.yaml`文件。
+文件名可以通过命令行更改调度器的`policyGroup`标志。
+更改文件名后必须对部署细节进行相应的更改，可以是`configmap`或包含在docker容器中的文件。
+配置的示例文件位于yunikorn-core的[queues.yaml](https://github.com/apache/yunikorn-core/blob/master/config/queues.yaml).
 
-The example file for the configuration is located in the scheduler core's [queues.yaml](https://github.com/apache/yunikorn-core/blob/master/config/queues.yaml).  
+## 分区
+分区(partitions)是调度器配置的最高级别。
+在配置中可以定义多个分区。
 
-## 分区(Partitions)
-Partitions are the top level of the scheduler configuration.
-There can be more than one partition defined in the configuration.
-
-Basic structure for the partition definition in the configuration:
+配置中分区定义的基本结构如下：
 ```yaml
 partitions:
-  - name: <name of the 1st partition>
-  - name: <name of the 2nd partition>
+  - name: <第一个分区的名称>
+  - name: <第二个分区的名称>
 ```
-The default name for the partition is `default`.
-The partition definition contains the full configuration for the scheduler for a particular shim.
-Each shim uses its own unique partition.
+分区的默认名称是`default`。
+分区定义包含特定shim相应调度器的完整配置。
+每个shim都使用自己独特的分区。
 
-The partition must have at least the following keys defined:
+分区必须至少需要定义以下键：
 * name
 * [queues](#queues)
 
-The queues configuration is explained below.
+队列配置会在分区结束后介绍。
 
-Optionally the following keys can be defined for a partition:
+可以选择为分区定义以下键：
 * [placementrules](#placement-rules)
 * [statedumpfilepath](#statedump-filepath)
 * [limits](#limits)
 * nodesortpolicy
 * preemption
 
-Placement rules and limits are explained in their own chapters
+放置规则和限制在各自的章节中解释。
 
-The `nodesortpolicy` defines the way the nodes are sorted for the partition.
-Details on the values that can be used are in the [sorting policy](sorting_policies.md#node-sorting) documentation.
+`nodesortpolicy`定义节点为分区排序的方式。
+有关可以使用的节点排序策略值的详细信息，请参阅[排序策略](sorting_policies.md#node-sorting)文档。
 
-The preemption key can currently have only one sub key: _enabled_.
-This boolean value defines the preemption behaviour for the whole partition.
+抢占键目前只能有一个子键： _enabled_。
+这个布林值定义了整个分区的抢占行为。
 
-The default value for _enabled_ is _false_.
-Allowed values: _true_ or _false_, any other value will cause a parse error.
+_enabled_的默认值为_false_。
+_enabled_的允许值：_true_或_false_，任何其他值都会导致解析错误。
 
-Example `partition` yaml entry with _preemption_ flag set and a `nodesortpolicy` of _fair_:
+下方的示例中，`partition` yaml条目是带有_preemption_标志集和_fair_的`nodesortpolicy`。
 ```yaml
 partitions:
-  - name: <name of the partition>
+  - name: <分区名称>
     nodesortpolicy: fair
     preemption:
       enabled: true
 ```
-NOTE:
-Currently the Kubernetes unique shim does not support any other partition than the `default` partition..
-This has been logged as an [jira](https://issues.apache.org/jira/browse/YUNIKORN-22) for the shim.
+备注：
+目前，Kubernetes独特的shim不支持除`default`分区之外的任何其他分区。
+这已被记录为shim的[jira](https://issues.apache.org/jira/browse/YUNIKORN-22)。
 
-### 队列(Queues)
+### 队列
 
-YuniKorn manages resources by leveraging resource queues. The resource queue has the following characters:
-- queues can have **hierarchical** structure
-- each queue can be preset with **min/max capacity** where min-capacity defines the guaranteed resource and the max-capacity defines the resource limit (aka resource quota)
-- tasks must be running under a certain leaf queue
-- queues can be **static** (loading from configuration file) or **dynamical** (internally managed by YuniKorn)
-- queue level **resource fairness is** enforced by the scheduler
-- a job can only run under a specific queue
+YuniKorn通过利用资源队列来管理资源。
+资源队列(queues)具有以下特征：
+- 队列可以有**层次**结构
+- 每个队列都可以预设**最小/最大容量**，其中最小容量定义保证资源，最大容量定义资源限制(所谓的资源配额)
+- 任务必须在某个`leaf`队列下运行
+- 队列可以是**静态**(从配置文件加载)或**动态**(由YuniKorn内部管理)
+- 队列级别的**资源公平**是由调度器强制执行
+- 作业只能在特定队列下运行
 
 :::info
-The difference between YuniKorn queue and [Kubernetes namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/):
-Kubernetes namespace provides the scope for the Kubernetes resources, including the security context (i.e who can access the objects), and resource
-boundary when [resource quota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is defined (i.e how many resources can be used by the objects).
-On the other hand, YuniKorn queue is only used how many resources can be used by a group of jobs, and in which order. It provides
-a more fine-grained control on resource sharing across multiple tenants with considering of resource fairness, job ordering, etc. In most of the cases,
-YuniKorn queue can be used to replace the namespace resource quota, in order to provide more scheduling features.
+YuniKorn队列与[Kubernetes命名空间](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)的区别：
+Kubernetes命名空间提供了Kubernetes资源的范围，包括安全环境(即谁可以访问对象)，以及定义[资源配额](https://kubernetes.io/docs/concepts/policy/resource-quotas/)时的资源边界(即对象可以使用多少资源)。
+另一方面，YuniKorn队列仅使用一组作业可以使用多少资源，以及以何种顺序使用。
+YuniKorn队列在考虑资源公平性、作业排序等方面提供了更细粒度的多租户资源共享控制。
+在大多数情况下，YuniKorn队列可用于替代命名空间资源配额，以提供更多的调度特性。
 :::
 
-The _queues_ entry is the main configuration element. 
-It defines a hierarchical structure for the queues.
+_queues_条目是主要的配置元素，它为队列定义了层次结构。
 
-It can have a `root` queue defined but it is not a required element.
-If the `root` queue is not defined the configuration parsing will insert the root queue for consistency.
-The insertion of the root queue is triggered by:
-* If the configuration has more than one queue defined at the top level a root queue is inserted.
-* If there is only one queue defined at the top level and it is not called `root` a root queue is inserted.  
+它可以定义一个`root`队列，但它不是必需的元素。
+如果未定义`root`队列，配置解析将插入root队列以保持一致性。
+以下因素会触发root队列的插入：
+* 如果配置在顶层定义了多个队列，则会插入一个根队列。
+* 如果在顶层只定义了一个队列并且它不被称为`root`，则插入一个root队列。
 
-The defined queue or queues will become a child queue of the inserted `root` queue.
+定义的一个或多个队列将成为插入的`root`队列的子队列。
 
-Basic `queues` yaml entry with sub queue:
+带有子队列的基本`queue` yaml条目：
 ```yaml
 queues:
-- name: <name of the queue>
+- name: <队列名称>
   queues:
-  - name: <name of the queue>
+  - name: <队列名称>
 ```
 
-Supported parameters for the queues:
+队列支持的参数：
 * name
 * parent
 * queues
@@ -140,41 +138,39 @@ Supported parameters for the queues:
 * [resources](#resources)
 * [limits](#limits)
 
-Each queue must have a _name_.
-The name of a queue must be unique at the level that the queue is defined.
-Since the queue structure is fully hierarchical queues at different points in the hierarchy may have the same name.
-As an example: the queue structure `root.testqueue` and `root.parent.testqueue` is a valid structure.
-A queue cannot contain a dot "." character as that character is used to separate the queues in the hierarchy.
-If the name is not unique for the queue in the configuration or contains a dot a parsing error is generated and the configuration is rejected. 
+每个队列都必须有一个_name_并且队列的名称在定义队列的同一级别上必须是唯一的。
+由于队列结构是完全层次化的，层次结构中不同点的队列可能具有相同的名称。
+例如：队列结构`root.testqueue`和`root.parent.testqueue`是一个有效的结构。
+需注意的是，队列不能包含点“.”字符，因为该字符用于分隔层次结构中的队列。
+如果名称对于配置中的队列不是唯一的，或者名称包含一个点，则会生成解析错误并拒绝配置。
 
-Queues in the structure will automatically get a type assigned.
-The type of the queue is based on the fact that the queue has children or sub queues.
-The two types of queues are:
+依队列的类型是否于队列有子模板队列和子队列的事实，结构中的队列将自动获得分配的类型。
+队列类型有两种：
 * parent
 * leaf
 
-Applications can only be assigned to a _leaf_ queue.
-A queue that has a child or sub queue in the configuration is automatically a _parent_ queue.
-If a queue does not have a sub the queue in the configuration it is a _leaf_ queue, unless the `parent` parameter is set to _true_.
-Trying to override a _parent_ queue type in the configuration will cause a parsing error of the configuration.   
+应用只能分配给_leaf_队列。
+在配置中，队列具有子模板队列或子队列将自动成为_parent_队列。
+如果队列在配置中没有子队列，则该队列是_leaf_队列，除非该队列`parent`参数设置为_true_。
+尝试覆盖配置中的_parent_队列类型将导致配置解析错误。
 
-Sub queues for a parent queue are defined under the `queues` entry.
-The `queues` entry is a recursive entry for a queue level and uses the exact same set of parameters.  
-The _maxapplications_ property is an integer value, larger than 1, which allows you to limit the number of running applications for the queue. Specifying a zero for _maxapplications_ is not allowed as it would block all allocations for applications in the queue. The _maxapplications_ value for a _child_ queue must be smaller or equal to the value for the _parent_ queue.
-The `properties` parameter is a simple key value pair list. 
-The list provides a simple set of properties for the queue.
-There are no limitations on the key or value values, anything is allowed.
-Currently, the property list is only used in the scheduler to define a [sorting order](sorting_policies.md#application-sorting) for a leaf queue.
-Future expansions, like the option to turn on or off preemption on a queue or other sorting policies, would use this same property construct without the need to change the configuration.
+parent队列的子队列在`queues`条目下定义。
+`queues`条目是队列级别的递归条目，它使用完全相同的参数集。
+_maxapplications_属性是一个大于 1 的整数值，它允许您限制队列中正在运行的应用的数量。
+不允许为_maxapplications_指定零，因为它会阻止队列中应用的任何分配。
+_子_队列的_maxapplications_值必须小于或等于_parent_队列的值。
+`properties`参数是一个简单的键值对列表，并为队列提供一组简单的属性。其中的键或值没有限制，任何东西都是允许的。
+目前，属性列表仅在调度器中用于定义leaf队列的[排序顺序](sorting_policies.md#application-sorting)。
+在未来的扩展中，添加比如打开或关闭队列抢占或其他排序策略的选项，让使用相同的属性构造而无需更改配置。
 
-Access to a queue is set via the `adminacl` for administrative actions and for submitting an application via the `submitacl` entry.
-ACLs are documented in the [Access control lists](acls.md) document.
+通过`adminacl`设置对队列的访问权限以进行管理操作，并通过`submitacl`条目提交应用。
+访问控制列表(ACLs)的描述可见[访问控制列表(ACLs)](acls.md)文档。
 
-Queue resource limits are set via the `resources` parameter.
-User and group limits are set via the `limits` parameter.
-As both entries are complex configuration entries they are explained in [resources](#resources) and [limits](#limits) below.
+队列资源限制是通过`resources`参数设置。
+用户和群组的限制是通过`limits`参数设置。
+由于这两个条目都是复杂的配置条目，因此它们在下面的[resources](#资源)和[limits](#限制)中有相应解释。
 
-An example configuration of a queue `root.namespaces` as a _parent_ queue with limits:
+以下示例配置是`root.namespaces`队列作为具有限制的_parent_队列：
 ```yaml
 partitions:
   - name: default
@@ -199,98 +195,97 @@ partitions:
 
 ### 放置规则
 
-The placement rules are defined and documented in the [placement rule](placement_rules.md) document.
+放置规则(placement rules)在[放置规则](placement_rules.md)文档中有相关定义和记录。
 
-Each partition can have only one set of placement rules defined. 
-If no rules are defined the placement manager is not started and each application *must* have a queue set on submit.
+每个分区只能定义一组放置规则。 
+如果没有定义规则，则放置管理器不会启动。
+此外，在提交应用时，*必须*为每个应用设置一个队列。
 
 ### 状态转储文件路径(Statedump filepath)
 
-The statedump filepath defines the output file for YuniKorn statedumps. It is optionally set on the partition level. If set,
-the value of this field can be either a relative (to working directory) or absolute path. YuniKorn scheduler will be unable
-to start if it does not have sufficient permissions to create the statedump file at the specified path.
+状态转储文件路径定义YuniKorn状态转储的输出文件并且它可以在分区级别上设置。
+如果设置转储文件路径，该字段的值可以是相对路径或绝对路径(此处相对路径是基于工作目录)。
+如果YuniKorn调度器没有足够的权限在指定路径创建状态转储文件，它将无法启动状态转储的功能。
 
 ```yaml
 statedumpfilepath: <path/to/statedump/file>
 ```
-If the above key is not specified in the partition config, its value will default to `yunikorn-state.txt`. If the key is specified
-in multiple partitions, the value of its first occurrence will take precedence.
+如果上面的键没有在分区配置中指定，它的默认值为`yunikorn-state.txt`。
+需注意的是，如果键在多个分区中指定，则其第一次出现的值优先。
 
-The statedump file also has a fixed rotation policy. Currently, each statedump file has a capacity of 10MB and there can be a maximum
-of 10 such files. The statedump file currently being written to will always be the configured value above or default `yunikorn-state.txt`. When the file size limit is reached, the log rotator (`lumberjack`) will modify the file by prefixing it with a timestamp and create a new file with the same non-prefixed name to write statedumps to. If the maximum number of statedump files are reached, the oldest file timestamped as per the rotation policy will be deleted.
+状态转储文件也有一个固定的循环策略。
+目前，每个状态转储文件的容量为10MB，最多可以有10个这样的文件。
+当前正在写入的状态转储文件将始终是上面配置的值或默认的`yunikorn-state.txt`。
+当达到文件大小限制时，日志旋转器(`lumberjack`)将通过在文件前加上时间戳来修改文件，并创建一个具有相同的无前缀名称的新文件来写入状态转储。
+如果达到状态转储文件的最大数量，轮换策略将删除根据标记时间戳的最旧文件。
 
 ### 限制
-Limits define a set of limit objects for a partition or queue.
-It can be set on either the partition or on a queue at any level.
+限制(limits)为分区或队列定义一组限制对象，以及它可以在分区或任何级别的队列上设置。
 ```yaml
 limits:
-  - limit: <description>
-  - limit: <description>
+  - limit: <描述>
+  - limit: <描述>
 ```
 
-A limit object is a complex configuration object.
-It defines one limit for a set of users and or groups.
-Multiple independent limits can be set as part of one `limits` entry on a queue or partition.
-Users and or groups that are not part of the limit setting will not be limited.
+限制对象是一个复杂的配置对象，它为一组用户和/或群组定义一个限制。
+多个独立的限制可以设置为队列或分区上一个`limits`条目的一部分。
+不属于限制设置的用户和/或群组将不受限制。
 
-A sample limits entry:
+limits条目的示例：
 ```yaml
 limits:
-  - limit: <description>
+  - limit: <描述>
     users:
-    - <user name or "*">
-    - <user name>
+    - <用户名或"*">
+    - <用户名>
     groups:
-    - <group name or "*">
-    - <group name>
-    maxapplications: <1..maxint>
+    - <群组名称或"*">
+    - <群组名称>
+    maxapplications: <1..最大值>
     maxresources:
-      <resource name 1>: <0..maxint>[suffix]
-      <resource name 2>: <0..maxint>[suffix]
+      <资源名称1>: <0..最大值>[后缀]
+      <资源名称2>: <0..最大值>[后缀]
 ```
 
-Limits are applied recursively in the case of a queue limit.
-This means that a limit on the `root` queue is an overall limit in the cluster for the user or group.
-A `root` queue limit is thus also equivalent with the `partition` limit.
+队列限制的情况下，应用递归限制。
+这意味着对`root`队列的限制是集群中用户或群组的总体限制。
+因此，`root`队列限制也等同于`partition`限制。
 
-The limit object parameters:
+limits参数：
 * limit
 * users
 * groups
 * maxapplications
 * maxresources
 
-The _limit_ parameter is an optional description of the limit entry.
-It is not used for anything but making the configuration understandable and readable. 
+_limit_参数是limits条目的可选描述。
+除了使配置易于理解和可读之外，它不用于任何其他用途。
 
-The _users_ and _groups_ that can be configured can be one of two types:
-* a star "*" 
-* a list of users or groups.
+可以配置的_users_和_groups_可以是以下两种类型之一：
+* 一个星号字符 "*" 
+* users或groups的列表。
 
-If the entry for users or groups contains more than one (1) entry it is always considered a list of either users or groups.
-The star "*" is the wildcard character and matches all users or groups.
-Duplicate entries in the lists are ignored and do not cause a parsing error.
-Specifying a star beside other list elements is not allowed.
+如果users或groups的条目包含超过1个条目，则它始终被视为users或groups的列表。
+星号字符“*”为通配符，匹配所有用户或群组。
+不允许在其他列表元素旁边指定星号字符。
+列表中的重复条目将被忽略，并不会导致解析错误。
 
-_maxapplications_ is an unsigned integer value, larger than 1, which allows you to limit the number of running applications for the configured user or group.
-Specifying a zero maximum applications limit is not allowed as it would implicitly deny access.
-Denying access must be handled via the ACL entries.
+_maxapplications_是一个无符号整数值。
+当_maxapplications_大于1，它允许您限制为配置的用户或群组运行的应用的数量。
+不允许指定_maxapplications_为0，因为_maxapplications_为0时，隐含拒绝任何访问。
+拒绝访问的规范应交由ACL条目处理。
 
-The _maxresources_ parameter can be used to specify a limit for one or more resources.
-The _maxresources_ uses the same syntax as the [resources](#resources) parameter for the queue. 
-Resources that are not specified in the list are not limited.
-A resource limit can be set to 0.
-This prevents the user or group from requesting the specified resource even though the queue or partition has that specific resource available.  
-Specifying an overall resource limit of zero is not allowed.
-This means that at least one of the resources specified in the limit must be greater than zero.
-
-If a resource is not available on a queue the maximum resources on a queue definition should be used.
-Specifying a limit that is effectively zero, _maxapplications_ is zero and all resource limits are zero, is not allowed and will cause a parsing error.
+_maxresources_参数可用于指定一个或多个资源的限制。
+_maxresources_使用与队列的[resources](#资源)参数相同的语法。
+未在列表中指定的资源不受限制。
+资源限制可以设置为 0，这可以防止用户或群组请求指定的资源，即使队列或分区具有可用的特定资源也是如此。
+不允许将总体资源限制指定为零，换言之，这意味着限制中指定的至少一个资源必须大于零。
+如果资源在队列上不可用，则应使用队列定义上的最大资源。
+指定一个实际上为零的限制，_maxapplications_ 为零并且所有资源限制为零，这是不允许的，并且会导致解析错误。
  
-A limit is per user or group. 
-It is *not* a combined limit for all the users or groups together.
+每个用户或群组都有一个限制，它*不是*所有用户或群组的组合限制。
 
-As an example: 
+举个例子：
 ```yaml
 limit: "example entry"
 maxapplications: 10
@@ -298,54 +293,57 @@ users:
 - sue
 - bob
 ```
-In this case both the users `sue` and `bob` are allowed to run 10 applications.
+在这种情况下，用户`sue`和`bob`都被允许运行10个应用。
 
 ### 资源
-The resources entry for the queue can set the _guaranteed_ and or _maximum_ resources for a queue.
-Resource limits are checked recursively.
-The usage of a leaf queue is the sum of all assigned resources for that queue.
-The usage of a parent queue is the sum of the usage of all queues, leafs and parents, below the parent queue. 
+队列的resources条目可以为队列设置_guaranteed_和/或_maximum_资源，yunikorn会递归地检查资源限制。
+leaf队列的资源使用量是为该队列分配的所有资源的总和。
+parent队列的资源使用量是该parent队列下面所有队列，leaf和parent队列的资源使用量的总和。
 
-The root queue, when defined, cannot have any resource limit set.
-If the root queue has any limit set a parsing error will occur.
-The maximum resource limit for the root queue is automatically equivalent to the cluster size.
-There is no guaranteed resource setting for the root queue.
+root队列没有_guaranteed_的资源设置。
+root队列的_max_资源限制自动等于集群大小。
+如果root队列设置了任何限制，则会发生解析错误。
+leaf队列在定义时不能设置任何资源限制。
 
-Maximum resources when configured place a hard limit on the size of all allocations that can be assigned to a queue at any point in time.
-A maximum resource can be set to 0 which makes the resource not available to the queue.
-Guaranteed resources are used in calculating the share of the queue and during allocation. 
-It is used as one of the inputs for deciding which queue to give the allocation to.
-Preemption uses the _guaranteed_ resource of a queue as a base which a queue cannot go below.
+配置后的_max_资源对可以在任何时间点分配给队列的所有分配的大小进行了硬性限制。
+_max_资源可以设置为0，这使得资源对队列不可用。
+_guaranteed_资源用于计算队列份额和分配期间，它用作决定将分配分配给哪个队列的输入之一。
+抢占使用队列的_guaranteed_资源作为队列不能低于的基础。
 
-Basic `resources` yaml entry:
+基本的`resources` yaml条目：
 ```yaml
 resources:
   guaranteed:
-    <resource name 1>: <0..maxint>[suffix]
-    <resource name 2>: <0..maxint>[suffix]
+    <资源名称1>: <0..最大值>[后缀]
+    <资源名称2>: <0..最大值>[后缀]
   max:
-    <resource name 1>: <0..maxint>[suffix]
-    <resource name 2>: <0..maxint>[suffix]
+    <资源名称1>: <0..最大值>[后缀]
+    <资源名称2>: <0..最大值>[后缀]
 ```
-Resources that are not specified in the list are not limited, for max resources, or guaranteed in the case of guaranteed resources.
+列表中未指定的资源不受限制，对于最大(max)资源，或在保证(guaranteed)资源的情况下保证。
 
-An optional suffix may be specified for resource quantities. Valid suffixes are `k`, `M`, `G`, `T`, `P`, and `E` for SI powers of 10,
-and `Ki`, `Mi`, `Gi`, `Ti`, `Pi`, and `Ei` for SI powers of 2. Additionally, resources of type `vcore` may have a suffix of `m` to indicate millicores. For example, `500m` is 50% of a vcore. Units of type `memory` are interpreted in bytes by default. All other resource types have no designated base unit.
+可以为资源数量指定一个可选的后缀。
+有效的国际单位制后缀是`k`、`M`、`G`、`T`、`P` 和 `E`，用于10的幂，以及`Ki`、`Mi`、`Gi`、`Ti`、 `Pi`和`Ei`表示2的幂。
+此外，`vcore`类型的资源可能带有后缀`m`以表示millicores。 例如，`500m`是vcore的50%。
+默认情况下，`memory`类型的单位以byte为单位进行解释。
+所有其他资源类型都没有指定的基本单位。
 
-Note that this is a behavioral change as of YuniKorn 1.0. Prior versions interpreted `memory` as units of 1000000 (1 million) bytes and `vcore` as millicores.
+注意，以上单位行为从yunikorn 1.0开始有效 
+以前的版本将`memory`解释为1000000(百万)bytes的单位，将`vcore`解释为millicores。
 
-### 子模板(Child Template)
+### 子模板
 
-The parent queue can provide a template to define the behaviour of dynamic leaf queues below it. A parent queue having no child template inherits the child template
-from its parent if that parent has one defined. A child template can be defined at any level in the queue hierarchy on a queue that is of the type parent.
+子模板(child template)可以在父类型队列的队列层次结构中的任何级别来定义。
+parent队列可以提供一个模板来定义它下面的动态leaf队列的行为。
+如果parent队列定义了子模板，则没有子模板的parent队列会从其parent队列继承子模板。
 
-The supported configuration in template are shown below.
+模板中支持的配置如下所示。
 1. application sort policy
 2. max resources
 3. guaranteed resources
 4. max applications
 
-As an example:
+举个例子：
 ```yaml
  partitions:
    - name: default
@@ -377,8 +375,8 @@ As an example:
            - name: notemplate
              parent: true
 ```
-In this case, `root.parent.sales` will directly use the child template of parent queue `root.parent`. By contrast,
-`root.notemplate.sales` will use the child template set on the queue `root` since its parent queue `root.notemplate` inherits the child template from the queue `root`.
+在这种情况下，`root.parent.sales`将直接使用parent队列`root.parent`的子模板。
+相比之下，`root.notemplate.sales`将使用在队列`root`上设置的子模板，因为其parent队列 `root.notemplate` 从队列`root`继承了子模板。
 
-[DEPRECATED] Please migrate to template if your cluster is relying on old behavior that dynamic leaf queue can inherit
-`application.sort.policy` from parent (introduced by [YUNIKORN-195](https://issues.apache.org/jira/browse/YUNIKORN-195)). The old behavior will get removed in the future release.
+[已弃用] 如果您的集群依赖于动态叶队列可以从父级继承`application.sort.policy`的旧行为(由[YUNIKORN-195](https://issues.apache.org/jira/browse/YUNIKORN-195)引入)，请迁移到模板。
+旧的行为将在未来的版本中被删除。
