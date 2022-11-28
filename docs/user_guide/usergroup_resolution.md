@@ -105,16 +105,16 @@ Group resolution is no longer necessary inside the shim.
 
 ### Configuring the admission controller
 
-The following environment variables are available for the admission controller:
+The admission controller can be configured with the `yunikorn-configs` configmap. All entries start with the prefix `admissionController.accessControl.`.
 
 |Variable|Default value|Description|
 |--|--|--|
-|`ADMISSION_CONTROLLER_BYPASS_AUTH`|false|Allow any external user to create pods with user information set|
-|`ADMISSION_CONTROLLER_TRUST_CONTROLLERS`|true|Allow Kubernetes controller users to create pods with user information set|
-|`ADMISSION_CONTROLLER_SYSTEM_USERS`|"system:serviceaccount:kube-system:*"|Regular expression for the allowed controller service account list|
-|`ADMISSION_CONTROLLER_EXTERNAL_USERS`|""|Regular expression for the allowed external user list|
-|`ADMISSION_CONTROLLER_EXTERNAL_GROUPS`|""|Regular expression for the allowed external group list|
+|`bypassAuth`|false|Allow any external user to create pods with user information set|
+|`trustControllers`|true|Allow Kubernetes controller users to create pods with user information set|
+|`systemUsers`|"^system:serviceaccount:kube-system:"|Regular expression for the allowed controller service account list|
+|`externalUsers`|""|Regular expression for the allowed external user list|
+|`externalGroups`|""|Regular expression for the allowed external group list|
 
-If `ADMISSION_CONTROLLER_BYPASS_AUTH` is set to true the admission controller will not add the annotation to a pod if the annotation is not present and the deprecated user labell is set. If the annotation is not set and the user label is not set the new annotation will be added. In the case that `BYPASS_AUTH` is false, the default, the admission controller will always add the new annotation, regardless of the existence of the deprecated label.
+If `bypassAuth` is set to true the admission controller will not add the annotation to a pod if the annotation is not present and the deprecated user labell is set. If the annotation is not set and the user label is not set the new annotation will be added. In the case that `bypassAuth` is false, the default, the admission controller will always add the new annotation, regardless of the existence of the deprecated label.
 
-In certain scenarios, users and groups must be provided to Yunikorn upon submission because the user and group management is provided by external systems and the lookup mechanism is not trivial. In these cases, the `ADMISSION_CONTROLLER_EXTERNAL_USERS` and `ADMISSION_CONTROLLER_EXTERNAL_GROUPS` can be configured which are treated as regular expressions. Matching users and groups are allowed to set the `yunikorn.apache.org/user.info` annotation to any arbitrary value. Since this has implications which affects scheduling inside Yunikorn, these properties must be set carefully.
+In certain scenarios, users and groups must be provided to Yunikorn upon submission because the user and group management is provided by external systems and the lookup mechanism is not trivial. In these cases, the `externalUsers` and `externalGroups` can be configured which are treated as regular expressions. Matching users and groups are allowed to set the `yunikorn.apache.org/user.info` annotation to any arbitrary value. Since this has implications which affects scheduling inside Yunikorn, these properties must be set carefully.
