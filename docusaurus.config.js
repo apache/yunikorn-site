@@ -24,6 +24,7 @@ module.exports = {
   favicon: 'img/yunikorn.ico',
   organizationName: 'apache',
   projectName: 'yunikorn-core',
+  trailingSlashes: true,
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'zh-cn'],
