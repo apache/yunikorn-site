@@ -73,7 +73,8 @@ For the deployment that uses a config map you need to set up the ConfigMap in ku
 How to deploy the scheduler with a ConfigMap is explained in the [scheduler configuration deployment](developer_guide/deployment.md) document.
 
 The image build command will first build the integrated executable and then create the docker image.
-Currently, there are some published docker images under [this docker hub repo](https://hub.docker.com/r/apache/yunikorn), you are free to fetch and use.
+If you want to use pre-built images based on a release, please check the [Docker Hub repo](https://hub.docker.com/r/apache/yunikorn).
+
 The default image tags are not suitable for deployments to an accessible repository as it uses a hardcoded user and would push to Docker Hub with proper credentials.
 You *must* update the `TAG` variable in the `Makefile` to push to an accessible repository.
 When you update the image tag be aware that the deployment examples given will also need to be updated to reflect the same change.
@@ -84,8 +85,10 @@ The docker image built from previous step has embedded some important build info
 these info with docker `inspect` command.
 
 ```
-docker inspect apache/yunikorn:scheduler-latest
+docker inspect apache/yunikorn:scheduler-amd64-latest
 ```
+
+The `amd64` tag is dependent on your host architecture (i.e. for Intel it would be `amd64` and for Mac M1, it would be `arm64v8`).
 
 This info includes git revisions (last commit SHA) for each component, to help you understand which version of the source code
 was shipped by this image. They are listed as docker image `labels`, such as
@@ -106,7 +109,7 @@ The dependencies in the projects are managed using [go modules](https://blog.gol
 Go Modules require at least Go version 1.11 to be installed on the development system.
 
 If you want to modify one of the projects locally and build with your local dependencies you will need to change the module file. 
-Changing dependencies uses mod `replace` directives as explained in the [Update dependencies](#Updating dependencies).
+Changing dependencies uses mod `replace` directives as explained in the [Update dependencies](#updating-dependencies).
 
 The YuniKorn project has four repositories three of those repositories have a dependency at the go level.
 These dependencies are part of the go modules and point to the github repositories.
@@ -159,13 +162,12 @@ Further details on the modules' wiki: [When should I use the 'replace' directive
 ## Build the web UI
 
 Example deployments reference the [YuniKorn web UI](https://github.com/apache/yunikorn-web). 
-The YuniKorn web UI has its own specific requirements for the build. The project has specific requirements for the build follow the steps in the README to prepare a development environment and build how to build the projects.
-The scheduler is fully functional without the web UI. 
+The `yunikorn-web` project has specific requirements for the build. Follow the steps in the [README](https://github.com/apache/yunikorn-web/blob/master/README.md) to prepare a development environment and build the web UI. However, the scheduler is fully functional without the web UI. 
 
 ## Locally run the integrated scheduler
 
-When you have a local development environment setup you can run the scheduler in your local kubernetes environment.
-This has been tested in a Docker desktop with 'Docker for desktop' and Minikube. See the [environment setup guide](developer_guide/env_setup.md) for further details.
+When you have a local development environment setup you can run the scheduler in your local Kubernetes environment.
+This has been tested in a desktop enviornment with Docker Desktop, Minikube, and Kind. See the [environment setup guide](developer_guide/env_setup.md) for further details.
 
 ```
 make run
