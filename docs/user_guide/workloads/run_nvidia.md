@@ -109,7 +109,7 @@ Done
 ```
 
 ---
-## Enable GPU Time-Slicing(Optional)
+## Enable GPU Time-Slicing (Optional)
 GPU time-slicing allow multi-tenant to share single GPU.
 To know how the GPU time-slicing works, please refer to [**Time-Slicing GPUs in Kubernetes**](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/gpu-sharing.html#introduction). This page covers ways to enable GPU scheduling in Yunikorn using [**NVIDIA GPU Operator**](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/gpu-operator).
 
