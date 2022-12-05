@@ -273,19 +273,21 @@ First we set the following configuration to YuniKorn's configmap:
 
 ```yaml
 partitions:
-  - name: default
-    placementrules:
-    - name: tag
-      value: namespace
-      create: true
-      parent:
-      - name: tag
-        value: namespace.parentqueue
-    queues:
-    - name: root
-      queues:
-      - name: production
-      - name: development
+   - name: default
+     placementrules:
+        - name: tag
+          value: namespace
+          create: true
+          parent:
+             name: tag
+             value: namespace.parentqueue
+     queues:
+        - name: root
+          queues:
+             - name: production
+               parent: true
+             - name: development
+               parent: true
 ```
 
 The configuration used for the namespace to queue mapping is the same as [above](#Namespace-to-queue-mapping).
