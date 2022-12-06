@@ -34,7 +34,7 @@ Please do not disclose the issue to any public forum before working with the sec
 If you have an issue with YuniKorn operation, please follow these guidelines:
 
 If you are having an issue with setup, configuration, or some other form of behavior not matching your expectation, join the user mailing list and ask your questions in that forum.
-See the [Get Involved](get_involved#communication-channels) page for information on mailing lists.
+See the [Get Involved](community/get_involved#communication-channels) page for information on mailing lists.
 You can also ask the YuniKorn slack channel for help, details on how to join can be found on the same page.
 If you have a bug that needs a fix in the code or in the documentation, please follow the procedure in [Filing a JIRA](#filing-a-jira-for-yunikorn-issues) below.
 
