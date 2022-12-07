@@ -32,7 +32,7 @@ used to run Flink on Kubernetes, the configuration is slight different.
 ## Standalone mode
 
 Please follow [Kubernetes Setup](https://ci.apache.org/projects/flink/flink-docs-stable/ops/deployment/kubernetes.html) to get details and examples of standalone deploy mode.
-In this mode, we can directly add required labels (applicationId and queue) in Deployment/Job spec to run flink application with YuniKorn scheduler, as well as [Overview](./workload_overview.md).
+In this mode, we can directly add required labels (applicationId and queue) in Deployment/Job spec to run flink application with YuniKorn scheduler, see the [Overview](./workload_overview.md) for the label specification.
 
 ## Native mode
 
