@@ -226,7 +226,13 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                 "absUsedCapacity": {
                     "memory": 1,
                     "vcore": 0
-                }
+                },
+                "maxRunningApps": 12,
+                "runningApps": 4,
+                "allocatingAcceptedApps": [
+                    "app-1",
+                    "app-2"
+                ]
             }
         ],
         "absUsedCapacity": {
