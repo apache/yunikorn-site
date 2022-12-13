@@ -51,7 +51,7 @@ Don't share the above information in a channel on slack, reach out on a channel 
 ## Find an issue
 We use JIRA issues to track bugs for this project.
 Find an issue that you would like to work on, or file a new one if you have discovered a new issue.
-For help with reporting issues look at the [how to report an issue](reporting_issues).
+For help with reporting issues look at the [how to report an issue](/community/reporting_issues).
 
 The easiest way to get started working with the code base is to pick up a really easy
 JIRA and work on that. This will help you get familiar with the code base, build system,
@@ -85,7 +85,7 @@ It’s better for everyone if we maintain discipline about the scope of each pat
 In general, if you find a bug while working on a specific feature, file a JIRA for the bug, check if you can assign it to yourself and fix it independently of the feature.
 This helps us to differentiate between bug fixes and features and allows us to build stable maintenance releases.
 
-Make sure you have observed the recommendations in the [coding guidelines](coding_guidelines).
+Make sure you have observed the recommendations in the [coding guidelines](/community/coding_guidelines).
 Before you commit your changes and create a pull request based on your changes you should run the code checks. 
 These same checks are run as part of the pull request workflow.
 The pull request workflow performs the following checks:
@@ -133,7 +133,7 @@ We follow the version numbering as described in the [version numbering](https://
 The master branch *must* use a pseudo version.
 See the [Go module dependencies](/docs/next/developer_guide/dependencies) for updating the pseudo version.
 The release branches *must* use branch version.
-See the [release procedure](release_procedure#tag-and-update-release-for-version) on when and how to update the tags and references during the release creation. 
+See the [release procedure](/community/release_procedure#tag-and-update-release-for-version) on when and how to update the tags and references during the release creation. 
 
 ## Documentation updates
 Documentation is published and maintained as part of the website.
