@@ -87,7 +87,7 @@ Before going into the details, here are the general steps used in our tests:
 - [Step 2](#Setup-Kubemark): Deploy hollow pods,which will simulate worker nodes, name hollow nodes. After all hollow nodes in ready status, we need to cordon all native nodes, which are physical presence in the cluster, not the simulated nodes, to avoid we allocated test workload pod to native nodes.
 - [Step 3](#Deploy-YuniKorn): Deploy YuniKorn using the Helm chart on the master node, and scale down the Deployment to 0 replica, and [modify the port](#Setup-Prometheus) in `prometheus.yml` to match the port of the service.
 - [Step 4](#Run-tests): Deploy 50k Nginx pods for testing, and the API server will create them. But since the YuniKorn scheduler Deployment has been scaled down to 0 replica, all Nginx pods will be stuck in pending.
-- [Step 5](../user_guide/trouble_shooting.md#restart-the-scheduler): Scale up The YuniKorn Deployment back to 1 replica, and cordon the master node to avoid YuniKorn allocating Nginx pods there. In this step, YuniKorn will start collecting the metrics.
+- [Step 5](../user_guide/troubleshooting.md#restart-the-scheduler): Scale up The YuniKorn Deployment back to 1 replica, and cordon the master node to avoid YuniKorn allocating Nginx pods there. In this step, YuniKorn will start collecting the metrics.
 - [Step 6](#Collect-and-Observe-YuniKorn-metrics): Observe the metrics exposed in Prometheus UI.
 ---
 

@@ -52,7 +52,7 @@ module.exports = {
                     'api/system'
                 ]
             },
-            'user_guide/trouble_shooting'
+            'user_guide/troubleshooting'
         ],
         'Developer Guide': [
             'developer_guide/env_setup',
