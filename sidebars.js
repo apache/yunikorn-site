@@ -62,10 +62,21 @@ module.exports = {
             'developer_guide/openshift_development',
             {
                 type: 'category',
+                label: 'Archived Designs',
+                items: [
+                    'archived_design/k8shim',
+                    'archived_design/namespace_resource_quota',
+                    'archived_design/predicates',
+                    'archived_design/scheduler_configuration',
+                    'archived_design/scheduler_core_design',
+                    'archived_design/cross_queue_preemption',
+                ]                
+            },
+            {
+                type: 'category',
                 label: 'Designs',
                 items: [
                     'design/architecture',
-                    'design/archived/k8shim',
                     'design/scheduler_plugin',
                     'design/gang_scheduling',
                     'design/user_group',
@@ -73,15 +84,10 @@ module.exports = {
                     'design/cache_removal',
                     'design/simple_preemptor',
                     'design/generic_resource',
-                    'design/archived/namespace_resource_quota',
                     'design/pluggable_app_management',
                     'design/resilience',
-                    'design/archived/predicates',
-                    'design/archived/scheduler_configuration',
                     'design/state_aware_scheduling',
                     'design/scheduler_object_states',
-                    'design/archived/scheduler_core_design',
-                    'design/archived/cross_queue_preemption',
                     'design/config_v2',
                 ]
             },

@@ -24,7 +24,7 @@ under the License.
 
 Github repo: https://github.com/apache/yunikorn-k8shim
 
-Please read the [architecture](../architecture.md) doc before reading this one, you will need to understand
+Please read the [architecture](../design/architecture.md) doc before reading this one, you will need to understand
 the 3 layer design of YuniKorn before getting to understand what is the Kubernetes shim.
 
 ## The Kubernetes shim

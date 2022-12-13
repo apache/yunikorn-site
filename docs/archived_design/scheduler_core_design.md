@@ -24,7 +24,7 @@ title: Scheduler Core Design
 :::caution
 The scheduler core design has changed. [YUNIKORN-317](https://issues.apache.org/jira/browse/YUNIKORN-317) was committed and has removed the scheduler cache.
 This document will not be maintained and is just for historical reference.
-See [scheduler cache removal design](cache_removal.md)
+See [scheduler cache removal design](../design/cache_removal.md)
 :::
 
 Github repo: https://github.com/apache/yunikorn-core
