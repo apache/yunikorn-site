@@ -34,12 +34,21 @@ fine-grained controls on resource quotas, resource fairness and priorities, whic
 for a multi-tenancy computing system.
 
 ## Hierarchy Resource Queues
-
 Hierarchy queues provide an efficient mechanism to manage cluster resources. The hierarchy of the queues can logically
 map to the structure of an organization. This gives fine-grained control over resources for different tenants. The YuniKorn
 UI provides a centralised view to monitor the usage of resource queues, it helps you to get the insight how the resources are
 used across different tenants. What's more, By leveraging the min/max queue capacity, it can define how elastic it can be
 in terms of the resource consumption for each tenant.
+
+## Gang Scheduling
+An application can request a set of resources, i.e. a gang, to be scheduled all at once.
+The gang defines all the resources the application requires to start.
+During the first scheduling phase all resources requested will be reserved.
+The application will only be started when all requested resources are available.
+
+Reservation duration and application behaviour when the reservation fails are configurable.
+It is even possible to create multiple gangs of different specifications for one application. 
+See the [gang design](design/gang_scheduling.md) and the Gang Scheduling [user guide](user_guide/gang_scheduling.md) for more details.
 
 ## Job Ordering and Queuing
 Applications can be properly queued in working-queues, the ordering policy determines which application can get resources first.
@@ -59,7 +68,6 @@ With consideration of weights or priorities, some more important applications ca
 This is often associated with resource budget, a more fine-grained fairness mode can further improve the expense control.
 
 ## Resource Reservation
-
 YuniKorn automatically does reservations for outstanding requests. If a pod could not be allocated, YuniKorn will try to
 reserve it on a qualified node and tentatively allocate the pod on this reserved node (before trying rest of nodes).
 This mechanism can avoid this pod gets starved by later submitted smaller, less-picky pods.
@@ -71,3 +79,13 @@ Throughput is a key criterion to measure scheduler performance. It is critical f
 If throughput is bad, applications may waste time on waiting for scheduling, and further impact service SLAs.
 When the cluster gets bigger, it also means the requirement of higher throughput. The [performance evaluation based on Kube-mark](performance/evaluate_perf_function_with_kubemark.md)
 reveals some perf numbers.
+
+## MaxApplication Enforcement
+MaxApplication enforcement feature allows users to limit the number of running applications for a configured queue.
+This feature is critical in large scale batch workloads.
+Without this feature, when there are a large number of concurrent jobs launched, they would compete for resources and a certain a mount of resources will be wasted, which could lead to job failure.
+The [Partition and Queue Configuration](user_guide/queue_config.md) provides configuration examples.
+
+## CPU Architecture support
+YuniKorn supports running on ARM as well as on AMD/Intel CPUs.
+With the release of YuniKorn 1.1.0 prebuilt convenience images for both architectures are provided in the docker hub.
