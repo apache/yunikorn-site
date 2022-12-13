@@ -71,6 +71,3 @@ Throughput is a key criterion to measure scheduler performance. It is critical f
 If throughput is bad, applications may waste time on waiting for scheduling, and further impact service SLAs.
 When the cluster gets bigger, it also means the requirement of higher throughput. The [performance evaluation based on Kube-mark](performance/evaluate_perf_function_with_kubemark.md)
 reveals some perf numbers.
-
-## MaxApplication Enforcement
-MaxApplication enforcement feature allows users to limit the number of running applications for a configured group. This feature is critical in large scale batch workloads. Without this feature, when there are a large number of concurrent jobs launched, they would compete for resources and a certain amount of resources will be wasted, which could lead to job failure. The [partition and Queue configuration](user_guide/queue_config.md) provides configuration examples.
