@@ -50,7 +50,7 @@ Scheduler core encapsulates all scheduling algorithms, it collects resources fro
 platforms (like YARN/K8s), and is responsible for container allocation requests. It makes the decision where is the
 best spot for each request and then sends response allocations to the resource management platform.
 Scheduler core is agnostic about underneath platforms, all the communications are through the [scheduler interface](https://github.com/apache/yunikorn-scheduler-interface).
-Please read more about the design of schedule core [here](scheduler_core_design.md).
+Please read more about the design of schedule core [here](archived/scheduler_core_design.md).
 
 ### Kubernetes shim
 
@@ -58,5 +58,5 @@ The YuniKorn Kubernetes shim is responsible for talking to Kubernetes, it is res
 cluster resources, and resource requests via scheduler interface and send them to the scheduler core.
 And when a scheduler decision is made, it is responsible for binding the pod to the specific node. All the communication
 between the shim and the scheduler core is through the [scheduler interface](https://github.com/apache/yunikorn-scheduler-interface).
-Please read more about the design of the Kubernetes shim [here](k8shim.md).
+Please read more about the design of the Kubernetes shim [here](archived/k8shim.md).
 
