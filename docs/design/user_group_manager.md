@@ -81,13 +81,13 @@ If no group limits are defined, in the hierarchy, usage is not tracked for a gro
 
 The tracker considers only the group received as part of the _UserGroup_ object at the time of first usage registration for the application in the tracker. In case of group changes while the user’s application is actively being tracked, the tracker does not consider the group change. However, If the user submits a new application, the most current group information at that point in time will be used.
 
-Until there is full support for groups in the k8shim, group tracking will be limited. No groups are passed by the k8shim to the core. This results in the _UserGroup_ object in the current implementation to always have only one group. The group name will be the same as the user name. We also have excluded configuration processing for the tracking. For the current tracking implementation as described in the document these limitations will result in the user and group linked to the user to track the same usage.
+Until there is full support for groups in the k8shim, group tracking will be limited. No groups are passed by the k8shim to the core. This results in the _UserGroup_ object in the current implementation to always have only one group. The group name will be the same as the username. We also have excluded configuration processing for the tracking. For the current tracking implementation as described in the document these limitations will result in the user and group linked to the user to track the same usage.
 
 ###  Cluster or queue based tracking
 
 Tracking user usage will be based on the usage per queue. The full hierarchy of the queue will be tracked. We should not just track the leaf or root of the hierarchy. The overall cluster usage is the same as the usage of the root queue. Cluster level usage does not need separate tracking.
 
-The overhead of tracking per queue should be realy limited. In most cases a user will run their workloads in a specific queue. Deeply nested queues do also add overhead to the tracking. During testing the impact of workload spread and or deep nesting needs to be assessed. If needed this can be called out in the documentation.
+The overhead of tracking per queue should be really limited. In most cases a user will run their workloads in a specific queue. Deeply nested queues do also add overhead to the tracking. During testing the impact of workload spread and or deep nesting needs to be assessed. If needed this can be called out in the documentation.
 
 We also need to take into account that multiple members of a group could be using different queues in the hierarchy. If tracking usage would be limited to the leaf level, aggregating group usage becomes more difficult and loses transparency.
 
@@ -113,7 +113,7 @@ Note that currently, the application state transition code block in application_
 
 ### Running state exit
 
-An application should be considered running as long as at least one allocation is assigned to the application. The removal of the last allocation should decrease the number of running applications. However we also need to consider the pending requests.
+An application should be considered running as long as at least one allocation is assigned to the application. The removal of the last allocation should decrease the number of running applications. However, we also need to consider the pending requests.
 
 As part of the application states the application enters into a _Completing_ state when the last allocation is removed and there are no pending requests. This automatically progresses into the _Completed_ state if nothing changes for the application. Applications going into the _Completing_ state all have no allocations left and pending requests are considered. The entry of the _Completing_ state thus could be used as a point for triggering the decrease of the running application count.
 
@@ -125,9 +125,9 @@ A last case that needs to be considered is an application that fails. If an appl
 
 Resource usage is tracked simply based on the addition or removal of an allocation.
 
-Removal of an allocation is an out of band action. The shim notifies the core scheduler that an allocation no longer exists and the core updates the tracking based on that removal. If an allocation is preempted the core initiates the removal but still gets notified by the shim that the removal has occurred. Until the confirmation of the shim is received no tracking updates must be created.
+Removal of an allocation is an out-of-band action. The shim notifies the core scheduler that an allocation no longer exists and the core updates the tracking based on that removal. If an allocation is preempted the core initiates the removal but still gets notified by the shim that the removal has occurred. Until the confirmation of the shim is received no tracking updates must be created.
 
-The replacement of a placeholder by the real allocation for gang scheduling follows a similar concept. However in that case there is a possibility that there is a discrepancy between the placeholder size and the real allocation. See [YUNIKORN-982](#https://issues.apache.org/jira/browse/YUNIKORN-982) for more detailed information on this issue. The changes that fixed the accounting for the queues and nodes also need to be taken into account for user based resource tracking.
+The replacement of a placeholder by the real allocation for gang scheduling follows a similar concept. However, in that case there is a possibility that there is a discrepancy between the placeholder size and the real allocation. See [YUNIKORN-982](https://issues.apache.org/jira/browse/YUNIKORN-982) for more detailed information on this issue. The changes that fixed the accounting for the queues and nodes also need to be taken into account for user based resource tracking.
 
 Adding a new allocation to an application triggers the update of the tracked resources for the user and or group as described in the [group limitations](#group-limitations). Enforcement is not a goal of the design document but the enforcement implementation needs to be taken into account. The point to add the resource usage must line up with the point that the queue structure is currently updated and the queue quotas are enforced.
 
@@ -152,7 +152,7 @@ In summary the tracker must implement:
 
 ## User Group Manager (UGM)
 
-Tracking all the resources will be part of a new self contained module in the scheduler. This means that there must be no imports from the scheduler.objects package. This will allow us to run the tracker separately and push updates, if needed, into a background processing queue.
+Tracking all the resources will be part of a new self-contained module in the scheduler. This means that there must be no imports from the `scheduler.objects` package. This will allow us to run the tracker separately and push updates, if needed, into a background processing queue.
 
 There will be one user group manager created per partition as part of the partition creation process. There will be no tracking of user quotas over a partition boundary.
 
@@ -160,7 +160,7 @@ The new self-contained module, user group manager contains all specifications an
 
 Tracking the resources and application count for all users occurs from startup. This happens irrespective of whether enforcement is configured for the user or group. By starting tracking independently of the enforcement changes in enforcement will always have a consistent view of the resources tracked at least at a user level. Recovery must be tested in combination with the tracking code.
 
-Storing data in the user group manager is based on the _security.UserGroup_ structure content. The built in _UserGroupCache_ resolution cannot guarantee that the same object is returned for the same user each time.
+Storing data in the user group manager is based on the _security.UserGroup_ structure content. The built-in _UserGroupCache_ resolution cannot guarantee that the same object is returned for the same user each time.
 
 ### UserGroup cache impact
 
@@ -261,7 +261,7 @@ The groupTracker contains all tracked usage information for a group. This object
 
 To simply decrease the resources tracked for the group the applicationID could be empty. On removal of the last allocation for the application the application will be removed from the groupTracker object. To remove a running application from the groupTracker the applicationID must be set in the _decreaseResource_ call and the flag removeApp must be set to true.
 
-If there are no entries left in the applications tracked in the groupTracker the object will be removed by the cleanup run from the user group manager. This will also mean that there is no usage tracked anymore by the referenced queueTracker object.
+If there are no entries left in the applications tracked in the groupTracker the object will be removed by the cleanup run from the user group manager. This will also mean that there is no usage tracked any more by the referenced queueTracker object.
 
 The usage per queue is stored in a queue structure specific for this group. The queueTracker object provides a hierarchical structure. This structure starts at the root of the queue hierarchy and only contains child queues for which a usage is being tracked. The hierarchy must be updated, add or delete of child entries, as part of the updates that are processed.
 
@@ -288,7 +288,7 @@ newGroupTracker(queuePath string, group string) *groupTracker
 
 The queueTracker acts as a base for both user and group tracking. It provides the actual location for the tracked usage.The top of the structure, which is referenced from the userTracker or groupTracker objects, contains the root queue usage. The queueTracker is only referenced by one userTracker or one groupTracker object and must not be shared. This means that we should not require any locking within the queueTracker object.
 
-The queue hierarchy below the root, for which a usage is registered, is part of the chidQueues. Each part of the full queue path creates a new level of objects. This structure shows a sparse hierarchical queue structure. It may not represent the full queue structure as known in the scheduler.
+The queue hierarchy below the root, for which a usage is registered, is part of the childQueues. Each part of the full queue path creates a new level of objects. This structure shows a sparse hierarchical queue structure. It may not represent the full queue structure as known in the scheduler.
 
 The creation of the root queueTracker returns a plain object without usage set and a fixed queueName of "root". The usage should then be updated by a call to _increaseResource_. The call must handle the recursive creation of the queue path as given. It expects an applicationID to be set to a non-empty value for each call.
 
@@ -334,7 +334,7 @@ Based on the current REST api definition for other object the proposal is to exp
 - /ws/v1/partition/{partitionName}/usage/users
 - /ws/v1/partition/{partitionName}/usage/groups
 
-For both endpoints we expose the full queue hierarchy. As an example below the approximate output for the users endpoint for one user:
+For both endpoints we expose the full queue hierarchy. As an example below the approximate output for the user's endpoint for one user:
 
 ```json
 [
@@ -342,7 +342,7 @@ For both endpoints we expose the full queue hierarchy. As an example below the a
     "userName": "user1",
     "groups": {
       "app2": "tester"
-    }
+    },
     "queues":
     {
       "queuename": "root",
@@ -383,8 +383,8 @@ An example below the approximate output for the groups endpoint for one group:
 ```json
 [
   {
-    "groupName" : "tester"
-    "applications": {"app2"}
+    "groupName" : "tester",
+    "applications": ["app2"],
     "queues":
     {
       "queuename": "root",
