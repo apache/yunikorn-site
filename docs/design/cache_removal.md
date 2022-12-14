@@ -33,7 +33,7 @@ It describes the changes planned based on the analysis that was done of the curr
 ## Goals
 The goal is to provide the same functionality before and after the change.
 - Unit tests before and after the merge must all pass.
-- Smoke tests defined in the core should all pass without major change.
+- Smoke tests defined in the core should all pass without major changes.
 - End-to-end tests that are part of the shim code must all pass without changes.
 
 :::info
@@ -51,7 +51,7 @@ This short period can have an impact on the scheduling decisions.
 One of which is logged as [YUNIKORN-169](https://issues.apache.org/jira/browse/YUNIKORN-169).
 
 A further point is the complexity that the two structure brings to the code.
-A distinct set of messages to communicate between the scheduler and the cache. A one on one mapping between the scheduler and cache objects shows that the distinction is probably more artificial than required.
+A distinct set of messages to communicate between the scheduler and the cache. A one-on-one mapping between the scheduler and cache objects shows that the distinction is probably more artificial than required.
 
 
 ---
