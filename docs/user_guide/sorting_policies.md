@@ -29,8 +29,8 @@ Policies can be set for:
 
 ## Application sorting
 The application sorting policy is set for each queue via the config.
-A sorting policy setting is only effective on a `leaf` queue.
-Each `leaf` queue can use a different policy.
+A sorting policy setting is only effective on a _leaf_ queue.
+Each _leaf_ queue can use a different policy.
 
 A sorting policy only specifies the order in which the applications are sorted within a queue.
 That order is crucial in specifying which application is considered first when assigning resources.
@@ -38,7 +38,12 @@ Sorting policies do _not_ affect the number of applications that are scheduled o
 All applications that have pending resource requests can and will be scheduled in a queue unless specifically filtered out.
 Even when applications are sorted using a first in first out policy multiple applications will run in a queue in parallel. 
 
-A `parent` queue will always use the fair policy to sort the child queues.
+A _parent_ queue will always use the fair policy to sort the child queues.
+
+The relative priority of child queues (in the case of _parent_ queue sorting)
+and applciations (in the case of _leaf_ queue sorting) will be considered first.
+To ignore application and queue priorities when scheduling, set the queue
+property `application.sort.priority` to `disabled`.
 
 The following configuration entry sets the application sorting policy to `fifo` for the queue `root.sandbox`: 
 ```yaml
@@ -57,9 +62,10 @@ A filter is applied _while_ sorting the applications to remove all that do not h
 
 ### FifoSortPolicy
 Short description: first in first out, based on application create time  
-Config value: fifo (default)  
-Behaviour:  
-Before sorting the applications are filtered and must have pending resource requests.
+
+Config value: `fifo` (default)
+
+Before sorting, the applications are filtered and must have pending resource requests.
 
 After filtering the applications left are sorted based on the application create time stamp only, no other filtering is applied. 
 Since applications can only be added while the system is locked there can never be two applications with the exact same time stamp. 
@@ -69,8 +75,9 @@ Younger applications will be given resources when all the current requests of ol
 
 ### FairSortPolicy
 Short description: fair based on usage  
-Config value: fair  
-Behaviour:  
+
+Config value: `fair`
+
 Before sorting the applications are filtered and must have pending resource requests.
 
 After filtering the applications left are sorted based on the application usage.
@@ -81,8 +88,9 @@ The result is that the resources available are spread equally over all applicati
 
 ### StateAwarePolicy
 Short description: limit of one (1) application in Starting or Accepted state  
-Config value: stateaware  
-Behaviour:  
+
+Config value: `stateaware`
+
 This sorting policy requires an understanding of the application states.
 Applications states are described in the [application states](design/scheduler_object_states.md#application-state) documentation.
 

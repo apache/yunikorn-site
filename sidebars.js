@@ -27,6 +27,7 @@ module.exports = {
             'user_guide/placement_rules',
             'user_guide/usergroup_resolution',            
             'user_guide/sorting_policies',
+            'user_guide/priorities',
             'user_guide/acls',
             'user_guide/resource_quota_management',
             'user_guide/gang_scheduling',

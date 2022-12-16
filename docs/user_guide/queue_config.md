@@ -133,7 +133,7 @@ Supported parameters for the queues:
 * parent
 * queues
 * maxapplications
-* properties
+* [properties](#properties)
 * adminacl
 * submitacl
 * [resources](#resources)
@@ -159,12 +159,13 @@ Trying to override a _parent_ queue type in the configuration will cause a parsi
 
 Sub queues for a parent queue are defined under the `queues` entry.
 The `queues` entry is a recursive entry for a queue level and uses the exact same set of parameters.  
-The _maxapplications_ property is an integer value, larger than 1, which allows you to limit the number of running applications for the queue. Specifying a zero for _maxapplications_ is not allowed as it would block all allocations for applications in the queue. The _maxapplications_ value for a _child_ queue must be smaller or equal to the value for the _parent_ queue.
-The `properties` parameter is a simple key value pair list. 
-The list provides a simple set of properties for the queue.
-There are no limitations on the key or value values, anything is allowed.
-Currently, the property list is only used in the scheduler to define a [sorting order](sorting_policies.md#application-sorting) for a leaf queue.
-Future expansions, like the option to turn on or off preemption on a queue or other sorting policies, would use this same property construct without the need to change the configuration.
+The `maxapplications` property is an integer value, larger than 1, which allows you to limit the number of running applications for the queue. Specifying a zero for `maxapplications` is not allowed as it would block all allocations for applications in the queue. The `maxapplications` value for a _child_ queue must be smaller or equal to the value for the _parent_ queue.
+
+The [properties](#properties) section contains simple key/value pairs. This is
+used for further queue customization of features such as 
+[application sorting](sorting_policies.md#application-sorting) and priority
+scheduling. Future features will use the exisitng `properties` section as well
+to avoid the need to define a new structure for queue configuration.
 
 Access to a queue is set via the `adminacl` for administrative actions and for submitting an application via the `submitacl` entry.
 ACLs are documented in the [Access control lists](acls.md) document.
@@ -298,6 +299,80 @@ users:
 - bob
 ```
 In this case both the users `sue` and `bob` are allowed to run 10 applications.
+
+### Properties
+
+Additional queue configuration can be added via the `properties` section,
+specified as simple key/value pairs. The following parameters are currently
+supported:
+
+#### `application.sort.policy` 
+
+Supported values: `fifo`, `fair`, `stateaware`
+
+Default value: `fifo`
+
+Sets the policy to be used when sorting applications within a queue. This
+setting has no effect on a _parent_ queue.
+
+See the documentation on [application sorting](sorting_policies.md#application-sorting)
+for more information.
+
+
+#### `application.sort.priority`
+
+Supported values: `enabled`, `disabled`
+
+Default value: `enabled`
+
+When this property is `enabled`, priority will be considered when sorting
+queues and applications. Setting this value to `disabled` will ignore
+priorities when sorting. This setting can be specified on a _parent_ queue and
+will be inherited by _child_ queues.
+
+**NOTE:** YuniKorn releases prior to 1.2.0 did not support priorities when
+sorting. To keep the legacy behavior, set `application.sort.priority` to
+`disabled`.
+
+#### `priority.policy`
+
+Supported values: `default`, `fence`
+
+Default value: `default`
+
+Sets the inter-queue priority policy to use when scheduling requests.
+
+**NOTE**: This value is not inherited by child queues.
+
+By default, priority applies across queues globally. In other words,
+higher-priority requests will be satisfied prior to lower-priority requests
+regardless of which queue they exist within.
+
+When the `fence` policy is in use on a queue, the priorities of _child_ queues
+(in the case of a _parent_ queue) or applications (in the case of a _leaf_
+queue) will not be exposed outside the fence boundary. 
+
+See the documentation on [priority support](priorities.md) for more information.
+
+#### `priority.offset`
+
+Supported values: any positive or negative 32-bit integer
+
+Default value: `0`
+
+Adjusts the priority of the queue relative to it's siblings. This can be useful
+to create high or low-priority queues without needing to set every task's
+priority manually.
+
+**NOTE**: This value is not inherited by child queues.
+
+When using the `default` priority policy, the queue's priority is adjusted up
+or down by this amount.
+
+When using the `fence` policy, the queue's priority is always set to the offset
+value (in other words, the priorities of tasks in the queue are ignored).
+
+See the documentation on [priority support](priorities.md) for more information.
 
 ### Resources
 The resources entry for the queue can set the _guaranteed_ and or _maximum_ resources for a queue.
