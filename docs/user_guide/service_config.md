@@ -604,10 +604,12 @@ Example:
     service.placeholderImage: "registry.k8s.io/pause:3.6"
 
 ### Health settings
-To be implemented in [YUNIKORN-1213](https://issues.apache.org/jira/browse/YUNIKORN-1213).
 
 #### health.checkInterval
 Sets the time between automatic health checks of YuniKorn.
+
+Setting the value to `0` or a negative interval will disable background health
+checking.
 
 A change to this setting will be picked up without a restart of YuniKorn.
 
