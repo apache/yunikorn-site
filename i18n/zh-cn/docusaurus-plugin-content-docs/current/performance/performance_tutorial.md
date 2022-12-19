@@ -87,7 +87,7 @@ root hard nofile 50000
 - [步骤 2](#Setup-Kubemark): 部署空pod，将模拟工作节点，命名空节点。 在所有空节点都处于就绪状态后，我们需要封锁(cordon)所有本地节点，这些本地节点是集群中的物理存在，而不是模拟节点，以避免我们将测试工作负载 pod 分配给本地节点。
 - [步骤 3](#Deploy-YuniKorn): 在主节点上使用Helm chart部署YuniKorn，并将 Deployment 缩减为 0 副本，并在`prometheus.yml`中 [修改端口](#Setup-Prometheus) 以匹配服务的端口。
 - [步骤 4](#Run-tests): 部署50k Nginx pod进行测试，API服务器将创建它们。 但是由于YuniKorn调度程序Deployment已经被缩减到0个副本，所有的Nginx pod都将停留在等待状态。
-- [步骤 5](../user_guide/trouble_shooting.md#restart-the-scheduler): 将YuniKorn部署扩展回1个副本，并封锁主节点以避免YuniKorn 在那里分配Nginx pod。 在这一步中，YuniKorn将开始收集指标。
+- [步骤 5](../user_guide/troubleshooting.md#restart-the-scheduler): 将YuniKorn部署扩展回1个副本，并封锁主节点以避免YuniKorn 在那里分配Nginx pod。 在这一步中，YuniKorn将开始收集指标。
 - [步骤 6](#Collect-and-Observe-YuniKorn-metrics): 观察Prometheus UI中公开的指标。
 ---
 

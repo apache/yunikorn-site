@@ -1,6 +1,6 @@
 ---
-id: trouble_shooting
-title: Trouble Shooting
+id: troubleshooting
+title: Troubleshooting
 ---
 
 <!--
