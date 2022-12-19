@@ -201,7 +201,7 @@ Before scheduling, the queue priorities will be as follows:
 
 Queue traversal starts from the root, descending into each child queue in order
 starting with the highest effective priority. Assuming sufficient scheduling
-resources, the order of schedulding and effective queue priority changes are
+resources, the order of scheduling and effective queue priority changes are
 as follows:
 
 | Step | Queue                           | Task | Result                                                                                 |
