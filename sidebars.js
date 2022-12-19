@@ -76,6 +76,7 @@ module.exports = {
                     'design/generic_resource',
                     'design/namespace_resource_quota',
                     'design/pluggable_app_management',
+                    'design/priority_scheduling',
                     'design/resilience',
                     'design/predicates',
                     'design/scheduler_configuration',
