@@ -1,6 +1,6 @@
 ---
-id: trouble_shooting
-title: Trouble Shooting
+id: troubleshooting
+title: Troubleshooting
 ---
 
 <!--
@@ -46,7 +46,7 @@ The recommended setup is to leverage [fluentd](https://www.fluentd.org/) to coll
 ### Set Logging Level
 
 :::note
-Changing the logging level requires a restart of the scheduler pod.
+We recommend altering the log level via REST API call as this way we don't need to restart the scheduler pod every time. But changing the logging level via editing the deployment config requires a restart of the scheduler pod and it's not highly recommended.
 :::
 
 Stop the scheduler:
@@ -134,7 +134,36 @@ is running out of capacity.
 The pod will be allocated if some other pods in this queue is completed or removed. If the pod remains pending even
 the queue has capacity, that may because it is waiting for the cluster to scale up.
 
+## Obtain full state dump
+
+A Yunikorn state dump contains the every state object for every process which getting dumped. With endpoint to retrieve we can have many useful information in a single response for troubleshooting for example:  list of partitions, list of applications which includes running, completed also historical application details, number of nodes, utilization of nodes, generic cluster information, cluster utilization details, container history and queues information. 
+
+The state dump is a valuable resource that Yunikorn offers for use while troubleshooting.
+
+There are a few ways to obtain the full state dump.
+
+### 1. Scheduler URL
+
+STEPS:
+* Open the Scheduler URL in your browser window/tab and edit the URL as follows:
+* Replace `/#/dashboard` with `/ws/v1/fullstatedump`, (For example, `http://localhost:9889/ws/v1/fullstatedump`)
+* Press Enter
+
+That displays and provides an easy user experience to view live full state dump.
+
+### 2. Scheduler REST API  
+
+With the below scheduler REST API returns information about full state dump used by the YuniKorn Scheduler.
+
+`curl -X 'GET' http://localhost:9889/ws/v1/fullstatedump -H 'accept: application/json'`
+
+For more details around the content of the state dump, please refer to the documentation on [retrieve-full-state-dump](api/scheduler.md#retrieve-full-state-dump)
+
 ## Restart the scheduler
+
+:::note
+In accordance with best practices for troubleshooting, restarting the scheduler should only be done as a last effort to get everything back up and running. It should never be done before gathering all logs and state dumps.
+:::
 
 YuniKorn can recover its state upon a restart. YuniKorn scheduler pod is deployed as a deployment, restart the scheduler
 can be done by scale down and up the replica:
@@ -189,4 +218,4 @@ No problem! The Apache YuniKorn community will be happy to help. You can reach o
 
 1. Post your questions to dev@yunikorn.apache.org
 2. Join the [YuniKorn slack channel](https://join.slack.com/t/yunikornworkspace/shared_invite/enQtNzAzMjY0OTI4MjYzLTBmMDdkYTAwNDMwNTE3NWVjZWE1OTczMWE4NDI2Yzg3MmEyZjUyYTZlMDE5M2U4ZjZhNmYyNGFmYjY4ZGYyMGE) and post your questions to the `#yunikorn-user` channel.
-3. Join the [community sync up meetings](http://yunikorn.apache.org/community/getInvolved#community-meetings) and directly talk to the community members. 
+3. Join the [community sync up meetings](http://yunikorn.apache.org/community/get_involved#community-meetings) and directly talk to the community members. 

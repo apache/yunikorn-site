@@ -99,7 +99,7 @@ This parameter defines the reservation timeout for how long the scheduler should
 The timeout timer starts to tick when the scheduler *allocates the first placeholder pod*. This ensures if the scheduler
 could not schedule all the placeholder pods, it will eventually give up after a certain amount of time. So that the resources can be
 freed up and used by other apps. If non of the placeholders can be allocated, this timeout won't kick-in. To avoid the placeholder
-pods stuck forever, please refer to [troubleshooting](trouble_shooting.md#gang-scheduling) for solutions.
+pods stuck forever, please refer to [troubleshooting](troubleshooting.md#gang-scheduling) for solutions.
 
 ` gangSchedulingStyle`
 
@@ -285,4 +285,4 @@ Check field including: namespace, pod resources, node-selector, toleration and a
 
 ## Troubleshooting
 
-Please see the troubleshooting doc when gang scheduling is enabled [here](trouble_shooting.md#gang-scheduling).
+Please see the troubleshooting doc when gang scheduling is enabled [here](troubleshooting.md#gang-scheduling).
