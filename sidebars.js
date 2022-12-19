@@ -61,12 +61,12 @@ module.exports = {
             'developer_guide/dependencies',
             'developer_guide/deployment',
             'developer_guide/openshift_development',
+            'developer_guide/translation',
             {
                 type: 'category',
                 label: 'Designs',
                 items: [
                     'design/architecture',
-                    'design/k8shim',
                     'design/scheduler_plugin',
                     'design/gang_scheduling',
                     'design/user_group',
@@ -75,20 +75,26 @@ module.exports = {
                     'design/cache_removal',
                     'design/simple_preemptor',
                     'design/generic_resource',
-                    'design/namespace_resource_quota',
                     'design/pluggable_app_management',
                     'design/priority_scheduling',
                     'design/resilience',
-                    'design/predicates',
-                    'design/scheduler_configuration',
                     'design/state_aware_scheduling',
                     'design/scheduler_object_states',
-                    'design/scheduler_core_design',
-                    'design/cross_queue_preemption',
                     'design/config_v2',
+                    'design/scheduler_configuration',
                 ]
             },
-            'developer_guide/translation',
+            {
+                type: 'category',
+                label: 'Archived Designs',
+                items: [
+                    'archived_design/k8shim',
+                    'archived_design/namespace_resource_quota',
+                    'archived_design/predicates',
+                    'archived_design/scheduler_core_design',
+                    'archived_design/cross_queue_preemption',
+                ]                
+            },
         ],
         'Performance': [
             'performance/evaluate_perf_function_with_kubemark',
