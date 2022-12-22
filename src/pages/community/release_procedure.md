@@ -248,9 +248,11 @@ The helm package will generate two files:
 - helm package: example `yunikorn-0.8.0.tgz`
 - provenance or signature file: example `yunikorn-0.8.0.tgz.prov`
 
-Both files should be attached to the [release in GIT](#create-the-git-releases) for the release repository.
+Both files _must_ be attached to the [release in GIT](#create-the-git-releases) for the release repository.
 
-Last step is to update the [index.yaml](https://github.com/apache/yunikorn-release/blob/gh-pages/index.yaml) file in the `gh-pages` branch with the new release.
+Last step is to update the [index.yaml](https://github.com/apache/yunikorn-release/blob/gh-pages/index.yaml) and
+[index.md](https://github.com/apache/yunikorn-release/blob/gh-pages/index.md) file in the `gh-pages` branch with the new release.
+First the `index.yaml` file:  
 The `digest` mentioned in the index.yaml file is the digest that gets printed by the tool (unsigned package) or stored in the provenance file.
 It can be generated manually using:
 ```shell script
@@ -259,6 +261,14 @@ shasum -a 256 yunikorn-0.8.0.tgz
 
 Note: do not use the `helm repo index` command to update the `index.yaml` file. The command does not handle the enhanced information stored in the `index.yaml` file nicely.
 Update the file manually.
+
+In the same PR update the `index.md` file. In most cases the change is limited to the supported Kubernetes versions.
+If there are no changes for the release this step can be skipped. Larger changes should be tracked as a separate jira not as a work item for a release. 
+Releases are always tracked based on the minor release only, i.e. 1.23.x or 1.25.x.
+Multiple Kubernetes versions can be added as supported from the current release. Each version should be mentioned as a separate entry under the **K8s Version** column.
+The current YuniKorn release is added to the **Supported from version** and **Support ended** as needed.
+
+Any change in supported Kubernetes versions _must_ be mentioned in the [release announcement](#release-announcement).  
 
 #### Update the website
 - Create a new documentation version on YuniKorn website based on the latest content in the `docs` directory.
