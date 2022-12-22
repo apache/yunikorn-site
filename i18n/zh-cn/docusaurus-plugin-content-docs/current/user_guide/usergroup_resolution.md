@@ -22,16 +22,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-## 用户解析
+## 用户解析 (User resolution)
 
-用户信息是调度周期的重要概念。他是用来决定是否将作业提交到队列的关键指标之一。Yunikorn调度器依赖于k8s Shim来提供用户信息，但在Kubernetes的世界中，没有任何对象可以识别实际用户，这是基于设计使然，可以从这个[页面](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#users-in-kubernetes)中得到更多资讯。
+用户信息是调度周期的重要概念，他是決定「是否将作业提交到队列」的关键指标之一。Yunikorn调度器依赖k8s Shim来提供用户信息，但在Kubernetes的世界中，没有任何对象可以识别实际用户，这是基于设计使然，可以从这个[页面](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#users-in-kubernetes)中得到更多资讯。
 
-在Yunikorn中有两种处理用户和群组的方法。
-第一种是传统的方式，他使用标签`yunikorn.apache.org/usernname`。如果此标签设置在pod上，则该值会自动提取到shim中并被使用。群组解析也在shim中完成，但预设是不启用的。这种方法的问题有两个方面：首先，可以很容易地绕过用户限制，因为提交者可以自由地将标签设置为任何值，因此这只能在受信任的环境中使用。其次，在shim中识别组别太慢了─将用户分配到多个群组​是不可行的，因为根据身份验证机制(如X509，tokens，LDP，etc)可能很难查找用户属于哪一个群组。
+在Yunikorn中有两种处理用户和群组的方法。第一种是传统的方式，使用标签`yunikorn.apache.org/usernname`。如果此标签设置在pod上，则该值会自动提取到shim中并被使用。群组解析也在shim中完成，但预设是不启用的。这种方法的问题有两个方面：首先，用户限制可以很容易地被绕过，因为提交者可以自由地将标签设置为任何值，因此这只能在受信任的环境中使用。其次，在shim中识别组别太慢了─将用户分配到多个群组​是不可行的，因为根据身份验证机制(如X509，tokens，LDP，etc)可能很难查找用户属于哪一个群组。
 
-由于这些限制很大，为了向后兼容才保留了此方法，并且将来可能会被删除。
+由于这些限制很大，为了向后兼容才保留了此方法，且将来可能会被删除。
 
-一种更可靠和健全的机制是使用`yunikorn.apache.org/user.info`，其中用户信息可以由「允许的用户或群组列表」从外部设置，或者准入控制可以自动将其附加到每个工作负载。
+一种更可靠和健全的机制是使用`yunikorn.apache.org/user.info`，其中用户信息中的「允许的用户或群组列表」可以由从外部设置，或者准入控制(admission controller)可以自动将其附加到每个工作负载(workflow)。
 
 ## 传统的用户处理
 
@@ -50,7 +49,7 @@ metadata:
     yunikorn.apache.org/username:"john"
 ```
 :::tip 
-为了让该字段成为唯一识别用户的指标，建议集群管理员使用用户识别工具，将这个标签设为不可变的字段。集群管理员或用户可以自由的使用任何方法或工具来增加这个字段和值。其中包含在提交时手动添加。
+为了让该字段(field)成为唯一识别用户的指标，建议集群管理员使用用户识别工具，将这个标签设为不可变的字段。集群管理员或用户可以自由的使用任何方法或工具来增加这个字段和值。其中包含在提交时手动添加。
 :::
 
 :::note 假设
@@ -66,9 +65,9 @@ Yunikorn假设一个应用程序的所有pod都属于同一个用户。我们建
     value:"custom_user_label"
 ```
 
-### 群组解析
+### 群组解析 (Group resolution)
 
-群组成员的解析定义在这里，此外该功能是可以选择加入或移除的。群组不必是用户或群组对象所提供的一部分。当对象被加到缓存中时，群组将自动根据配置来解析。可以为每个分区(partition)设置连接到缓存的解析器。
+这里包含群组成员解析的定义，此外该功能是可以选择加入或移除的。群组不必是用户或群组对象所提供的一部分。当对象被加到缓存中时，群组将自动根据配置来解析。可以为每个分区(partition)设置连接到缓存的解析器(resolver)。
 
 预设的群组解析器是"no resolver"。此解析器仅回传用户明和与用户同名的主要群组。
 
@@ -96,17 +95,17 @@ metadata:
 ```
 
 然而，为了加强安全性，在准入控制器中强制执行了以下操作：
-* 不是集群中的每个用户都可以附加此注解，只有在配置允许时才可以使用。
-* 如果缺少注解，则准入控制器将自动添加
-* 若尝试修改此注解将会被拒绝
+* 不是集群中的每个用户都可以附加此注解(annotation)，只有在配置允许时才可以使用。
+* 如果缺少注解，则准入控制器将自动添加。
+* 若尝试修改此注解将会被拒绝。
 
-我们不只在pods上这样做，而是在Deployments，ReplicaSet，DeamonSet，StatefulSet，Jobs和CronJobs上这样做。
+我们不只在pods上这样做，而是在Deployments，ReplicaSet，DeamonSet，StatefulSet，Jobs和CronJobs上都这样做。
 
 此外，群组解析器不再需要放在k8s-shim中。
 
 ### 配置准入控制器
 
-准入控制可以在`yunikorn-configs`的configmap中被配置。所有条目都以前缀`admissionController.accessControl.`开头
+准入控制可以在`yunikorn-configs`的configmap中被配置。所有条目都以前缀`admissionController.accessControl.`开头。
 
 |变量|默认值|描述|
 |--|--|--|
