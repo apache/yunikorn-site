@@ -237,13 +237,33 @@ This step is part of the release tool if the release tool is used the packaging 
 If the release tool is **not** used the `Chart.yaml` and the `values.yaml` must be updated manually.
 The other option is to run the helm script against the generated source directory as the tool does:
 ```shell script
-helm package --sign --key ${your_key_name} --keyring ${path/to/keyring.secret} staging/<release-dir>/helm-charts/yunikorn --destination staging/
+helm package --sign --key <your_key_name> --keyring </path/to/keyring.secret> staging/<release-dir>/helm-charts/yunikorn --destination staging/
 ```
-Signing the helm package requires a legacy PGP keyring. The PGP v2 keyring must be converted to the legacy format.
-For more information please check [Helm documentation](https://helm.sh/docs/topics/provenance/).
-Helm charts should be signed on release.
-Contrary to the source code tar ball signing, signing the helm charts requires manual entry of the key password.
 
+The key name provided in the `--key` argument must be contained in your key's uid. The helm tool checks if the name provided is part of the key's uid via a substring match.
+You can find all uids for your keys by executing:
+```shell script
+gpg --list-secret-keys
+```
+Signing the helm package requires a legacy PGP keyring. The GnuPG v2 keyring is stored in a must be converted to the legacy format.
+It is not possible to use the new keybox (kbx) format. Please use the following command to convert your keyring to the legacy gpg format:
+```shell script
+gpg --export >~/.gnupg/pubring.gpg
+gpg --export-secret-keys >~/.gnupg/secring.gpg
+```
+Note that you will be required to enter your passphrase for each secret keys that is exported.
+The file that is created by exporting the secrect keys, `~/.gnupg/secring.gpg`, is the path used in the `--keyring` parameter.
+
+All this combined will result in a similar command for signing the helm charts when run from the top level of the checked out release repository:
+```shell script
+helm package --sign --key wilfreds@apache.org --keyring ~/.gnupg/secring.gpg staging/apache-yunikorn-1.0.0-src/helm-charts/yunikorn --destination staging/
+```
+
+For more information please check [Helm documentation](https://helm.sh/docs/topics/provenance/).
+
+Helm charts _must_ be signed on release.
+Contrary to the source code tar ball signing, signing the helm charts requires manual entry of the key passphrase.
+There is no option to provide the passphrase any other way to the helm tool.
 The helm package will generate two files:
 - helm package: example `yunikorn-0.8.0.tgz`
 - provenance or signature file: example `yunikorn-0.8.0.tgz.prov`
