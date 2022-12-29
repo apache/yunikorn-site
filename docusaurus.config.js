@@ -156,16 +156,15 @@ module.exports = {
           label: 'Docs',
           to: 'docs',
           position: 'right',
-          activeBaseRegex: `docs/(?!next/(support|team|resources))`,
           items: [
             {
               label: 'Master',
               to: 'docs/next/',
-              activeBaseRegex: `docs/next/(?!support|team|resources)`,
             },
             {
               label: versions[0],
               to: 'docs/',
+              // required for correct style on current version menu item
               activeBaseRegex: `docs/(?!${versions.join('|')}|next)`,
             },
             ...versions.slice(1).map((version) => ({
