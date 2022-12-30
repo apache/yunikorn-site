@@ -37,7 +37,7 @@ yunikorn-scheduler-766d7d6cdd-44b82 2/2 Running 0 33h
 kubectl logs yunikorn-scheduler-766d7d6cdd-44b82 yunikorn-scheduler-k8s -n yunikorn
 ```
 
-在大多数的情况下，这个命令没有办法获取所有的日志，因为调度程序的日志数量庞大，您需要为集群设置[日志级别](https://kubernetes.io/docs/concepts/cluster-administration/logging/#cluster-level-logging-architectures)。推荐的设置方式是利用[fluentd](https://www.fluentd.org/)在外部储存(例如s3)上持久的收集日志。
+在大多数的情况下，这个命令没有办法获取所有的日志，因为调度程序的日志数量庞大，您需要设置[集群级别的日志收集](https://kubernetes.io/docs/concepts/cluster-administration/logging/#cluster-level-logging-architectures)。推荐的设置方式是利用[fluentd](https://www.fluentd.org/)在外部储存(例如s3)上持久的收集日志。
 
 ### 设定日志级别
 
