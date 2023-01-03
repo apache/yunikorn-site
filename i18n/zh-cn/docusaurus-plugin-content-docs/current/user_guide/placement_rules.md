@@ -23,7 +23,7 @@ under the License.
 -->
 基础的放置规则(placement rules)配置[调度弃配置设计文档](../design/scheduler_configuration#placement-rules-definition)中有相关描述。
 
-我们可以将多个规则链结再一起形成一个放置策略，并通过[存取控制列表(Access control lists)](user_guide/acls)和规则过滤来定义和执行规则。
+我们可以将多个规则链结再一起形成一个放置策略，并通过[存取控制列表(Access control lists)](user_guide/acls.md)和规则过滤来定义和执行规则。
 
 本篇文章将通过例子来解释如何建立策略以及规则的使用，而该放置策略为调度器的一部分。
 
@@ -132,7 +132,7 @@ placementrules:
 
 如果队列的ACL允许任何ACL提交存取，则放置规则才能匹配。管理队列ACL还提供「提交准入」的功能。如果队列不存在或没有配置ACL，则将检查父队列的ACL。这种递迴的检查会重复执行，直到有ACL提供存取或根目录的ACL被检查过后。
 
-关于ACL语法的更多细节，请查阅[ACL文档](user_guide/acl)。
+关于ACL语法的更多细节，请查阅[ACL文档](user_guide/acls.md)。
 
 ## 规则
 ### Provided Rule
