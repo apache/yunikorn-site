@@ -363,7 +363,7 @@ or via the Helm `yunikornDefaults` section:
 Deprecated example:
 
     operatorPlugins: general
-    placeHolderImage: registry.gcr.io/pause:3.7
+    placeHolderImage: registry.k8s.io/pause:3.7
     admissionController:
       processNamespaces: "^spark-,^mpi-"
       bypassNamespaces: "^kube-system$"
@@ -385,7 +385,7 @@ Replacement example:
     yunikornDefaults:
       service.policyGroup: queues
       service.operatorPlugins: general
-      service.placeholderImage: registry.gcr.io/pause:3.7
+      service.placeholderImage: registry.k8s.io/pause:3.7
       admissionController.processNamespaces: "^spark-,^mpi-"
       admissionController.bypassNamespaces: "^kube-system$"
       admissionController.labelNamespaces: "^spark-"
