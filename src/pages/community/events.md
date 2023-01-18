@@ -95,6 +95,7 @@ a new node sorting algorithm. Please find all the topics for this meetup [here](
 
 ## Past Conference & Meetup Recordings
 
+- KubeConf North America 2022: [Beyond Experimental: Spark on Kubernetes](https://www.youtube.com/watch?v=u7htKIiK75c) :busts_in_silhouette:  Weiwei Yang, Bowen Li
 - Apache YuniKorn Meetup: [October 2022](https://youtu.be/l76NByMersg) | [Pinterest presentation](https://drive.google.com/file/d/1sSXRNx_ndk4mWaCICjtbddjoSUYN9TV7/view?usp=sharing) | [Cloudera presentation](https://drive.google.com/file/d/14jqfDNpCTTQr0R2ZBrghn-WGFBR89KI7/view?usp=sharing)
 - VISA Data Meetup: [Apache YuniKorn scheduling Apache Spark on Kubernetes](https://web.cvent.com/event/9ceb73f1-4ce7-480e-95ed-fe65dea09cc4/websitePage:e6b9cca5-1c3b-4b7a-99e7-62c045b1ce26?i=bn_TynKrfUao8DzBYW3XwA&locale=en-US) :busts_in_silhouette: Wilfred Spiegelenburg
 - KubeCon Batch & HPC day 2022: [Apache YuniKorn A Kubernetes Scheduler Plugin for Batch Workloads](https://www.youtube.com/watch?v=cQD_jwA4fqo) :busts_in_silhouette: Wilfred Spiegelenburg, Craig Condit 
