@@ -30,7 +30,7 @@ will be waiting in the queue. Apps are queued in hierarchy queues,
 with gang scheduling enabled, each resource queue is assigned with the
 maximum number of applications running concurrently with min resource guaranteed.
 
-![Gang Scheduling](./../assets/gang_scheduling_iintro.png)
+![Gang Scheduling](./../assets/gang_scheduling_intro.png)
 
 ## Enable Gang Scheduling
 
@@ -46,26 +46,33 @@ treated as the same kind in the scheduler.
 
 ### Prerequisite
 
-For the queues which runs gang scheduling enabled applications, the queue sorting policy needs to be set either
-`FIFO` or `StateAware`. To configure queue sorting policy, please refer to doc: [app sorting policies](user_guide/sorting_policies.md#Application_sorting).
+For the queues which runs gang scheduling enabled applications, the queue sorting policy should be set to `FIFO`.
+To configure queue sorting policy, please refer to doc: [app sorting policies](user_guide/sorting_policies.md#application-sorting).
 
-:::info Why FIFO based sorting policy?
+#### Why the `FIFO` sorting policy
+
 When Gang Scheduling is enabled, the scheduler proactively reserves resources
 for each application. If the queue sorting policy is not FIFO based (StateAware is FIFO based sorting policy),
 the scheduler might reserve partial resources for each app and causing resource segmentation issues.
-:::
+
+#### Side effects of `StateAware` sorting policy
+
+We do not recommend using `StateAware`, even-though it is a FIFO based policy. A failure of the first pod or a long initialisation period of that pod could slow down the processing.
+This is specifically an issue with Spark jobs when the driver performs a lot of pre-processing before requesting the executors.
+The `StateAware` timeout in those cases would slow down processing to just one application per timeout.
+This in effect will overrule the gang reservation and cause slowdowns and excessive resource usage.
 
 ### App Configuration
 
 On Kubernetes, YuniKorn discovers apps by loading metadata from individual pod, the first pod of the app
-is required to enclosed with a full copy of app metadata. If the app doesn’t have any notion about the first or second pod,
+is required to enclosed with a full copy of app metadata. If the app does not have any notion about the first or second pod,
 then all pods are required to carry the same taskGroups info. Gang scheduling requires taskGroups definition,
 which can be specified via pod annotations. The required fields are:
 
-| Annotation                                     | Value |
-|----------------------------------------------- |---------------------	|
-| yunikorn.apache.org/task-group-name 	         | Task group name, it must be unique within the application |
-| yunikorn.apache.org/task-groups                | A list of task groups, each item contains all the info defined for the certain task group |
+| Annotation                                     | Value                                                                                                                                                         |
+|------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| yunikorn.apache.org/task-group-name 	          | Task group name, it must be unique within the application                                                                                                     |
+| yunikorn.apache.org/task-groups                | A list of task groups, each item contains all the info defined for the certain task group                                                                     |
 | yunikorn.apache.org/schedulingPolicyParameters | Optional. A arbitrary key value pairs to define scheduling policy parameters. Please read [schedulingPolicyParameters section](#scheduling-policy-parameters) |
 
 #### How many task groups needed?
@@ -99,7 +106,7 @@ This parameter defines the reservation timeout for how long the scheduler should
 The timeout timer starts to tick when the scheduler *allocates the first placeholder pod*. This ensures if the scheduler
 could not schedule all the placeholder pods, it will eventually give up after a certain amount of time. So that the resources can be
 freed up and used by other apps. If non of the placeholders can be allocated, this timeout won't kick-in. To avoid the placeholder
-pods stuck forever, please refer to [troubleshooting](troubleshooting.md#gang-scheduling) for solutions.
+pods stuck forever, please refer to [troubleshooting](troubleshooting.md#成组调度) for solutions.
 
 ` gangSchedulingStyle`
 
@@ -201,7 +208,8 @@ Annotations:
 ```
 
 :::note
-Spark driver and executor pod has memory overhead, that needs to be considered in the taskGroup resources. 
+The TaskGroup resources must account for the memory overhead for Spark drivers and executors.
+See the [Spark documentation](https://spark.apache.org/docs/latest/configuration.html#application-properties) for details on how to calculate the values.
 :::
 
 For all the executor pods,
@@ -285,4 +293,4 @@ Check field including: namespace, pod resources, node-selector, toleration and a
 
 ## Troubleshooting
 
-Please see the troubleshooting doc when gang scheduling is enabled [here](troubleshooting.md#gang-scheduling).
+Please see the troubleshooting doc when gang scheduling is enabled [here](troubleshooting.md#成组调度).
