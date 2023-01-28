@@ -400,7 +400,9 @@ In the example below there are three allocations belonging to two applications, 
                 "replaced": 1,
                 "timedout": 1
             }
-        ]
+        ],
+        "hasReserved": false,
+        "reservations": []
     },
     {
         "applicationID": "application-0002",
@@ -487,7 +489,9 @@ In the example below there are three allocations belonging to two applications, 
                 "applicationState": "Running"
             }
         ],
-        "placeholderData": []
+        "placeholderData": [],
+        "hasReserved": false,
+        "reservations": []
     }
 ]
 ```
@@ -638,7 +642,9 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
             "replaced": 1,
             "timedout": 1
         }
-    ]
+    ],
+    "hasReserved": false,
+    "reservations": []
 }
 ```
 
@@ -821,7 +827,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "placeholderUsed": false
             }
         ],
-        "schedulable": true
+        "schedulable": true,
+        "isReserved": false,
+        "reservations": []
     }
 ]
 ```
