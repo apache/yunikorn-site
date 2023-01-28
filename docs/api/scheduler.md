@@ -179,6 +179,10 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
             "memory": 54000000,
             "vcore": 80
         },
+        "pendingResource": {
+            "memory": 54000000,
+            "vcore": 80
+        },
         "isLeaf": "false",
         "isManaged": "false",
         "properties": {
@@ -212,6 +216,10 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                     "vcore": 80
                 },
                 "allocatedResource": {
+                    "memory": 54000000,
+                    "vcore": 80
+                },
+                "pendingResource": {
                     "memory": 54000000,
                     "vcore": 80
                 },
@@ -286,6 +294,10 @@ In the example below there are three allocations belonging to two applications, 
             "vcore": 4000
         },
         "maxUsedResource": {
+            "memory": 4000000000,
+            "vcore": 4000
+        },
+        "pendingResource": {
             "memory": 4000000000,
             "vcore": 4000
         },
@@ -397,6 +409,10 @@ In the example below there are three allocations belonging to two applications, 
             "vcore": 4000
         },
         "maxUsedResource": {
+            "memory": 4000000000,
+            "vcore": 4000
+        },
+        "pendingResource": {
             "memory": 4000000000,
             "vcore": 4000
         },
@@ -516,6 +532,10 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
         "vcore": 4000
     },
     "maxUsedResource": {
+        "memory": 4000000000,
+        "vcore": 4000
+    },
+    "pendingResource": {
         "memory": 4000000000,
         "vcore": 4000
     },
