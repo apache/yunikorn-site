@@ -179,6 +179,10 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
             "memory": 54000000,
             "vcore": 80
         },
+        "pendingResource": {
+            "memory": 54000000,
+            "vcore": 80
+        },
         "isLeaf": "false",
         "isManaged": "false",
         "properties": {
@@ -212,6 +216,10 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                     "vcore": 80
                 },
                 "allocatedResource": {
+                    "memory": 54000000,
+                    "vcore": 80
+                },
+                "pendingResource": {
                     "memory": 54000000,
                     "vcore": 80
                 },
@@ -286,6 +294,10 @@ In the example below there are three allocations belonging to two applications, 
             "vcore": 4000
         },
         "maxUsedResource": {
+            "memory": 4000000000,
+            "vcore": 4000
+        },
+        "pendingResource": {
             "memory": 4000000000,
             "vcore": 4000
         },
@@ -388,7 +400,9 @@ In the example below there are three allocations belonging to two applications, 
                 "replaced": 1,
                 "timedout": 1
             }
-        ]
+        ],
+        "hasReserved": false,
+        "reservations": []
     },
     {
         "applicationID": "application-0002",
@@ -397,6 +411,10 @@ In the example below there are three allocations belonging to two applications, 
             "vcore": 4000
         },
         "maxUsedResource": {
+            "memory": 4000000000,
+            "vcore": 4000
+        },
+        "pendingResource": {
             "memory": 4000000000,
             "vcore": 4000
         },
@@ -471,7 +489,9 @@ In the example below there are three allocations belonging to two applications, 
                 "applicationState": "Running"
             }
         ],
-        "placeholderData": []
+        "placeholderData": [],
+        "hasReserved": false,
+        "reservations": []
     }
 ]
 ```
@@ -516,6 +536,10 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
         "vcore": 4000
     },
     "maxUsedResource": {
+        "memory": 4000000000,
+        "vcore": 4000
+    },
+    "pendingResource": {
         "memory": 4000000000,
         "vcore": 4000
     },
@@ -618,7 +642,9 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
             "replaced": 1,
             "timedout": 1
         }
-    ]
+    ],
+    "hasReserved": false,
+    "reservations": []
 }
 ```
 
@@ -801,7 +827,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "placeholderUsed": false
             }
         ],
-        "schedulable": true
+        "schedulable": true,
+        "isReserved": false,
+        "reservations": []
     }
 ]
 ```
