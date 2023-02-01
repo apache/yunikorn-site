@@ -107,9 +107,9 @@ ln -s ../../../src/pages/styles.module.css
 
 在`i18n/new language keyword/docusaurus-plugin-content-docs/current`中创建链接文件。
 ```
-# cleaning the duplicate files
+# 清理重复文件
 rm -rf assests
-# linking
+# 链接
 ln -s ../../../../docs/assets
 ```
 
