@@ -28,7 +28,7 @@ Yunikorn网站采用Docusaurus管理文档。
 
 ## 修改docusaurus.config.js以支持新语言
 假设通过**新语言关键字**进行翻译。
-预期的结果会像这个图。
+预期的结果会像这个图(右上方的<新语言关键字>為test)。
 ![翻译结果](./../assets/translationDemo.png)
 
 当前的Yunikorn网站包括**en**和**zh-cn**文档。
