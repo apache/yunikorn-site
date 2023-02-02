@@ -22,27 +22,26 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# 未来发展：长期的目标
-
-- 应用程序和任务优先级的支持
-- 抢占资源分配
-- 用户和组配额和限制执行
-- 除了当前的独立模式之外，还会提供另一种部署模式作为默认调度程序的插件
-
 # 下一个发布研发内容
 
 发布详情：
-- 版本：1.1.0
-- 目标发布日期：2022 年 8 月
+- 版本：1.3.0
+- 目标发布日期：2023 年 5 月
 - 发布负责人：尚未决定
 - 开发状态：[问题跟踪器](https://issues.apache.org/jira/issues/?filter=12348416)
 
 计划的主要功能：
-- [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) 实施用户和组限制 (phase 1)
-- [YUNIKORN-725](https://issues.apache.org/jira/browse/YUNIKORN-725) 支持ARM64处理器
-- [YUNIKORN-1187](https://issues.apache.org/jira/browse/YUNIKORN-1187) 恢复稳定性
-- [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1) 应用优先级
-- [YUNIKORN-1196](https://issues.apache.org/jira/browse/YUNIKORN-1196) 更新K8s构建依赖
-- [YUNIKORN-1085](https://issues.apache.org/jira/browse/YUNIKORN-1085) 在自动缩放期间添加的新节点上，可能无法调度 DaemonSet pod
+- [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) [Umbrella] 用户配额跟踪
+- [YUNIKORN-1196](https://issues.apache.org/jira/browse/YUNIKORN-1196) 升级K8s构建依赖
+- [YUNIKORN-1275](https://issues.apache.org/jira/browse/YUNIKORN-1275) 支持命名空间注解中的任意资源
+- [YUNIKORN-1306](https://issues.apache.org/jira/browse/YUNIKORN-1306) [Umbrella]增强的用户和组群处理
+- [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1) 支持应用程序/任务优先级感知调度
 
 支持的 Kubernetes 版本和 Kubernetes 依赖项将在开发周期中进行选择和最终确定。
+
+# 未来发展：长期的目标
+
+- 抢占：非守护进程集案例
+- 插件模式部署为默认模式
+- shim、core和web的标准化配置
+- REST 和 Web UI：authn、authz和加密
