@@ -22,7 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-这是一个给 分析工具─[pprof](https://github.com/google/pprof) 的端点。
+这些端点是用于提供資訊給[pprof](https://github.com/google/pprof)分析工具。
 
 ## pprof
 
