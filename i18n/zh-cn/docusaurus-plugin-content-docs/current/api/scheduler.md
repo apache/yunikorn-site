@@ -1342,7 +1342,7 @@ checksum: BAB3D76402827EABE62FA7E4C6BCF4D8DD9552834561B6B660EF37FED9299791
 
 ## 健康检查的端点
 
-用来检索历史数据的端点，其中包含关键日志，以及节点、集群、应用程序中的负面资源（negative resources）
+用来检索历史数据的端点，其中包含关键日志，以及节点、集群、应用程序中资源量为负的资源。
 
 **位置(URL)** : `/ws/v1/scheduler/healthcheck`
 
