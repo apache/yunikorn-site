@@ -25,8 +25,8 @@ under the License.
 # Next Release Development
 
 Release Details:
-- Version: 1.2.0
-- Target release date: January 2023
+- Version: 1.3.0
+- Target release date: May 2023
 - Release manager: undecided
 - Development status: [Issue tracker](https://issues.apache.org/jira/issues/?filter=12348416)
 
