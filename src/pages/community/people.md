@@ -53,6 +53,7 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 | Subramaniam Krishnan    | subru       | Microsoft    | -8                  |
 | Sunil Govindan          | sunilg      | Cloudera     | -8                  |
 | Tao Yang                | taoyang     | Alibaba      | +8                  |
+| Tingyao Huang           | tingyao     | TrendMicro   | +8                  |
 | Vinod Kumar Vavilapalli | vinodkv     | Cloudera     | +5.5                |
 | Wangda Tan              | wangda      | Snowflake    | -8                  |
 | Wei-Chiu Chuang         | weichiu     | Cloudera     | -8                  |
@@ -67,8 +68,8 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 |----------------|---------------|--------------|---------------------|
 | Chia-Ping Tsai | chia7712      | Is-Land      | +8                  |
 | Li Gao         | ligao         | Databricks   | -8                  |
+| Rainie Li      | rainieli      | Pinterest    | -8                  |
 | Ted Lin        | steinsgateted | NCKU         | +8                  |
-| Tingyao Huang  | tingyao       | TrendMicro   | +8                  |
 | Yu Teng Chen   | yuteng        | NTCU         | +8                  |
 
 ## Become a Committer
