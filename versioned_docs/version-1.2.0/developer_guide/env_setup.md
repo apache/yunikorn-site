@@ -22,8 +22,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-There are several ways to setup a local development environment for Kubernetes, the two most common ones are `Minikube` ([docs](https://kubernetes.io/docs/setup/minikube/)) and `docker-desktop`.
-`Minikube` provisions a local Kubernetes cluster on several Virtual Machines (via VirtualBox or something similar). `docker-desktop` on the other hand, sets up Kubernetes cluster in docker containers.
+There are several ways to setup a local development environment for Kubernetes, the three most common ones are `Minikube` ([docs](https://kubernetes.io/docs/setup/minikube/)), `docker-desktop` and `kind` ([kind](https://kind.sigs.k8s.io/))
+`Minikube` provisions a local Kubernetes cluster on several Virtual Machines (via VirtualBox or something similar). `docker-desktop` on the other hand, sets up Kubernetes cluster in docker containers.  `kind` provides lightweight Kubernetes clusters for Windows, Linux and Mac.  
 
 ## Local Kubernetes cluster using Docker Desktop
 
@@ -41,18 +41,18 @@ Once Kubernetes is started in docker desktop, you should see something similar b
 
 This means that:
 1. Kubernetes is running.
-1. the command line tool `kubctl` is installed in the `/usr/local/bin` directory.
-1. the Kubernetes context is set to `docker-desktop`.
+2. the command line tool `kubctl` is installed in the `/usr/local/bin` directory.
+3. the Kubernetes context is set to `docker-desktop`.
 
 ### Deploy and access dashboard
 
 After setting up the local Kubernetes you need to deploy the dashboard using the following steps: 
 1. follow the instructions in [Kubernetes dashboard doc](https://github.com/kubernetes/dashboard) to deploy the dashboard.
-1. start the Kubernetes proxy in the background from a terminal to get access on the dashboard on the local host:   
+2. start the Kubernetes proxy in the background from a terminal to get access on the dashboard on the local host:   
     ```shell script
     kubectl proxy &
     ```
-1. access the dashboard at the following URL: [clickable link](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login)
+3. access the dashboard at the following URL: [clickable link](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login)
 
 ### Access local Kubernetes cluster
 
@@ -87,27 +87,61 @@ Check hypervisor Docker Desktop should have already installed HyperKit. In a ter
     chmod +x minikube
     sudo mv minikube /usr/local/bin
     ```
-1. install HyperKit driver (required), you can either use brew or directly via these steps:
+2. install HyperKit driver (required), you can either use brew or directly via these steps:
     ```shell script
     curl -LO https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-hyperkit
     sudo install -o root -g wheel -m 4755 docker-machine-driver-hyperkit /usr/local/bin/
     ```
-1. update the minikube config to default to the HyperKit install `minikube config set vm-driver hyperkit`
-1. change docker desktop to use minikube for Kubernetes:<br/>
+3. update the minikube config to default to the HyperKit install `minikube config set vm-driver hyperkit`
+4. change docker desktop to use minikube for Kubernetes:<br/>
     ![Kubernetes in Docker Desktop: minikube setting](./../assets/docker-dektop-minikube.png)
 
 ### Deploy and access the cluster
 After the installation is done you can start a new cluster.
-1. start the minikube cluster: `minikube start --kubernetes-version v1.14.2`
-1. start the minikube dashboard: `minikube dashboard &`
+1. start the minikube cluster: `minikube start --kubernetes-version v1.24.7`
+2. start the minikube dashboard: `minikube dashboard &`
 
 ### Build impact
 When you create images make sure that the build is run after pointing it to the right environment. 
 Without setting the enviromnent minikube might not find the docker images when deploying the scheduler.
 1. make sure minikube is started
-1. in the terminal where you wll run the build execute: `eval $(minikube docker-env)`
-1. run the image build from the yunikorn-k8shim repository root: `make image`
-1. deploy the scheduler as per the normal instructions.
+2. in the terminal where you wll run the build execute: `eval $(minikube docker-env)`
+3. run the image build from the yunikorn-k8shim repository root: `make image`
+4. deploy the scheduler as per the normal instructions.
+
+## Local Kubernetes Cluster with Kind
+
+Kind (Kubernetes in Docker) is a lightweight tool for running lightweight Kubernetes environments.  It is very easy to test different Kubernetes versions with kind.  You can just select the kind image you want.
+
+### Installation
+
+If you have go installed, you can run `go install sigs.k8s.io/kind@latest`.
+
+Other ways can be found on the Kind [website](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+
+To use Kind with Kubernetes 1.25, you will need to use kind@v0.15 or greater.  The release of kind does allow for particular versions of Kubernetes and you can get that information from the Kind release notes.
+
+### Using Kind
+
+To test a new version of Kubernetes, you can pull a corresponding image from kind's repo.
+
+Creating a v1.24.7 Kubernetes Cluster: `kind create cluster --name test --image kindest/node:v1.24.7`
+
+Deleting a kind cluster: `kind delete cluster --name test`
+
+### Loading your images
+
+In order to use a local image, you have to load your images into kind's registry.  If you run `make image`, you could use the following command to load your kind image.  This assumes AMD64 architecture.
+
+The scheduler, web-ui and admission-controller examples are below: 
+scheduler:
+`kind load docker-image apache/yunikorn:scheduler-amd64-latest`
+
+web: 
+`kind load docker-image apache/yunikorn:web-amd64-latest`
+
+admission-controller:
+`kind load docker-image apache/yunikorn:admission-amd64-latest`
 
 ## Debug code locally
 
@@ -135,17 +169,17 @@ For a generic view on how to access a multiple cluster and integrate it follow t
 
 Or follow these simplified steps:
 1. get the Kubernetes `config` file from remote cluster, copy it to the local machine and give it a unique name i.e. `config-remote`
-1. save the `KUBECONFIG` environment variable (if set)
+2. save the `KUBECONFIG` environment variable (if set)
     ```shell script
     export KUBECONFIG_SAVED=$KUBECONFIG
     ```
-1. add the new file to the environment variable
+3. add the new file to the environment variable
     ```shell script
     export KUBECONFIG=$KUBECONFIG:config-remote
     ``` 
-1. run the command `kubectl config view` to check that both configs can be accessed
-1. switch context using `kubectl config use-context my-remote-cluster`
-1. confirm that the current context is now switched to the remote cluster config:
+4. run the command `kubectl config view` to check that both configs can be accessed
+5. switch context using `kubectl config use-context my-remote-cluster`
+6. confirm that the current context is now switched to the remote cluster config:
     ```text
     kubectl config get-contexts
     CURRENT   NAME                   CLUSTER                      AUTHINFO             NAMESPACE

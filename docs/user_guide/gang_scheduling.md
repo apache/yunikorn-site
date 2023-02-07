@@ -65,7 +65,7 @@ This in effect will overrule the gang reservation and cause slowdowns and excess
 ### App Configuration
 
 On Kubernetes, YuniKorn discovers apps by loading metadata from individual pod, the first pod of the app
-is required to enclosed with a full copy of app metadata. If the app does not have any notion about the first or second pod,
+is required to include a full copy of app metadata. If the app does not have any notion about the first or second pod,
 then all pods are required to carry the same taskGroups info. Gang scheduling requires taskGroups definition,
 which can be specified via pod annotations. The required fields are:
 

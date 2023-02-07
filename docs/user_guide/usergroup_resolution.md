@@ -36,9 +36,9 @@ A more reliable and robust mechanism is using the `yunikorn.apache.org/user.info
 
 Since, Kubernetes has no pre-defined field or resource for user information and individual cluster deployments with unique user identification tools can vary, we have defined a standard way of identifying the user. Yunikorn requires a Kubernetes [Label](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) added. Using the [recommendation](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/) provided here, the default label is defined as below:
 
-| Label                                          | Value |
-|----------------------------------------------- |---------------------	|
-| yunikorn.apache.org/username 	                 | User name. It can have duplicate entries but only the first value will be used. The default user is `nobody` |
+| Label                          | Value                                                                                                        |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------|
+| yunikorn.apache.org/username 	 | User name. It can have duplicate entries but only the first value will be used. The default user is `nobody` |
 
 Example:
 ```yaml
@@ -107,13 +107,13 @@ Group resolution is no longer necessary inside the shim.
 
 The admission controller can be configured with the `yunikorn-configs` configmap. All entries start with the prefix `admissionController.accessControl.`.
 
-|Variable|Default value|Description|
-|--|--|--|
-|`bypassAuth`|false|Allow any external user to create pods with user information set|
-|`trustControllers`|true|Allow Kubernetes controller users to create pods with user information set|
-|`systemUsers`|"^system:serviceaccount:kube-system:"|Regular expression for the allowed controller service account list|
-|`externalUsers`|""|Regular expression for the allowed external user list|
-|`externalGroups`|""|Regular expression for the allowed external group list|
+| Variable           | Default value                         | Description                                                                |
+|--------------------|---------------------------------------|----------------------------------------------------------------------------|
+| `bypassAuth`       | false                                 | Allow any external user to create pods with user information set           |
+| `trustControllers` | true                                  | Allow Kubernetes controller users to create pods with user information set |
+| `systemUsers`      | "^system:serviceaccount:kube-system:" | Regular expression for the allowed controller service account list         |
+| `externalUsers`    | ""                                    | Regular expression for the allowed external user list                      |
+| `externalGroups`   | ""                                    | Regular expression for the allowed external group list                     |
 
 If `bypassAuth` is set to true the admission controller will not add the annotation to a pod if the annotation is not present and the deprecated user labell is set. If the annotation is not set and the user label is not set the new annotation will be added. In the case that `bypassAuth` is false, the default, the admission controller will always add the new annotation, regardless of the existence of the deprecated label.
 

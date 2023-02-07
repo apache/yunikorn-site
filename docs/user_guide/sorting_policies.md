@@ -41,7 +41,7 @@ Even when applications are sorted using a first in first out policy multiple app
 A _parent_ queue will always use the fair policy to sort the child queues.
 
 The relative priority of child queues (in the case of _parent_ queue sorting)
-and applciations (in the case of _leaf_ queue sorting) will be considered first.
+and applications (in the case of _leaf_ queue sorting) will be considered first.
 To ignore application and queue priorities when scheduling, set the queue
 property `application.sort.priority` to `disabled`.
 

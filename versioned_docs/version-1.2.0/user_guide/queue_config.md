@@ -35,11 +35,10 @@ The current shim identifies the user and the groups the user belongs to using th
 ## Configuration
 The configuration file for the scheduler that is described here only provides the configuration for the partitions and queues.
 
-By default we use the file called `queues.yaml` in our deployments.
-The filename can be changed via the command line flag `policyGroup` of the scheduler.
-Changing the filename must be followed by corresponding changes in the deployment details, either the `configmap` or the file included in the docker container.
+By default the scheduler reads the ConfigMap section `queues.yaml` for partition and queue configuration. The section name can
+be changed by updating the `service.policyGroup` ConfigMap entry to be something other than `queues`.
 
-The example file for the configuration is located in the scheduler core's [queues.yaml](https://github.com/apache/yunikorn-core/blob/master/config/queues.yaml).  
+The example reference for the configuration is located in the scheduler core's [queues.yaml](https://github.com/apache/yunikorn-core/blob/master/config/queues.yaml) file.
 
 ## Partitions
 Partitions are the top level of the scheduler configuration.
@@ -63,7 +62,7 @@ The queues configuration is explained below.
 
 Optionally the following keys can be defined for a partition:
 * [placementrules](#placement-rules)
-* [statedumpfilepath](#statedump-filepath)
+* [statedumpfilepath](#statedump-filepath) (deprecated since v1.2.0)
 * [limits](#limits)
 * nodesortpolicy
 * preemption
@@ -133,7 +132,8 @@ Supported parameters for the queues:
 * name
 * parent
 * queues
-* properties
+* maxapplications
+* [properties](#properties)
 * adminacl
 * submitacl
 * [resources](#resources)
@@ -159,12 +159,13 @@ Trying to override a _parent_ queue type in the configuration will cause a parsi
 
 Sub queues for a parent queue are defined under the `queues` entry.
 The `queues` entry is a recursive entry for a queue level and uses the exact same set of parameters.  
+The `maxapplications` property is an integer value, larger than 1, which allows you to limit the number of running applications for the queue. Specifying a zero for `maxapplications` is not allowed as it would block all allocations for applications in the queue. The `maxapplications` value for a _child_ queue must be smaller or equal to the value for the _parent_ queue.
 
-The `properties` parameter is a simple key value pair list. 
-The list provides a simple set of properties for the queue.
-There are no limitations on the key or value values, anything is allowed.
-Currently, the property list is only used in the scheduler to define a [sorting order](sorting_policies.md#application-sorting) for a leaf queue.
-Future expansions, like the option to turn on or off preemption on a queue or other sorting policies, would use this same property construct without the need to change the configuration.
+The [properties](#properties) section contains simple key/value pairs. This is
+used for further queue customization of features such as 
+[application sorting](sorting_policies.md#application-sorting) and priority
+scheduling. Future features will use the exisitng `properties` section as well
+to avoid the need to define a new structure for queue configuration.
 
 Access to a queue is set via the `adminacl` for administrative actions and for submitting an application via the `submitacl` entry.
 ACLs are documented in the [Access control lists](acls.md) document.
@@ -180,11 +181,20 @@ partitions:
     queues:
       - name: namespaces
         parent: true
+        maxapplications: 12
         resources:
           guaranteed:
             {memory: 1G, vcore: 10}
           max:
             {memory: 10G, vcore: 100}
+        queues:
+          - name: level1
+            maxapplications: 8
+            resources:
+              guaranteed:
+                {memory: 0.5G, vcore: 5}
+              max:
+                {memory: 5G, vcore: 50}
 ```
 
 ### Placement rules
@@ -196,18 +206,11 @@ If no rules are defined the placement manager is not started and each applicatio
 
 ### Statedump filepath
 
-The statedump filepath defines the output file for YuniKorn statedumps. It is optionally set on the partition level. If set,
-the value of this field can be either a relative (to working directory) or absolute path. YuniKorn scheduler will be unable
-to start if it does not have sufficient permissions to create the statedump file at the specified path.
+**Status** : Deprecated and ignored since v1.2.0, no replacement.
 
 ```yaml
 statedumpfilepath: <path/to/statedump/file>
 ```
-If the above key is not specified in the partition config, its value will default to `yunikorn-state.txt`. If the key is specified
-in multiple partitions, the value of its first occurrence will take precedence.
-
-The statedump file also has a fixed rotation policy. Currently, each statedump file has a capacity of 10MB and there can be a maximum
-of 10 such files. The statedump file currently being written to will always be the configured value above or default `yunikorn-state.txt`. When the file size limit is reached, the log rotator (`lumberjack`) will modify the file by prefixing it with a timestamp and create a new file with the same non-prefixed name to write statedumps to. If the maximum number of statedump files are reached, the oldest file timestamped as per the rotation policy will be deleted.
 
 ### Limits
 Limits define a set of limit objects for a partition or queue.
@@ -264,7 +267,7 @@ Specifying a star beside other list elements is not allowed.
 
 _maxapplications_ is an unsigned integer value, larger than 1, which allows you to limit the number of running applications for the configured user or group.
 Specifying a zero maximum applications limit is not allowed as it would implicitly deny access.
-Denying access must be handled via the ACL entries.  
+Denying access must be handled via the ACL entries.
 
 The _maxresources_ parameter can be used to specify a limit for one or more resources.
 The _maxresources_ uses the same syntax as the [resources](#resources) parameter for the queue. 
@@ -289,6 +292,80 @@ users:
 - bob
 ```
 In this case both the users `sue` and `bob` are allowed to run 10 applications.
+
+### Properties
+
+Additional queue configuration can be added via the `properties` section,
+specified as simple key/value pairs. The following parameters are currently
+supported:
+
+#### `application.sort.policy` 
+
+Supported values: `fifo`, `fair`, `stateaware`
+
+Default value: `fifo`
+
+Sets the policy to be used when sorting applications within a queue. This
+setting has no effect on a _parent_ queue.
+
+See the documentation on [application sorting](sorting_policies.md#application-sorting)
+for more information.
+
+
+#### `application.sort.priority`
+
+Supported values: `enabled`, `disabled`
+
+Default value: `enabled`
+
+When this property is `enabled`, priority will be considered when sorting
+queues and applications. Setting this value to `disabled` will ignore
+priorities when sorting. This setting can be specified on a _parent_ queue and
+will be inherited by _child_ queues.
+
+**NOTE:** YuniKorn releases prior to 1.2.0 did not support priorities when
+sorting. To keep the legacy behavior, set `application.sort.priority` to
+`disabled`.
+
+#### `priority.policy`
+
+Supported values: `default`, `fence`
+
+Default value: `default`
+
+Sets the inter-queue priority policy to use when scheduling requests.
+
+**NOTE**: This value is not inherited by child queues.
+
+By default, priority applies across queues globally. In other words,
+higher-priority requests will be satisfied prior to lower-priority requests
+regardless of which queue they exist within.
+
+When the `fence` policy is in use on a queue, the priorities of _child_ queues
+(in the case of a _parent_ queue) or applications (in the case of a _leaf_
+queue) will not be exposed outside the fence boundary. 
+
+See the documentation on [priority support](priorities.md) for more information.
+
+#### `priority.offset`
+
+Supported values: any positive or negative 32-bit integer
+
+Default value: `0`
+
+Adjusts the priority of the queue relative to it's siblings. This can be useful
+to create high or low-priority queues without needing to set every task's
+priority manually.
+
+**NOTE**: This value is not inherited by child queues.
+
+When using the `default` priority policy, the queue's priority is adjusted up
+or down by this amount.
+
+When using the `fence` policy, the queue's priority is always set to the offset
+value (in other words, the priorities of tasks in the queue are ignored).
+
+See the documentation on [priority support](priorities.md) for more information.
 
 ### Resources
 The resources entry for the queue can set the _guaranteed_ and or _maximum_ resources for a queue.

@@ -32,9 +32,13 @@ It describes the changes planned based on the analysis that was done of the curr
 
 ## Goals
 The goal is to provide the same functionality before and after the change.
-- unit tests before and after the merge must all pass.
-- Smoke tests defined in the core should all pass without major changes <sup id="s1">[definition](#f1)</sup>.
+- Unit tests before and after the merge must all pass.
+- Smoke tests defined in the core should all pass without major changes.
 - End-to-end tests that are part of the shim code must all pass without changes.
+
+:::info
+ Major changes for smoke tests are defined as changes to the tests that alter use case and thus test flows. Some changes will be needed as checks made could rely on cache objects which have been removed.
+:::
 
 ## Background 
 The current Scheduler Core is build up around two major components to store the data: the cache and scheduler objects.
@@ -47,10 +51,9 @@ This short period can have an impact on the scheduling decisions.
 One of which is logged as [YUNIKORN-169](https://issues.apache.org/jira/browse/YUNIKORN-169).
 
 A further point is the complexity that the two structure brings to the code.
-A distinct set of messages to communicate between the scheduler and the cache.
-A one on one mapping between the scheduler and cache objects shows that the distinction is probably more artificial than required.
----
-<b id="f1"></b>definition: Major changes for smoke tests are defined as changes to the tests that alter use case and thus test flows. Some changes will be needed as checks made could rely on cache objects which have been removed. [↩](#s1)
+A distinct set of messages to communicate between the scheduler and the cache. A one-on-one mapping between the scheduler and cache objects shows that the distinction is probably more artificial than required.
+
+
 ## Structure analysis
 ### Objects
 The existing objects as per the code analysis.

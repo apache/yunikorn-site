@@ -179,6 +179,10 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
             "memory": 54000000,
             "vcore": 80
         },
+        "pendingResource": {
+            "memory": 54000000,
+            "vcore": 80
+        },
         "isLeaf": "false",
         "isManaged": "false",
         "properties": {
@@ -215,6 +219,10 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                     "memory": 54000000,
                     "vcore": 80
                 },
+                "pendingResource": {
+                    "memory": 54000000,
+                    "vcore": 80
+                },
                 "isLeaf": "true",
                 "isManaged": "false",
                 "properties": {
@@ -226,7 +234,13 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                 "absUsedCapacity": {
                     "memory": 1,
                     "vcore": 0
-                }
+                },
+                "maxRunningApps": 12,
+                "runningApps": 4,
+                "allocatingAcceptedApps": [
+                    "app-1",
+                    "app-2"
+                ]
             }
         ],
         "absUsedCapacity": {
@@ -280,6 +294,10 @@ In the example below there are three allocations belonging to two applications, 
             "vcore": 4000
         },
         "maxUsedResource": {
+            "memory": 4000000000,
+            "vcore": 4000
+        },
+        "pendingResource": {
             "memory": 4000000000,
             "vcore": 4000
         },
@@ -382,7 +400,9 @@ In the example below there are three allocations belonging to two applications, 
                 "replaced": 1,
                 "timedout": 1
             }
-        ]
+        ],
+        "hasReserved": false,
+        "reservations": []
     },
     {
         "applicationID": "application-0002",
@@ -391,6 +411,10 @@ In the example below there are three allocations belonging to two applications, 
             "vcore": 4000
         },
         "maxUsedResource": {
+            "memory": 4000000000,
+            "vcore": 4000
+        },
+        "pendingResource": {
             "memory": 4000000000,
             "vcore": 4000
         },
@@ -465,7 +489,9 @@ In the example below there are three allocations belonging to two applications, 
                 "applicationState": "Running"
             }
         ],
-        "placeholderData": []
+        "placeholderData": [],
+        "hasReserved": false,
+        "reservations": []
     }
 ]
 ```
@@ -510,6 +536,10 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
         "vcore": 4000
     },
     "maxUsedResource": {
+        "memory": 4000000000,
+        "vcore": 4000
+    },
+    "pendingResource": {
         "memory": 4000000000,
         "vcore": 4000
     },
@@ -612,7 +642,9 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
             "replaced": 1,
             "timedout": 1
         }
-    ]
+    ],
+    "hasReserved": false,
+    "reservations": []
 }
 ```
 
@@ -795,7 +827,9 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "placeholderUsed": false
             }
         ],
-        "schedulable": true
+        "schedulable": true,
+        "isReserved": false,
+        "reservations": []
     }
 ]
 ```
@@ -1448,9 +1482,9 @@ The output of this REST query can be rather large and it is a combination of tho
 
 ## Enable or disable periodic state dump
 
-Endpoint to enable a state dump to be written periodically. By default, it is 60 seconds. The output goes to a file called `yunikorn-state.txt`. In the current version, the file is located in the current working directory of Yunikorn and it is not configurable.
+Endpoint to enable a state dump to be written periodically.
 
-Trying to enable or disable this feature more than once in a row results in an error.
+**Status** : Deprecated and ignored since v1.2.0, no replacement.
 
 **URL** : `/ws/v1/periodicstatedump/{switch}/{periodSeconds}`
 
@@ -1458,22 +1492,10 @@ Trying to enable or disable this feature more than once in a row results in an e
 
 **Auth required** : NO
 
-The value `{switch}` can be either `disable` or `enable`. The `{periodSeconds}` defines how often state snapshots should be taken. It is expected to be a positive integer and only interpreted in case of `enable`.
-
 ### Success response
 
-**Code** : `200 OK`
+None
 
 ### Error response
 
 **Code**: `400 Bad Request`
-
-**Content examples**
-
-```json
-{
-    "status_code": 400,
-    "message": "required parameter enabled/disabled is missing",
-    "description": "required parameter enabled/disabled is missing"
-}
-```
