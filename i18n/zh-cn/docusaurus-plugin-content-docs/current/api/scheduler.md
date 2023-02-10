@@ -31,7 +31,7 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
 
 ## 分区（Partitions）
 
-显示有关分区的一般信息如名称、状态、容量、已使用的容量、使用率、节点的排序策略。
+显示有关分区的一般信息如名称、状态、容量、已使用的容量、使用率、节点的排序策略、nodes和applications和containers的个数。
 
 **位置（URL）**：`/ws/v1/partitions`
 
@@ -81,7 +81,9 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
             "New": 5,
             "Pending": 5,
             "total": 10
-        }
+        },
+        "totalContainers": "0",
+        "totalNodes": "2"
     },
     {
         "clusterId": "mycluster",
@@ -114,7 +116,9 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
             "Running": 10,
             "Pending": 5,
             "total": 20
-        }
+        },
+        "totalContainers": "20",
+        "totalNodes": "5"
     }
 ]
 ```

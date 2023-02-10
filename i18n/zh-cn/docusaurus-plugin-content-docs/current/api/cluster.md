@@ -38,8 +38,7 @@ under the License.
 
 **示例**
 
-在本示例中，响应的内容来自含两个节点的群集，拥有三个应用程序和四个容器以及一个资源管理器。
-
+在本示例中，响应的内容来自一个群集，拥有一个资源管理器。
 
 ```json
 [
@@ -54,19 +53,7 @@ under the License.
             }
         ],
         "partition": "default",
-        "clusterName": "kubernetes",
-        "totalApplications": "3",
-        "failedApplications": "1",
-        "pendingApplications": "",
-        "runningApplications": "3",
-        "completedApplications": "",
-        "totalContainers": "4",
-        "failedContainers": "",
-        "pendingContainers": "",
-        "runningContainers": "4",
-        "activeNodes": "2",
-        "totalNodes": "2",
-        "failedNodes": ""
+        "clusterName": "kubernetes"
     }
 ]
 ```

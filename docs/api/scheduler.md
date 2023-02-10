@@ -35,7 +35,7 @@ Under the `allocations` field in the response content for the app/node-related c
 
 ## Partitions
 
-Displays general information about the partition like name, state, capacity, used capacity, utilization, and node sorting policy.
+Displays general information about the partition like name, state, capacity, used capacity, utilization, and node sorting policy and the number of nodes, applications and containers.
 
 **URL** : `/ws/v1/partitions`
 
@@ -85,7 +85,9 @@ Displays general information about the partition like name, state, capacity, use
             "New": 5,
             "Pending": 5,
             "total": 10
-        }
+        },
+        "totalContainers": "0",
+        "totalNodes": "2"
     },
     {
         "clusterId": "mycluster",
@@ -118,7 +120,9 @@ Displays general information about the partition like name, state, capacity, use
             "Running": 10,
             "Pending": 5,
             "total": 20
-        }
+        },
+        "totalContainers": "20",
+        "totalNodes": "5"
     }
 ]
 ```
