@@ -31,7 +31,7 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
 
 ## 分区（Partitions）
 
-显示有关分区的一般信息如名称、状态、容量、已使用的容量、使用率、节点的排序策略、nodes和applications和containers的个数。
+显示有关分区的一般信息和统计数据。
 
 **位置（URL）**：`/ws/v1/partitions`
 

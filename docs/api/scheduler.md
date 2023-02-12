@@ -35,7 +35,7 @@ Under the `allocations` field in the response content for the app/node-related c
 
 ## Partitions
 
-Displays general information about the partition like name, state, capacity, used capacity, utilization, and node sorting policy and the number of nodes, applications and containers.
+Returns general information and statistics about a partition.
 
 **URL** : `/ws/v1/partitions`
 
