@@ -38,7 +38,7 @@ Returns general information about the clusters managed by the YuniKorn Scheduler
 
 **Content examples**
 
-As an example, here is a response from a 2-node cluster with 3 applications and 4 running containers and 1 resource manager.
+As an example, here is a response from a cluster with 1 resource manager.
 
 ```json
 [
@@ -53,19 +53,7 @@ As an example, here is a response from a 2-node cluster with 3 applications and 
             }
         ],
         "partition": "default",
-        "clusterName": "kubernetes",
-        "totalApplications": "3",
-        "failedApplications": "1",
-        "pendingApplications": "",
-        "runningApplications": "3",
-        "completedApplications": "",
-        "totalContainers": "4",
-        "failedContainers": "",
-        "pendingContainers": "",
-        "runningContainers": "4",
-        "activeNodes": "2",
-        "totalNodes": "2",
-        "failedNodes": ""
+        "clusterName": "kubernetes"
     }
 ]
 ```
