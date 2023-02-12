@@ -31,11 +31,11 @@ Release Details:
 - Development status: [Issue tracker](https://issues.apache.org/jira/issues/?filter=12348416)
 
 Planned major features:
-- [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) [Umbrella] User quota tracking
-- [YUNIKORN-1196](https://issues.apache.org/jira/browse/YUNIKORN-1196) Upgrade K8s build dependency
-- [YUNIKORN-1275](https://issues.apache.org/jira/browse/YUNIKORN-1275) Support arbitrary resources in namespace annotation
-- [YUNIKORN-1306](https://issues.apache.org/jira/browse/YUNIKORN-1306) [Umbrella] Enhanced user and group handling
-- [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1) Support app/task priority aware scheduling
+- [YUNIKORN-1461](https://issues.apache.org/jira/browse/YUNIKORN-1461) [Umbrella] Preemption support
+- [YUNIKORN-1562](https://issues.apache.org/jira/browse/YUNIKORN-1562) plugin mode: remove status update completely
+- [YUNIKORN-1548](https://issues.apache.org/jira/browse/YUNIKORN-1548) [Umbrella] Revamp E2E test - Phase 2
+- [YUNIKORN-1544](https://issues.apache.org/jira/browse/YUNIKORN-1544) [Umbrella] User quota tracking - Phase 2
+- [YUNIKORN-1573](https://issues.apache.org/jira/browse/YUNIKORN-1573) [Umbrella] User & Group Based Quota Enforcement
 
 Supported Kubernetes versions and the Kubernetes dependency will be defined and finalised during the development cycle.
 
