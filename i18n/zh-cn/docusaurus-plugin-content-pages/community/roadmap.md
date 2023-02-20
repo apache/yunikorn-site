@@ -31,11 +31,11 @@ under the License.
 - 开发状态：[问题跟踪器](https://issues.apache.org/jira/issues/?filter=12348416)
 
 计划的主要功能：
-- [YUNIKORN-984](https://issues.apache.org/jira/browse/YUNIKORN-984) [Umbrella] 用户配额跟踪
-- [YUNIKORN-1196](https://issues.apache.org/jira/browse/YUNIKORN-1196) 升级K8s构建依赖
-- [YUNIKORN-1275](https://issues.apache.org/jira/browse/YUNIKORN-1275) 支持命名空间注解中的任意资源
-- [YUNIKORN-1306](https://issues.apache.org/jira/browse/YUNIKORN-1306) [Umbrella]增强的用户和组群处理
-- [YUNIKORN-1](https://issues.apache.org/jira/browse/YUNIKORN-1) 支持应用程序/任务优先级感知调度
+- [YUNIKORN-1461](https://issues.apache.org/jira/browse/YUNIKORN-1461) [Umbrella] 抢占支持
+- [YUNIKORN-1562](https://issues.apache.org/jira/browse/YUNIKORN-1562) 插件模式：删除状态更新完全
+- [YUNIKORN-1548](https://issues.apache.org/jira/browse/YUNIKORN-1548) [Umbrella]改进端到端(E2E)测试 - 第二阶段
+- [YUNIKORN-1544](https://issues.apache.org/jira/browse/YUNIKORN-1544) [Umbrella]用户配额追踪 - 第二阶段
+- [YUNIKORN-1573](https://issues.apache.org/jira/browse/YUNIKORN-1573) [Umbrella]基于用户和群组的配额执行
 
 支持的 Kubernetes 版本和 Kubernetes 依赖项将在开发周期中进行选择和最终确定。
 
