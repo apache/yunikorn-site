@@ -386,10 +386,10 @@ Replacement example:
       service.policyGroup: queues
       service.operatorPlugins: general
       service.placeholderImage: registry.k8s.io/pause:3.7
-      admissionController.processNamespaces: "^spark-,^mpi-"
-      admissionController.bypassNamespaces: "^kube-system$"
-      admissionController.labelNamespaces: "^spark-"
-      admissionController.noLabelNamespaces: "^mpi-legacy-"
+      admissionController.filtering.processNamespaces: "^spark-,^mpi-"
+      admissionController.filtering.bypassNamespaces: "^kube-system$"
+      admissionController.filtering.labelNamespaces: "^spark-"
+      admissionController.filtering.noLabelNamespaces: "^mpi-legacy-"
       queues.yaml: |
         partitions:
           - name: default
