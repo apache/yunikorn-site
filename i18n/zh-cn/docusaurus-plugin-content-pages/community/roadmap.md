@@ -32,7 +32,7 @@ under the License.
 
 计划的主要功能：
 - [YUNIKORN-1461](https://issues.apache.org/jira/browse/YUNIKORN-1461) [Umbrella] 抢占支持
-- [YUNIKORN-1562](https://issues.apache.org/jira/browse/YUNIKORN-1562) 插件模式：彻底移除'状态更新'
+- [YUNIKORN-1562](https://issues.apache.org/jira/browse/YUNIKORN-1562) 插件模式：彻底移除`状态更新`
 - [YUNIKORN-1548](https://issues.apache.org/jira/browse/YUNIKORN-1548) [Umbrella]改进端到端(E2E)测试 - 第二阶段
 - [YUNIKORN-1544](https://issues.apache.org/jira/browse/YUNIKORN-1544) [Umbrella]用户配额追踪 - 第二阶段
 - [YUNIKORN-1573](https://issues.apache.org/jira/browse/YUNIKORN-1573) [Umbrella]基于用户和群组的配额执行
