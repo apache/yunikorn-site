@@ -443,6 +443,7 @@ data:
   service.disableGangScheduling: "false"
   service.enableConfigHotRefresh: "true"
   service.placeholderImage: "registry.k8s.io/pause:3.7"
+  service.apiClientTimeout: "30s"
   health.checkInterval: "30s"
   log.level: "0"
   kubernetes.qps: "1000"
@@ -605,6 +606,17 @@ Default: `registry.k8s.io/pause:3.7`
 Example:
 ```yaml
 service.placeholderImage: "registry.k8s.io/pause:3.6"
+```
+#### service.apiClientTimeout
+Controls how long to wait until the various API clients time out.
+
+A change to this setting requires a restart of YuniKorn to take effect.
+
+Default: `30s`
+
+Example:
+```yaml
+service.apiClientTimeout: "60s"
 ```
 ### Health settings
 
