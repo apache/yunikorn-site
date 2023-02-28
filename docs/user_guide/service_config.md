@@ -443,11 +443,11 @@ data:
   service.disableGangScheduling: "false"
   service.enableConfigHotRefresh: "true"
   service.placeholderImage: "registry.k8s.io/pause:3.7"
-  service.apiClientTimeout: "30s"
   health.checkInterval: "30s"
   log.level: "0"
   kubernetes.qps: "1000"
   kubernetes.burst: "1000"
+  kubernetes.apiClientTimeout: "30s"
   admissionController.webHook.amServiceName: "yunikorn-admission-controller-service"
   admissionController.webHook.schedulerServiceAddress: "yunikorn-service:9080"
   admissionController.filtering.processNamespaces: ""
@@ -607,17 +607,6 @@ Example:
 ```yaml
 service.placeholderImage: "registry.k8s.io/pause:3.6"
 ```
-#### service.apiClientTimeout
-Controls how long to wait until the various API clients time out.
-
-A change to this setting requires a restart of YuniKorn to take effect.
-
-Default: `30s`
-
-Example:
-```yaml
-service.apiClientTimeout: "60s"
-```
 ### Health settings
 
 #### health.checkInterval
@@ -681,6 +670,17 @@ Default: `1000`
 Example:
 ```yaml
 kubernetes.burst: "500"
+```
+#### kubernetes.apiClientTimeout
+Controls how long to wait until the various API clients time out.
+
+A change to this setting requires a restart of YuniKorn to take effect.
+
+Default: `30s`
+
+Example:
+```yaml
+kubernetes.apiClientTimeout: "60s"
 ```
 ### Admission controller webhook settings
 
