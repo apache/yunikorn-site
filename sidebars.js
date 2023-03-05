@@ -71,6 +71,7 @@ module.exports = {
                     'design/gang_scheduling',
                     'design/user_group',
                     'design/user_based_resource_usage_tracking',
+                    'design/user_group_resource_usage_enforcement',
                     'design/interface_message_simplification',
                     'design/cache_removal',
                     'design/simple_preemptor',
