@@ -35,19 +35,10 @@ YuniKorn 使用：
 这篇 [博客文章 - 英语](https://infra.apache.org/blog/jira-public-signup-disabled.html) 讨论了这个决定。
 如果您想为 YuniKorn 开一个 Jira 票证并且没有 ASF Jira 账户，YuniKorn PMC 可以为您创建一个账户。
 
-有两个选项可以轻松申请帐户：
-* 电邮 [private@yunikorn](mailto:private@yunikorn.apache.org?subject=jira%20account%20request)
-* Slack [YuniKorn Slack](https://join.slack.com/t/yunikornworkspace/shared_invite/enQtNzAzMjY0OTI4MjYzLTBmMDdkYTAwNDMwNTE3NWVjZWE1OTczMWE4NDI2Yzg3MmEyZjUyYTZlMDE5M2U4ZjZhNmYyNGFmYjY4ZGYyMGE)
-
-我们需要以下信息来创建一个帐户：
-* 电子邮件
-* 首选用户名 (不允许使用连字符)
-* 备用用户名 (如果首选的已经在使用中)
-* 显示名称 (如果它与用户名不同)
-
-:::caution
-不要在 Slack 的频道中分享上述信息，在频道中联系，其中一位 PMC 成员将在私人聊天中联系以收集详细信息。  
-:::
+步骤如下：
+1. 点击 [申请Jira账户](https://selfserve.apache.org/jira-account.html)。
+2. ASF 项目选择 **yunikorn** 并填写表单。
+3. 等待Yunikorn PMC的批准。
 
 ## 发现问题
 我们使用 JIRA 问题库来跟踪该项目的错误。

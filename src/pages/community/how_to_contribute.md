@@ -34,19 +34,10 @@ In November 2022, due to an influx of false Jira accounts creating a flood of sp
 This [blog post](https://infra.apache.org/blog/jira-public-signup-disabled.html) discusses the decision.
 If you want to open a Jira ticket for YuniKorn and do not have an ASF Jira account, the YuniKorn PMC can create an account for you.
 
-There are two options to easily request an account:
-* email [private@yunikorn](mailto:private@yunikorn.apache.org?subject=jira%20account%20request)
-* Slack [YuniKorn slack](https://join.slack.com/t/yunikornworkspace/shared_invite/enQtNzAzMjY0OTI4MjYzLTBmMDdkYTAwNDMwNTE3NWVjZWE1OTczMWE4NDI2Yzg3MmEyZjUyYTZlMDE5M2U4ZjZhNmYyNGFmYjY4ZGYyMGE)
-
-We need the following information to create an account:
-* email address
-* preferred username (hyphens not allowed)
-* alternate username (in case the preferred one is already in use)
-* display name (if it is different from the username)
-
-:::caution
-Don't share the above information in a channel on slack, reach out on a channel and one of the PMC members will reach out in a private chat to collect the details.  
-:::
+Steps are following:
+1. Click [request a Jira account](https://selfserve.apache.org/jira-account.html).
+2. Choose ASF project with **yunikorn** and fill in the fields.
+3. Waiting for approvement from the Yunikorn PMC.
 
 ## Find an issue
 We use JIRA issues to track bugs for this project.
