@@ -1325,3 +1325,49 @@ None
 ### Error response
 
 **Code**: `400 Bad Request`
+
+## Get log level
+Recieve the current log level in Yunikorn.
+
+**URL** : `/ws/v1/loglevel`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code**: `200 OK`
+
+**Content examples**
+
+```
+info%
+```
+
+## Set log level
+Set the log level in Yunikorn.
+
+**URL** : `/ws/v1/loglevel/{level}`
+
+**Method** : `PUT`
+
+**Auth required** : NO
+
+### Success response
+
+**Code**: `200 OK`
+
+### Error response
+
+**Code**: `400 Bad Request`
+
+**Content examples**
+
+```json
+{
+    "status_code":400,
+    "message":"failed to change log level, old level active",
+    "description":"failed to change log level, old level active"
+}
+```
