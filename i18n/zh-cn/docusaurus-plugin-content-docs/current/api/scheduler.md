@@ -1293,3 +1293,50 @@ checksum: D75996C07D5167F41B33E27CCFAEF1D5C55BE3C00EE6526A7ABDF8435DB4078E
 ### 错误时的响应
 
 **代码**: `400 Bad Request`
+
+## 获取日志级别
+接收当前Yunikorn的日志级别。
+
+**URL** : `/ws/v1/loglevel`
+
+**方法** : `GET`
+
+**需求权限** : 无
+
+### 成功时的响应
+
+**代码**: `200 OK`
+
+**示例**
+
+```
+info%
+```
+
+## 设置日志级别
+设置Yunikorn日志级别。
+
+**URL** : `/ws/v1/loglevel/{level}`
+
+**方法** : `PUT`
+
+**需求权限** : NO
+
+### 成功时的响应
+
+**代码**: `200 OK`
+
+### 错误时的响应
+
+**代码**: `400 Bad Request`
+
+**示例**
+
+```json
+{
+    "status_code":400,
+    "message":"failed to change log level, old level active",
+    "description":"failed to change log level, old level active"
+}
+```
+

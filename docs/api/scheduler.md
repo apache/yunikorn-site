@@ -1327,7 +1327,7 @@ None
 **Code**: `400 Bad Request`
 
 ## Get log level
-Recieve the current log level in Yunikorn.
+Recieve the current log level in the Yunikorn.
 
 **URL** : `/ws/v1/loglevel`
 
@@ -1346,7 +1346,7 @@ info%
 ```
 
 ## Set log level
-Set the log level in Yunikorn.
+Set the log level in the Yunikorn.
 
 **URL** : `/ws/v1/loglevel/{level}`
 
