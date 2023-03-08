@@ -44,9 +44,9 @@ All annotations are under the namespace `yunikorn.apache.org`. For example `yuni
 | `task-groups`                | Defines the set of task groups for this application for gang scheduling. Each pod within an application must define all task groups.                                                   |
 | `schedulingPolicyParameters` | Arbitrary key-value pairs used to customize scheduling policies such as gang scheduling.                                                                                               |
 | `placeholder`                | Set if this pod represents a placeholder for gang scheduling. Set internally by YuniKorn.                                                                                              |
-| `allow-preemption` | `yunikorn.apache.org/allow-preemption: false` marks the pod with Opt out (OP).<br/> When using preemptor, pods marked with OP be used to choose victims as a last option.<br/> More detail is in the [DaemonSet Scheduling using Simple Preemptor](./../design/simple_preemptor).  |
-| `parentqueue` | Define a parent queue for a set of K8s namespaces. |
-| `namespace.quota` | Set the maximum capacity of the queue mapped to this namespace.<br/> More details is in [the Resource Quota Management](resource_quota_management#namespace-quota) |
+| `allow-preemption` | `yunikorn.apache.org/allow-preemption: false` marks the pod with Opt out (OP).<br/> When using preemptor, pods marked with OP be used to choose victims as a last option.<br/> More informations are in the [DaemonSet Scheduling using Simple Preemptor](./../design/simple_preemptor).  |
+| `parentqueue` | Define a parent queue for a set of K8s namespaces. More informations are in the [ Resource Quota Management](resource_quota_management#parent-queue-mapping-for-namespaces).|
+| `namespace.quota` | Set the maximum capacity of the queue mapped to this namespace.<br/> More informations are in the [ Resource Quota Management](resource_quota_management#namespace-quota) |
 | [DEPRECATED] `namespace.max.cpu` |   Since vesrion 1.2.0, `namespace.quota` has replaced this one.<br/> Set the maximum capacity of the CPU in the queue mapped to this namespace. |
 | [DEPRECATED] `namespace.max.memory` | After vesrion 1.2.0, `namespace.quota` has replaced this one.<br/> Set the maximum capacity of the memory in the queue mapped to this namespace. |
 
