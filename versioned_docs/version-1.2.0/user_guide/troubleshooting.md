@@ -46,7 +46,7 @@ The recommended setup is to leverage [fluentd](https://www.fluentd.org/) to coll
 ### Set Logging Level
 
 :::note
-We recommend altering the log level via REST API call as this way we don't need to restart the scheduler pod every time. But changing the logging level via editing the deployment config requires a restart of the scheduler pod and it's not highly recommended.
+We recommend altering the log level via REST API call as this way we don't need to restart the scheduler pod every time.
 :::
 
 Stop the scheduler:
