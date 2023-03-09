@@ -32,36 +32,36 @@ Helm配置是用于将YuniKorn部署到Kubernetes的选项。
 ### 容器镜像
 YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义其位置和拉取策略：
 
-    # 标准调度程序的镜像信息
+    # 标准调度器的镜像信息
     image:
       repository: apache/yunikorn
-      tag: scheduler-1.0.0          # 默认取决于YuniKorn版本
+      tag: scheduler-1.2.0          # 默认取决于YuniKorn版本
       pullPolicy: Always
 
-    # 插件调度程序的镜像信息
+    # 插件调度器的镜像信息
     pluginImage:
       repository: apache/yunikorn
-      tag: scheduler-plugin-1.0.0   # 默认取决于YuniKorn版本
+      tag: scheduler-plugin-1.2.0   # 默认取决于YuniKorn版本
       pullPolicy: Always
 
     # Web UI的镜像信息
     web:
       image:
         repository: apache/yunikorn
-        tag: web-1.0.0              # 默认取决于YuniKorn版本
+        tag: web-1.2.0              # 默认取决于YuniKorn版本
         pullPolicy: Always
 
     # 准入控制器的镜像信息
     admissionController:
       image:
         repository: apache/yunikorn
-        tag: admission-1.0.0        # 默认取决于YuniKorn版本
+        tag: admission-1.2.0        # 默认取决于YuniKorn版本
         pullPolicy: Always
 
 ### Kubernetes 配置
 
 #### affinity
-设置YuniKorn调度程序Pod的亲和性。
+设置YuniKorn调度器Pod的亲和性。
 
 默认值： `{}`
 
@@ -98,7 +98,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
                     - primary2
 
 #### hostNetwork
-控制调度程序是否应在主机网络中运行。
+控制调度器是否应在主机网络中运行。
 
 默认值： `false`
 
@@ -117,7 +117,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
       hostNetwork: false
 
 #### imagePullSecrets
-提供提取YuniKorn镜像所需的机密信息。
+提供提取YuniKorn镜像所需的secret。
 
 默认值： `[]`
 
@@ -128,7 +128,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
       - secret2
 
 #### nodeSelector
-设置用于放置YuniKorn调度程序Pod的节点选择器。
+设置用于放置YuniKorn调度器Pod的节点选择算符。
 
 默认值： `{}`
 
@@ -138,7 +138,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
       role.node.kubernetes.io/infra: "true"
 
 #### admissionController.nodeSelector
-设置用于放置YuniKorn准入控制器Pod的节点选择器。
+设置用于放置YuniKorn准入控制器Pod的节点选择算符。
 
 默认值： `{}`
 
@@ -159,7 +159,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
       replicaCount: 2
 
 #### serviceAccount
-为YuniKorn调度程序设置备用服务账户。
+为YuniKorn调度器设置备用服务账户。
 
 不建议更改此值，因为Helm会为默认用户安装基于角色的访问控制（RBAC）策略，而这对于正确的功能是必需的。
 
@@ -182,7 +182,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
       serviceAccount: my-account
 
 #### service.type
-设置用于调度程序的服务类型。
+设置用于调度器的服务类型。
 
 默认值： `ClusterIP`
 
@@ -203,7 +203,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
         type: ClusterIP
 
 #### service.port
-设置在YuniKorn调度程序服务中用于REST API的暴露端口。不建议更改此值。
+设置在YuniKorn调度器服务中用于REST API的暴露端口。不建议更改此值。
 
 默认值： 9080
 
@@ -213,7 +213,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
       port: 9080
 
 #### service.portWeb
-设置在YuniKorn调度程序服务中用于Web UI的暴露端口。不建议更改此值。
+设置在YuniKorn调度器服务中用于Web UI的暴露端口。不建议更改此值。
 
 默认值： 9889
 
@@ -223,7 +223,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
       portWeb: 9889
 
 #### tolerations
-设置用于YuniKorn调度程序Pod的容忍规则。
+设置用于YuniKorn调度器Pod的容忍规则。
 
 默认值： `[]`
 
@@ -256,7 +256,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
 ### 资源利用率
 可以按照以下方式自定义YuniKorn Pod所需的资源：
 
-    # 调度程序容器的资源
+    # 调度器容器的资源
     resources:
       requests:
         cpu: 200m
@@ -297,7 +297,7 @@ YuniKorn以一组容器镜像的形式提供。可以按照以下方式自定义
     embedAdmissionController: false
 
 #### enableSchedulerPlugin
-控制是否以调度程序插件模式运行YuniKorn。
+控制是否以调度器插件模式运行YuniKorn。
 
 默认值： `false`
 
@@ -456,7 +456,7 @@ YuniKorn可理解以下参数：
     service.clusterId: "yunikorn-east"
 
 #### service.policyGroup
-定义此调度程序使用的策略组。策略组用于选择多个队列配置之一。此设置的值加上`.yaml`的扩展名控制用于检索分区和队列配置的ConfigMap条目。
+定义此调度器使用的策略组。策略组用于选择多个队列配置之一。此设置的值加上`.yaml`的扩展名控制用于检索分区和队列配置的ConfigMap条目。
 
 更改此设置需要重新启动YuniKorn才能生效。
 
@@ -488,7 +488,7 @@ YuniKorn可理解以下参数：
     service.schedulingInterval: "5s"
 
 #### service.volumeBindTimeout
-控制卷绑定失败之前的超时时间。
+控制卷绑定失败的超时时间。
 
 更改此设置需要重新启动YuniKorn才能生效。
 
@@ -521,7 +521,7 @@ YuniKorn可理解以下参数：
     service.dispatchTimeout: "10m"
 
 #### service.operatorPlugins
-控制在YuniKorn中启用的运算符插件集。目前，只实现了 `general`，`spark-k8s-operator` 和 `yunikorn-app` 插件。`general` 插件不应禁用。
+控制在YuniKorn中启用的运算符插件集。目前只实现了 `general`，`spark-k8s-operator` 和 `yunikorn-app` 插件。`general` 插件不应禁用。
 
 更改此设置需要重新启动YuniKorn才能生效。
 
@@ -640,7 +640,7 @@ YuniKorn可理解以下参数：
     admissionController.webHook.amServiceName: "yunikorn-admission-controller-alt-service-name"
 
 #### admissionController.webHook.schedulerServiceAddress
-设置 YuniKorn 调度程序服务的地址。这个地址必须是准入控制器可达，并由准入使用验证 ConfigMap 更改时的控制器。准入控制器将联系调度程序上的 REST API 以验证任何提议 ConfigMap 更改。通常不应更改此设置。
+设置 YuniKorn 调度器服务的地址。这个地址必须是准入控制器可达，并由准入使用验证 ConfigMap 更改时的控制器。准入控制器将联系调度器上的 REST API 以验证任何提议 ConfigMap 更改。通常不应更改此设置。
 
 更改此设置需要重新启动 YuniKorn 准入控制器生效。
 
@@ -663,7 +663,7 @@ YuniKorn可理解以下参数：
 
 示例：
 
-    # Schedule only pods in spark-* and mpi-* namespaces with YuniKorn
+    # YuniKorn 仅在 spark-* 和 mpi-* 命名空间中调度 pod
     admissionController.filtering.processNamespaces: "^spark-,^mpi-"
 
 #### admissionController.filtering.bypassNamespaces
@@ -687,7 +687,7 @@ YuniKorn可理解以下参数：
 
 当使用标准部署模型运行 YuniKorn 时，所有 pod 都应打上标签，因为 YuniKorn 无法调度未定义 `applicationId` 的 pod。
 
-当使用调度程序插件部署模型运行 YuniKorn 时，此设置可用于过滤哪些命名空间应通过 YuniKorn 的队列模型进行调度，哪些命名空间应绕过队列模型并由嵌入式默认调度程序进行调度。
+当使用调度器插件部署模型运行 YuniKorn 时，此设置可用于过滤哪些命名空间应通过 YuniKorn 的队列模型进行调度，哪些命名空间应绕过队列模型并由嵌入式默认调度器进行调度。
 
 此设置是一组逗号分隔的正则表达式。如果该设置为空字符串，则将为转发到 YuniKorn 的所有 pod 打上 `applicationId` 标签。
 
@@ -705,7 +705,7 @@ YuniKorn可理解以下参数：
 
 当使用标准部署模型运行 YuniKorn 时，所有 pod 都应打上标签，因为 YuniKorn 无法调度未定义 `applicationId` 的 pod。
 
-当使用调度程序插件部署模型运行 YuniKorn 时，此设置可用于过滤哪些命名空间应通过 YuniKorn 的队列模型进行调度，哪些命名空间应绕过队列模型并由嵌入式默认调度程序进行调度。
+当使用调度器插件部署模型运行 YuniKorn 时，此设置可用于过滤哪些命名空间应通过 YuniKorn 的队列模型进行调度，哪些命名空间应绕过队列模型并由嵌入式默认调度器进行调度。
 
 此设置是一组逗号分隔的正则表达式。如果该设置为空字符串，则不会应用到 `admissionController.filtering.labelNamespaces` 的任何例外。
 
