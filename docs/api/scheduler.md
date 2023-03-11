@@ -378,6 +378,9 @@ In the example below there are three allocations belonging to two applications, 
         ],
         "applicationState": "Running",
         "user": "nobody",
+        "groups": [
+            "nobody"
+        ],
         "rejectedMessage": "",
         "stateLog": [
             {
@@ -478,6 +481,9 @@ In the example below there are three allocations belonging to two applications, 
         ],
         "applicationState": "Running",
         "user": "nobody",
+        "groups": [
+            "nobody"
+        ],
         "rejectedMessage": "",
         "stateLog": [
             {
@@ -620,6 +626,9 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
     ],
     "applicationState": "Running",
     "user": "nobody",
+    "groups": [
+        "nobody"
+    ],
     "rejectedMessage": "",
     "stateLog": [
         {

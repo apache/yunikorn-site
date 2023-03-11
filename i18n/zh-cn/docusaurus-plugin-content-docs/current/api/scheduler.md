@@ -362,6 +362,9 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
         ],
         "applicationState": "Running",
         "user": "nobody",
+        "groups": [
+            "nobody"
+        ],
         "rejectedMessage": "",
         "stateLog": [
             {
@@ -456,6 +459,9 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
         ],
         "applicationState": "Running",
         "user": "nobody",
+        "groups": [
+            "nobody"
+        ],
         "rejectedMessage": "",
         "stateLog": [
             {
@@ -592,6 +598,9 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
     ],
     "applicationState": "Running",
     "user": "nobody",
+    "groups": [
+        "nobody"
+    ],
     "rejectedMessage": "",
     "stateLog": [
         {
