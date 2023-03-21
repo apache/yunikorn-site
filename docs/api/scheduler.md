@@ -377,9 +377,11 @@ In the example below there are three allocations belonging to two applications, 
             }
         ],
         "applicationState": "Running",
-        "user": "nobody",
+        "user": "system:serviceaccount:kube-system:deployment-controller",
         "groups": [
-            "nobody"
+            "system:serviceaccounts",
+            "system:serviceaccounts:kube-system",
+            "system:authenticated"
         ],
         "rejectedMessage": "",
         "stateLog": [
@@ -480,9 +482,11 @@ In the example below there are three allocations belonging to two applications, 
             }
         ],
         "applicationState": "Running",
-        "user": "nobody",
+        "user": "system:serviceaccount:kube-system:deployment-controller",
         "groups": [
-            "nobody"
+            "system:serviceaccounts",
+            "system:serviceaccounts:kube-system",
+            "system:authenticated"
         ],
         "rejectedMessage": "",
         "stateLog": [
@@ -625,9 +629,11 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
         }
     ],
     "applicationState": "Running",
-    "user": "nobody",
+    "user": "system:serviceaccount:kube-system:deployment-controller",
     "groups": [
-        "nobody"
+        "system:serviceaccounts",
+        "system:serviceaccounts:kube-system",
+        "system:authenticated"
     ],
     "rejectedMessage": "",
     "stateLog": [
