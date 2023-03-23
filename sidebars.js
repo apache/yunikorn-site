@@ -74,6 +74,7 @@ module.exports = {
                     'design/user_group_resource_usage_enforcement',
                     'design/interface_message_simplification',
                     'design/cache_removal',
+                    'design/preemption',
                     'design/simple_preemptor',
                     'design/generic_resource',
                     'design/pluggable_app_management',
