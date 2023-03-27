@@ -361,7 +361,12 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
             }
         ],
         "applicationState": "Running",
-        "user": "nobody",
+        "user": "system:serviceaccount:kube-system:deployment-controller",
+        "groups": [
+            "system:serviceaccounts",
+            "system:serviceaccounts:kube-system",
+            "system:authenticated"
+        ],
         "rejectedMessage": "",
         "stateLog": [
             {
@@ -455,7 +460,12 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
             }
         ],
         "applicationState": "Running",
-        "user": "nobody",
+        "user": "system:serviceaccount:kube-system:deployment-controller",
+        "groups": [
+            "system:serviceaccounts",
+            "system:serviceaccounts:kube-system",
+            "system:authenticated"
+        ],
         "rejectedMessage": "",
         "stateLog": [
             {
@@ -591,7 +601,12 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
         }
     ],
     "applicationState": "Running",
-    "user": "nobody",
+    "user": "system:serviceaccount:kube-system:deployment-controller",
+    "groups": [
+        "system:serviceaccounts",
+        "system:serviceaccounts:kube-system",
+        "system:authenticated"
+    ],
     "rejectedMessage": "",
     "stateLog": [
         {
