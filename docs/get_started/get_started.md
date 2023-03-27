@@ -78,3 +78,6 @@ Once this is done, web UI will be available at: `http://localhost:9889`.
 
 YuniKorn UI provides a centralised view for cluster resource capacity, utilization, and all application info.
 
+Besides, YuniKorn also exposes its scheduling metrics via Prometheus.
+
+If you want to monitor the yunikorn core services by using Prometheus, you can find our step-by-step tutorial [here](../user_guide/prometheus.md).

@@ -32,6 +32,7 @@ module.exports = {
             'user_guide/resource_quota_management',
             'user_guide/gang_scheduling',
             'user_guide/labels_and_annotations_in_yunikorn',
+            'user_guide/prometheus',
             {
                 type: 'category',
                 label: 'Workloads',
