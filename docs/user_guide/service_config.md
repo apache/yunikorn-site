@@ -447,7 +447,6 @@ data:
   log.level: "0"
   kubernetes.qps: "1000"
   kubernetes.burst: "1000"
-  kubernetes.apiClientTimeout: "30s"
   admissionController.webHook.amServiceName: "yunikorn-admission-controller-service"
   admissionController.webHook.schedulerServiceAddress: "yunikorn-service:9080"
   admissionController.filtering.processNamespaces: ""
@@ -670,17 +669,6 @@ Default: `1000`
 Example:
 ```yaml
 kubernetes.burst: "500"
-```
-#### kubernetes.apiClientTimeout
-Controls how long to wait until the various API clients time out.
-
-A change to this setting requires a restart of YuniKorn to take effect.
-
-Default: `30s`
-
-Example:
-```yaml
-kubernetes.apiClientTimeout: "60s"
 ```
 ### Admission controller webhook settings
 
