@@ -180,7 +180,6 @@ specified. Note that these values are subject to change in future releases.
       log.level: "0"
       kubernetes.qps: "1000"
       kubernetes.burst: "1000"
-      kubernetes.apiClientTimeout: "30s"
       admissionController.webHook.amServiceName: "yunikorn-admission-controller-service"
       admissionController.webHook.schedulerServiceAddress: "yunikorn-service:9080"
       admissionController.filtering.processNamespaces: ""
