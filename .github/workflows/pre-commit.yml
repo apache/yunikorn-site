@@ -31,4 +31,6 @@ jobs:
       - name: Check license
         run: ./check_license.sh
       - name: Build the site image
-        run: docker build -t yunikorn/yunikorn-website:2.0.0 . --build-arg NODE_VERSION=16.14
+        run: |
+          NODE_VERSION=$(cat .nvmrc) && NODE_VERSION=${NODE_VERSION:-16.14}
+          docker build -t yunikorn/yunikorn-website:2.0.0 . --build-arg NODE_VERSION=${NODE_VERSION}
