@@ -22,6 +22,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+## Upcoming Events
+- KubeCon and CloudNativeCon 2023, Amsterdam  
+  _Scheduling Framework: Batch Extensions with Apache YuniKorn_  
+  https://sched.co/1Hydt  (Thursday, April 20th 4.30PM CEST)  
+  Wilfred Spiegelenburg and Peter Bacsko (Cloudera)
+- KubeCon and CloudNativeCon 2023, Batch + HPC Day event, Amsterdam
+  _SLA Aware Batch Scheduling in Apache YuniKorn with Multi-Tenant Preemption_  
+  https://sched.co/1Jo90 (Tuesday, April 18th 3.50PM CEST)  
+  Craig Condit and Sunil Govindan (Cloudera)
+
+Join us in person or virtual.  We wil post links to the recordings of the sessions after they have been made available.
+
+---
+
 ## Upcoming Meetup
 
 None planned at this moment, check for updates later...

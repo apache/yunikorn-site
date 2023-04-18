@@ -61,7 +61,8 @@ module.exports = {
     announcementBar: {
       id: 'new_release',
       content:
-          '1.2.0 has been released, check the DOWNLOADS',
+          'Apache YuniKorn @KubeCon and CloudnativeCon Amsterdam 2023. ' +
+          'See the <a rel="noopener noreferrer" href="/community/events">events page</a> !',
       backgroundColor: '#fafbfc',
       textColor: '#091E42',
     },
