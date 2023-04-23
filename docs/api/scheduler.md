@@ -681,6 +681,353 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
 }
 ```
 
+## UsersTracker
+### Get users usage tracking information
+
+Fetch all users usage given a Partition and displays general information about the users managed by YuniKorn.
+
+**URL** : `/ws/v1/partition/{partitionName}/usage/users`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+[
+  {
+    "userName": "user1",
+    "groups": {
+      "app2": "tester"
+    },
+    "queues":
+    {
+      "queuename": "root",
+      "resourceUsage": {
+        "memory": 12000000000,
+        "vcore": 12000
+      },
+      "runningApplications": ["app1", "app2"],
+      "children": [
+        {
+        "queuename": "root.default",
+        "resourceUsage": {
+          "memory": 6000000000,
+          "vcore": 6000
+        },
+        "runningApplications": ["app1"],
+        "children": []
+        },
+        {
+          "queuename": "root.test",
+          "resourceUsage": {
+            "memory": 6000000000,
+            "vcore": 6000
+          },
+          "runningApplications": [
+            "app2"
+          ],
+          "children": []
+        }]
+    }
+  },
+  {
+    "userName": "user2",
+    "groups": {
+      "app1": "tester"
+    },
+    "queues":
+    {
+      "queuename": "root",
+      "resourceUsage": {
+        "memory": 11000000000,
+        "vcore": 10000
+      },
+      "runningApplications": ["app1", "app2", "app3"],
+      "children": [
+        {
+        "queuename": "root.default",
+        "resourceUsage": {
+          "memory": 5000000000,
+          "vcore": 5000
+        },
+        "runningApplications": ["app1"],
+        "children": []
+        },
+        {
+          "queuename": "root.test",
+          "resourceUsage": {
+            "memory": 4000000000,
+            "vcore": 4000
+          },
+          "runningApplications": [
+            "app3"
+          ],
+          "children": []
+        }]
+    }
+  }
+]
+```
+
+### Error response
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## GroupsTracker
+### Get groups usage tracking information
+Fetch all groups usage given a Partition and displays general information about the groups managed by YuniKorn.
+
+**URL** : `/ws/v1/partition/{partitionName}/usage/groups`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+[
+  {
+    "groupName": "group1",
+    "applications": ["app1", "app2"],
+    "queues":
+    {
+      "queuename": "root",
+      "resourceUsage": {
+        "memory": 12000000000,
+        "vcore": 12000
+      },
+      "runningApplications": ["app1", "app2"],
+      "children": [
+        {
+        "queuename": "root.default",
+        "resourceUsage": {
+          "memory": 6000000000,
+          "vcore": 6000
+        },
+        "runningApplications": ["app1"],
+        "children": []
+        },
+        {
+          "queuename": "root.test",
+          "resourceUsage": {
+            "memory": 6000000000,
+            "vcore": 6000
+          },
+          "runningApplications": [
+            "app2"
+          ],
+          "children": []
+        }]
+    }
+  },
+  {
+    "groupName": "group2",
+    "applications": ["app1", "app2", "app3"],
+    "queues":
+    {
+      "queuename": "root",
+      "resourceUsage": {
+        "memory": 11000000000,
+        "vcore": 10000
+      },
+      "runningApplications": ["app1", "app2", "app3"],
+      "children": [
+        {
+        "queuename": "root.default",
+        "resourceUsage": {
+          "memory": 5000000000,
+          "vcore": 5000
+        },
+        "runningApplications": ["app1"],
+        "children": []
+        },
+        {
+          "queuename": "root.test",
+          "resourceUsage": {
+            "memory": 4000000000,
+            "vcore": 4000
+          },
+          "runningApplications": [
+            "app3"
+          ],
+          "children": []
+        }]
+    }
+  }
+]
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## UserTracker
+### Get specific user usage tracking information
+Fetch specific user usage given a Partition and displays general information about the users managed by YuniKorn.
+
+**URL** : `/ws/v1/partition/{partitionName}/usage/user/{userName}`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+  "userName": "user1",
+  "groups": {
+    "app1": "tester"
+  },
+  "queues":
+  {
+    "queuename": "root",
+    "resourceUsage": {
+      "memory": 12000000000,
+      "vcore": 12000
+    },
+    "runningApplications": ["app1", "app2"],
+    "children": [
+      {
+      "queuename": "root.default",
+      "resourceUsage": {
+        "memory": 6000000000,
+        "vcore": 6000
+      },
+      "runningApplications": ["app1"],
+      "children": []
+      },
+      {
+        "queuename": "root.test",
+        "resourceUsage": {
+          "memory": 6000000000,
+          "vcore": 6000
+        },
+        "runningApplications": [
+          "app2"
+        ],
+        "children": []
+      }]
+  }
+}
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## GroupTracker
+### Get specific group usage tracking information
+
+Fetch specific group usage given a Partition and displays general information about the groups managed by YuniKorn.
+
+**URL** : `/ws/v1/partition/{partitionName}/usage/group/{groupName}`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+  "groupName": "group1",
+  "applications": ["app1", "app2"],
+  "queues":
+  {
+    "queuename": "root",
+    "resourceUsage": {
+      "memory": 12000000000,
+      "vcore": 12000
+    },
+    "runningApplications": ["app1", "app2"],
+    "children": [
+      {
+      "queuename": "root.default",
+      "resourceUsage": {
+        "memory": 6000000000,
+        "vcore": 6000
+      },
+      "runningApplications": ["app1"],
+      "children": []
+      },
+      {
+        "queuename": "root.test",
+        "resourceUsage": {
+          "memory": 6000000000,
+          "vcore": 6000
+        },
+        "runningApplications": [
+          "app2"
+        ],
+        "children": []
+      }]
+  }
+}
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
 ## Nodes
 
 ### Partition nodes
