@@ -176,6 +176,7 @@ specified. Note that these values are subject to change in future releases.
       service.disableGangScheduling: "false"
       service.enableConfigHotRefresh: "true"
       service.placeholderImage: "registry.k8s.io/pause:3.7"
+      service.instanceTypeNodeLabelKey: "node.kubernetes.io/instance-type"
       health.checkInterval: "30s"
       log.level: "0"
       kubernetes.qps: "1000"
