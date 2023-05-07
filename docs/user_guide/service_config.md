@@ -443,6 +443,7 @@ data:
   service.disableGangScheduling: "false"
   service.enableConfigHotRefresh: "true"
   service.placeholderImage: "registry.k8s.io/pause:3.7"
+  service.instanceTypeNodeLabelKey: "node.kubernetes.io/instance-type"
   health.checkInterval: "30s"
   log.level: "0"
   kubernetes.qps: "1000"
@@ -605,6 +606,17 @@ Default: `registry.k8s.io/pause:3.7`
 Example:
 ```yaml
 service.placeholderImage: "registry.k8s.io/pause:3.6"
+```
+#### service.instanceTypeNodeLabelKey
+Sets the node label that will be used to determine the instance type of node.
+
+A change to this setting requires a restart of YuniKorn to take effect.
+
+Default: `node.kubernetes.io/instance-type`
+
+Example:
+```yaml
+service.instanceTypeNodeLabelKey: "node.kubernetes.io/my-instance-type"
 ```
 ### Health settings
 
