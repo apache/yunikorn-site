@@ -51,9 +51,6 @@
         "label": "Designs",
         "items": [
           "design/architecture",
-          "design/k8shim",
-          "design/scheduler_plugin",
-          "design/gang_scheduling",
           "design/scheduler_plugin",
           "design/gang_scheduling",
           "design/user_group",
