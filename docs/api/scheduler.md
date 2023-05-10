@@ -707,7 +707,7 @@ Fetch all users usage given a Partition and displays general information about t
     },
     "queues":
     {
-      "queuename": "root",
+      "queuePath": "root",
       "resourceUsage": {
         "memory": 12000000000,
         "vcore": 12000
@@ -715,7 +715,7 @@ Fetch all users usage given a Partition and displays general information about t
       "runningApplications": ["app1", "app2"],
       "children": [
         {
-        "queuename": "root.default",
+        "queuePath": "root.default",
         "resourceUsage": {
           "memory": 6000000000,
           "vcore": 6000
@@ -724,7 +724,7 @@ Fetch all users usage given a Partition and displays general information about t
         "children": []
         },
         {
-          "queuename": "root.test",
+          "queuePath": "root.test",
           "resourceUsage": {
             "memory": 6000000000,
             "vcore": 6000
@@ -743,7 +743,7 @@ Fetch all users usage given a Partition and displays general information about t
     },
     "queues":
     {
-      "queuename": "root",
+      "queuePath": "root",
       "resourceUsage": {
         "memory": 11000000000,
         "vcore": 10000
@@ -751,7 +751,7 @@ Fetch all users usage given a Partition and displays general information about t
       "runningApplications": ["app1", "app2", "app3"],
       "children": [
         {
-        "queuename": "root.default",
+        "queuePath": "root.default",
         "resourceUsage": {
           "memory": 5000000000,
           "vcore": 5000
@@ -760,7 +760,7 @@ Fetch all users usage given a Partition and displays general information about t
         "children": []
         },
         {
-          "queuename": "root.test",
+          "queuePath": "root.test",
           "resourceUsage": {
             "memory": 4000000000,
             "vcore": 4000
@@ -776,109 +776,6 @@ Fetch all users usage given a Partition and displays general information about t
 ```
 
 ### Error response
-**Code** : `500 Internal Server Error`
-
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
-
-## GroupsTracker
-### Get groups usage tracking information
-Fetch all groups usage given a Partition and displays general information about the groups managed by YuniKorn.
-
-**URL** : `/ws/v1/partition/{partitionName}/usage/groups`
-
-**Method** : `GET`
-
-**Auth required** : NO
-
-### Success response
-
-**Code** : `200 OK`
-
-**Content example**
-
-```json
-[
-  {
-    "groupName": "group1",
-    "applications": ["app1", "app2"],
-    "queues":
-    {
-      "queuename": "root",
-      "resourceUsage": {
-        "memory": 12000000000,
-        "vcore": 12000
-      },
-      "runningApplications": ["app1", "app2"],
-      "children": [
-        {
-        "queuename": "root.default",
-        "resourceUsage": {
-          "memory": 6000000000,
-          "vcore": 6000
-        },
-        "runningApplications": ["app1"],
-        "children": []
-        },
-        {
-          "queuename": "root.test",
-          "resourceUsage": {
-            "memory": 6000000000,
-            "vcore": 6000
-          },
-          "runningApplications": [
-            "app2"
-          ],
-          "children": []
-        }]
-    }
-  },
-  {
-    "groupName": "group2",
-    "applications": ["app1", "app2", "app3"],
-    "queues":
-    {
-      "queuename": "root",
-      "resourceUsage": {
-        "memory": 11000000000,
-        "vcore": 10000
-      },
-      "runningApplications": ["app1", "app2", "app3"],
-      "children": [
-        {
-        "queuename": "root.default",
-        "resourceUsage": {
-          "memory": 5000000000,
-          "vcore": 5000
-        },
-        "runningApplications": ["app1"],
-        "children": []
-        },
-        {
-          "queuename": "root.test",
-          "resourceUsage": {
-            "memory": 4000000000,
-            "vcore": 4000
-          },
-          "runningApplications": [
-            "app3"
-          ],
-          "children": []
-        }]
-    }
-  }
-]
-```
-
-### Error response
-
 **Code** : `500 Internal Server Error`
 
 **Content examples**
@@ -915,7 +812,7 @@ Fetch specific user usage given a Partition and displays general information abo
   },
   "queues":
   {
-    "queuename": "root",
+    "queuePath": "root",
     "resourceUsage": {
       "memory": 12000000000,
       "vcore": 12000
@@ -923,7 +820,7 @@ Fetch specific user usage given a Partition and displays general information abo
     "runningApplications": ["app1", "app2"],
     "children": [
       {
-      "queuename": "root.default",
+      "queuePath": "root.default",
       "resourceUsage": {
         "memory": 6000000000,
         "vcore": 6000
@@ -932,7 +829,7 @@ Fetch specific user usage given a Partition and displays general information abo
       "children": []
       },
       {
-        "queuename": "root.test",
+        "queuePath": "root.test",
         "resourceUsage": {
           "memory": 6000000000,
           "vcore": 6000
@@ -944,6 +841,109 @@ Fetch specific user usage given a Partition and displays general information abo
       }]
   }
 }
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## GroupsTracker
+### Get groups usage tracking information
+Fetch all groups usage given a Partition and displays general information about the groups managed by YuniKorn.
+
+**URL** : `/ws/v1/partition/{partitionName}/usage/groups`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+[
+  {
+    "groupName": "group1",
+    "applications": ["app1", "app2"],
+    "queues":
+    {
+      "queuePath": "root",
+      "resourceUsage": {
+        "memory": 12000000000,
+        "vcore": 12000
+      },
+      "runningApplications": ["app1", "app2"],
+      "children": [
+        {
+        "queuePath": "root.default",
+        "resourceUsage": {
+          "memory": 6000000000,
+          "vcore": 6000
+        },
+        "runningApplications": ["app1"],
+        "children": []
+        },
+        {
+          "queuePath": "root.test",
+          "resourceUsage": {
+            "memory": 6000000000,
+            "vcore": 6000
+          },
+          "runningApplications": [
+            "app2"
+          ],
+          "children": []
+        }]
+    }
+  },
+  {
+    "groupName": "group2",
+    "applications": ["app1", "app2", "app3"],
+    "queues":
+    {
+      "queuePath": "root",
+      "resourceUsage": {
+        "memory": 11000000000,
+        "vcore": 10000
+      },
+      "runningApplications": ["app1", "app2", "app3"],
+      "children": [
+        {
+        "queuePath": "root.default",
+        "resourceUsage": {
+          "memory": 5000000000,
+          "vcore": 5000
+        },
+        "runningApplications": ["app1"],
+        "children": []
+        },
+        {
+          "queuePath": "root.test",
+          "resourceUsage": {
+            "memory": 4000000000,
+            "vcore": 4000
+          },
+          "runningApplications": [
+            "app3"
+          ],
+          "children": []
+        }]
+    }
+  }
+]
 ```
 
 ### Error response
@@ -983,7 +983,7 @@ Fetch specific group usage given a Partition and displays general information ab
   "applications": ["app1", "app2"],
   "queues":
   {
-    "queuename": "root",
+    "queuePath": "root",
     "resourceUsage": {
       "memory": 12000000000,
       "vcore": 12000
@@ -991,7 +991,7 @@ Fetch specific group usage given a Partition and displays general information ab
     "runningApplications": ["app1", "app2"],
     "children": [
       {
-      "queuename": "root.default",
+      "queuePath": "root.default",
       "resourceUsage": {
         "memory": 6000000000,
         "vcore": 6000
@@ -1000,7 +1000,7 @@ Fetch specific group usage given a Partition and displays general information ab
       "children": []
       },
       {
-        "queuename": "root.test",
+        "queuePath": "root.test",
         "resourceUsage": {
           "memory": 6000000000,
           "vcore": 6000
