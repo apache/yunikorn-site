@@ -205,15 +205,15 @@ Finally, we extend the configuration as follows:
 placementrules:
   - name: provided
     create: true
-		parent: # Specify the parent of the created queue as root.system
-		  name: fixed
-		  value: root.system
-	  filter: # Only admin is allowed to use the rule
-	    type: allow
-	    users:
-	      - admin
-	    groups:
-	      - admin
+    parent: # Specify the parent of the created queue as root.system
+      name: fixed
+      value: root.system
+    filter: # Only admin is allowed to use the rule
+      type: allow
+      users:
+        - admin
+      groups:
+        - admin
 ```
 
 In the following example, we configure the configuration based on the following:
