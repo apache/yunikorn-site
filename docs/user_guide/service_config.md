@@ -740,6 +740,10 @@ Example:
 # Don't schedule pods in kube-system or fluentd-* namespaces
 admissionController.filtering.bypassNamespaces: "^kube-system$,^fluentd-"
 ```
+
+> **_NOTE :_**  
+> To simplify management, you can directly set the `yunikorn.apache.org/namespace.enableYunikorn` annotation on the namespace itself, regardless of whether it is specified in a regular expression. This annotation enables you to determine if the namespace should be managed by Yunikorn.
+
 #### admissionController.filtering.labelNamespaces
 Controls which namespaces will have pods labeled with an `applicationId`. By default,
 all pods which are scheduled by YuniKorn will have an `applicationId` label applied.
@@ -788,6 +792,10 @@ Example:
 # Skip queueing in the noqueue namespace
 admissionController.filtering.labelNamespaces: "^noqueue$"
 ```
+
+> **_NOTE :_**
+> To simplify management, you can directly set the `yunikorn.apache.org/namespace.generateAppId` annotation on the namespace itself, regardless of whether it is specified in a regular expression. This annotation enables you to determine if the namespace should be labeled by Yunikorn.
+
 ### Admission controller ACL settings
 
 #### admissionController.accessControl.bypassAuth
