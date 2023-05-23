@@ -1,5 +1,5 @@
 ---
-id: prometheus_and_grafana
+id: prometheus
 title: Prometheus and Grafana
 ---
 
