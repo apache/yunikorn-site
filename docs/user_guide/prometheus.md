@@ -154,7 +154,7 @@ A dashboard consists of multiple panels that are organized and arranged in rows.
 
 We provide a sample dashboard JSON file. To access it, you can navigate to the `/deployments/grafana-dashboard` directory in the Yunikorn-k8shim repository.
 
-You can refer to the [REST API](scheduler#metrics) to build your own custom Dashboard.
+You can refer to the [REST API](../api/scheduler.md#metrics) to build your own custom Dashboard.
 
 ### Import the JSON files in the Dashboard
 
