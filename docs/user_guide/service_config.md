@@ -443,6 +443,7 @@ data:
   service.disableGangScheduling: "false"
   service.enableConfigHotRefresh: "true"
   service.placeholderImage: "registry.k8s.io/pause:3.7"
+  service.instanceTypeNodeLabelKey: "node.kubernetes.io/instance-type"
   health.checkInterval: "30s"
   log.level: "0"
   kubernetes.qps: "1000"
@@ -453,6 +454,7 @@ data:
   admissionController.filtering.bypassNamespaces: "^kube-system$"
   admissionController.filtering.labelNamespaces: ""
   admissionController.filtering.noLabelNamespaces: ""
+  admissionController.filtering.generateUniqueAppId: "false"
   admissionController.accessControl.bypassAuth: "false"
   admissionController.accessControl.trustControllers: "true"
   admissionController.accessControl.systemUsers: "^system:serviceaccount:kube-system:"
@@ -605,6 +607,17 @@ Default: `registry.k8s.io/pause:3.7`
 Example:
 ```yaml
 service.placeholderImage: "registry.k8s.io/pause:3.6"
+```
+#### service.instanceTypeNodeLabelKey
+Sets the node label that will be used to determine the instance type of node.
+
+A change to this setting requires a restart of YuniKorn to take effect.
+
+Default: `node.kubernetes.io/instance-type`
+
+Example:
+```yaml
+service.instanceTypeNodeLabelKey: "node.kubernetes.io/my-instance-type"
 ```
 ### Health settings
 
@@ -795,6 +808,20 @@ admissionController.filtering.labelNamespaces: "^noqueue$"
 
 > **_NOTE :_**
 > To simplify management, you can directly set the `yunikorn.apache.org/namespace.generateAppId` annotation on the namespace itself, regardless of whether it is specified in a regular expression. This annotation enables you to determine if the namespace should be labeled by Yunikorn.
+
+#### admissionController.filtering.generateUniqueAppId
+YuniKorn generates `applicationId` for all the apps that do not have an `applicationId` to start with. This property controlls if a *unique* `applicationId` should be generated for each such application or all the apps in a namespace should be bundled under a single `applicationId`.
+
+This setting is turned off by default and only one `applicationId` will be generated per namespace.
+
+When enabled, unique `applicationId` is generated using the namespace and the application's pod uid.
+
+Default: `false`
+
+Example:
+```yaml
+admissionController.filtering.generateUniqueAppId: "true"
+```
 
 ### Admission controller ACL settings
 

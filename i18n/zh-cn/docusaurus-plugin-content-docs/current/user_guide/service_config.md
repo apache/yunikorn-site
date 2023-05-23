@@ -415,6 +415,7 @@ YuniKorn的服务配置由两个 Kubernetes ConfigMaps 控制，它们分别是�
       service.disableGangScheduling: "false"
       service.enableConfigHotRefresh: "true"
       service.placeholderImage: "registry.k8s.io/pause:3.7"
+      service.instanceTypeNodeLabelKey: "node.kubernetes.io/instance-type"
       health.checkInterval: "30s"
       log.level: "0"
       kubernetes.qps: "1000"
@@ -565,6 +566,17 @@ YuniKorn可理解以下参数：
 示例：
 
     service.placeholderImage: "registry.k8s.io/pause:3.6"
+
+#### service.instanceTypeNodeLabelKey
+设置节点标签的键，该键用于标识节点的实例类型。如果设置了此值，则YuniKorn将使用此标签来区分节点的实例类型。
+
+更改此设置需要重新启动YuniKorn才能生效。
+
+默认值： `node.kubernetes.io/instance-type`
+
+示例：
+
+    service.instanceTypeNodeLabelKey: "node.kubernetes.io/my-instance-type"
 
 ### 健康检查设置
 
