@@ -455,6 +455,7 @@ data:
   admissionController.filtering.labelNamespaces: ""
   admissionController.filtering.noLabelNamespaces: ""
   admissionController.filtering.generateUniqueAppId: "false"
+  admissionController.filtering.defaultQueue: "root.default"
   admissionController.accessControl.bypassAuth: "false"
   admissionController.accessControl.trustControllers: "true"
   admissionController.accessControl.systemUsers: "^system:serviceaccount:kube-system:"
@@ -821,6 +822,34 @@ Default: `false`
 Example:
 ```yaml
 admissionController.filtering.generateUniqueAppId: "true"
+```
+
+#### admissionController.filtering.defaultQueue
+Controlls what will be the default queue name for the application.
+
+If the application does not define a queue name during app submission, admission controller will add a default queue name to the pod labels. `root.default` queue name will be added to the pod labels if this property is not set.
+
+In case, the default queue name needs to be updated to something other than `root.default`,  `admissionController.filtering.defaultQueue` can be set with the desired queue name.
+
+Example:
+```yaml
+# Change default queue to root.mydefault
+admissionController.filtering.defaultQueue: "root.mydefault"
+```
+
+**_NOTE :_**
+The queue name needs to be a fully qualified queue name.
+
+For certain use-cases, there may be a need to skip adding a default queue name to the pod labels. In such cases, `admissionController.filtering.defaultQueue` can be set to empty string.
+
+Adding default queue name should be avoided when `provided` rule is used in conjunction with other placement rules and `provided` rule is higher in the hierarchy. If default queue label is added whenever there is no queue name specified, all the apps will be placed via `provided` rule and the other rules after that will never be executed.
+
+Default: empty
+
+Example:
+```yaml
+# Skip adding default queue name
+admissionController.filtering.defaultQueue: ""
 ```
 
 ### Admission controller ACL settings
