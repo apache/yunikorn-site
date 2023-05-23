@@ -44,13 +44,13 @@ To create the necessary users for the example, you can download the `create_user
 
 Here are the users we need to create:
 
-| user | group |
-| --- | --- |
-| admin | admin |
-| sue | group-a |
-| bob | group-a |
-| kim | group-b |
-| yono | group-b |
+| user      | group     |
+|-----------|-----------|
+| admin     | admin     |
+| sue       | group-a   |
+| bob       | group-a   |
+| kim       | group-b   |
+| yono      | group-b   |
 | anonymous | anonymous |
 
 After the user is created, the pod can be obtained by the following command to confirm the creation is successful：
@@ -93,7 +93,7 @@ data:
               - name: group-b
 ```
 
-See the documentation on [Partition and Queue Configuration](./queue_config.md) for more information.
+See the documentation on [Partition and Queue Configuration](queue_config) for more information.
 
 ---
 
@@ -110,14 +110,14 @@ In Yunikorn, there are two steps to manage users:
 
 In the following example, we configure the configuration based on the following:
 
-| user | group | Queue allowed to put |
-| --- | --- | --- |
-| admin | admin | system |
-| sue | group-a | root.tenants.group-a |
-| bob | group-a | root.tenants.group-a |
-| kim | group-b | root.tenants.group-b |
-| yono | group-b | root.tenants.group-b |
-| anonymous | anonymous | x |
+| user      | group     | Queue allowed to put |
+|-----------|-----------|----------------------|
+| admin     | admin     | system               |
+| sue       | group-a   | root.tenants.group-a |
+| bob       | group-a   | root.tenants.group-a |
+| kim       | group-b   | root.tenants.group-b |
+| yono      | group-b   | root.tenants.group-b |
+| anonymous | anonymous | x                    |
 
 In this configuration, we allow users in the admin group to use the system queue by setting `adminacl: admin` for the `root.system` queue. We also allow the group-a and group-b groups to use their respective queues (`root.tenants.group-a` and `root.tenants.group-b`) by setting `adminacl: group-a` and `adminacl: group-b` for each queue, respectively.
 
@@ -164,16 +164,16 @@ The scheduler will then determine whether to allow or block the user's pod based
 
 Here are the results for different users assigned to different queues. You can use the YAML file we provide to test :
 
-| user, group | Assign queue | result | YAML filename |
-| --- | --- | --- | --- |
-| sue, group-a | root.tenants.group-a | created | nginx-1.yaml |
-| sue, group-a | root.tenants.group-b | blocked | nginx-1.yaml |
-| kim, group-b | root.tenants.group-a | blocked | nginx-2.yaml |
-| kim, group-b | root.tenants.group-b | created | nginx-2.yaml |
-| anonymous, anonymous | root.tenants.group-a | blocked | nginx-3.yaml |
-| anonymous, anonymous | root.tenants.group-b | blocked | nginx-3.yaml |
+| user, group          | Assign queue         | result  | YAML filename |
+|----------------------|----------------------|---------|---------------|
+| sue, group-a         | root.tenants.group-a | created | nginx-1.yaml  |
+| sue, group-a         | root.tenants.group-b | blocked | nginx-1.yaml  |
+| kim, group-b         | root.tenants.group-a | blocked | nginx-2.yaml  |
+| kim, group-b         | root.tenants.group-b | created | nginx-2.yaml  |
+| anonymous, anonymous | root.tenants.group-a | blocked | nginx-3.yaml  |
+| anonymous, anonymous | root.tenants.group-b | blocked | nginx-3.yaml  |
 
-See the documentation on [User & Group Resolution](./usergroup_resolution.md) or [ACLs](./acls.md) for more information.
+See the documentation on [User & Group Resolution](usergroup_resolution) or [ACLs](acls) for more information.
 
 ---
 
@@ -218,11 +218,11 @@ placementrules:
 
 In the following example, we configure the configuration based on the following:
 
-| group | placement rule | fixed parent |
-| --- | --- | --- |
-| admin | provided | root.system |
-| group-a | username | root.tenants.group-a |
-| group-b | namespace | root.tenants.group-b |
+| group   | placement rule | fixed parent         |
+|---------|----------------|----------------------|
+| admin   | provided       | root.system          |
+| group-a | username       | root.tenants.group-a |
+| group-b | namespace      | root.tenants.group-b |
 
 Configuration for testing :
 
@@ -291,15 +291,15 @@ In this test example, we use three users to verify all the placement rules.
 
 The following results are generated when creating a Pod according to different rules. You can use the YAML file we provide for testing:
 
-| placement rule | user, group | provide queue | namespace | Expected to be placed on | YAML filename |
-| --- | --- | --- | --- | --- | --- |
-| provided | admin, admin | root.system.high-priority |  | root.system.high-priority | nginx-admin.yaml |
-| provided | admin, admin | root.system.low-priority |  | root.system.low-priority | nginx-admin.yaml |
-| username | sue, group-a |  |  | root.tenants.group-a.sue | nginx-sue.yaml |
-| tag (value: namespace) | kim, group-b |  | dev | root.tenants.group-b.dev | nginx-kim.yaml |
-| tag (value: namespace) | kim, group-b |  | test | root.tenants.group-b.test | nginx-kim.yaml |
+| placement rule         | user, group  | provide queue             | namespace | Expected to be placed on  | YAML filename    |
+|------------------------|--------------|---------------------------|-----------|---------------------------|------------------|
+| provided               | admin, admin | root.system.high-priority |           | root.system.high-priority | nginx-admin.yaml |
+| provided               | admin, admin | root.system.low-priority  |           | root.system.low-priority  | nginx-admin.yaml |
+| username               | sue, group-a |                           |           | root.tenants.group-a.sue  | nginx-sue.yaml   |
+| tag (value: namespace) | kim, group-b |                           | dev       | root.tenants.group-b.dev  | nginx-kim.yaml   |
+| tag (value: namespace) | kim, group-b |                           | test      | root.tenants.group-b.test | nginx-kim.yaml   |
 
-See the documentation on [App Placement Rules](./placement_rules.md) for more information.
+See the documentation on [App Placement Rules](placement_rules) for more information.
 
 ---
 
@@ -311,14 +311,14 @@ To avoid unfair resource usage, we can limit and reserve the amount of resources
 
 In the following example, we configure the configuration based on the following:
 
-| queue | guaranteed |  | max |  |
-| --- | --- | --- | --- | --- |
-|  | memory(G) | vcore | memory(G) | vcore |
-| root | x | x | 15.6 | 16 |
-| root.system | 2 | 2 | 6 | 6 |
-| root.tenants | 2 | 2 | 4 | 8 |
-| root.tenants.group-a | 1 | 1 | 2 | 4 |
-| root.tenants.group-b | 1 | 1 | 2 | 4 |
+| queue                | guaranteed |       | max       |       |
+|----------------------|------------|-------|-----------|-------|
+|                      | memory(G)  | vcore | memory(G) | vcore |
+| root                 | x          | x     | 15.6      | 16    |
+| root.system          | 2          | 2     | 6         | 6     |
+| root.tenants         | 2          | 2     | 4         | 8     |
+| root.tenants.group-a | 1          | 1     | 2         | 4     |
+| root.tenants.group-b | 1          | 1     | 2         | 4     |
 
 Configuration for testing :
 
@@ -374,12 +374,12 @@ When group-A is deployed in `root.tenants.group-a` and the required resources ex
 
 The results of deploying Pods in different queues are shown below. You can use the YAML file we provide for testing.
 
-| user, group | Resource Limits for Destination Queues | request resources for each replicas | replica | result | YAML filename |
-| --- | --- | --- | --- | --- | --- |
-| admin, admin | {memory: 6G, vcore: 6} | {memory: 512M, vcore: 250m} | 1 | run all replica | nginx-admin.yaml |
-| sue, group-A | {memory: 2G, vcore: 4} | {memory: 512M, vcore: 500m} | 5 | run 3 replica (4 replica will exceed the resource limit) | nginx-sue.yaml |
+| user, group  | Resource Limits for Destination Queues | request resources for each replicas | replica | result                                                   | YAML filename    |
+|--------------|----------------------------------------|-------------------------------------|---------|----------------------------------------------------------|------------------|
+| admin, admin | {memory: 6G, vcore: 6}                 | {memory: 512M, vcore: 250m}         | 1       | run all replica                                          | nginx-admin.yaml |
+| sue, group-A | {memory: 2G, vcore: 4}                 | {memory: 512M, vcore: 500m}         | 5       | run 3 replica (4 replica will exceed the resource limit) | nginx-sue.yaml   |
 
-See the documentation on [Partition and Queue Configuration #Resources](./queue_config.md#resources) for more information.
+See the documentation on [Partition and Queue Configuration #Resources](queue_config#resources) for more information.
 
 ---
 
@@ -393,16 +393,16 @@ This section demonstrates how to configure priority in a queue. If you want to c
 
 In the following example, we configure the configuration based on the following:
 
-| queue | offset |
-| --- | --- |
-| root |  |
-| root.system |  |
-| root.system.high-priority | 1000 |
-| root.system.normal-priority | 0 |
-| root.system.low-priority | -1000 |
-| root.tenants | 0 (fenced) |
-| root.tenants.group-a | 20 (fenced) |
-| root.tenants.group-b | 5 (fenced) |
+| queue                       | offset      |
+|-----------------------------|-------------|
+| root                        |             |
+| root.system                 |             |
+| root.system.high-priority   | 1000        |
+| root.system.normal-priority | 0           |
+| root.system.low-priority    | -1000       |
+| root.tenants                | 0 (fenced)  |
+| root.tenants.group-a        | 20 (fenced) |
+| root.tenants.group-b        | 5 (fenced)  |
 
 By default, all priorities are globally scoped, which means that all high-priority queues will be served first. However, we can also limit the priority to certain queues.
 
@@ -460,11 +460,11 @@ However, with priorities and limited resources, the high-priority queue can depl
 
 In the following tests, we run the environment with a node resource limit of `{memory:16GB, vcore:16}`. Note that results will vary based on the environment, and you can modify the YAML file we provide to achieve similar results.
 
-| queue | offset | # of deploy apps | # of apps accept by yunikorn | YAML filename |
-| --- | --- | --- | --- | --- |
-| root.system.low-priority | 1000 | 8 | 8 | system.yaml |
-| root.system.normal-priority | 0 | 8 | 5 | system.yaml |
-| root.system.high-priority | -1000 | 8 | 0 | system.yaml |
+| queue                       | offset | # of deploy apps | # of apps accept by yunikorn | YAML filename |
+|-----------------------------|--------|------------------|------------------------------|---------------|
+| root.system.low-priority    | 1000   | 8                | 8                            | system.yaml   |
+| root.system.normal-priority | 0      | 8                | 5                            | system.yaml   |
+| root.system.high-priority   | -1000  | 8                | 0                            | system.yaml   |
 
 **Case 2: priority-fenced**
 
@@ -474,10 +474,10 @@ While scheduling the task. Even though `root.tenants.group-a` has a higher prior
 
 For the following tests, we run them in an environment with node resources of `{memory:16GB, vcore:16}`. The results will vary in different environments, but you can obtain similar results by modifying the YAML file we provide.
 
-| queue | offset | # of deploy apps | # of apps accept by yunikorn | YAML filename |
-| --- | --- | --- | --- | --- |
-| root.system.normal-priority | 0 (global) | 7 | 7 | nginx-admin.yaml |
-| root.tenants.group-a | 20 (fenced) | 7 | 6 | nginx-sue.yaml |
-| root.tenants.group-b | 5 (fenced) | 7 | 0 | nginx-kim.yaml |
+| queue                       | offset      | # of deploy apps | # of apps accept by yunikorn | YAML filename    |
+|-----------------------------|-------------|------------------|------------------------------|------------------|
+| root.system.normal-priority | 0 (global)  | 7                | 7                            | nginx-admin.yaml |
+| root.tenants.group-a        | 20 (fenced) | 7                | 6                            | nginx-sue.yaml   |
+| root.tenants.group-b        | 5 (fenced)  | 7                | 0                            | nginx-kim.yaml   |
 
-See the documentation on [App & Queue Priorities](./priorities.md) for more information.
+See the documentation on [App & Queue Priorities](priorities) for more information.
