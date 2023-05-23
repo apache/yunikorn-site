@@ -651,9 +651,9 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
 }
 ```
 
-## 节点
+## 多个节点
 
-### 分区节点
+### 分区中多个节点
 
 获取给定分区的所有节点，并显示由YuniKorn管理的节点的信息。
 节点详细信息包括主机和机架名称、容量、资源、利用率和分配。
@@ -824,6 +824,125 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
 ### 错误时的响应
 
 **返回代码**：`500 Internal Server Error`
+
+**示例**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## 单一节点
+
+### 分区中单一节点
+
+从给定分区和节点ID来获取节点，并显示有关节点的信息，节点详细信息包括主机和机架名称、容量、资源、利用率和分配。
+
+**位置（URL）** : `/ws/v1/partition/{partitionName}/node/{nodeId}`
+
+**方法（Method）** : `GET`
+
+**需求权限** : NO
+
+### 成功时的响应
+
+**返回代码** : `200 OK`
+
+**示例**
+
+```json
+{
+   "nodeID":"node-0001",
+   "hostName":"",
+   "rackName":"",
+   "capacity":{
+      "ephemeral-storage":75850798569,
+      "hugepages-1Gi":0,
+      "hugepages-2Mi":0,
+      "memory":14577000000,
+      "pods":110,
+      "vcore":10000
+   },
+   "allocated":{
+      "memory":6000000000,
+      "vcore":6000
+   },
+   "occupied":{
+      "memory":154000000,
+      "vcore":750
+   },
+   "available":{
+      "ephemeral-storage":75850798569,
+      "hugepages-1Gi":0,
+      "hugepages-2Mi":0,
+      "memory":6423000000,
+      "pods":110,
+      "vcore":1250
+   },
+   "utilized":{
+      "memory":3,
+      "vcore":13
+   },
+   "allocations":[
+      {
+         "allocationKey":"54e5d77b-f4c3-4607-8038-03c9499dd99d",
+         "allocationTags":{
+            "kubernetes.io/label/app":"sleep",
+            "kubernetes.io/label/applicationId":"application-0001",
+            "kubernetes.io/label/queue":"root.default",
+            "kubernetes.io/meta/namespace":"default",
+            "kubernetes.io/meta/podName":"task0"
+         },
+         "requestTime":1648754034098912461,
+         "allocationTime":1648754035973982920,
+         "allocationDelay":1875070459,
+         "uuid":"08033f9a-4699-403c-9204-6333856b41bd",
+         "resource":{
+            "memory":2000000000,
+            "vcore":2000
+         },
+         "priority":"0",
+         "nodeId":"node-0001",
+         "applicationId":"application-0001",
+         "partition":"default",
+         "placeholder":false,
+         "placeholderUsed":false
+      },
+      {
+         "allocationKey":"deb12221-6b56-4fe9-87db-ebfadce9aa20",
+         "allocationTags":{
+            "kubernetes.io/label/app":"sleep",
+            "kubernetes.io/label/applicationId":"application-0002",
+            "kubernetes.io/label/queue":"root.default",
+            "kubernetes.io/meta/namespace":"default",
+            "kubernetes.io/meta/podName":"task0"
+         },
+         "requestTime":1648754034098912461,
+         "allocationTime":1648754035973982920,
+         "allocationDelay":1875070459,
+         "uuid":"9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+         "resource":{
+            "memory":4000000000,
+            "vcore":4000
+         },
+         "priority":"0",
+         "nodeId":"node-0001",
+         "applicationId":"application-0002",
+         "partition":"default",
+         "placeholder":false,
+         "placeholderUsed":false
+      }
+   ],
+   "schedulable":true
+}
+```
+
+### 错误时的响应
+
+**返回代码** : `500 Internal Server Error`
 
 **示例**
 
