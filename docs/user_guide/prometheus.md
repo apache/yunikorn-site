@@ -1,6 +1,6 @@
 ---
-id: prometheus
-title: Setting Prometheus
+id: prometheus_and_grafana
+title: Prometheus and Grafana
 ---
 
 <!--
@@ -24,9 +24,13 @@ under the License.
 
 YuniKorn exposes its scheduling metrics via Prometheus. Thus, we need to set up a Prometheus server to collect these metrics.
 
-If you don't know what metric can be used, you can use [REST API](../api/scheduler.md#metrics).
+We will provide two methods for building Prometheus: either running it locally or using Helm to deploy it in your cluster. Additionally, in the Helm version, we will explain how to integrate it with Grafana and provide generic Grafana Dashboards for monitoring Yunikorn's metrics and observing the changes over time.
 
-### 1. **Download Prometheus release**
+If you don't know what metric can be used, you can use [REST API](scheduler#metrics).
+
+## Run Prometheus locally
+
+### 1. Download Prometheus release
 
 ```bash
 wget https://github.com/prometheus/prometheus/releases/download/v2.30.3/prometheus-2.30.3.linux-amd64.tar.gz
@@ -37,7 +41,7 @@ tar xvfz prometheus-*.tar.gz
 cd prometheus-*
 ```
 
-### 2. **Configure prometheus.yml**
+### 2. Configure prometheus.yml
 
 Prometheus collects metrics from *targets* by scraping metrics HTTP endpoints.
 
@@ -80,3 +84,86 @@ You should be able to browse to a status page at [localhost:9090](http://localh
 ![prometheus-web-ui](../assets/prometheus-web-ui.png)
 
 You can also verify that Prometheus is serving metrics by navigating to its metrics endpoint:[localhost:9090/metrics](http://localhost:9090/metrics)
+
+## Deploy Prometheus and Grafana in a cluster.
+
+### 1. Add Prometheus repository to helm
+    
+```yaml
+# add helm repo
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+```
+    
+### 2. Configuring yunikorn for prometheus
+
+Get the config from repository.
+```yaml
+helm show values prometheus-community/kube-prometheus-stack > /tmp/values.yaml
+```
+
+Add a new job in Prometheus to collect metrics by scraping the metrics HTTP endpoints of the targets.
+
+```yaml
+vim /tmp/values.yaml
+```
+```yaml
+...
+additionalScrapeConfigs:
+  - job_name: "yunikorn"
+    scrape_interval: 1s
+    metrics_path: '/ws/v1/metrics'
+    static_configs:
+      - targets: ["yunikorn-service.yunikorn.svc.cluster.local:9080"]
+...
+```
+    
+### 3. Use helm to create Prometheus
+
+```yaml
+# create k8s namespace
+kubectl create namespace prometheus
+
+# deploy chart
+helm install prometheus prometheus-community/kube-prometheus-stack -n prometheus -f /tmp/values.yaml
+```
+    
+### 4. Access the Prometheus Web UI
+    
+```yaml
+kubectl port-forward -n prometheus svc/prometheus-kube-prometheus-prometheus 9090:9090
+```
+
+After running port-forward, you can enter [localhost:9090](http://localhost:9090) to access Prometheus Web UI.
+
+## Access Grafana Dashboard
+
+Port forwarding for the Grafana web service on the standard port can be turned on via:
+
+```yaml
+kubectl port-forward -n prometheus svc/prometheus-grafana 7070:80
+```
+
+After running port-forward, you can enter [localhost:7070](http://localhost:7070) to access grafana, and in the login page, enter account:`admin` ,password:`prom-operator`.
+
+![grafana-login-page](../assets/grafana_login_page.png)
+    
+### Download JSON files for Yunikorn Dashboard
+    
+A dashboard consists of multiple panels that are organized and arranged in rows. Each panel has the ability to interact with data from any Grafana data source that has been configured. For more detailed information, please refer to the [Grafana Dashboards](https://grafana.com/docs/grafana/latest/dashboards).
+
+We provide a sample dashboard JSON file. To access it, you can navigate to the `/deployments/grafana-dashboard` directory in the Yunikorn-k8shim repository.
+
+You can refer to the [REST API](scheduler#metrics) to build your own custom Dashboard.
+
+### Import the JSON files in the Dashboard
+
+Once you access the Dashboard page, you can proceed to import the provided JSON file.
+
+![import_dashboard_01](../assets/import_dashboard_01.png)
+
+![import_dashboard_02](../assets/import_dashboard_02.png)
+
+Once the import is complete, you will be able to locate Yunikorn's Dashboard on the page. From there, you can regularly monitor the status of Yunikorn.
+
+![grafana_dashboard](../assets/grafana_dashboard.png)
