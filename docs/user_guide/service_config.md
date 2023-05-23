@@ -753,6 +753,10 @@ Example:
 # Don't schedule pods in kube-system or fluentd-* namespaces
 admissionController.filtering.bypassNamespaces: "^kube-system$,^fluentd-"
 ```
+
+> **_NOTE :_**  
+> To simplify management, you can directly set the `yunikorn.apache.org/namespace.enableYunikorn` annotation on the namespace itself, regardless of whether it is specified in a regular expression. This annotation enables you to determine if the namespace should be managed by Yunikorn.
+
 #### admissionController.filtering.labelNamespaces
 Controls which namespaces will have pods labeled with an `applicationId`. By default,
 all pods which are scheduled by YuniKorn will have an `applicationId` label applied.
@@ -801,8 +805,12 @@ Example:
 # Skip queueing in the noqueue namespace
 admissionController.filtering.labelNamespaces: "^noqueue$"
 ```
+
+> **_NOTE :_**
+> To simplify management, you can directly set the `yunikorn.apache.org/namespace.generateAppId` annotation on the namespace itself, regardless of whether it is specified in a regular expression. This annotation enables you to determine if the namespace should be labeled by Yunikorn.
+
 #### admissionController.filtering.generateUniqueAppId
-YuniKorn generates `applicationId` for all the apps that do not have an `applicationId` to start with. This property controlls if a *unique* `applicationId` should be generated for each such application or all the apps in a namespace should be bundled under a single `applicationId`.
+YuniKorn generates `applicationId` for all the apps that do not have an `applicationId` to start with. This property controls if a *unique* `applicationId` should be generated for each such application or all the apps in a namespace should be bundled under a single `applicationId`.
 
 This setting is turned off by default and only one `applicationId` will be generated per namespace.
 
@@ -814,6 +822,7 @@ Example:
 ```yaml
 admissionController.filtering.generateUniqueAppId: "true"
 ```
+
 ### Admission controller ACL settings
 
 #### admissionController.accessControl.bypassAuth
