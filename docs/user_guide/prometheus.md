@@ -26,7 +26,7 @@ YuniKorn exposes its scheduling metrics via Prometheus. Thus, we need to set up 
 
 We will provide two methods for building Prometheus: either running it locally or using Helm to deploy it in your cluster. Additionally, in the Helm version, we will explain how to integrate it with Grafana and provide generic Grafana Dashboards for monitoring Yunikorn's metrics and observing the changes over time.
 
-If you don't know what metric can be used, you can use [REST API](scheduler#metrics).
+If you don't know what metric can be used, you can use [REST API](../api/scheduler.md#metrics).
 
 ## Run Prometheus locally
 
