@@ -308,18 +308,18 @@ placementrules:
       groups:
         - dev*
     parent:
-      - name: tag
-        value: namespace
+      name: tag
+      value: namespace
   - name: tag
     value: namespace
     create: true
     parent:
-      - name: fixed
-        value: root.namespaces
-        filter:
-          type: allow
-          users:
-            - john
+      name: fixed
+      value: root.namespaces
+      filter:
+        type: allow
+        users:
+          - john
   - name: fixed
     value: root.default
 ```
