@@ -454,6 +454,7 @@ data:
   admissionController.filtering.bypassNamespaces: "^kube-system$"
   admissionController.filtering.labelNamespaces: ""
   admissionController.filtering.noLabelNamespaces: ""
+  admissionController.filtering.generateUniqueAppId: "false"
   admissionController.accessControl.bypassAuth: "false"
   admissionController.accessControl.trustControllers: "true"
   admissionController.accessControl.systemUsers: "^system:serviceaccount:kube-system:"
@@ -799,6 +800,19 @@ Example:
 ```yaml
 # Skip queueing in the noqueue namespace
 admissionController.filtering.labelNamespaces: "^noqueue$"
+```
+#### admissionController.filtering.generateUniqueAppId
+YuniKorn generates `applicationId` for all the apps that do not have an `applicationId` to start with. This property controlls if a *unique* `applicationId` should be generated for each such application or all the apps in a namespace should be bundled under a single `applicationId`.
+
+This setting is turned off by default and only one `applicationId` will be generated per namespace.
+
+When enabled, unique `applicationId` is generated using the namespace and the application's pod uid.
+
+Default: `false`
+
+Example:
+```yaml
+admissionController.filtering.generateUniqueAppId: "true"
 ```
 ### Admission controller ACL settings
 
