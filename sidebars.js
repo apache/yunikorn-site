@@ -32,7 +32,7 @@ module.exports = {
             'user_guide/resource_quota_management',
             'user_guide/gang_scheduling',
             'user_guide/labels_and_annotations_in_yunikorn',
-            'user_guide/prometheus',
+            'user_guide/prometheus_and_grafana',
             'user_guide/use_cases',
             {
                 type: 'category',
