@@ -1055,6 +1055,21 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
         "nodeID": "node-0001",
         "hostName": "",
         "rackName": "",
+         "attributes": {
+            "beta.kubernetes.io/arch": "amd64",
+            "beta.kubernetes.io/os": "linux",
+            "kubernetes.io/arch": "amd64",
+            "kubernetes.io/hostname": "node-0001",
+            "kubernetes.io/os": "linux",
+            "node-role.kubernetes.io/control-plane": "",
+            "node-role.kubernetes.io/master": "",
+            "node.kubernetes.io/exclude-from-external-load-balancers": "",
+            "ready": "true",
+            "si.io/hostname": "node-0001",
+            "si.io/rackname": "/rack-default",
+            "si/instance-type": "",
+            "si/node-partition": "[mycluster]default"
+        },
         "capacity": {
             "ephemeral-storage": 75850798569,
             "hugepages-1Gi": 0,
@@ -1139,6 +1154,18 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
         "nodeID": "node-0002",
         "hostName": "",
         "rackName": "",
+        "attributes": {
+            "beta.kubernetes.io/arch": "amd64",
+            "beta.kubernetes.io/os": "linux",
+            "kubernetes.io/arch": "amd64",
+            "kubernetes.io/hostname": "node-0002",
+            "kubernetes.io/os": "linux",
+            "ready": "false",
+            "si.io/hostname": "node-0002",
+            "si.io/rackname": "/rack-default",
+            "si/instance-type": "",
+            "si/node-partition": "[mycluster]default"
+        },
         "capacity": {
             "ephemeral-storage": 75850798569,
             "hugepages-1Gi": 0,
