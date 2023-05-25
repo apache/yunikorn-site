@@ -367,6 +367,26 @@ value (in other words, the priorities of tasks in the queue are ignored).
 
 See the documentation on [priority support](priorities.md) for more information.
 
+#### `preemption.policy`
+
+Supported values: `default`, `fence`, `disabled`
+
+Default value: `default`
+
+When using the `default` preemption policy, preemption is enabled for the queue.
+
+When using the [`fence` preemption policy](../design/preemption.md#preemption-fence), tasks running in or below the queue on which the property is set cannot preempt tasks outside the queue tree.
+
+When using the `disabled` preemption policy, tasks running within the queue can't be victims.
+
+#### `preemption.delay`
+
+Supported values: any positive [Golang duration string](https://pkg.go.dev/time#ParseDuration)
+
+Default value: `30s`
+
+The property can only be set on a leaf queue. A queue with pending requests can only trigger preemption after it has been in the queue for at least this duration.
+
 ### Resources
 The resources entry for the queue can set the _guaranteed_ and or _maximum_ resources for a queue.
 Resource limits are checked recursively.
