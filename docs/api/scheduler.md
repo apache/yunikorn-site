@@ -1796,6 +1796,7 @@ Endpoint to retrieve the following information in a single response:
 * Cluster utilization
 * Container history
 * Queues
+* RMDiagnostics
 
 **URL** : `/ws/v1/fullstatedump`
 
@@ -1809,7 +1810,14 @@ Endpoint to retrieve the following information in a single response:
 
 **Content examples**
 
-The output of this REST query can be rather large and it is a combination of those which have already been demonstrated.
+The output of this REST query can be rather large, and it is a combination of those which have already been demonstrated.
+
+The `RMDiagnostics` shows the content of the K8Shim cache. The exact content is version dependent and has not stabilised.
+The current content shows the cached objects:
+* nodes
+* pods
+* priorityClasses
+* schedulingState (pod status)
 
 ### Failure response
 
