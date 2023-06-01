@@ -1389,6 +1389,7 @@ checksum: D75996C07D5167F41B33E27CCFAEF1D5C55BE3C00EE6526A7ABDF8435DB4078E
 * 集群的使用率
 * 容器的历史
 * 队列
+* RM 诊断
 
 **位置(URL)** : `/ws/v1/fullstatedump`
 
@@ -1403,6 +1404,13 @@ checksum: D75996C07D5167F41B33E27CCFAEF1D5C55BE3C00EE6526A7ABDF8435DB4078E
 **示例**
 
 该REST请求的输出将会很巨大，且为前面演示过的输出的组合。
+
+RM 诊断显示 K8Shim 缓存的内容。确切内容取决于版本并且尚未稳定。
+当前内容显示缓存的对象：
+* 节点
+* pods
+* 优先等级
+* 调度状态（pod状态）
 
 ### 错误时的响应
 
