@@ -332,3 +332,18 @@ The configured placement rule will create the queues, if required, and add the a
 
 Since the namespace `finance` is annotated with the example value, and the rules are in place.
 Applications in the `finance` namespace will run in the `root.production.finance` queue that is created dynamically.
+
+### Application resource usage report
+The resource consumed by all the pods of an application is the total resource usage  of the application.
+The resource usage of a pod is measured as `resource-unit times the runtime length of the pod`. For example, if the resource of a pod
+is described as `cpu: "100m" memory: "500M"`, then with a runtime of 30 seconds, the resource consumption will be
+`vcore: 3000, memory: 15000000000`.
+
+Yunikorn reports an application summary line with prefix "`YK_APP_SUMMARY:`" upon the application's completion. The summary includes various information about the application including the total resource usage. As an example:
+
+`YK_APP_SUMMARY: {"appId":"test-app-id","submissionTime":1685487033533,"startTime":1685487035535,"finishTime":1685488714483,"user":"nobody","queue":"root.test-queue","state":"Completed","rmID":"cluster-A","resourceUsage":{"instType1":{"memory":38315403247616,"vcore":1622000},"instType2":{"memory":368171374608384,"vcore":16245000}}}`
+
+For each instance type used by the application, a resource usage entry is reported in the summary. The resource usage is reported for both cpu and memory, as microcpu-seconds and byte-seconds respectively.
+
+This information can be ingested into a database table. Analysis then can be done to understand historically how much resource is needed for an application in general, and how much resource need to be allocated to a queue for all applications scheduled to run in the queue. In addition, the resource usage can be translated to resource cost, and charged back to the application owner.
+
