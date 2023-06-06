@@ -23,7 +23,7 @@ under the License.
 -->
 
 :::info
-用户信息通过 [这里](usergroup_resolution) 定义的方法从 kubernetes shim 传递给核心调度器。
+用户信息通过 [这里](usergroup_resolution) 定义的方法从 kubernetes shim 传递给 Yunikorn core。
 :::
 
 ## 使用方法
