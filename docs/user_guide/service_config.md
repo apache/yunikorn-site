@@ -443,6 +443,7 @@ data:
   service.disableGangScheduling: "false"
   service.enableConfigHotRefresh: "true"
   service.placeholderImage: "registry.k8s.io/pause:3.7"
+  service.instanceTypeNodeLabelKey: "node.kubernetes.io/instance-type"
   health.checkInterval: "30s"
   log.level: "0"
   kubernetes.qps: "1000"
@@ -453,6 +454,8 @@ data:
   admissionController.filtering.bypassNamespaces: "^kube-system$"
   admissionController.filtering.labelNamespaces: ""
   admissionController.filtering.noLabelNamespaces: ""
+  admissionController.filtering.generateUniqueAppId: "false"
+  admissionController.filtering.defaultQueue: "root.default"
   admissionController.accessControl.bypassAuth: "false"
   admissionController.accessControl.trustControllers: "true"
   admissionController.accessControl.systemUsers: "^system:serviceaccount:kube-system:"
@@ -606,6 +609,17 @@ Example:
 ```yaml
 service.placeholderImage: "registry.k8s.io/pause:3.6"
 ```
+#### service.instanceTypeNodeLabelKey
+Sets the node label that will be used to determine the instance type of node.
+
+A change to this setting requires a restart of YuniKorn to take effect.
+
+Default: `node.kubernetes.io/instance-type`
+
+Example:
+```yaml
+service.instanceTypeNodeLabelKey: "node.kubernetes.io/my-instance-type"
+```
 ### Health settings
 
 #### health.checkInterval
@@ -740,6 +754,10 @@ Example:
 # Don't schedule pods in kube-system or fluentd-* namespaces
 admissionController.filtering.bypassNamespaces: "^kube-system$,^fluentd-"
 ```
+
+> **_NOTE :_**  
+> To simplify management, you can directly set the `yunikorn.apache.org/namespace.enableYunikorn` annotation on the namespace itself, regardless of whether it is specified in a regular expression. This annotation enables you to determine if the namespace should be managed by Yunikorn.
+
 #### admissionController.filtering.labelNamespaces
 Controls which namespaces will have pods labeled with an `applicationId`. By default,
 all pods which are scheduled by YuniKorn will have an `applicationId` label applied.
@@ -788,6 +806,52 @@ Example:
 # Skip queueing in the noqueue namespace
 admissionController.filtering.labelNamespaces: "^noqueue$"
 ```
+
+> **_NOTE :_**
+> To simplify management, you can directly set the `yunikorn.apache.org/namespace.generateAppId` annotation on the namespace itself, regardless of whether it is specified in a regular expression. This annotation enables you to determine if the namespace should be labeled by Yunikorn.
+
+#### admissionController.filtering.generateUniqueAppId
+YuniKorn generates `applicationId` for all the apps that do not have an `applicationId` to start with. This property controls if a *unique* `applicationId` should be generated for each such application or all the apps in a namespace should be bundled under a single `applicationId`.
+
+This setting is turned off by default and only one `applicationId` will be generated per namespace.
+
+When enabled, unique `applicationId` is generated using the namespace and the application's pod uid.
+
+Default: `false`
+
+Example:
+```yaml
+admissionController.filtering.generateUniqueAppId: "true"
+```
+
+#### admissionController.filtering.defaultQueue
+Controlls what will be the default queue name for the application.
+
+If the application does not define a queue name during app submission, admission controller will add a default queue name to the pod labels. `root.default` queue name will be added to the pod labels if this property is not set.
+
+In case, the default queue name needs to be updated to something other than `root.default`,  `admissionController.filtering.defaultQueue` can be set with the desired queue name.
+
+Example:
+```yaml
+# Change default queue to root.mydefault
+admissionController.filtering.defaultQueue: "root.mydefault"
+```
+
+**_NOTE :_**
+The queue name needs to be a fully qualified queue name.
+
+For certain use-cases, there may be a need to skip adding a default queue name to the pod labels. In such cases, `admissionController.filtering.defaultQueue` can be set to empty string.
+
+Adding default queue name should be avoided when `provided` rule is used in conjunction with other placement rules and `provided` rule is higher in the hierarchy. If default queue label is added whenever there is no queue name specified, all the apps will be placed via `provided` rule and the other rules after that will never be executed.
+
+Default: empty
+
+Example:
+```yaml
+# Skip adding default queue name
+admissionController.filtering.defaultQueue: ""
+```
+
 ### Admission controller ACL settings
 
 #### admissionController.accessControl.bypassAuth

@@ -65,26 +65,22 @@ Optionally the following keys can be defined for a partition:
 * [statedumpfilepath](#statedump-filepath) (deprecated since v1.2.0)
 * [limits](#limits)
 * nodesortpolicy
-* preemption
+* preemption (deprecated since v1.3.0)
 
 Placement rules and limits are explained in their own chapters
 
-The `nodesortpolicy` defines the way the nodes are sorted for the partition.
+The `nodesortpolicy` key defines the way the nodes are sorted for the partition.
 Details on the values that can be used are in the [sorting policy](sorting_policies.md#node-sorting) documentation.
 
-The preemption key can currently have only one sub key: _enabled_.
-This boolean value defines the preemption behaviour for the whole partition.
+The `preemption` key can have only one sub key: _enabled_. NOTE: This property
+has been deprecated since v1.3.0 and will be ignored. Preemption policies are
+now configured per-queue.
 
-The default value for _enabled_ is _false_.
-Allowed values: _true_ or _false_, any other value will cause a parse error.
-
-Example `partition` yaml entry with _preemption_ flag set and a `nodesortpolicy` of _fair_:
+Example `partition` yaml entry with a `nodesortpolicy` of _fair_:
 ```yaml
 partitions:
   - name: <name of the partition>
     nodesortpolicy: fair
-    preemption:
-      enabled: true
 ```
 NOTE:
 Currently the Kubernetes unique shim does not support any other partition than the `default` partition..
@@ -366,6 +362,26 @@ When using the `fence` policy, the queue's priority is always set to the offset
 value (in other words, the priorities of tasks in the queue are ignored).
 
 See the documentation on [priority support](priorities.md) for more information.
+
+#### `preemption.policy`
+
+Supported values: `default`, `fence`, `disabled`
+
+Default value: `default`
+
+When using the `default` preemption policy, preemption is enabled for the queue.
+
+When using the [`fence` preemption policy](../design/preemption.md#preemption-fence), tasks running in or below the queue on which the property is set cannot preempt tasks outside the queue tree.
+
+When using the `disabled` preemption policy, tasks running within the queue can't be victims.
+
+#### `preemption.delay`
+
+Supported values: any positive [Golang duration string](https://pkg.go.dev/time#ParseDuration)
+
+Default value: `30s`
+
+The property can only be set on a leaf queue. A queue with pending requests can only trigger preemption after it has been in the queue for at least this duration.
 
 ### Resources
 The resources entry for the queue can set the _guaranteed_ and or _maximum_ resources for a queue.

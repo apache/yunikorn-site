@@ -681,6 +681,353 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
 }
 ```
 
+## UsersTracker
+### Get users usage tracking information
+
+Fetch all users usage given a Partition and displays general information about the users managed by YuniKorn.
+
+**URL** : `/ws/v1/partition/{partitionName}/usage/users`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+[
+  {
+    "userName": "user1",
+    "groups": {
+      "app2": "tester"
+    },
+    "queues":
+    {
+      "queuePath": "root",
+      "resourceUsage": {
+        "memory": 12000000000,
+        "vcore": 12000
+      },
+      "runningApplications": ["app1", "app2"],
+      "children": [
+        {
+        "queuePath": "root.default",
+        "resourceUsage": {
+          "memory": 6000000000,
+          "vcore": 6000
+        },
+        "runningApplications": ["app1"],
+        "children": []
+        },
+        {
+          "queuePath": "root.test",
+          "resourceUsage": {
+            "memory": 6000000000,
+            "vcore": 6000
+          },
+          "runningApplications": [
+            "app2"
+          ],
+          "children": []
+        }]
+    }
+  },
+  {
+    "userName": "user2",
+    "groups": {
+      "app1": "tester"
+    },
+    "queues":
+    {
+      "queuePath": "root",
+      "resourceUsage": {
+        "memory": 11000000000,
+        "vcore": 10000
+      },
+      "runningApplications": ["app1", "app2", "app3"],
+      "children": [
+        {
+        "queuePath": "root.default",
+        "resourceUsage": {
+          "memory": 5000000000,
+          "vcore": 5000
+        },
+        "runningApplications": ["app1"],
+        "children": []
+        },
+        {
+          "queuePath": "root.test",
+          "resourceUsage": {
+            "memory": 4000000000,
+            "vcore": 4000
+          },
+          "runningApplications": [
+            "app3"
+          ],
+          "children": []
+        }]
+    }
+  }
+]
+```
+
+### Error response
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## UserTracker
+### Get specific user usage tracking information
+Fetch specific user usage given a Partition and displays general information about the users managed by YuniKorn.
+
+**URL** : `/ws/v1/partition/{partitionName}/usage/user/{userName}`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+  "userName": "user1",
+  "groups": {
+    "app1": "tester"
+  },
+  "queues":
+  {
+    "queuePath": "root",
+    "resourceUsage": {
+      "memory": 12000000000,
+      "vcore": 12000
+    },
+    "runningApplications": ["app1", "app2"],
+    "children": [
+      {
+      "queuePath": "root.default",
+      "resourceUsage": {
+        "memory": 6000000000,
+        "vcore": 6000
+      },
+      "runningApplications": ["app1"],
+      "children": []
+      },
+      {
+        "queuePath": "root.test",
+        "resourceUsage": {
+          "memory": 6000000000,
+          "vcore": 6000
+        },
+        "runningApplications": [
+          "app2"
+        ],
+        "children": []
+      }]
+  }
+}
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## GroupsTracker
+### Get groups usage tracking information
+Fetch all groups usage given a Partition and displays general information about the groups managed by YuniKorn.
+
+**URL** : `/ws/v1/partition/{partitionName}/usage/groups`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+[
+  {
+    "groupName": "group1",
+    "applications": ["app1", "app2"],
+    "queues":
+    {
+      "queuePath": "root",
+      "resourceUsage": {
+        "memory": 12000000000,
+        "vcore": 12000
+      },
+      "runningApplications": ["app1", "app2"],
+      "children": [
+        {
+        "queuePath": "root.default",
+        "resourceUsage": {
+          "memory": 6000000000,
+          "vcore": 6000
+        },
+        "runningApplications": ["app1"],
+        "children": []
+        },
+        {
+          "queuePath": "root.test",
+          "resourceUsage": {
+            "memory": 6000000000,
+            "vcore": 6000
+          },
+          "runningApplications": [
+            "app2"
+          ],
+          "children": []
+        }]
+    }
+  },
+  {
+    "groupName": "group2",
+    "applications": ["app1", "app2", "app3"],
+    "queues":
+    {
+      "queuePath": "root",
+      "resourceUsage": {
+        "memory": 11000000000,
+        "vcore": 10000
+      },
+      "runningApplications": ["app1", "app2", "app3"],
+      "children": [
+        {
+        "queuePath": "root.default",
+        "resourceUsage": {
+          "memory": 5000000000,
+          "vcore": 5000
+        },
+        "runningApplications": ["app1"],
+        "children": []
+        },
+        {
+          "queuePath": "root.test",
+          "resourceUsage": {
+            "memory": 4000000000,
+            "vcore": 4000
+          },
+          "runningApplications": [
+            "app3"
+          ],
+          "children": []
+        }]
+    }
+  }
+]
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## GroupTracker
+### Get specific group usage tracking information
+
+Fetch specific group usage given a Partition and displays general information about the groups managed by YuniKorn.
+
+**URL** : `/ws/v1/partition/{partitionName}/usage/group/{groupName}`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+  "groupName": "group1",
+  "applications": ["app1", "app2"],
+  "queues":
+  {
+    "queuePath": "root",
+    "resourceUsage": {
+      "memory": 12000000000,
+      "vcore": 12000
+    },
+    "runningApplications": ["app1", "app2"],
+    "children": [
+      {
+      "queuePath": "root.default",
+      "resourceUsage": {
+        "memory": 6000000000,
+        "vcore": 6000
+      },
+      "runningApplications": ["app1"],
+      "children": []
+      },
+      {
+        "queuePath": "root.test",
+        "resourceUsage": {
+          "memory": 6000000000,
+          "vcore": 6000
+        },
+        "runningApplications": [
+          "app2"
+        ],
+        "children": []
+      }]
+  }
+}
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
 ## Nodes
 
 ### Partition nodes
@@ -708,6 +1055,21 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
         "nodeID": "node-0001",
         "hostName": "",
         "rackName": "",
+         "attributes": {
+            "beta.kubernetes.io/arch": "amd64",
+            "beta.kubernetes.io/os": "linux",
+            "kubernetes.io/arch": "amd64",
+            "kubernetes.io/hostname": "node-0001",
+            "kubernetes.io/os": "linux",
+            "node-role.kubernetes.io/control-plane": "",
+            "node-role.kubernetes.io/master": "",
+            "node.kubernetes.io/exclude-from-external-load-balancers": "",
+            "ready": "true",
+            "si.io/hostname": "node-0001",
+            "si.io/rackname": "/rack-default",
+            "si/instance-type": "",
+            "si/node-partition": "[mycluster]default"
+        },
         "capacity": {
             "ephemeral-storage": 75850798569,
             "hugepages-1Gi": 0,
@@ -792,6 +1154,18 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
         "nodeID": "node-0002",
         "hostName": "",
         "rackName": "",
+        "attributes": {
+            "beta.kubernetes.io/arch": "amd64",
+            "beta.kubernetes.io/os": "linux",
+            "kubernetes.io/arch": "amd64",
+            "kubernetes.io/hostname": "node-0002",
+            "kubernetes.io/os": "linux",
+            "ready": "false",
+            "si.io/hostname": "node-0002",
+            "si.io/rackname": "/rack-default",
+            "si/instance-type": "",
+            "si/node-partition": "[mycluster]default"
+        },
         "capacity": {
             "ephemeral-storage": 75850798569,
             "hugepages-1Gi": 0,
@@ -851,6 +1225,126 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
         "reservations": []
     }
 ]
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## Node
+
+### Partition node
+
+Fetch a Node associated with given Partition and Node ID and displays general information about the node managed by YuniKorn. 
+Node details include host and rack name, capacity, resources, utilization, and allocations.
+
+**URL** : `/ws/v1/partition/{partitionName}/node/{nodeId}`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+   "nodeID":"node-0001",
+   "hostName":"",
+   "rackName":"",
+   "capacity":{
+      "ephemeral-storage":75850798569,
+      "hugepages-1Gi":0,
+      "hugepages-2Mi":0,
+      "memory":14577000000,
+      "pods":110,
+      "vcore":10000
+   },
+   "allocated":{
+      "memory":6000000000,
+      "vcore":6000
+   },
+   "occupied":{
+      "memory":154000000,
+      "vcore":750
+   },
+   "available":{
+      "ephemeral-storage":75850798569,
+      "hugepages-1Gi":0,
+      "hugepages-2Mi":0,
+      "memory":6423000000,
+      "pods":110,
+      "vcore":1250
+   },
+   "utilized":{
+      "memory":3,
+      "vcore":13
+   },
+   "allocations":[
+      {
+         "allocationKey":"54e5d77b-f4c3-4607-8038-03c9499dd99d",
+         "allocationTags":{
+            "kubernetes.io/label/app":"sleep",
+            "kubernetes.io/label/applicationId":"application-0001",
+            "kubernetes.io/label/queue":"root.default",
+            "kubernetes.io/meta/namespace":"default",
+            "kubernetes.io/meta/podName":"task0"
+         },
+         "requestTime":1648754034098912461,
+         "allocationTime":1648754035973982920,
+         "allocationDelay":1875070459,
+         "uuid":"08033f9a-4699-403c-9204-6333856b41bd",
+         "resource":{
+            "memory":2000000000,
+            "vcore":2000
+         },
+         "priority":"0",
+         "nodeId":"node-0001",
+         "applicationId":"application-0001",
+         "partition":"default",
+         "placeholder":false,
+         "placeholderUsed":false
+      },
+      {
+         "allocationKey":"deb12221-6b56-4fe9-87db-ebfadce9aa20",
+         "allocationTags":{
+            "kubernetes.io/label/app":"sleep",
+            "kubernetes.io/label/applicationId":"application-0002",
+            "kubernetes.io/label/queue":"root.default",
+            "kubernetes.io/meta/namespace":"default",
+            "kubernetes.io/meta/podName":"task0"
+         },
+         "requestTime":1648754034098912461,
+         "allocationTime":1648754035973982920,
+         "allocationDelay":1875070459,
+         "uuid":"9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+         "resource":{
+            "memory":4000000000,
+            "vcore":4000
+         },
+         "priority":"0",
+         "nodeId":"node-0001",
+         "applicationId":"application-0002",
+         "partition":"default",
+         "placeholder":false,
+         "placeholderUsed":false
+      }
+   ],
+   "schedulable":true
+}
 ```
 
 ### Error response
@@ -1302,6 +1796,7 @@ Endpoint to retrieve the following information in a single response:
 * Cluster utilization
 * Container history
 * Queues
+* RMDiagnostics
 
 **URL** : `/ws/v1/fullstatedump`
 
@@ -1315,7 +1810,14 @@ Endpoint to retrieve the following information in a single response:
 
 **Content examples**
 
-The output of this REST query can be rather large and it is a combination of those which have already been demonstrated.
+The output of this REST query can be rather large, and it is a combination of those which have already been demonstrated.
+
+The `RMDiagnostics` shows the content of the K8Shim cache. The exact content is version dependent and has not stabilised.
+The current content shows the cached objects:
+* nodes
+* pods
+* priorityClasses
+* schedulingState (pod status)
 
 ### Failure response
 
