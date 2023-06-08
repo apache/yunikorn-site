@@ -22,26 +22,36 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+# Kubernetes version support
+
+Supported Kubernetes versions and the Kubernetes dependency will be defined and finalised during the development cycle.
+With a Kubernetes dependency change planned as one of the major features for the release some info is already known.
+See the announcement as part of YuniKorn 1.3 [release notes](../release-announce/1.3.0.md) for preliminary details.
+
 # Next Release Development
 
 Release Details:
-- Version: 1.3.0
-- Target release date: May 2023
+- Version: 1.4.0
+- Target release date: October / November 2023
 - Release manager: undecided
 - Development status: [Issue tracker](https://issues.apache.org/jira/issues/?filter=12348416)
 
 Planned major features:
-- [YUNIKORN-1461](https://issues.apache.org/jira/browse/YUNIKORN-1461) [Umbrella] Preemption support
-- [YUNIKORN-1562](https://issues.apache.org/jira/browse/YUNIKORN-1562) plugin mode: remove status update completely
-- [YUNIKORN-1548](https://issues.apache.org/jira/browse/YUNIKORN-1548) [Umbrella] Revamp E2E test - Phase 2
-- [YUNIKORN-1544](https://issues.apache.org/jira/browse/YUNIKORN-1544) [Umbrella] User quota tracking - Phase 2
+- [YUNIKORN-1699](https://issues.apache.org/jira/browse/YUNIKORN-1699) K8s 1.27 support, includes pre-enqueue hook
 - [YUNIKORN-1573](https://issues.apache.org/jira/browse/YUNIKORN-1573) [Umbrella] User & Group Based Quota Enforcement
+- [YUNIKORN-1628](https://issues.apache.org/jira/browse/YUNIKORN-1628) [Umbrella] Application tracking history
+- [YUNIKORN-1777](https://issues.apache.org/jira/browse/YUNIKORN-1777) [Umbrella] Recovery & startup
+- [YUNIKORN-22](https://issues.apache.org/jira/browse/YUNIKORN-22)Partition support for nodes
+- [YUNIKORN-1728](https://issues.apache.org/jira/browse/YUNIKORN-1728) Percentage support for queue max app and resources
 
-Supported Kubernetes versions and the Kubernetes dependency will be defined and finalised during the development cycle.
+- Web UI changes:
+  - [no jira yet] display preemption information
+  - [no jira yet] resource display rework
+  - [YUNIKORN-1727](https://issues.apache.org/jira/browse/YUNIKORN-1727) build info extension
+  - [YUNIKORN-1362](https://issues.apache.org/jira/browse/YUNIKORN-1362) filtering nodes in UI
 
 # Future development: long term goals
-
-- Preemption: non daemon set case(s)
-- Plugin mode deployment as the default mode
-- Standardised configuration of shim, core and web
 - REST and Web UI: authn, authz and encryption
+- Queue type change from leaf to parent and reverse
+- moving applications from queue to queue
+- compressed queue config (configmap 1MB limit)
