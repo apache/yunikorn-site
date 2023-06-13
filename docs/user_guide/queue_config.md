@@ -188,7 +188,7 @@ partitions:
             maxapplications: 8
             resources:
               guaranteed:
-                {memory: 0.5G, vcore: 5}
+                {memory: 500M, vcore: 5}
               max:
                 {memory: 5G, vcore: 50}
 ```
