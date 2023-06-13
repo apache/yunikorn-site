@@ -26,7 +26,7 @@ under the License.
 
 Supported Kubernetes versions and the Kubernetes dependency will be defined and finalised during the development cycle.
 With a Kubernetes dependency change planned as one of the major features for the release some info is already known.
-See the announcement as part of YuniKorn 1.3 [release notes](../release-announce/1.3.0.md) for preliminary details.
+See the announcement as part of YuniKorn 1.3 [release notes](/release-announce/1.3.0) for preliminary details.
 
 # Next Release Development
 
