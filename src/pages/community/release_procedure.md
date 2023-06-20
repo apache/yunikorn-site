@@ -30,20 +30,23 @@ The instructions and tools obey the ASF [release policy](http://www.apache.org/l
 
 * [Release procedure](#release-procedure)
 * [Step-by-step procedure](#step-by-step-procedure)
-    * [Tag and update release for version](#tag-and-update-release-for-version)
+    * [Branching](#branching)
+    * [Tag for RCs](#tag-for-rcs)
+    * [Update references based on tags](#update-references-based-on-tags)
     * [Update the CHANGELOG](#update-the-changelog)
     * [Run the release tool](#run-the-release-tool)
         * [Create Signature](#create-signature)
         * [Create Checksum](#create-checksum)
     * [Upload Release Candidate Artifacts](#upload-release-candidate-artifacts)
     * [Start Voting Thread](#start-voting-thread)
+    * [Tag for release](#tag-for-release)
     * [Publish the Release](#publish-the-release)
         * [Release Docker images](#release-docker-images)
         * [Release Helm Charts](#release-helm-charts)
         * [Update the website](#update-the-website)
         * [Cleanup](#cleanup)
         * [Create the GIT releases](#create-the-git-releases)
-    * [Verify the release](#verify-the-release)
+    * [Verify the release publishing](#verify-the-release-publishing)
 * [Website updates for a new release](#website-updates-for-a-new-release)
   * [Version the documentation](#version-the-documentation)
   * [Release announcement](#release-announcement)
@@ -54,62 +57,90 @@ The instructions and tools obey the ASF [release policy](http://www.apache.org/l
 
 ## Release Procedure
 Simplified release procedure:
-1. Create a release branch for the target release in all git repos, such as `branch-0.8`
+1. Create a release branch for the target release in all git repos, such as `branch-1.3`
 2. Stabilize the release by fixing test failures and bugs only
-3. Tag update release for a new version to prepare a release candidate, e.g `v0.8.0-1` for RC1
+3. Tag update release for a new version to prepare a release candidate, e.g `v1.3.0-1` for RC1
 4. Update the CHANGELOG
 5. Configure [release-configs.json](https://github.com/apache/yunikorn-release/tree/master/tools/release-configs.json)
 6. Run script [build-release.py](https://github.com/apache/yunikorn-release/tree/master/tools/build-release.py) to generate source code tarball, checksum and signature.
 7. Voting and releasing the candidate
 
 ## Step-by-step procedure
-### Tag and update release for version
 Branching and tagging can, and in most cases will, require changes in the go mod files.
+
+### Branching
 Branching is part of the release preparation and often has happened some time before the release process starts.
+As an example the steps to create the branch for the `v1.3.0` release:
+```shell script
+git checkout -b branch-1.3 master
+git push -u origin branch-1.3
+```
+
+### Tag for RCs
 A release needs to be tagged in git before starting the release process.
 As an example check [YUNIKORN-358](https://issues.apache.org/jira/browse/YUNIKORN-358) and [YUNIKORN-1004](https://issues.apache.org/jira/browse/YUNIKORN-1004).
-Release candidates should be tagged with the version and build number of the release candidate.
-For example, artifacts used to build 0.8.0 RC2 should be tagged `v0.8.0-2` and releases created in GitHub. 
-Once the release is finalized, git tags and GitHub releases should be created for `v0.8.0` pointing to the same commits.
-Under no circumstances should an existing tag be removed or moved. This will break golang dependency resolution for downstream users.
+Release candidates should be tagged with the version **and** build number of the release candidate.
+For example artifacts used to build 1.3.0 RC1 should be tagged `v1.3.0-1`.
+Releases are **not** created in GitHub for RCs.
 
-The tagging is multistep process, all actions are done on the branch that will be released, like `branch-0.8`:
-1. Tag the web and scheduler interface with the release tag.
-2. Update the `go.mod` file in the core using `go get github.com/apache/yunikorn-scheduler-interface`  
-Add the tag and commit the changes.
-3. Update the `go.mod` file in the shim using `go get github.com/apache/yunikorn-scheduler-interface` and  
-`go get github.com/apache/yunikorn-core`. Add the tag and commit the changes.
-4. Create a new branch in the yunikorn-release repo, set the correct chart version in [Chart.yaml](https://github.com/apache/yunikorn-release/tree/master/helm-charts/yunikorn/Chart.yaml), and then create the tag.
+Example for creating an annotated tag on the checked out commit for RC1 for `v1.3.0`:
+```shell script
+git tag -a v1.3.0-1 -m "RC1 for v1.3.0"
+git push origin v1.3.0-1
+```
+:::caution
+Under **no** circumstances should an existing tag be removed or moved.
+This will break golang dependency resolution for downstream users.
+:::
+
+### Update references based on tags
+The tagging is multistep process, all actions are done on the branch that will be released, like `branch-1.3`:
+1. Tag the web and scheduler interface with the release candidate tag: i.e. `v1.3.0-1`.
+2. Update the `go.mod` file in the core using:
+   ```shell script
+   go get github.com/apache/yunikorn-scheduler-interface
+   ```  
+   Add the same tag as in the previous step and commit the changes.
+3. Update the `go.mod` file in the shim using 
+   ```shell script
+   go get github.com/apache/yunikorn-scheduler-interface  
+   go get github.com/apache/yunikorn-core
+   ```
+   Add the same tag as in the previous step and commit the changes.
+4. Create a new branch in the yunikorn-release repo, set the correct chart version in [Chart.yaml](https://github.com/apache/yunikorn-release/tree/master/helm-charts/yunikorn/Chart.yaml), and then create the same tag in this repository.
 
 ### Update the CHANGELOG
 In the release artifacts a [CHANGELOG](https://github.com/apache/yunikorn-release/tree/master/release-top-level-artifacts/CHANGELOG) is added for each release.
 The CHANGELOG should contain the list of jiras fixed in the release.
 Follow these steps to generate the list:
 - Go to the [releases page in jira](https://issues.apache.org/jira/projects/YUNIKORN?selectedItem=com.atlassian.jira.jira-projects-plugin%3Arelease-page&status=released-unreleased)
-- Click on the version that is about to be released, i.e. `0.8.0`
+- Click on the version that is about to be released, i.e. `1.3.0`
 - Click on the `Release Notes` link on the top of the page
 - Click the button `Configure Release Notes`
 - Select the style `Text` and click `create`
 - Scroll to the bottom of the page and copy the content of the text area and update the CHANGELOG file in the ../release-top-level-artifacts directory.
 
 ### Run the release tool
+Please check the [signing your first release](#signing-your-first-release) before proceeding here for details on signing a release.
+Limitations apply to the key that can be used for signing. 
+
 A tool has been written to handle most of the release tasks.
 The tool requires a simple [json](https://github.com/apache/yunikorn-release/tree/master/tools/release-configs.json) input file to be updated before running.
 This configuration points to the tag to use in the release and the version to release.
 Update the version to release and the tag for each repository.
 The version used must be the _exact_ version that you intend to release.
-So `0.8.0` or `0.12.2` **without** any additional references like a `RC1` or something similar.
+So `0.12.2` or `1.3.0` **without** any additional references like a `RC1` or something similar.
 The version is used as part of the source code, inside the Makefile etc., and to name the release artefact and cannot be changed anymore.
-The tag format is as described in the [step tag and release version](#tag-and-update-release-for-version)
+The tag format is as described in the [step tag for released version](#tag-for-release)
 
-As an example when releasing the first release candidate for `0.8.0` the json file should contain version and tag information like below:
+As an example when releasing the first release candidate for `1.3.0` the json file should contain version and tag information like below:
 ```json
 {
   "release": {
-    "version": "0.8.0"
+    "version": "1.3.0"
   },
 
-  "tag": "v0.8.0-1",
+  "tag": "v1.3.0-1",
   "repository": "https://github..."
 }
 ```
@@ -135,23 +166,23 @@ Run the release tool using the option `--sign <email-address>` to auto sign the 
 
 Manually creating the signature for the file generated by the tool:
 ```shell script
-gpg --local-user <email-address> --armor --output apache-yunikorn-0.8.0-src.tar.gz.asc --detach-sig apache-yunikorn-0.8.0-src.tar.gz
+gpg --local-user <email-address> --armor --output apache-yunikorn-1.3.0-src.tar.gz.asc --detach-sig apache-yunikorn-1.3.0-src.tar.gz
 ```
-This will create the signature in the file: `apache-yunikorn-0.8.0-src.tar.gz.asc`
+This will create the signature in the file: `apache-yunikorn-1.3.0-src.tar.gz.asc`
 Verify that the signature is correct using:
 ```shell script
-gpg --verify apache-yunikorn-0.8.0-src.tar.gz.asc apache-yunikorn-0.8.0-src.tar.gz
+gpg --verify apache-yunikorn-1.3.0-src.tar.gz.asc apache-yunikorn-1.3.0-src.tar.gz
 ```
 
 #### Create Checksum
 This step is included in the release after generation of the source tar ball, if the release tool is used this step can be skipped.
 ```shell script
-shasum -a 512 apache-yunikorn-0.8.0-src.tar.gz > apache-yunikorn-0.8.0-src.tar.gz.sha512
+shasum -a 512 apache-yunikorn-1.3.0-src.tar.gz > apache-yunikorn-1.3.0-src.tar.gz.sha512
 ```
-This will create the checksum in the file: `apache-yunikorn-0.8.0-src.tar.gz.sha512`
+This will create the checksum in the file: `apache-yunikorn-1.3.0-src.tar.gz.sha512`
 Verify that the checksum is correct using:
 ```shell script
-shasum -a 512 -c apache-yunikorn-0.8.0-src.tar.gz.sha512 
+shasum -a 512 -c apache-yunikorn-1.3.0-src.tar.gz.sha512 
 ```
 
 ### Upload Release Candidate Artifacts
@@ -162,7 +193,7 @@ The release artifacts consist of three parts:
 
 The three artefacts need to be uploaded to: `https://dist.apache.org/repos/dist/dev/yunikorn/` 
 
-Create a release directory based on the version, i.e. `0.8.0`, add the three files to directory.
+Create a release directory based on the version, i.e. `1.3.0`, add the three files to directory.
 Commit the changes.
 
 If you have not done so already make sure to [add your signature](#add-the-signature-to-the-project-keys-file) to the KEYS file.
@@ -174,6 +205,17 @@ NOTE: you will need to install subversion to access this repo (use your apache I
 According to the Apache [release approval doc](http://www.apache.org/legal/release-policy.html#release-approval) 
 A voting thread must be created on `dev@yunikorn.apache.org` and run for at least 72 hours.
 At least three +1 votes are required and more +1 votes than -1 votes.
+
+### Tag for release
+Once the release has passed voting, git tags and GitHub releases should be created for final release tag, example `v1.3.0`
+The final tag must point to the same commit as the approved release candidate tag, example `v1.3.0-1`
+Check the step [Create the GIT releases](#create-the-git-releases) later in the procedure for the release updates.
+
+Adding the final release tag, again annotated, on the checked out commit:
+```shell script
+git tag -a v1.3.0 -m "Apache YuniKorn v1.3.0"
+git push origin v1.3.0
+```
 
 ### Publish the Release
 Once the voting is passed, move the release artefacts from the staging area to the release location `https://dist.apache.org/repos/dist/release/yunikorn/`. 
@@ -187,6 +229,13 @@ Cleanup of the older release is handled after the website has been updated in th
 
 #### Release Docker images
 As part of the release convenience images are build and uploaded to the Apache account on DockerHub.
+
+:::note
+Each Apache project has a limited number of people with write access to the Apache Docker organisation.
+Not all PMC members can be given access.
+Reach out to the private@ list to get help if you have not published images before or have trouble accessing Docker Hub. 
+:::
+
 As we added multi architecture support the release of the images has become a bit more complex and is now tool driven.
 
 The Go compiler built-in in functionality is leveraged to cross-compile the executables for the scheduler and admission controller.
@@ -265,8 +314,8 @@ Helm charts _must_ be signed on release.
 Contrary to the source code tar ball signing, signing the helm charts requires manual entry of the key passphrase.
 There is no option to provide the passphrase any other way to the helm tool.
 The helm package will generate two files:
-- helm package: example `yunikorn-0.8.0.tgz`
-- provenance or signature file: example `yunikorn-0.8.0.tgz.prov`
+- helm package: example `yunikorn-1.3.0.tgz`
+- provenance or signature file: example `yunikorn-1.3.0.tgz.prov`
 
 Both files _must_ be attached to the [release in GIT](#create-the-git-releases) for the release repository.
 
@@ -276,11 +325,13 @@ First the `index.yaml` file:
 The `digest` mentioned in the index.yaml file is the digest that gets printed by the tool (unsigned package) or stored in the provenance file.
 It can be generated manually using:
 ```shell script
-shasum -a 256 yunikorn-0.8.0.tgz
+shasum -a 256 yunikorn-1.3.0.tgz
 ```
 
-Note: do not use the `helm repo index` command to update the `index.yaml` file. The command does not handle the enhanced information stored in the `index.yaml` file nicely.
+:::caution
+Do not use the `helm repo index` command to update the `index.yaml` file. The command does not handle the enhanced information stored in the `index.yaml` file nicely.
 Update the file manually.
+:::
 
 In the same PR update the `index.md` file. In most cases the change is limited to the supported Kubernetes versions.
 If there are no changes for the release this step can be skipped. Larger changes should be tracked as a separate jira not as a work item for a release. 
@@ -294,7 +345,7 @@ Any change in supported Kubernetes versions _must_ be mentioned in the [release 
 - Create a new documentation version on YuniKorn website based on the latest content in the `docs` directory.
   Refer to [these steps](#version-the-documentation) on how to create the new documentation version. 
 - Create the release announcement to be referenced from download page on the website. 
-  The release announcement is a markdown file based on the version: `0.8.0.md`. 
+  The release announcement is a markdown file based on the version: `1.3.0.md`. 
   The steps on how to create the [release announcement](#release-announcement) explains the content and where to add the file. 
 - Update the [download page](/community/download) of the website as per the [steps](#update-the-download-page).
 
@@ -305,7 +356,9 @@ Update the announcement bar to the correct release.
 At this point all changes for the release are done and an announcement email can be sent to the `dev@yunikorn.apache.org` email list.
 
 #### Cleanup
-**NOTE**: this step should be performed after the website updates have been made as the download links change.
+:::info
+This step should be performed after the website updates have been made as the download links change.
+:::
 
 There should only be one release, the latest, in the release area.
 Any release that has been in the release area will be automatically copied to the archive.
@@ -317,12 +370,15 @@ The releases need to clean up in two locations:
 * Remove the non-current release from the _release_ area by removing the old release directory.
   For the location see [release location](#publish-the-release)
 
-**NOTE**: If there are multiple releases actively maintained then there could be multiple releases in the release area.
+:::note
+If there are multiple releases actively maintained then there could be multiple releases in the release area.
 We _must_ have only one release per active branch in the _release_ area, i.e. one for 1.0, one for 1.1 etc. 
 For detailed information you can check the [release distribution policy](https://infra.apache.org/release-distribution.html).   
+:::
 
 #### Create the GIT releases
-In the GIT repositories finish the release process by creating a release based on the git tag that was added.
+In the GIT repositories finish the release process by creating a release based on the release git tag that was added.
+Do not use any of the RC tags for a release.
 Repeat these steps for all five repositories (core, k8shim, web, scheduler-interface and release):
 - Go to the `tags` page
 - click the `...` at the right-hand side of the page that you want to release, select `Create Release` from the drop down
@@ -330,7 +386,7 @@ Repeat these steps for all five repositories (core, k8shim, web, scheduler-inter
 - add the packaged helm chart files (yunikorn-release repository only)
 - click `Publish Release` to finish the steps
 
-### Verify the release
+### Verify the release publishing
 After the whole procedure has been finalised verify the documentation on the website.
 Check that the released artifacts can be downloaded from the download page.
 
@@ -348,30 +404,41 @@ Open a PR and commit all the changes below to the **master** branch, once the au
 Documentation versioning uses the simple **MAJOR.MINOR.PATCH** semver version of the release.
 This means no letters, release candidate tags or anything like that:
 ```shell script
-yarn release 0.8.0
+yarn release 1.3.0
 ```
 This command will snapshot all the docs from the current `docs` directory, and copy all files to another new directory
-under `versioned_docs`, e.g `versioned_docs/version-0.8.0`.
+under `versioned_docs`, e.g `versioned_docs/version-1.3.0`.
 A similar copy will be generated for the sidebar under `versioned_sidebars` that belongs to the documentation version.
 
 This process will also update the `version.json` file in the root and add the new release as a line item.
 
 ### Release announcement
 The release announcement is a static Markdown file added to the directory `src/pages/release-announce`.
-The file name is the same a simple semver version of the release:
+
+Jiras that are labeled with the `release-notes` label must be mentioned in the announcement.
+For an overview of which Jiras are marked for inclusion in the release notes the following Jira search can be used:
+[YuniKorn Release note needed](https://issues.apache.org/jira/issues/?filter=12352474).
+All committers have access to the filter and can update the version to be checked. *Login is required to run and see the filter.
+
+The file name must be the same as the semver version of the release without the 'v':
 ``` 
-src/pages/release-announce/0.8.0.md
+src/pages/release-announce/1.3.0.md
 ```
-The page is in Markdown format and should follow the example of the already existing pages:
+All releases are automatically added to the [index list](https://yunikorn.apache.org/release-announce/). 
+
+The page itself is in Markdown format and should follow the example of the already existing pages:
 * id and title definition (docusaurus syntax)
 * Apache license
 * Following headings
-    * Overview of the release (level 2)
+    * Overview of the release (level 2)  
+      This contains the generic overview of the release, including the release manager and date etc.
+      The link to the included Jiras for the release must be available to anyone, and not require a login.
     * Incompatible changes  
-      Details for incompatible changes at level 3 heading
+      Details for incompatible changes at level 3 heading, referencing a Jira via a link to provide more details. 
     * Highlights (level 2)  
-      Chosen highlights at level 3 heading
-    * Community update (level 2)
+      Chosen highlights or features at level 3 heading, referencing a Jira via a link to provide more details.
+    * Community update (level 2)  
+      Mention all new committers and or PMC members added since the last release.
 
 ### Update the download page
 The download page contains the link to the Apache source download, signatures etc.
@@ -384,7 +451,7 @@ Duplicate the first row of the table and change the links and details to reflect
 All links must be updated:
 * 3 for the download (source tar, checksum and signature)
 * 3 for the docker images (scheduler, admission controller and web)
-* 1 release announcement using a link in the form of `/release-announce/0.8.0`
+* 1 release announcement using a link in the form of `/release-announce/1.3.0`
 
 For the second row update the download links for the source tar, checksum and signature.
 
@@ -399,6 +466,12 @@ Older releases not mentioned in the table can still be accessed via the archive 
 ## Signing your first release
 If you haven't signed any releases before, read the documentation to [generate signing key](https://infra.apache.org/openpgp.html#generate-key)
 Follow the steps below to add the key you can use to sign.
+
+:::caution
+The current releases of helm do not allow signing helm charts with an elliptic curve based key (ECDSA).
+There is no change planned in helm v3 as stated in [this issue](https://github.com/helm/helm/issues/11634) in the Helm GitHub repository.
+Please create a RSA based key. The minimum is 2048-bit, recommended is a 3072-bit or 4096-bit, RSA key.
+:::
 
 ### Generate a Key
 Generate a new PGP key (skip this step if you already have an Apache linked key):
@@ -426,4 +499,6 @@ More detail can be found in the document: [Signing a Release](https://infra.apac
 Add the content of the generated file to the existing KEYS list at `https://dist.apache.org/repos/dist/release/yunikorn/KEYS`
 Never remove a key from this list!
 
-NOTE: you will need to install subversion to access this repo (use your apache ID). You can use any SVN client, e.g. svnX, for convenience.
+:::note
+You will need to install subversion to access this repo (use your apache ID). You can use any SVN client, e.g. svnX, for convenience.
+:::
