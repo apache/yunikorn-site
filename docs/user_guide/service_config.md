@@ -269,6 +269,52 @@ admissionController:
     - key: CriticalAddonsOnly
       operator: Exists
 ```
+#### podLabels
+Sets the labels for the YuniKorn scheduler pod.
+
+Default: `{}`
+
+Example:
+```yaml
+podLabels:
+  app.kubernetes.io/name: scheduler
+  app.kubernetes.io/part-of: yunikorn
+```
+#### admissionController.podLabels
+Sets the labels for the YuniKorn admission controller pod.
+
+Default: `{}`
+
+Example:
+```yaml
+admissionController:
+  podLabels:
+    app.kubernetes.io/name: admission-controller
+    app.kubernetes.io/part-of: yunikorn
+```
+#### podAnnotations
+Sets the annotations for the YuniKorn scheduler pod.
+
+Default: `{}`
+
+Example:
+```yaml
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /ws/v1/metrics
+  prometheus.io/port: 9080
+```
+#### admissionController.podAnnotations
+Sets the annotations for the YuniKorn admission controller pod.
+
+Default: `{}`
+
+Example:
+```yaml
+admissionController:
+  podAnnotations:
+    example.com/admission: "false"
+```
 ### Resource utilization
 The resources requested for YuniKorn pods can be customized as follows:
 ```yaml
