@@ -49,7 +49,7 @@ kubectl create -f scheduler/yunikorn-rbac.yaml
 ```
 The role is a requirement on the current versions of kubernetes.
 
-## Create the ConfigMap
+## Create/Update the ConfigMap
 
 This must be done before deploying the scheduler. It requires a correctly setup kubernetes environment.
 This kubernetes environment can be either local or remote. 
@@ -58,35 +58,19 @@ This kubernetes environment can be either local or remote.
 ```
 curl -o queues.yaml https://raw.githubusercontent.com/apache/yunikorn-k8shim/master/conf/queues.yaml
 ```
-- create ConfigMap in kubernetes:
+- modify the content of queues.yaml file as needed, and create ConfigMap in kubernetes:
 ```
 kubectl create configmap yunikorn-configs --from-file=queues.yaml
 ```
-- check if the ConfigMap was created correctly:
+- Or update ConfigMap in kubernetes:
+```
+kubectl create configmap  yunikorn-configs --from-file=queues.yaml -o yaml --dry-run=client | kubectl apply -f -
+```
+- check if the ConfigMap was created/updated correctly:
 ```
 kubectl describe configmaps yunikorn-configs
 ```
-
-**Note** if name of the ConfigMap is changed the volume in the scheduler yaml file must be updated to reference the new name otherwise the changes to the configuration will not be picked up. 
-
-## Attach ConfigMap to the Scheduler Pod
-
-The ConfigMap is attached to the scheduler as a special volume. First step is to specify where to mount it in the pod:
-```yaml
-  volumeMounts:
-    - name: config-volume
-      mountPath: /etc/yunikorn/
-```
-Second step is to link the mount point back to the configuration map created in kubernetes:
-```yaml
-  volumes:
-    - name: config-volume
-      configMap:
-        name: yunikorn-configs
-``` 
-
-Both steps are part of the scheduler yaml file, an example can be seen at [scheduler.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/scheduler.yaml)
-for reference.
+Note: use the same file name here for resource allocation queue specification as the one used in the yunikorn-defaults configs, e.g. queues.yaml.
 
 ## Deploy the Scheduler
 
@@ -115,8 +99,8 @@ The pod is deployed as a customized scheduler, it will take the responsibility t
     schedulerName: yunikorn
 ```
 
-Note: Admission controller abstracts the addition of `schedulerName` and `applicationId` from the user and hence, routes all traffic to YuniKorn. If you use helm chart to deploy, it will install admission controller along with the scheduler. Otherwise, proceed to the steps
-below to manually deploy the admission controller if running non-example workloads where `schedulerName` and `applicationId` are not present in the pod spec and metadata, respectively.
+Note: Admission controller abstracts the addition of `schedulerName` and `applicationId` from the user and hence, routes all traffic to YuniKorn. If you use helm chart to deploy, it will install admission controller along with the scheduler. Otherwise, proceed to the steps below to manually deploy the admission controller if running non-example workloads where `schedulerName` and `applicationId` are not present in the pod spec and metadata, respectively.
+
 
 ## Setup RBAC for Admission Controller
 
@@ -149,8 +133,7 @@ When the scheduler is deployed, the web UI is also deployed in a container.
 Port forwarding for the web interface on the standard ports can be turned on via:
 
 ```
-POD=`kubectl get pod -l app=yunikorn -o jsonpath="{.items[0].metadata.name}"` && \
-kubectl port-forward ${POD} 9889 9080
+kubectl port-forward svc/yunikorn-service 9889 9080
 ```
 
 `9889` is the default port for Web UI, `9080` is the default port of scheduler's Restful service where web UI retrieves info from.
@@ -158,9 +141,7 @@ Once this is done, web UI will be available at: http://localhost:9889.
 
 ## Configuration Hot Refresh
 
-YuniKorn supports to load configuration changes automatically from attached configmap. Simply update the content in the configmap,
-that can be done either via Kubernetes dashboard UI or commandline. _Note_, changes made to the configmap might have some
-delay to be picked up by the scheduler.
+YuniKorn uses config maps for configurations, and it supports loading configuration changes automatically by watching config map changes using shared informers.
 
-
+To make configuration changes, simply update the content in the configmap, which can be done either via Kubernetes dashboard UI or command line. Note, changes made to the configmap might have some delay to be picked up by the scheduler.
 
