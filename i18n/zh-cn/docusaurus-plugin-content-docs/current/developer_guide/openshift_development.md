@@ -62,7 +62,10 @@ YuniKorn 针对 OpenShift 进行了测试，开发人员可以设置本地环境
 
 ## 测试补丁
 
-以下步骤假设您的笔记本电脑中有一个正在运行的 CRC 集群。 请注意，这些步骤未针对远程 CRC 集群进行测试。
+以下步骤假设您的笔记本电脑中有一个正在运行的 CRC 集群。 
+:::note
+这些步骤未针对远程 CRC 集群进行测试。
+:::
 
 1. 通过 `oc` 命令访问您的环境。
 
@@ -104,10 +107,12 @@ YuniKorn 针对 OpenShift 进行了测试，开发人员可以设置本地环境
 
 1. 准备 helm chart.
 
-   如果您想使用自定义 Docker 镜像，请替换图表的 “values.yaml” 配置文件中的图像。
+   如果您想使用自定义 Docker 镜像，请替换 helm chart 的 “values.yaml” 配置文件中的镜像。
 
-   请注意，如果您直接将 Docker 镜像手动推送到 `default-route-openshift-image-registry.apps-crc.testing` docker registry ，您需要有有效的证书才能访问它。
+   :::note
+   如果您直接将 Docker 镜像手动推送到 `default-route-openshift-image-registry.apps-crc.testing` docker registry ，您需要有有效的证书才能访问它。
    在 OpenShift 上有更容易使用的服务：`image-registry.openshift-image-registry.svc`。
+   :::
 
    例如，如果你想覆盖所有 Docker 镜像，你应该使用以下配置：
    ```yaml
@@ -165,7 +170,10 @@ YuniKorn 针对 OpenShift 进行了测试，开发人员可以设置本地环境
       ```bash
       make clean image REGISTRY=default-route-openshift-image-registry.apps-crc.testing/<project>/<name>:<tag>
       ```
-      请注意，在 OpenShift 中，一个计划相当于一个 Kubernetes 命名空间。 推荐使用 `yunikorn` 项目/命名空间。
+      :::note
+      在 OpenShift 中，一个计划相当于一个 Kubernetes 命名空间。 推荐使用 `yunikorn` 项目/命名空间。
+      :::
+
       * 可以使用官方镜像，通过 “docker tag” 命令重新标记。
       ```bash
       docker tag apache/yunikorn:scheduler-latest default-route-openshift-image-registry.apps-crc.testing/yunikorn/yunikorn:scheduler-latest
