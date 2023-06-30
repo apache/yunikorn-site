@@ -94,8 +94,6 @@ metadata:
     }"
 ```
 
-(NOTE: for historical reason, "username" is used in label "yunikorn.apache.org/username", whereas, "user" is used in the annotation here)
-
 However, to enhance security, the following is enforced in the admission controller:
 * not every user in the cluster is allowed to attach this annotation, only those which are configured
 * if the annotation is missing, the admission controller will add this information automatically
