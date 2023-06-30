@@ -86,8 +86,8 @@ metadata:
   annotations:
     yunikorn.apache.org/user.info: "
     {
-      username: \"yunikorn\",
-      groups: [
+      \"user\": \"yunikorn\",
+      \"groups\": [
         \"developers\",
         \"devops\"
       ]
