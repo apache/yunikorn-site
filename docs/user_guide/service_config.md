@@ -491,7 +491,7 @@ data:
   service.placeholderImage: "registry.k8s.io/pause:3.7"
   service.instanceTypeNodeLabelKey: "node.kubernetes.io/instance-type"
   health.checkInterval: "30s"
-  log.level: "0"
+  log.level: INFO
   kubernetes.qps: "1000"
   kubernetes.burst: "1000"
   admissionController.webHook.amServiceName: "yunikorn-admission-controller-service"
@@ -685,25 +685,58 @@ health.checkInterval: "1m"
 ### Log settings
 
 #### log.level
-Sets the verbosity that YuniKorn will log at.
+Sets the default verbosity that YuniKorn will log at.
 
 A change to this setting will be picked up without a restart of YuniKorn. The available
-values are:
+values can be numeric or textual:
 
- - `-1`: Debug
- - `0`: Info
- - `1`: Warn
- - `2`: Error
- - `3`: DPanic
- - `4`: Panic
- - `5`: Fatal
+- `-1` / `debug` / `DEBUG`
+- `0` / `info` / `INFO`
+- `1` / `warn` / `WARN`
+- `2` / `error` / `ERROR`
+- `3` / `dpanic` / `DPANIC`
+- `4` / `panic` / `PANIC`
+- `5` / `fatal` / `FATAL`
 
-Default: `0` (Info)
+Default: `INFO`
 
 Example:
 ```yaml
-log.level: "-1"
+log.level: DEBUG
 ```
+
+#### log.{subsystem}.level
+Sets the verbosity that YuniKorn subsystem will log at.
+
+Yunikorn allows fine-grained logging configuration in a hierarchical manner. For example, 
+setting an entry for `log.core.level` will configure all loggers that start with `core.` 
+(including `core.scheduler`, etc.) unless a more specific configuration is present. 
+Each subsystem[^1] has its log level.
+
+A change to this setting will be picked up without a restart of YuniKorn. The available
+values can be numeric or textual:
+
+- `-1` / `debug` / `DEBUG`
+- `0` / `info` / `INFO`
+- `1` / `warn` / `WARN`
+- `2` / `error` / `ERROR`
+- `3` / `dpanic` / `DPANIC`
+- `4` / `panic` / `PANIC`
+- `5` / `fatal` / `FATAL`
+
+Default: `INFO`
+
+Example:
+
+The `log.level` is the default log level for all loggers.
+
+```yaml
+log.level: INFO
+log.admission.level: DEBUG
+log.core.config.level: INFO
+log.shim.appmgmt.sparkoperator.level: ERROR
+```
+
 ### Kubernetes settings
 
 #### kubernetes.qps
@@ -959,3 +992,58 @@ Example:
 # allow 'sales', 'marketing', and 'admin-*'
 admissionController.accessControl.externalGroups: "^sales$,^marketing$,^admin-"
 ```
+
+[^1]: Available log subsystem values:
+    - admission
+    - admission.client
+    - admission.conf
+    - admission.utils
+    - admission.webhook
+    - core
+    - core.config
+    - core.entrypoint
+    - core.events
+    - core.metrics
+    - core.opentracing
+    - core.resources
+    - core.rest
+    - core.rmproxy
+    - core.rpc
+    - core.scheduler
+    - core.scheduler.allocation
+    - core.scheduler.application
+    - core.scheduler.application.usage
+    - core.scheduler.context
+    - core.scheduler.fsm
+    - core.scheduler.health
+    - core.scheduler.node
+    - core.scheduler.partition
+    - core.scheduler.preemption
+    - core.scheduler.queue
+    - core.scheduler.reservation
+    - core.scheduler.ugm
+    - core.security
+    - core.utils
+    - deprecation
+    - kubernetes
+    - shim
+    - shim.appmgmt
+    - shim.appmgmt.general
+    - shim.appmgmt.sparkoperator
+    - shim.cache.application
+    - shim.cache.external
+    - shim.cache.node
+    - shim.cache.placeholder
+    - shim.cache.task
+    - shim.client
+    - shim.config
+    - shim.context
+    - shim.dispatcher
+    - shim.framework
+    - shim.fsm
+    - shim.predicates
+    - shim.resources
+    - shim.rmcallback
+    - shim.scheduler
+    - shim.scheduler.plugin
+    - shim.utils
