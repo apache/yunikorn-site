@@ -109,22 +109,29 @@ The following steps assume you have a running CRC cluster in your laptop. Note t
    Note that if you manually pushed the Docker image to the `default-route-openshift-image-registry.apps-crc.testing` docker registry directly you need to have valid certs to access it. 
    On OpenShift there's service for this: `image-registry.openshift-image-registry.svc`, which is easier to use.
 
-   For example, if you want to override all of the three Docker images you should use the following configs:
+   For example, if you want to override all of the Docker images you should use the following configs:
    ```yaml
    image:
      repository: image-registry.openshift-image-registry.svc:5000/yunikorn/yunikorn
      tag: scheduler-latest
      pullPolicy: Always
-   
-   admission_controller_image:
+
+   pluginImage:
      repository: image-registry.openshift-image-registry.svc:5000/yunikorn/yunikorn
-     tag: admission-latest
+     tag: scheduler-plugin-latest
      pullPolicy: Always
    
-   web_image:
-     repository: image-registry.openshift-image-registry.svc:5000/yunikorn/yunikorn-web
-     tag: latest
-     pullPolicy: Always
+   admissionController:
+     image:
+       repository: image-registry.openshift-image-registry.svc:5000/yunikorn/yunikorn
+       tag: admission-latest
+       pullPolicy: Always
+   
+   web:
+     image:
+       repository: image-registry.openshift-image-registry.svc:5000/yunikorn/yunikorn-web
+       tag: latest
+       pullPolicy: Always
    ``` 
 
    You can find it in the yunikorn-release repo's helm chart directory.
