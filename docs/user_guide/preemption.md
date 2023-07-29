@@ -93,10 +93,10 @@ Result:
 
 When a set of guaranteed resources is defined, preemption aims to ensure that all queues satisfy their guaranteed resources. Preemption stops once the guaranteed resources are met (law 4). A queue may be preempted if it has more resources than its guaranteed amount. For instance, in this case, if queue-1 has fewer resources than its guaranteed amount (<5), it will not be preempted (law 5).
 
-| Queue            | Resource before preemption | Resource after preemption              |
-| ---------------- | -------------------------- | -------------------------------------- |
-| `normal.queue-1` | 10 (victim)                | 7                                      |
-| `normal.queue-2` | 2                          | 5 (guaranteed resources are satisfied) |
+| Queue            | Resource before preemption | Resource after preemption |
+| ---------------- | -------------------------- | ------------------------- |
+| `normal.queue-1` | 10 (victim)                | 7                         |
+| `normal.queue-2` | 2                          | 5 (guaranteed minimum)    |
 
 ![preemption_normal_case](../assets/preemption_normal_case.png)
 
@@ -104,20 +104,20 @@ When a set of guaranteed resources is defined, preemption aims to ensure that al
 
 Similar to the previous example, but this time the queue does not have a "guaranteed resource" defined.
 
-| Queue                   | Max Resource | Guaranteed Resource |
-| ----------------------- | ------------ | ------------------- |
-| `no-guaranteed`         | 12           | -                   |
-| `no-guaranteed.queue-1` | 10           | -                   |
-| `no-guaranteed.queue-2` | 10           | -                   |
+| Queue          | Max Resource | Guaranteed Resource |
+| -------------- | ------------ | ------------------- |
+| `root`         | 12           | -                   |
+| `root.queue-1` | 10           | -                   |
+| `root.queue-2` | 10           | -                   |
 
 Result:
 
 In the absence of a guaranteed resource setting, preemption allows each queue to utilize an equal amount of resources.
 
-| Queue                     | Resource before preemption | Resource after preemption |
-| ------------------------- | -------------------------- | ------------------------- |
-| `no-guaranteed.queue-1` | 10 (victim)                | 6                         |
-| `no-guaranteed.queue-2` | 2                          | 6                         |
+| Queue          | Resource before preemption | Resource after preemption |
+| -------------- | -------------------------- | ------------------------- |
+| `root.queue-1` | 10 (victim)                | 6                         |
+| `root.queue-2` | 2                          | 6                         |
 
 ![preemption_no_guaranteed_case](../assets/preemption_no_guaranteed_case.png)
 
@@ -150,12 +150,12 @@ value: 0
 
 We will deploy 8 pods with a resource requirement of 1 to `queue-1`, `queue-2`, and `queue-3`, respectively. We will deploy to `queue-1` and `queue-2` first, followed by a few seconds delay before deploying to `queue-3`. This ensures that the resource usage in `queue-1` and `queue-2` will be greater than that in `queue-3`, depleting all resources in the parent queue and triggering preemption.
 
-| Queue                    | Max Resource | Guaranteed Resource | Policy                      |
-| ------------------------ | ------------ | ------------------- | --------------------------- |
-| `priority-class`         | 16           | -                   |                             |
-| `priority-class.queue-1` | 8            | 3                   | `"allow-preemption": true`  |
-| `priority-class.queue-2` | 8            | 3                   | `"allow-preemption": false` |
-| `priority-class.queue-3` | 8            | 3                   | `"allow-preemption": true`  |
+| Queue        | Max Resource | Guaranteed Resource | Policy-`allow-preemption` |
+| ------------ | ------------ | ------------------- | ------------------------- |
+| `rt`         | 16           | -                   |                           |
+| `rt.queue-1` | 8            | 3                   | `true`                    |
+| `rt.queue-2` | 8            | 3                   | `false`                   |
+| `rt.queue-3` | 8            | 3                   | `true`                    |
 
 Result:
 
@@ -166,11 +166,11 @@ Please note that setting `yunikorn.apache.org/allow-preemption` is a strong reco
 For example, even with `allow-preemption` set to `false`, DaemonSet pods can still be preempted. Additionally, if an application in `queue-1` has a higher priority than one in `queue-3`, the application in `queue-2` will be preempted because an application can never preempt another application with a higher priority. In such cases where no other preemption options exist, the `allow-preemption` flag may not prevent preemption.
 
 
-| Queue                  | Resource before preemption | Resource after preemption              |
-| ---------------------- | -------------------------- | -------------------------------------- |
-| `priority-class.queue-1` | 8 (victim)                 | 5                                      |
-| `priority-class.queue-2` | 8                          | 8                                      |
-| `priority-class.queue-3` | 0                          | 3 (guaranteed resources are satisfied) |
+| Queue        | Resource before preemption | Resource after preemption |
+| ------------ | -------------------------- | ------------------------- |
+| `rt.queue-1` | 8 (victim)                 | 5                         |
+| `rt.queue-2` | 8                          | 8                         |
+| `rt.queue-3` | 0                          | 3 (guaranteed minimum)    |
 
 ![preemption_priorityclass_case](../assets/preemption_priorityclass_case.png)
 
@@ -180,24 +180,24 @@ In addition to utilizing the default PriorityClass in Kubernetes, you can config
 
 In the following example, we will demonstrate preemption based on queue priority.
 
-We will deploy five pods with a resource demand of 3 in the `high-priority` queue, `normal-priority` queue, and `low-priority` queue, respectively. We will deploy them to the `normal-priority` queue first, ensuring that the resources in the `priority-queue`(parent queue) will be fully utilized. This will result in uneven resource distribution among the queues, triggering preemption.
+We will deploy five pods with a resource demand of 3 in the `high-pri` queue, `norm-pri` queue, and `low-pri` queue, respectively. We will deploy them to the `norm-pri` queue first, ensuring that the resources in the `root`(parent queue) will be fully utilized. This will result in uneven resource distribution among the queues, triggering preemption.
 
-| Queue                            | Max Resource | Guaranteed Resource | priority.offset |
-| -------------------------------- | ------------ | ------------------- | --------------- |
-| `priority-queue`                 | 18           | -                   |                 |
-| `priority-queue.high-priority`   | 10           | 6                   | 100             |
-| `priority-queue.normal-priority` | 18           | 6                   | 0               |
-| `priority-queue.low-priority`    | 10           | 6                   | -100            |
+| Queue           | Max Resource | Guaranteed Resource | priority.offset |
+| --------------- | ------------ | ------------------- | --------------- |
+| `root`          | 18           | -                   |                 |
+| `root.high-pri` | 10           | 6                   | 100             |
+| `root.norm-pri` | 18           | 6                   | 0               |
+| `root.low-pri`  | 10           | 6                   | -100            |
 
 Result:
 
 A queue with higher priority can preempt resources from a queue with lower priority, and preemption stops when the queue has preempted enough resources to satisfy its guaranteed resources.
 
-| Queue                            | Resource before preemption | Resource after preemption              |
-| -------------------------------- | -------------------------- | -------------------------------------- |
-| `priority-queue.high-priority`   | 0                          | 6 (guaranteed resources are satisfied) |
-| `priority-queue.normal-priority` | 18 (victim)                | 12                                     |
-| `priority-queue.low-priority`    | 0                          | 0                                      |
+| Queue           | Resource before preemption | Resource after preemption |
+| --------------- | -------------------------- | ------------------------- |
+| `root.high-pri` | 0                          | 6 (guaranteed minimum)    |
+| `root.norm-pri` | 18 (victim)                | 12                        |
+| `root.low-pri`  | 0                          | 0                         |
 
 ![preemption_priority_queue_case](../assets/preemption_priority_queue_case.png)
 
@@ -221,32 +221,32 @@ We will use the following diagram as an example:
 
 In this example, we will sequentially deploy 15 pods with a resource requirement of 1 to each sub-queue.
 
-First, we deploy `queue-1` in `tenant-a` and wait until the application in `queue-1` occupies all the resources of `tenant-a`. Then, we deploy `queue-2` after the resources of `tenant-a` are fully utilized. Next, we deploy the application `tenant-b.queue-3` and allocate resources to the system when the fence queue is full.
+First, we deploy `queue-1` in `tenant-a` and wait until the application in `queue-1` occupies all the resources of `tenant-a`. Then, we deploy `queue-2` after the resources of `tenant-a` are fully utilized. Next, we deploy the application `ten-b.queue-3` and allocate resources to the system when the fence queue is full.
 
-| Queue                    | Max Resource | Guaranteed Resource | fence |
-| ------------------------ | ------------ | ------------------- | ----- |
-| `fence`                  | 3            | -                   | true  |
-| `fence.tenant-a`         | 15           | 5                   | true  |
-| `fence.tenant-a.queue-1` | 15           | 2                   |       |
-| `fence.tenant-a.queue-2` | 15           | 2                   | true  |
-| `fence.tenant-b`         | 15           | 10                  | true  |
-| `fence.tenant-b.queue-3` | 15           | 10                  |       |
-| `fence.system`           | 15           | 10                  |       |
+| Queue              | Max Resource | Guaranteed Resource | fence |
+| ------------------ | ------------ | ------------------- | ----- |
+| `rt`               | 3            | -                   | true  |
+| `rt.ten-a`         | 15           | 5                   | true  |
+| `rt.ten-a.queue-1` | 15           | 2                   |       |
+| `rt.ten-a.queue-2` | 15           | 2                   | true  |
+| `rt.ten-b`         | 15           | 10                  | true  |
+| `rt.ten-b.queue-3` | 15           | 10                  |       |
+| `rt.sys`           | 15           | 10                  |       |
 
 Result:
 
 In this example, two imbalances are observed:
 
-- Within `tenant-a`, `queue-1` occupies all the resources, while `queue-2` has no resources. However, since `queue-2` is configured with a fence, it cannot acquire resources from outside the fence.
+- Within `ten-a`, `queue-1` occupies all the resources, while `queue-2` has no resources. However, since `queue-2` is configured with a fence, it cannot acquire resources from outside the fence.
   ![preemption_fence_case1](../assets/preemption_fence_case1.png)
-- Inside the `fence` queue, both `tenant-a` and `tenant-b` occupy all the resources, while the `system` queue has no resources, and no fence is set up. Therefore, the `system` queue can acquire resources from the queues in the hierarchy until its guaranteed resources are met. In this case, the `system` queue acquires resources from both `tenant-a` and `tenant-b`.
+- Inside the `rt` queue, both `ten-a` and `ten-b` occupy all the resources, while the `sys` queue has no resources, and no fence is set up. Therefore, the `sys` queue can acquire resources from the queues in the hierarchy until its guaranteed resources are met. In this case, the `sys` queue acquires resources from both `ten-a` and `ten-b`.
   ![preemption_fence_case2](../assets/preemption_fence_case2.png)
 
-| Queue                    | Resource before preemption | Resource after preemption |
-| ------------------------ | -------------------------- | ------------------------- |
-| `fence.tenant-a`         | 15                         | 10                        |
-| `fence.tenant-a.queue-1` | 15                         | 10                        |
-| `fence.tenant-a.queue-2` | 0                          | 0                         |
-| `fence.tenant-b`         | 15                         | 10                        |
-| `fence.tenant-b.queue-3` | 15                         | 10                        |
-| `fence.system`           | 0                          | 10                        |
+| Queue              | Resource before preemption | Resource after preemption |
+| ------------------ | -------------------------- | ------------------------- |
+| `rt.ten-a`         | 15                         | 10                        |
+| `rt.ten-a.queue-1` | 15                         | 10                        |
+| `rt.ten-a.queue-2` | 0                          | 0                         |
+| `rt.ten-b`         | 15                         | 10                        |
+| `rt.ten-b.queue-3` | 15                         | 10                        |
+| `rt.sys`           | 0                          | 10                        |
