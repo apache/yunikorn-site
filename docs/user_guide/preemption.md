@@ -150,12 +150,12 @@ value: 0
 
 We will deploy 8 pods with a resource requirement of 1 to `queue-1`, `queue-2`, and `queue-3`, respectively. We will deploy to `queue-1` and `queue-2` first, followed by a few seconds delay before deploying to `queue-3`. This ensures that the resource usage in `queue-1` and `queue-2` will be greater than that in `queue-3`, depleting all resources in the parent queue and triggering preemption.
 
-| Queue        | Max Resource | Guaranteed Resource | Policy-`allow-preemption` |
-| ------------ | ------------ | ------------------- | ------------------------- |
-| `rt`         | 16           | -                   |                           |
-| `rt.queue-1` | 8            | 3                   | `true`                    |
-| `rt.queue-2` | 8            | 3                   | `false`                   |
-| `rt.queue-3` | 8            | 3                   | `true`                    |
+| Queue        | Max Resource | Guaranteed Resource | `allow-preemption` |
+| ------------ | ------------ | ------------------- | ------------------ |
+| `rt`         | 16           | -                   |                    |
+| `rt.queue-1` | 8            | 3                   | `true`             |
+| `rt.queue-2` | 8            | 3                   | `false`            |
+| `rt.queue-3` | 8            | 3                   | `true`             |
 
 Result:
 
