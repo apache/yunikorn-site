@@ -34,9 +34,9 @@ While Kubernetes does support preemption, it does have some limitations. Preempt
 
 ## YuniKorn Preemption
 
-In YuniKorn, we have introduced node-centric preemption for DaemonSet pods. With YuniKorn, we guarantee that a pod will run exclusively on a particular node, and no other pods will be scheduled on that node until the DaemonSet pod is scheduled.
+In Yunikorn, we offer two preemption types: general and DaemonSet. DaemonSet preemption is much more straightforward, as it ensures that pods which must run on a particular node are allowed to do so. The rest of the documentation only concerns generic preemption. For a comprehensive explanation of DaemonSet preemption, please consult the [design document](design/simple_preemptor.md).
 
-Additionally, YuniKorn's generic preemption is based on a hierarchical queue model, enabling pods to opt out of running. Preemption is triggered after a specified delay, ensuring that each queue's resource usage reaches at least the guaranteed amount of resources. To configure the delay time for preemption triggering, you can utilize the `preemption.delay` property in the configuration.
+YuniKorn's generic preemption is based on a hierarchical queue model, enabling pods to opt out of running. Preemption is triggered after a specified delay, ensuring that each queue's resource usage reaches at least the guaranteed amount of resources. To configure the delay time for preemption triggering, you can utilize the `preemption.delay` property in the configuration.
 
 To prevent the occurrence of preemption storms or loops, where subsequent preemption tasks trigger additional preemption tasks, we have designed seven preemption laws. These laws are as follows:
 
@@ -100,27 +100,6 @@ When a set of guaranteed resources is defined, preemption aims to ensure that al
 
 ![preemption_normal_case](../assets/preemption_normal_case.png)
 
-### Preemption Case Without Guaranteed Resources
-
-Similar to the previous example, but this time the queue does not have a "guaranteed resource" defined.
-
-| Queue          | Max Resource | Guaranteed Resource |
-| -------------- | ------------ | ------------------- |
-| `root`         | 12           | -                   |
-| `root.queue-1` | 10           | -                   |
-| `root.queue-2` | 10           | -                   |
-
-Result:
-
-In the absence of a guaranteed resource setting, preemption allows each queue to utilize an equal amount of resources.
-
-| Queue          | Resource before preemption | Resource after preemption |
-| -------------- | -------------------------- | ------------------------- |
-| `root.queue-1` | 10 (victim)                | 6                         |
-| `root.queue-2` | 2                          | 6                         |
-
-![preemption_no_guaranteed_case](../assets/preemption_no_guaranteed_case.png)
-
 ### Priority
 
 In general, a pod can preempt a pod with equal or lower priority. You can set the priority by defining a [PriorityClass](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) or by utilizing [queue priorities](priorities).
@@ -163,7 +142,7 @@ When preemption is triggered, `queue-3` will start searching for a victim. Howev
 
 Please note that setting `yunikorn.apache.org/allow-preemption` is a strong recommendation but does not guarantee the lack of preemption. When this flag is set to `false`, it moves the Pod to the back of the preemption list, giving it a lower priority for preemption compared to other Pods. However, in certain scenarios, such as when no other preemption options are available, Pods with this flag may still be preempted.
 
-For example, even with `allow-preemption` set to `false`, DaemonSet pods can still be preempted. Additionally, if an application in `queue-1` has a higher priority than one in `queue-3`, the application in `queue-2` will be preempted because an application can never preempt another application with a higher priority. In such cases where no other preemption options exist, the `allow-preemption` flag may not prevent preemption.
+For example, even with `allow-preemption` set to `false`, DaemonSet pods can still trigger preemption. Additionally, if an application in `queue-1` has a higher priority than one in `queue-3`, the application in `queue-2` will be preempted because an application can never preempt another application with a higher priority. In such cases where no other preemption options exist, the `allow-preemption` flag may not prevent preemption.
 
 
 | Queue        | Resource before preemption | Resource after preemption |
