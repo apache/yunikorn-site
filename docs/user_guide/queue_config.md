@@ -209,8 +209,8 @@ statedumpfilepath: <path/to/statedump/file>
 ```
 
 ### Limits
-Limits define a set of limit objects for a partition or queue.
-It can be set on either the partition or on a queue at any level.
+Limits define a set of limit objects for a queue.
+It can be set on a queue at any level.
 ```yaml
 limits:
   - limit: <description>
@@ -219,7 +219,7 @@ limits:
 
 A limit object is a complex configuration object.
 It defines one limit for a set of users and or groups.
-Multiple independent limits can be set as part of one `limits` entry on a queue or partition.
+Multiple independent limits can be set as part of one `limits` entry on a queue.
 Users and or groups that are not part of the limit setting will not be limited.
 
 A sample limits entry:
@@ -259,11 +259,10 @@ The _users_ and _groups_ that can be configured can be one of two types:
 If the entry for users or groups contains more than one (1) entry it is always considered a list of either users or groups.
 The star "*" is the wildcard character and matches all users or groups.
 Duplicate entries in the lists are ignored and do not cause a parsing error.
-Specifying a star beside other list elements is not allowed.
+Specifying a star beside other list elements is not allowed. When "*" group is configured, limit should also be configured for at least one named group. Otherwise, parsing errors would be thrown.
 
-_maxapplications_ is an unsigned integer value, larger than 1, which allows you to limit the number of running applications for the configured user or group.
-Specifying a zero maximum applications limit is not allowed as it would implicitly deny access.
-Denying access must be handled via the ACL entries.
+_maxapplications_ is an unsigned integer value, which allows you to limit the number of running applications for the configured user or group.
+Specifying a zero maximum applications limit is not allowed.
 
 The _maxresources_ parameter can be used to specify a limit for one or more resources.
 The _maxresources_ uses the same syntax as the [resources](#resources) parameter for the queue. 
