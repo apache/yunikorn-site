@@ -33,6 +33,10 @@ under the License.
 **TYPE**: `yunikorn_<queue name>_queue_app`
 
 ```
+# HELP yunikorn_root_default_queue_app Queue application metrics. State of the application includes `running`.
+# TYPE yunikorn_root_default_queue_app gauge
+yunikorn_root_default_queue_app{state="accepted"} 3
+yunikorn_root_default_queue_app{state="running"} 3
 ```
 
 ## queue_resource
