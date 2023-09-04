@@ -173,7 +173,7 @@ yunikorn_scheduler_trypreemption_latency_milliseconds_sum 0
 yunikorn_scheduler_trypreemption_latency_milliseconds_count 0
 ```
 
-## <resource type>_node_usage_total
+## node_usage_total
 
 **Metric Type**: `gauge`
 

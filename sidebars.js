@@ -33,6 +33,15 @@ module.exports = {
             'user_guide/gang_scheduling',
             'user_guide/labels_and_annotations_in_yunikorn',
             'user_guide/prometheus',
+            {
+                type: 'category',
+                label: 'Prometheus Metrics',
+                items: [
+                    'user_guide/prometheus_metrics/prometheus_scheduler_metrics',
+                    'user_guide/prometheus_metrics/prometheus_runtime_metrics',
+                    'user_guide/prometheus_metrics/prometheus_queue_metrics',
+                ]
+            },
             'user_guide/use_cases',
             {
                 type: 'category',
