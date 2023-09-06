@@ -259,7 +259,9 @@ The _users_ and _groups_ that can be configured can be one of two types:
 If the entry for users or groups contains more than one (1) entry it is always considered a list of either users or groups.
 The star "*" is the wildcard character and matches all users or groups.
 Duplicate entries in the lists are ignored and do not cause a parsing error.
-Specifying a star beside other list elements is not allowed. When "*" group is configured, limit should also be configured for at least one named group. Otherwise, parsing errors would be thrown.
+Specifying a star beside other list elements is not allowed.
+When a wildcard group is configured, a limit must be configured with at least one named group.
+Parsing will reject the configuration with limits that do not follow this rule.
 
 _maxapplications_ is an unsigned integer value, which allows you to limit the number of running applications for the configured user or group.
 Specifying a zero maximum applications limit is not allowed.
