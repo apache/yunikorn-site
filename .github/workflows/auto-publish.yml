@@ -36,7 +36,7 @@ jobs:
           docker build -t yunikorn/yunikorn-website:2.0.0 . --build-arg NODE_VERSION=${NODE_VERSION}
           docker run --name yunikorn-site -d -p 3000:3000 yunikorn/yunikorn-website:2.0.0
           bash -c 'while true; do curl -Is http://localhost:3000 | head -n 1 | grep "OK"; [ $? -eq 0 ] && break; sleep 3; done'
-        timeout-minutes: 10
+        timeout-minutes: 20
       - name: "Checkout asf-site branch"
         uses: actions/checkout@v3
         with:
