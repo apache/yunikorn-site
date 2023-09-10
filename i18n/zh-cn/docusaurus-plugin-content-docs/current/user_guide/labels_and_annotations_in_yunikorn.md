@@ -1,10 +1,6 @@
 ---
 id: labels_and_annotations_in_yunikorn
-<<<<<<< HEAD
 title: 标签和注释
-=======
-title: YuniKorn中的标签和注释
->>>>>>> yunikorn/master
 ---
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
@@ -25,7 +21,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<<<<<<< HEAD
 ## YuniKorn 中的标签和注释
 YuniKorn 利用了几个 Kubernetes 标签和注释来支持各种功能：
 
@@ -58,37 +53,3 @@ YuniKorn 利用了几个 Kubernetes 标签和注释来支持各种功能：
 | `namespace.generateAppId`  | 控制哪些命名空间将有标有 `applicationId` 的 pod。进一步的细节可以在[服务配置#准入控制器过滤设置](service_config#准入控制器过滤设置)文档中找到。 |
 
 关于分组调度的标签和注释的更多细节，请参考[分组调度](../user_guide/gang_scheduling.md)的文档。
-=======
-## Labels and Annotations in YuniKorn
-YuniKorn utilizes several Kubernetes labels and annotations to support various features:
-
-### Labels in YuniKorn
-| Name                | Description                                                                                                                                             |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `applicationId`     | Associates this pod with an application.                                                                                                                |
-| `queue`             | Selects the YuniKorn queue this application should be scheduled in. This may be ignored if a placement policy is in effect.                             |
-| `SparkLabelAppID `  | Alternative method of specifying `applicationId` used by Spark Operator if the label `applicationId` and annotation `yunikorn.apache.org/app-id` unset. |
-| `disableStateAware` | If present, disables the YuniKorn state-aware scheduling policy for this pod. Set internally by the YuniKorn admission controller.                      |
-| `placeholder`       | Set if this pod represents a placeholder for gang scheduling. Set internally by YuniKorn.                                                               |
-
-### Annotations in YuniKorn
-All annotations are under the namespace `yunikorn.apache.org`. For example `yunikorn.apache.org/app-id`.
-
-| Name                                | Description                                                                                                                                                                                                                                                                                     |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `app-id`                            | Assoiates this pod with an application.<br/>The priority of applicationID is determined by: annotation `yunikorn.apache.org/app-id` > label `applicationId` > label `SparkLabelAppID`.                                                                                                          |
-| `queue`                             | Selects the YuniKorn queue this application should be scheduled in.<br/>The priority of queue is determined by: label `queue` > annotation `yunikorn.apache.org/queue` > default.                                                                                                               |
-| `task-group-name`                   | Sets the task group name this pod belongs to for the purposes of gang scheduling. It must be listed within `task-groups`.                                                                                                                                                                       |
-| `task-groups`                       | Defines the set of task groups for this application for gang scheduling. Each pod within an application must define all task groups.                                                                                                                                                            |
-| `schedulingPolicyParameters`        | Arbitrary key-value pairs used to customize scheduling policies such as gang scheduling.                                                                                                                                                                                                        |
-| `placeholder`                       | Set if this pod represents a placeholder for gang scheduling. Set internally by YuniKorn.                                                                                                                                                                                                       |
-| `allow-preemption`                  | The `allow-preemption` annotation can be set on the Pod or PriorityClass object. The annotation in Pod takes priority over PriorityClass. It will trigger opt out of preemption for pods. Further details can be found in the [DaemonSet Scheduling using Simple Preemptor](./../design/simple_preemptor) documentation. |
-| `parentqueue`                       | Define a parent queue for a set of K8s namespaces. Further details can be found in the [ Resource Quota Management](resource_quota_management#parent-queue-mapping-for-namespaces) documentation.                                                                                               |
-| `namespace.quota`                   | Set the maximum capacity of the queue mapped to this namespace. Further details can be found in the [ Resource Quota Management](resource_quota_management#namespace-quota) documentation.                                                                                                      |
-| [DEPRECATED] `namespace.max.cpu`    | Replaced with ``namespace.quota`` since version 1.2.0                                                                                                                                                                                                                                           |
-| [DEPRECATED] `namespace.max.memory` | Replaced with `namespace.quota` since version 1.2.0                                                                                                                                                                                                                                             |
-| `namespace.enableYuniKorn`          | Controls which namespaces will have pods forwarded to Yunikorn for scheduling. Further details can be found in the [Service Configuration #admission-controller-filtering-settings](service_config#admission-controller-filtering-settings)documentation.                                       |
-| `namespace.generateAppId`           | Controls which namespaces will have pods labeled with an `applicationId`. Further details can be found in the [Service Configuration #admission-controller-filtering-settings](service_config#admission-controller-filtering-settings) documentation.                                           |
-
-For more details surrounding gang-scheduling labels and annotations, please refer to the documentation on [gang scheduling](user_guide/gang_scheduling.md).
->>>>>>> yunikorn/master
