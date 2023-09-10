@@ -23,6 +23,7 @@ under the License.
 -->
 
 ## go_mem_stats
+Go MemStats metrics
 
 **Metric Type**: `guage`
 
@@ -64,6 +65,7 @@ yunikorn_runtime_go_mem_stats{MemStats="TotalAlloc"} 1.06435488e+08
 ```
 
 ## go_pause_ns
+ Go MemStats - PauseNs
 
 **Metric Type**: `guage`
 
@@ -98,6 +100,7 @@ yunikorn_runtime_go_pause_ns{PauseNs="99"} 0
 ```
 
 ## go_pause_end
+Go MemStats - PauseEnd
 
 **Metric Type**: `guage`
 
@@ -130,6 +133,7 @@ yunikorn_runtime_go_pause_end{PauseEnd="99"} 0
 ```
 
 ## go_alloc_bysize_maxsize
+Go MemStats - maximum byte size of this bucket
 
 **Metric Type**: `histogram`
 
@@ -159,6 +163,7 @@ yunikorn_runtime_go_alloc_bysize_maxsize_count 183
 ```
 
 ## go_alloc_bysize_free
+Go MemStats - cumulative count of heap objects freed in this size class
 
 **Metric Type**: `histogram`
 
@@ -187,6 +192,7 @@ yunikorn_runtime_go_alloc_bysize_free_count 183
 ```
 
 ## go_alloc_bysize_malloc
+Go MemStats - cumulative count of heap objects allocated in this size bucket
 
 **Metric Type**: `histogram`
 
@@ -217,6 +223,7 @@ yunikorn_runtime_go_alloc_bysize_malloc_count 183
 ```
 
 ## go_generic
+Go Generics metrics
 
 **Metric Type**: `gauge`
 

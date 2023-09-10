@@ -23,7 +23,10 @@ under the License.
 -->
 
 ## queue_app
-
+Eech queue has a `<queue_name> queue_app` metric to trace the applications in the queue.
+`<queue_name> queue_app` metrics records the number of applications in different states.
+These application states include `running`, `accepted`, `rejected`, `failed` and `completed`. 
+`<queue_name> queue_app` metrics record container states including `released`, `allocated`. 
 **Metric Type**: `guage`
 
 **Namespace**: `yunikorn`
@@ -40,6 +43,8 @@ yunikorn_root_default_queue_app{state="running"} 3
 ```
 
 ## queue_resource
+The `<queue_name> queue_resource` metric to trace the resource in the queue.
+These resource states include `guaranteed`, `max`, `allocated`, `pending`, `preempting`.
 
 **Metric Type**: `guage`
 

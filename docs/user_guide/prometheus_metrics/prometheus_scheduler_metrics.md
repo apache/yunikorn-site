@@ -23,6 +23,8 @@ under the License.
 -->
 
 ## container_allocation_attempt_total
+Total number of attempts to allocate containers.
+State of the attempt includes `allocated`, `rejected`, `error`, `released`.
 
 **Metric Type**: `counter`
 
@@ -40,6 +42,8 @@ yunikorn_scheduler_container_allocation_attempt_total{state="error"} 0
 yunikorn_scheduler_container_allocation_attempt_total{state="released"} 0
 ```
 ## application_submission_total
+Total number of application submissions.
+State of the attempt includes `accepted` and `rejected`.
 
 **Metric Type**: `counter`
 
@@ -50,9 +54,14 @@ yunikorn_scheduler_container_allocation_attempt_total{state="released"} 0
 **TYPE**: `yunikorn_scheduler_application_submission_total`
 
 ```
+# HELP yunikorn_scheduler_application_submission_total Total number of application submissions. State of the attempt includes `accepted` and `rejected`.
+# TYPE yunikorn_scheduler_application_submission_total counter
+yunikorn_scheduler_application_submission_total{result="accepted"} 6
 ```
 
 ## application_total
+Total number of applications.
+State of the application includes `running`, `failed` and `completed`.
 
 **Metric Type**: `gauge`
 
@@ -69,6 +78,8 @@ yunikorn_scheduler_application_total{state="running"} 0
 ```
 
 ## node
+Total number of nodes.
+State of the node includes `active` and `failed`.
 
 **Metric Type**: `gauge`
 
@@ -86,6 +97,8 @@ yunikorn_scheduler_node{state="failed"} 0
 ```
 
 ## scheduling_latency_milliseconds
+Latency of the main scheduling routine, in milliseconds.
+This metric includes latencies including `node_sorting_latency_milliseconds`, `trynode_latency_milliseconds` and `trypreemption_latency_milliseconds`. 
 
 **Metric Type**: `histogram`
 
@@ -110,6 +123,9 @@ yunikorn_scheduler_scheduling_latency_milliseconds_count 0
 ```
 
 ## node_sorting_latency_milliseconds
+`yunikorn_scheduler_node_sorting_latency_milliseconds` records the latency of sorting
+These sorting includes `all nodes sorting`, `all applications sorting` and `all queues sorting`.
+
 
 **Metric Type**: `histogram`
 
@@ -120,12 +136,39 @@ yunikorn_scheduler_scheduling_latency_milliseconds_count 0
 **TYPE**: `yunikorn_scheduler_node_sorting_latency_milliseconds`
 
 ```
-# HELP yunikorn_scheduler_application_submission_total Total number of application submissions. State of the attempt includes `accepted` and `rejected`.
-# TYPE yunikorn_scheduler_application_submission_total counter
-yunikorn_scheduler_application_submission_total{result="accepted"} 6
+# HELP yunikorn_scheduler_node_sorting_latency_milliseconds Latency of all nodes sorting, in milliseconds.
+# TYPE yunikorn_scheduler_node_sorting_latency_milliseconds histogram
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.0001"} 5
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.001"} 6
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.01"} 6
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.1"} 6
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="1"} 6
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="10"} 6
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="+Inf"} 6
+yunikorn_scheduler_node_sorting_latency_milliseconds_sum{level="app"} 0.00026345400000000004
+yunikorn_scheduler_node_sorting_latency_milliseconds_count{level="app"} 6
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.0001"} 3
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.001"} 3
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.01"} 3
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.1"} 3
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="1"} 3
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="10"} 3
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="+Inf"} 3
+yunikorn_scheduler_node_sorting_latency_milliseconds_sum{level="node"} 2.5013999999999998e-05
+yunikorn_scheduler_node_sorting_latency_milliseconds_count{level="node"} 3
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.0001"} 9
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.001"} 9
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.01"} 9
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.1"} 9
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="1"} 9
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="10"} 9
+yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="+Inf"} 9
+yunikorn_scheduler_node_sorting_latency_milliseconds_sum{level="queue"} 4.0093e-05
+yunikorn_scheduler_node_sorting_latency_milliseconds_count{level="queue"} 9
 ```
 
 ## trynode_latency_milliseconds
+Latency of node condition checks for container allocations, such as placement constraints, in milliseconds.
 
 **Metric Type**: `histogram`
 
@@ -150,6 +193,7 @@ yunikorn_scheduler_trynode_latency_milliseconds_count 0
 ```
 
 ## trypreemption_latency_milliseconds
+Latency of preemption condition checks for container allocations, in milliseconds
 
 **Metric Type**: `histogram`
 
@@ -174,6 +218,7 @@ yunikorn_scheduler_trypreemption_latency_milliseconds_count 0
 ```
 
 ## node_usage_total
+Total resource usage of node, by resource name.
 
 **Metric Type**: `gauge`
 
@@ -235,5 +280,4 @@ yunikorn_scheduler_vcore_node_usage_total{range="(70%,80%]"} 0
 yunikorn_scheduler_vcore_node_usage_total{range="(80%,90%]"} 0
 yunikorn_scheduler_vcore_node_usage_total{range="(90%,100%]"} 0
 yunikorn_scheduler_vcore_node_usage_total{range="[0,10%]"} 1
-
 ```
