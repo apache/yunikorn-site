@@ -17,6 +17,8 @@
 # under the License.
 #
 
+# https://cwiki.apache.org/confluence/display/INFRA/git+-+.asf.yaml+features
+
 publish:
   whoami: asf-site
   
@@ -28,13 +30,15 @@ github:
     - apache
   enabled_merge_buttons:
     squash: true
-    merge: false
+    merge:  false
     rebase: false
   features:
-    wiki: false
-    issues: false
+    wiki:     false
+    issues:   false
     projects: false
-  notifications:
-    commits:      dev@yunikorn.apache.org
-    pullrequests: reviews@yunikorn.apache.org
-    jira_options: link label
+
+notifications:
+  commits:      issues@yunikorn.apache.org
+  issues:       reviews@yunikorn.apache.org
+  pullrequests: reviews@yunikorn.apache.org
+  jira_options: link label

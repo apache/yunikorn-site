@@ -51,6 +51,7 @@ YuniKorn 社区是开放的、多样化的和协作的。
 | Sunil Govindan          | sunilg      | Cloudera    | -8            |
 | Tao Yang                | taoyang     | Alibaba     | +8            |
 | Tingyao Huang           | tingyao     | TrendMicro  | +8            |
+| Yu Teng Chen            | yuteng      | NTCU        | +8            |
 | Vinod Kumar Vavilapalli | vinodkv     | Cloudera    | +5.5          |
 | Wangda Tan              | wangda      | Snowflake   | -8            |
 | Wei-Chiu Chuang         | weichiu     | Cloudera    | -8            |
@@ -67,7 +68,7 @@ YuniKorn 社区是开放的、多样化的和协作的。
 | Li Gao         | ligao         | Databricks  | -8            |
 | Rainie Li      | rainieli      | Pinterest   | -8            |
 | Ted Lin        | steinsgateted | NCKU        | +8            |
-| Yu Teng Chen   | yuteng        | NTCU        | +8            |
+| Qi Zhu         | zhuqi         | Cloudera    | +8            |
 
 ## 成为一个 Committer
 

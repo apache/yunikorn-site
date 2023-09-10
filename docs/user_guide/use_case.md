@@ -38,9 +38,9 @@ The following will be included in this article：
 
 ## Prerequisite
 
-Before configuring yunikorn-config, we need to create users using [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) and [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) from Kubernetes.
+Before configuring yunikorn-config, we need to create users using [Authentication](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) and [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) from Kubernetes.
 
-To create the necessary users for the example, you can download the `create_user.sh` script directly from yunikorn-k8shim under deployment/examples/use-case/access-control.
+To create the necessary users for the example, you can download the `create_user.sh` script directly from yunikorn-k8shim under [deployment/examples/authz/k8s-api-access](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/examples/authz/k8s-api-access).
 
 Here are the users we need to create:
 
@@ -162,7 +162,7 @@ Annotations:
 
 The scheduler will then determine whether to allow or block the user's pod based on the access control list of the assigned queue. 
 
-Here are the results for different users assigned to different queues. You can use the YAML file we provide to test :
+Here are the results for different users assigned to different queues. You can use the [YAML file](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/examples/authz/acl) we provide to test :
 
 | user, group          | Assign queue         | result  | YAML filename |
 |----------------------|----------------------|---------|---------------|
@@ -289,7 +289,7 @@ data:
 
 In this test example, we use three users to verify all the placement rules. 
 
-The following results are generated when creating a Pod according to different rules. You can use the YAML file we provide for testing:
+The following results are generated when creating a Pod according to different rules. You can use the [YAML file](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/examples/authz/placement-rules) we provide for testing:
 
 | placement rule         | user, group  | provide queue             | namespace | Expected to be placed on  | YAML filename    |
 |------------------------|--------------|---------------------------|-----------|---------------------------|------------------|
@@ -372,7 +372,7 @@ In the following example, we restrict `root.tenants.group-a` to use a maximum of
 
 When group-A is deployed in `root.tenants.group-a` and the required resources exceed the limit, the remaining pods will be blocked. 
 
-The results of deploying Pods in different queues are shown below. You can use the YAML file we provide for testing.
+The results of deploying Pods in different queues are shown below. You can use the [YAML file](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/examples/authz/resource-limits) we provide for testing.
 
 | user, group  | Resource Limits for Destination Queues | request resources for each replicas | replica | result                                                   | YAML filename    |
 |--------------|----------------------------------------|-------------------------------------|---------|----------------------------------------------------------|------------------|
@@ -458,7 +458,7 @@ In the first test, we deploy an equal number of Pods with identical resource req
 
 However, with priorities and limited resources, the high-priority queue can deploy all of its Pods, the medium-priority queue can deploy some Pods, and the low-priority queue won't be able to deploy any Pods until resources are released by the high-priority queue.
 
-In the following tests, we run the environment with a node resource limit of `{memory:16GB, vcore:16}`. Note that results will vary based on the environment, and you can modify the YAML file we provide to achieve similar results.
+In the following tests, we run the environment with a node resource limit of `{memory:16GB, vcore:16}`. Note that results will vary based on the environment, and you can modify the [YAML file](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/examples/authz/priority) we provide to achieve similar results.
 
 | queue                       | offset | # of deploy apps | # of apps accept by yunikorn | YAML filename |
 |-----------------------------|--------|------------------|------------------------------|---------------|
@@ -472,7 +472,7 @@ In the second test, we deploy the same number of Pods with the same resource req
 
 While scheduling the task. Even though `root.tenants.group-a` has a higher priority than the other two queues, the scheduler will still execute root.system.normal first, which is in the global scope. Then, the scheduler will compare priorities within the local scope of `root.tenants`.
 
-For the following tests, we run them in an environment with node resources of `{memory:16GB, vcore:16}`. The results will vary in different environments, but you can obtain similar results by modifying the YAML file we provide.
+For the following tests, we run them in an environment with node resources of `{memory:16GB, vcore:16}`. The results will vary in different environments, but you can obtain similar results by modifying the [YAML file](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/examples/authz/priority) we provide.
 
 | queue                       | offset      | # of deploy apps | # of apps accept by yunikorn | YAML filename    |
 |-----------------------------|-------------|------------------|------------------------------|------------------|
