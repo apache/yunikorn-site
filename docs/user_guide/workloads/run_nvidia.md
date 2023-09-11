@@ -26,30 +26,16 @@ under the License.
 -->
 
 ## Yunikorn with NVIDIA GPUs
-This guide gives an overview of how to set up NVIDIA Device Plugin which enable user to run GPUs with Yunikorn, for more details please check [**Kubernetes with GPUs**](https://docs.nvidia.com/datacenter/cloud-native/kubernetes/install-k8s.html#option-2-installing-kubernetes-using-kubeadm).
+This guide gives an overview of how to set up NVIDIA Device Plugin which enable user to run GPUs with Yunikorn, for more details please check [**Installing the NVIDIA Container Toolkit**](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
 
 ### Prerequisite
-Before following the steps below, Yunikorn need to deploy on the [**Kubernetes with GPUs**](https://docs.nvidia.com/datacenter/cloud-native/kubernetes/install-k8s.html#install-kubernetes).
+Before following the steps below, Yunikorn need to deploy on the Kubernetes with GPUs.
 
 ### Install NVIDIA Device Plugin
-Add the nvidia-device-plugin helm repository.
-```
-helm repo add nvdp https://nvidia.github.io/k8s-device-plugin
-helm repo update
-helm repo list
-```
 
-Verify the latest release version of the plugin is available.
+Deploy the device plugin, for more details please check [**k8s-device-plugin**](https://github.com/NVIDIA/k8s-device-plugin).
 ```
-helm search repo nvdp --devel
-NAME                     	  CHART VERSION  APP VERSION	   DESCRIPTION
-nvdp/nvidia-device-plugin	  0.12.3         0.12.3         A Helm chart for ...
-```
-
-Deploy the device plugin
-```
-kubectl create namespace nvidia
-helm install --generate-name nvdp/nvidia-device-plugin --namespace nvidia --version 0.12.3
+kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.14.1/nvidia-device-plugin.yml
 ```
 
 Check the status of the pods to ensure NVIDIA device plugin is running
@@ -70,20 +56,24 @@ kube-system    nvidia-device-plugin-1659451060-c92sb     1/1     Running   1 (11
 
 ### Testing NVIDIA Device Plugin
 Create a gpu test yaml file.
-```
+```yaml
 # gpu-pod.yaml
-	apiVersion: v1
-	kind: Pod
-	metadata:
-	  name: gpu-operator-test
-	spec:
-	  restartPolicy: OnFailure
-	  containers:
-	  - name: cuda-vector-add
-	    image: "nvidia/samples:vectoradd-cuda10.2"
-	    resources:
-	      limits:
-	         nvidia.com/gpu: 1
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu-pod
+spec:
+  restartPolicy: Never
+  containers:
+    - name: cuda-container
+      image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.7.1-ubi8
+      resources:
+        limits:
+          nvidia.com/gpu: 1 #requesting 1 GPU
+  tolerations:
+  - key: nvidia.com/gpu
+    operator: Exists
+    effect: NoSchedule
 ```
 Deploy the application.
 ```
