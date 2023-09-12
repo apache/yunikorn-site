@@ -78,11 +78,11 @@ plugin mode. These differences include:
 
 ## Plugin Implementation
 
-To expose the entirety of YuniKorn functionality, we implement three of the Scheduling Framework Plugins:
+To expose the entirety of YuniKorn functionality, we implement three of the Scheduling Framework extension points:
 
 ### PreFilter
 
-PreFilter plugins are passed a reference to a Pod and return either `Success` or `Unschedulable`, depending
+PreFilter extension point are passed a reference to a Pod and return either `Success` or `Unschedulable`, depending
 on whether that pod should be considered for scheduling.
 
 For the YuniKorn implementation, we first check the Pod to see if we have an associated `applicationId`
@@ -97,7 +97,7 @@ for scheduling later.
 
 ### Filter
 
-Filter plugins are used to filter out nodes that cannot run a Pod. Only Pods which pass the PreFilter stage
+Filter extension point are used to filter out nodes that cannot run a Pod. Only Pods which pass the PreFilter stage
 are evaluated. 
 
 For the YuniKorn plugin, we follow similar logic to PreFilter, except that we also validate that the pending
