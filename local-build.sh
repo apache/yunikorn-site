@@ -36,7 +36,7 @@ function node_version() {
   if [ -r ${NV_FILE} ]; then
     NODE_VERSION=$(<"$NV_FILE")
   fi
-  # docusausrus 2.0.0-beta.18 and later only work with node 18.17 later, use it as the default
+  # docusausrus 2.0.0-beta.18 and later only work with node 16.14 later, we use latest LTS as default.
   NODE_VERSION=${NODE_VERSION:-18.17}
 }
 
