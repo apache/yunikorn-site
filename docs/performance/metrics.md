@@ -35,28 +35,24 @@ for these metrics:
 all metrics are declared in `yunikorn` namespace.
 ###    Scheduler Metrics
 
-| Metrics Name          | Metrics Type  | Description  | 
-| --------------------- | ------------  | ------------ |
-| containerAllocation   | Counter       | Total number of attempts to allocate containers. State of the attempt includes `allocated`, `rejected`, `error`, `released`. Increase only.  |
-| applicationSubmission | Counter       | Total number of application submissions. State of the attempt includes `accepted` and `rejected`. Increase only. |
-| applicationStatus     | Gauge         | Total number of application status. State of the application includes `running` and `completed`.  | 
-| totalNodeActive       | Gauge         | Total number of active nodes.                          |
-| totalNodeFailed       | Gauge         | Total number of failed nodes.                          |
-| nodeResourceUsage     | Gauge         | Total resource usage of node, by resource name.        |
-| schedulingLatency     | Histogram     | Latency of the main scheduling routine, in seconds.    |
-| nodeSortingLatency    | Histogram     | Latency of all nodes sorting, in seconds.              |
-| appSortingLatency     | Histogram     | Latency of all applications sorting, in seconds.       |
-| queueSortingLatency   | Histogram     | Latency of all queues sorting, in seconds.             |
-| tryNodeLatency        | Histogram     | Latency of node condition checks for container allocations, such as placement constraints, in seconds, in seconds. |
+| Metrics Name          | Metrics Type | Description  | 
+| --------------------- | ------------ | ------------ |
+| containerAllocation   | Counter      | Total number of attempts to allocate containers. State of the attempt includes `allocated`, `rejected`, `error`, `released`. Increase only. |
+| applicationSubmission | Counter      | Total number of application submissions. State of the attempt includes `accepted` and `rejected`. Increase only. |
+| application           | Gauge        | Total number of applications. State of the application includes `running`, `completed` and `failed`.             |
+| node                  | Gauge        | Total number of nodes. State of the node includes `active` and `failed`.                                         |
+| nodeResourceUsage     | Gauge        | Total resource usage of node, by resource name.                                                                  |
+| schedulingLatency     | Histogram    | Latency of the main scheduling routine, in milliseconds.                                                         |
+| sortingLatency        | Histogram    | Latency of all nodes sorting, in milliseconds.                                                                   |
+| tryNodeLatency        | Histogram    | Latency of node condition checks for container allocations, such as placement constraints, in milliseconds.      |
+| tryPreemptionLatency  | Histogram    | Latency of preemption condition checks for container allocations, in milliseconds.                               |
 
 ###    Queue Metrics
 
 | Metrics Name              | Metrics Type  | Description |
 | ------------------------- | ------------- | ----------- |
-| appMetrics                | Counter       | Application Metrics, record the total number of applications. State of the application includes `accepted`,`rejected` and `Completed`.     |
-| usedResourceMetrics       | Gauge         | Queue used resource.     |
-| pendingResourceMetrics    | Gauge         | Queue pending resource.  |
-| availableResourceMetrics  | Gauge         | Used resource metrics related to queues etc.    |
+| appMetrics                | Gauge         | Queue application metrics. State of the application includes `running`, `accepted`, `rejected`, `failed`, `completed`, `allocated`, `released`. |
+| ResourceMetrics           | Gauge         | Queue resource metrics. State of the resource includes `guaranteed`, `max`, `allocated`, `pending`, `preempting`. |
 
 ###    Event Metrics
 
