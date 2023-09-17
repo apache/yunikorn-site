@@ -26,7 +26,7 @@ The easiest way to deploy YuniKorn is to leverage our [helm charts](https://hub.
 you can find the guide [here](get_started/get_started.md). This document describes the manual process to deploy YuniKorn
 scheduler and admission controller. It is primarily intended for developers.
 
-**Note** The primary source of deployment information is the Helm chart, which can be found at [yunikorn-release](https://github.com/apache/yunikorn-release/). Manual deployment may lead to out-of-sync configurations, see[deployments/scheduler](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/scheduler)
+**Note** The primary source of deployment information is the Helm chart, which can be found at [yunikorn-release](https://github.com/apache/yunikorn-release/). Manual deployment may lead to out-of-sync configurations, see [deployments/scheduler](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/scheduler)
 
 ## Build docker image
 
@@ -44,11 +44,7 @@ This command will build an image. The image will be tagged with a default versio
 **Note** the imaging tagging includes your build architecture. For Intel, it would be `amd64` and for Mac M1, it would be `arm64`.
 
 ## Setup RBAC for Scheduler
-In the example, RBAC are configured for the yuniKorn namespace:
-```
-kubectl create namespace yunikorn
-```
-
+In the example, RBAC are configured for the yuniKorn namespace.
 The first step is to create the RBAC role for the scheduler, see [yunikorn-rbac.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/yunikorn-rbac.yaml)
 ```
 kubectl create -f deployments/scheduler/yunikorn-rbac.yaml
