@@ -81,7 +81,7 @@ kubectl describe configmaps yunikorn-configs
 
 The scheduler can be deployed with following command.
 ```
-kubectl create -f deployments/scheduler/scheduler.yaml -n yunikorn
+kubectl create -f deployments/scheduler/scheduler.yaml
 ```
 
 The deployment will run 2 containers from your pre-built docker images in 1 pod,
@@ -91,7 +91,7 @@ The deployment will run 2 containers from your pre-built docker images in 1 pod,
 
 Alternatively, the scheduler can be deployed as a K8S scheduler plugin:
 ```
-kubectl create -f deployments/scheduler/plugin.yaml -n yunikorn
+kubectl create -f deployments/scheduler/plugin.yaml
 ```
 
 The pod is deployed as a customized scheduler, it will take the responsibility to schedule pods which explicitly specifies `schedulerName: yunikorn` in pod's spec. In addition to the `schedulerName`, you will also have to add a label `applicationId` to the pod.
@@ -129,7 +129,7 @@ kubectl create -f deployments/scheduler/admission-controller-secrets.yaml
 Now we can deploy the admission controller as a service. This will automatically validate/modify incoming requests and objects, respectively, in accordance with the [example in Deploy the Scheduler](#Deploy-the-Scheduler). See the contents of the admission controller deployment and service in [admission-controller.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller.yaml).
 
 ```
-kubectl create -f deployments/scheduler/admission-controller.yaml -n yunikorn
+kubectl create -f deployments/scheduler/admission-controller.yaml
 ```
 
 ## Access to the web UI
