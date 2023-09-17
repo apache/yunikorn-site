@@ -129,7 +129,7 @@ kubectl create -f deployments/scheduler/admission-controller-secrets.yaml
 Now we can deploy the admission controller as a service. This will automatically validate/modify incoming requests and objects, respectively, in accordance with the [example in Deploy the Scheduler](#Deploy-the-Scheduler). See the contents of the admission controller deployment and service in [admission-controller.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller.yaml).
 
 ```
-kubectl create -f deployments/scheduler/admission-controller.yaml
+kubectl create -f deployments/scheduler/admission-controller.yaml -n yunikorn
 ```
 
 ## Access to the web UI
