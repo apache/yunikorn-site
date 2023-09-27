@@ -26,6 +26,8 @@ The easiest way to deploy YuniKorn is to leverage our [helm charts](https://hub.
 you can find the guide [here](get_started/get_started.md). This document describes the manual process to deploy YuniKorn
 scheduler and admission controller. It is primarily intended for developers.
 
+**Note** The primary source of deployment information is the Helm chart, which can be found at [yunikorn-release](https://github.com/apache/yunikorn-release/). Manual deployment may lead to out-of-sync configurations, see [deployments/scheduler](https://github.com/apache/yunikorn-k8shim/tree/master/deployments/scheduler)
+
 ## Build docker image
 
 Under project root of the `yunikorn-k8shim`, run the command to build an image using the map for the configuration:
@@ -39,13 +41,13 @@ This command will build an image. The image will be tagged with a default versio
 
 **Note** the latest yunikorn images in docker hub are not updated anymore due to ASF policy. Hence, you should build both scheduler image and web image locally before deploying them.
 
-**Note** the imaging tagging includes your build architecture. For Intel, it would be `amd64` and for Mac M1, it would be `arm64v8`.
+**Note** the imaging tagging includes your build architecture. For Intel, it would be `amd64` and for Mac M1, it would be `arm64`.
 
 ## Setup RBAC for Scheduler
-
+In the example, RBAC are configured for the yuniKorn namespace.
 The first step is to create the RBAC role for the scheduler, see [yunikorn-rbac.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/yunikorn-rbac.yaml)
 ```
-kubectl create -f scheduler/yunikorn-rbac.yaml
+kubectl create -f deployments/scheduler/yunikorn-rbac.yaml
 ```
 The role is a requirement on the current versions of kubernetes.
 
@@ -56,21 +58,20 @@ This kubernetes environment can be either local or remote.
 
 - download configuration file if not available on the node to add to kubernetes:
 ```
-curl -o queues.yaml https://raw.githubusercontent.com/apache/yunikorn-k8shim/master/conf/queues.yaml
+curl -o yunikorn-configs.yaml https://raw.githubusercontent.com/apache/yunikorn-k8shim/master/deployments/scheduler/yunikorn-configs.yaml
 ```
-- modify the content of queues.yaml file as needed, and create ConfigMap in kubernetes:
+- modify the content of yunikorn-configs.yaml file as needed, and create ConfigMap in kubernetes:
 ```
-kubectl create configmap yunikorn-configs --from-file=queues.yaml
+kubectl create configmap yunikorn-configs --from-file=yunikorn-configs.yaml
 ```
 - Or update ConfigMap in kubernetes:
 ```
-kubectl create configmap  yunikorn-configs --from-file=queues.yaml -o yaml --dry-run=client | kubectl apply -f -
+kubectl create configmap yunikorn-configs --from-file=yunikorn-configs.yaml -o yaml --dry-run=client | kubectl apply -f -
 ```
 - check if the ConfigMap was created/updated correctly:
 ```
 kubectl describe configmaps yunikorn-configs
 ```
-Note: use the same file name here for resource allocation queue specification as the one used in the yunikorn-defaults configs, e.g. queues.yaml.
 
 ## Deploy the Scheduler
 
@@ -107,7 +108,7 @@ Note: Admission controller abstracts the addition of `schedulerName` and `applic
 Before the admission controller is deployed, we must create its RBAC role, see [admission-controller-rbac.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller-rbac.yaml).
 
 ```
-kubectl create -f scheduler/admission-controller-rbac.yaml
+kubectl create -f deployments/scheduler/admission-controller-rbac.yaml
 ```
 
 ## Create the Secret
@@ -116,7 +117,7 @@ Since the admission controller intercepts calls to the API server to validate/mu
 used by the webhook server to store TLS certificates and keys. See [admission-controller-secrets.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller-secrets.yaml).
 
 ```
-kubectl create -f scheduler/admission-controller-secrets.yaml
+kubectl create -f deployments/scheduler/admission-controller-secrets.yaml
 ```
 
 ## Deploy the Admission Controller
@@ -124,7 +125,7 @@ kubectl create -f scheduler/admission-controller-secrets.yaml
 Now we can deploy the admission controller as a service. This will automatically validate/modify incoming requests and objects, respectively, in accordance with the [example in Deploy the Scheduler](#Deploy-the-Scheduler). See the contents of the admission controller deployment and service in [admission-controller.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/admission-controller.yaml).
 
 ```
-kubectl create -f scheduler/admission-controller.yaml
+kubectl create -f deployments/scheduler/admission-controller.yaml
 ```
 
 ## Access to the web UI
