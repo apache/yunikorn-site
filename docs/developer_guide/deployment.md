@@ -56,7 +56,7 @@ This kubernetes environment can be either local or remote.
 
 - download configuration file if not available on the node to add to kubernetes:
 ```
-curl -o queues.yaml https://raw.githubusercontent.com/apache/yunikorn-k8shim/master/conf/queues.yaml
+curl -o queues.yaml https://raw.githubusercontent.com/apache/yunikorn-k8shim/master/deployments/scheduler/yunikorn-configs.yaml
 ```
 - modify the content of queues.yaml file as needed, and create ConfigMap in kubernetes:
 ```
