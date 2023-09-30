@@ -22,7 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-YuniKorn始终与容器编排系统一起使用。目前，在我们的存储库中提供了一个Kubernetes适配器yunikorn-k8shim，您可以利用它来开发YuniKorn调度功能并与Kubernetes集成。本文档描述了如何设置开发环境以及如何进行开发。
+YuniKorn始终与容器编排系统一起使用。目前，在我们的存储库中提供了一个Kubernetes适配器[yunikorn-k8shim](https://github.com/apache/yunikorn-k8shim)，您可以利用它来开发YuniKorn调度功能并与Kubernetes集成。本文档描述了如何设置开发环境以及如何进行开发。
 
 ## 开发环境设置
 
@@ -85,7 +85,7 @@ make image
 docker inspect apache/yunikorn:scheduler-amd64-latest
 ```
 
-`amd64`标签取决于您的主机架构（例如，对于`Intel`，它将是`amd64`，对于`Mac M1`，它将是`arm64v8`）。
+`amd64`标签取决于您的主机架构（例如，对于`Intel`，它将是`amd64`，对于`Mac M1`，它将是`arm64`）。
 
 这些信息包括每个组件的`git`修订版（最后的提交`SHA`），以帮助您了解此镜像中包含的源代码版本。它们以 `Docker` 镜像的`标签`形式列出，例如：
 
