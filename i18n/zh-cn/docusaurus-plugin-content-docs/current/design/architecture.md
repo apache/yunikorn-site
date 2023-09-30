@@ -28,7 +28,7 @@ YuniKorn目前支持K8s，并可以部署为自定义的K8s调度器。YuniKorn�
 
 ## 架构
 
-以下图表展示了YuniKorn的高级架构。
+以下图表展示了YuniKorn的架构。
 
 <img src={require('./../assets/architecture.png').default} />
 
