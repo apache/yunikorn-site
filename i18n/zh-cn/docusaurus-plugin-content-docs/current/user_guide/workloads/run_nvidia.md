@@ -156,7 +156,7 @@ data:
 MIG支持于2020年添加到Kubernetes中。有关其工作原理的详细信息，请参阅 [**在Kubernetes中支援MIG**](https://www.google.com/url?q=https://docs.google.com/document/d/1mdgMQ8g7WmaI_XVVRrCvHPFPOMCm5LQD5JefgAh6N8g/edit&sa=D&source=editors&ust=1655578433019961&usg=AOvVaw1F-OezvM-Svwr1lLsdQmu3) 。
 :::
 
-在operator命名空间中创建一个ConfigMap。
+在operator命名空间nvidia，创建一个ConfigMap。
 ```bash
 kubectl create namespace nvidia
 kubectl create -f time-slicing-config.yaml
@@ -188,7 +188,7 @@ helm repo list
 
 ### 应用时间分片配置
 有两种方法：
-- 跨集群
+- 集群范围
 
 通过传递时间分片ConfigMap名称和默认配置来安装GPU Operator。
   ```bash
@@ -284,7 +284,7 @@ kubectl apply -f plugin-test.yaml
 
 验证所有五个副本是否正在运行。
 
-- 在Pods中
+- 在Pod群中
   ```bash
   kubectl get pods
   ```
