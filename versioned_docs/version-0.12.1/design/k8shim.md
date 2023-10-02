@@ -37,7 +37,7 @@ between the shim and the scheduler core is through the scheduler-interface.
 ## The admission controller
 
 The admission controller runs in a separate pod, it runs a
-[mutation webhook](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
+[mutation webhook](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
 and a [validation webhook](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook), where:
 
 1. The `mutation webhook` mutates pod spec by:
