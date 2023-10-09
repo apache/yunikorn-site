@@ -1,6 +1,6 @@
 ---
-id: prometheus_queue_metrics
-title: Prometheus Queue Metrics
+id: queue
+title: Queue
 ---
 
 <!--
@@ -22,7 +22,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-## queue_app
+## Queue
+### Application
 Eech queue has a `<queue_name> queue_app` metric to trace the applications in the queue.
 `<queue_name> queue_app` metrics records the number of applications in different states.
 These application states include `running`, `accepted`, `rejected`, `failed` and `completed`. 
@@ -36,13 +37,11 @@ These application states include `running`, `accepted`, `rejected`, `failed` and
 **TYPE**: `yunikorn_<queue name>_queue_app`
 
 ```
-# HELP yunikorn_root_default_queue_app Queue application metrics. State of the application includes `running`.
-# TYPE yunikorn_root_default_queue_app gauge
 yunikorn_root_default_queue_app{state="accepted"} 3
 yunikorn_root_default_queue_app{state="running"} 3
 ```
 
-## queue_resource
+### Resource
 The `<queue_name> queue_resource` metric to trace the resource in the queue.
 These resource states include `guaranteed`, `max`, `allocated`, `pending`, `preempting`.
 
@@ -55,8 +54,6 @@ These resource states include `guaranteed`, `max`, `allocated`, `pending`, `pree
 **TYPE**: `yunikorn_<queue name>_queue_resource`
 
 ```
-# HELP yunikorn_root_queue_resource Queue resource metrics. State of the resource includes `guaranteed`, `max`, `allocated`, `pending`, `preempting`.
-# TYPE yunikorn_root_queue_resource gauge
 yunikorn_root_queue_resource{resource="ephemeral-storage",state="max"} 9.41009558e+10
 yunikorn_root_queue_resource{resource="hugepages-1Gi",state="max"} 0
 yunikorn_root_queue_resource{resource="hugepages-2Mi",state="max"} 0
