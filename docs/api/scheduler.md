@@ -1787,16 +1787,17 @@ Endpoint to retrieve historical data about critical logs, negative resource on n
 
 Endpoint to retrieve the following information in a single response:
 
+* Current timestamp (Unix timestamp in nanosecond)
 * List of partitions
-* List of applications (running and completed)
+* List of applications (running, completed and rejected)
 * Application history
 * Nodes
-* Utilization of nodes
 * Generic cluster information
-* Cluster utilization
 * Container history
 * Queues
 * RMDiagnostics
+* Log level
+* Configuration
 
 **URL** : `/ws/v1/fullstatedump`
 
