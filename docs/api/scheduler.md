@@ -1578,20 +1578,72 @@ Endpoint to retrieve the current scheduler configuration
 
 **Code** : `200 OK`
 
-**Content example**
+**Content example (with `Accept: application/json` header)**
+
+```json
+{
+    "Partitions": [
+        {
+            "Name": "default",
+            "Queues": [
+                {
+                    "Name": "root",
+                    "Parent": true,
+                    "Resources": {},
+                    "SubmitACL": "*",
+                    "ChildTemplate": {
+                        "Resources": {}
+                    }
+                }
+            ],
+            "PlacementRules": [
+                {
+                    "Name": "tag",
+                    "Create": true,
+                    "Filter": {
+                        "Type": ""
+                    },
+                    "Value": "namespace"
+                }
+            ],
+            "Preemption": {
+                "Enabled": false
+            },
+            "NodeSortPolicy": {
+                "Type": ""
+            }
+        }
+    ],
+    "Checksum": "FD5D3726DF0F02416E02F3919D78F61B15D14425A34142D93B24C137ED056946",
+    "Extra": {
+        "event.trackingEnabled": "false",
+        "log.core.scheduler.level": "info",
+        "log.core.security.level": "info",
+        "log.level": "debug"
+    }
+}
+```
+
+**Content example (without `Accept: application/json` header)**
 
 ```yaml
 partitions:
-- name: default
-  queues:
-  - name: root
-    parent: true
-    submitacl: '*'
-  placementrules:
-  - name: tag
-    create: true
-    value: namespace
-checksum: D75996C07D5167F41B33E27CCFAEF1D5C55BE3C00EE6526A7ABDF8435DB4078E
+    - name: default
+        queues:
+            - name: root
+            parent: true
+            submitacl: "*"
+        placementrules:
+            - name: tag
+            create: true
+            value: namespace
+checksum: FD5D3726DF0F02416E02F3919D78F61B15D14425A34142D93B24C137ED056946
+extra:
+    event.trackingEnabled: "false"
+    log.core.scheduler.level: info
+    log.core.security.level: info
+    log.level: debug
+
 ```
 
 ## Application history
