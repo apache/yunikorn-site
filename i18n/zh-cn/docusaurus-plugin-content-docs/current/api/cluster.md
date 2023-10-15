@@ -42,24 +42,24 @@ under the License.
 
 ```json
 [
-  {
-    "startTime": 1697100824863892713,
-    "rmBuildInformation": [
-      {
-        "arch": "amd64",
-        "buildDate": "2023-09-04T18:11:43+0800",
-        "buildVersion": "latest",
-        "coreSHA": "0ecf24d2aad2",
-        "goVersion": "1.21",
-        "isPluginVersion": "false",
-        "rmId": "mycluster",
-        "shimSHA": "8b26c373b4b5",
-        "siSHA": "e7622cf54e95"
-      }
-    ],
-    "partition": "default",
-    "clusterName": "kubernetes"
-  }
+    {
+        "startTime": 1649167576110754000, 
+        "rmBuildInformation": [
+            {
+                "arch": "amd64",
+                "buildDate": "2023-09-04T18:11:43+0800",
+                "buildVersion": "latest",
+                "coreSHA": "0ecf24d2aad2",
+                "goVersion": "1.21",
+                "isPluginVersion": "false",
+                "rmId": "mycluster",
+                "shimSHA": "8b26c373b4b5",
+                "siSHA": "e7622cf54e95"
+            }
+        ],
+        "partition": "default",
+        "clusterName": "kubernetes"
+    }
 ]
 ```
 
