@@ -24,7 +24,8 @@ under the License.
 
 ## Clusters
 
-Returns general information about the clusters managed by the YuniKorn Scheduler. Information includes number of (total, failed, pending, running, completed) applications and containers and the build information of resource managers.  
+Returns general information about the clusters managed by the YuniKorn Scheduler. 
+The response includes build information about resource managers.  
 
 **URL** : `/ws/v1/clusters`
 
@@ -43,13 +44,18 @@ As an example, here is a response from a cluster with 1 resource manager.
 ```json
 [
     {
-        "startTime": 1649167576110754000,
+        "startTime": 1697100824863892713,
         "rmBuildInformation": [
             {
-                "buildDate": "2022-02-21T19:09:16+0800",
+                "arch": "amd64",
+                "buildDate": "2023-09-04T18:11:43+0800",
                 "buildVersion": "latest",
+                "coreSHA": "0ecf24d2aad2",
+                "goVersion": "1.21",
                 "isPluginVersion": "false",
-                "rmId": "rm-123"
+                "rmId": "mycluster",
+                "shimSHA": "8b26c373b4b5",
+                "siSHA": "e7622cf54e95"
             }
         ],
         "partition": "default",
