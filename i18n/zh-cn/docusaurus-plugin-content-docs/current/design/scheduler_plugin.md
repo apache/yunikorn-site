@@ -55,7 +55,7 @@ YuniKorn 调度器二进制文件中没有默认的调度功能。自 Kubernetes
 - 在 `postTaskAllocated()` 中，我们实际上不会绑定 Pod 或 Volumes，因为这是默认调度器框架的责任。
   相反，我们在内部映射中跟踪 YK 为节点分配的节点，分派一个新的 BindTaskEvent，并在 Pod 上记录一个 `QuotaApproved` 事件。
 - 在 `postTaskBound()` 中，我们将 Pod 的状态更新为 `QuotaApproved`，因为这将导致默认调度器重新评估 Pod 的调度（更多细节见下文）。
-- 在调度器缓存中，我们跟踪待处理和进行中的 Pod 分配。当 Pod 在 Kubernetes 中被删除时，也将调度器缓存中地 Pod 删除。
+- 在调度器缓存中，我们跟踪待处理和进行中的 Pod 分配。当 Pod 在 Kubernetes 中被删除时，也将调度器缓存中的 Pod 删除。
 
 
 ## 插件模式的实现
