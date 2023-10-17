@@ -31,7 +31,7 @@ jobs:
       - name: "Build and run website locally"
         working-directory: './yunikorn-master'
         run: |
-          NODE_VERSION=$(cat .nvmrc) && NODE_VERSION=${NODE_VERSION:-16.14}
+          NODE_VERSION=$(cat .nvmrc) && NODE_VERSION=${NODE_VERSION:-18.17}
           git log master --pretty=format:"Auto refresh: %s" -n 1 > ../asf-site-commit.txt
           docker build -t yunikorn/yunikorn-website:2.0.0 . --build-arg NODE_VERSION=${NODE_VERSION}
           docker run --name yunikorn-site -d -p 3000:3000 yunikorn/yunikorn-website:2.0.0
