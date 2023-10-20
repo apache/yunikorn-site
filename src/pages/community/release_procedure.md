@@ -61,9 +61,10 @@ Simplified release procedure:
 2. Stabilize the release by fixing test failures and bugs only
 3. Tag update release for a new version to prepare a release candidate, e.g `v1.3.0-1` for RC1
 4. Update the CHANGELOG
-5. Configure [release-configs.json](https://github.com/apache/yunikorn-release/tree/master/tools/release-configs.json)
-6. Run script [build-release.py](https://github.com/apache/yunikorn-release/tree/master/tools/build-release.py) to generate source code tarball, checksum and signature.
-7. Voting and releasing the candidate
+5. Update the DOAP file
+6. Configure [release-configs.json](https://github.com/apache/yunikorn-release/tree/master/tools/release-configs.json)
+7. Run script [build-release.py](https://github.com/apache/yunikorn-release/tree/master/tools/build-release.py) to generate source code tarball, checksum and signature.
+8. Voting and releasing the candidate
 
 ## Step-by-step procedure
 Branching and tagging can, and in most cases will, require changes in the go mod files.
@@ -119,6 +120,20 @@ Follow these steps to generate the list:
 - Click the button `Configure Release Notes`
 - Select the style `Text` and click `create`
 - Scroll to the bottom of the page and copy the content of the text area and update the CHANGELOG file in the ../release-top-level-artifacts directory.
+
+### Update the DOAP file
+A [DOAP file](https://github.com/apache/yunikorn-site/blob/master/doap_YuniKorn.rdf) containing project details has to be maintained.
+Update the DOAP file with the release version and release date.
+
+```xml
+<release>
+  <Version>
+    <name>YuniKorn x.y.z</name>
+    <created>YYYY-MM-DD</created>
+    <revision>x.y.z</revision>
+  </Version>
+</release>
+```
 
 ### Run the release tool
 Please check the [signing your first release](#signing-your-first-release) before proceeding here for details on signing a release.
