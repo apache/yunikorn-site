@@ -47,7 +47,7 @@ Newer Docker versions have an embedded version of Kubernetes so no additional
 installation is needed. Follow the instructions [here](https://docs.docker.com/docker-for-mac/#kubernetes)
 to get Kubernetes up and running within Docker Desktop.
 Alternatively, a Kind cluster may be created (see instructions
-[here](https://kind.sigs.k8s.io/docs/user/quick-start/#creating-a-cluster)).
+[here](https://kind.sigs.k8s.io/docs/user/quick-start/#creating-a-cluster).
 
 Once Kubernetes is started in Docker Desktop, you should see something similar
 to this:
@@ -173,9 +173,9 @@ go install sigs.k8s.io/kind@latest
 Other installation methods can be found on the Kind
 [website](https://kind.sigs.k8s.io/docs/user/quick-start/#installation).
 
-To use Kind with Kubernetes 1.25 or later, you will need to use kind@v0.15 or
-later. The release of kind does allow for running other versions of Kubernetes
-as well. The list of supported versions may be found in the Kind release notes.
+Kind version 0.15 is required for Kubernetes 1.25 or later.
+Later versions of Kind add Kubernetes 1.26, 1.27 and 1.28.
+Check the Kind release notes for the specific Kubernetes releases supported.
 
 ### Using Kind
 
