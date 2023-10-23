@@ -160,99 +160,129 @@ The queues' hierarchy is kept in the response json.
 
 **Content examples**
 
-For the default queue hierarchy (only `root.default` leaf queue exists) a similar response to the following is sent back to the client:
+For the default queue hierarchy (only `root.default` leaf queue exists) a similar response to the following is sent back
+to the client.
+There are currently 2 applications, with 2 pods assigned to each application.
+
+<details>
+  <summary>Fields of the queue info</summary>
+  <div>
+The response json is based on the queue info.
+
+In the response, certain fields of the queue information will be omitted if their values are empty.
+
+| Field                  | Type              | omitted if empty | Description                                                                                                                |
+|------------------------|-------------------|:-----------------|----------------------------------------------------------------------------------------------------------------------------|
+| QueueName              | string            | false            | Name of the queue.                                                                                                         |    
+| Status                 | string            | true             | The status of the queue, could be `Draining`, `Active` or `Stopped`.                                                       |
+| Partition              | string            | false            | The name of the partition.                                                                                                 |
+| PendingResource        | map[string]int64  | true             | Collections of pending resources.                                                                                          |
+| MaxResource            | map[string]int64  | true             | Collections of max resources.                                                                                              |
+| GuaranteedResource     | map[string]int64  | true             | Collections of guaranteed resources.                                                                                       |
+| AllocatedResource      | map[string]int64  | true             | Collections of allocated resources.                                                                                        |
+| PreemptingResource     | map[string]int64  | true             | Collections of preempting resources.                                                                                       |
+| IsLeaf                 | bool              | false            | True if the queue is a leaf queue.                                                                                         |
+| IsManaged              | bool              | false            | True if the queue is part of the config, not auto created.                                                                 |
+| Properties             | map[string]string | true             | A map from the property key to the value.                                                                                  |
+| Parent                 | string            | true             | The parent of this queue.                                                                                                  |
+| TemplateInfo           | *TemplateInfo     | true             | The child template of this queue. Define the behaviour of dynamic leaf queues. It will be named as `template` in response. |
+| Children               | []QueueInfo       | true             | Collections of the children.                                                                                               |
+| AbsUsedCapacity        | map[string]int64  | true             | Collections of the absolute used resources as a percentage.                                                                |
+| MaxRunningApps         | uint64            | true             | A number of the max running applications of this queue.                                                                    |
+| RunningApps            | uint64            | true             | A number of the current running applications of this queue.                                                                |
+| CurrentPriority        | int32             | true             | A number of the priority, higher priority has higher value.                                                                |
+| AllocatingAcceptedApps | []string          | true             | Collections of the allocating accepted applications name.                                                                  |
+</div>
+</details>
+
 
 ```json
-[
+{
+  "queuename": "root",
+  "status": "Active",
+  "partition": "default",
+  "pendingResource": {
+    "memory": 0,
+    "pods": 0,
+    "vcore": 0
+  },
+  "maxResource": {
+    "ephemeral-storage": 1508763181056,
+    "hugepages-1Gi": 0,
+    "hugepages-2Mi": 0,
+    "memory": 100276580352,
+    "pods": 330,
+    "vcore": 24000
+  },
+  "allocatedResource": {
+    "memory": 800000000,
+    "pods": 4,
+    "vcore": 400
+  },
+  "isLeaf": false,
+  "isManaged": true,
+  "properties": {
+    "application.sort.policy": "stateaware"
+  },
+  "template": {
+    "maxResource": {
+      "memory": 800000000,
+      "vcore": 80000
+    },
+    "guaranteedResource": {
+      "memory": 540000000,
+      "vcore": 8000
+    },
+    "properties": {
+      "application.sort.policy": "stateaware"
+    }
+  },
+  "children": [
     {
-        "queuename": "root",
-        "status": "Active",
-        "maxResource": {
-            "ephemeral-storage": 188176871424,
-            "hugepages-1Gi": 0,
-            "hugepages-2Mi": 0,
-            "memory": 8000000000,
-            "pods": 330,
-            "vcore": 8000
-        },
-        "guaranteedResource": {
-            "memory": 54000000,
-            "vcore": 80
-        },
-        "allocatedResource": {
-            "memory": 54000000,
-            "vcore": 80
-        },
-        "pendingResource": {
-            "memory": 54000000,
-            "vcore": 80
-        },
-        "isLeaf": "false",
-        "isManaged": "false",
-        "properties": {
-            "application.sort.policy": "stateaware"
-        },
-        "parent": "",
-        "template": {
-            "maxResource": {
-                "memory": 8000000000,
-                "vcore": 8000
-            },
-            "guaranteedResource": {
-                "memory": 54000000,
-                "vcore": 80
-            },
-            "properties": {
-                "application.sort.policy": "stateaware"
-            }
-        },
-        "partition": "default",
-        "children": [
-            {
-                "queuename": "root.default",
-                "status": "Active",
-                "maxResource": {
-                    "memory": 8000000000,
-                    "vcore": 8000
-                },
-                "guaranteedResource": {
-                    "memory": 54000000,
-                    "vcore": 80
-                },
-                "allocatedResource": {
-                    "memory": 54000000,
-                    "vcore": 80
-                },
-                "pendingResource": {
-                    "memory": 54000000,
-                    "vcore": 80
-                },
-                "isLeaf": "true",
-                "isManaged": "false",
-                "properties": {
-                    "application.sort.policy": "stateaware"
-                },
-                "parent": "root",
-                "template": null,
-                "children": [],
-                "absUsedCapacity": {
-                    "memory": 1,
-                    "vcore": 0
-                },
-                "maxRunningApps": 12,
-                "runningApps": 4,
-                "allocatingAcceptedApps": [
-                    "app-1",
-                    "app-2"
-                ]
-            }
-        ],
-        "absUsedCapacity": {
-            "memory": 1,
-            "vcore": 0
-        }
-    } 
-]
+      "queuename": "root.default",
+      "status": "Active",
+      "partition": "",
+      "pendingResource": {
+        "memory": 0,
+        "pods": 0,
+        "vcore": 0
+      },
+      "maxResource": {
+        "memory": 800000000,
+        "vcore": 80000
+      },
+      "guaranteedResource": {
+        "memory": 540000000,
+        "vcore": 8000
+      },
+      "allocatedResource": {
+        "memory": 800000000,
+        "pods": 4,
+        "vcore": 400
+      },
+      "isLeaf": true,
+      "isManaged": true,
+      "properties": {
+        "application.sort.policy": "stateaware"
+      },
+      "parent": "root",
+      "absUsedCapacity": {
+        "memory": 100,
+        "vcore": 0
+      },
+      "maxRunningApps": 12,
+      "runningApps": 2,
+      "currentPriority": -2147483648
+    }
+  ],
+  "absUsedCapacity": {
+    "memory": 0,
+    "pods": 1,
+    "vcore": 1
+  },
+  "runningApps": 2,
+  "currentPriority": -2147483648
+}
 ```
 
 ### Error response
