@@ -86,8 +86,8 @@ Returns general information and statistics about a partition.
             "Pending": 5,
             "total": 10
         },
-        "totalContainers": "0",
-        "totalNodes": "2"
+        "totalContainers": 0,
+        "totalNodes": 2
     },
     {
         "clusterId": "mycluster",
@@ -121,8 +121,8 @@ Returns general information and statistics about a partition.
             "Pending": 5,
             "total": 20
         },
-        "totalContainers": "20",
-        "totalNodes": "5"
+        "totalContainers": 20,
+        "totalNodes": 5
     }
 ]
 ```
