@@ -24,7 +24,7 @@ under the License.
 
 ## 集群
 
-将回传Yunikorn所管理的集群的信息。信息包括应用程序的数量（包含总数、失败、挂起、正在运行、已完成）和容器的数量，以及资源管理器的构建信息。
+回传 Yunikorn 所管理的集群信息，像是资源管理器的构建信息。
 
 **位置(URL)** : `/ws/v1/clusters`
 
@@ -43,13 +43,18 @@ under the License.
 ```json
 [
     {
-        "startTime": 1649167576110754000,
+        "startTime": 1697100824863892713,
         "rmBuildInformation": [
             {
-                "buildDate": "2022-02-21T19:09:16+0800",
+                "arch": "amd64",
+                "buildDate": "2023-09-04T18:11:43+0800",
                 "buildVersion": "latest",
+                "coreSHA": "0ecf24d2aad2",
+                "goVersion": "1.21",
                 "isPluginVersion": "false",
-                "rmId": "rm-123"
+                "rmId": "mycluster",
+                "shimSHA": "8b26c373b4b5",
+                "siSHA": "e7622cf54e95"
             }
         ],
         "partition": "default",

@@ -119,7 +119,7 @@ If you have go installed, you can run `go install sigs.k8s.io/kind@latest`.
 
 Other ways can be found on the Kind [website](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 
-To use Kind with Kubernetes 1.25, you will need to use kind@v0.15 or greater.  The release of kind does allow for particular versions of Kubernetes and you can get that information from the Kind release notes.
+To use Kind with Kubernetes 1.25, you will need to use v0.15 or greater of Kind.  The release of kind does allow for particular versions of Kubernetes and you can get that information from the Kind release notes.
 
 ### Using Kind
 

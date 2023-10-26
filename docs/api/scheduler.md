@@ -1578,20 +1578,72 @@ Endpoint to retrieve the current scheduler configuration
 
 **Code** : `200 OK`
 
-**Content example**
+**Content example (with `Accept: application/json` header)**
+
+```json
+{
+    "Partitions": [
+        {
+            "Name": "default",
+            "Queues": [
+                {
+                    "Name": "root",
+                    "Parent": true,
+                    "Resources": {},
+                    "SubmitACL": "*",
+                    "ChildTemplate": {
+                        "Resources": {}
+                    }
+                }
+            ],
+            "PlacementRules": [
+                {
+                    "Name": "tag",
+                    "Create": true,
+                    "Filter": {
+                        "Type": ""
+                    },
+                    "Value": "namespace"
+                }
+            ],
+            "Preemption": {
+                "Enabled": false
+            },
+            "NodeSortPolicy": {
+                "Type": ""
+            }
+        }
+    ],
+    "Checksum": "FD5D3726DF0F02416E02F3919D78F61B15D14425A34142D93B24C137ED056946",
+    "Extra": {
+        "event.trackingEnabled": "false",
+        "log.core.scheduler.level": "info",
+        "log.core.security.level": "info",
+        "log.level": "debug"
+    }
+}
+```
+
+**Content example (without `Accept: application/json` header)**
 
 ```yaml
 partitions:
-- name: default
-  queues:
-  - name: root
-    parent: true
-    submitacl: '*'
-  placementrules:
-  - name: tag
-    create: true
-    value: namespace
-checksum: D75996C07D5167F41B33E27CCFAEF1D5C55BE3C00EE6526A7ABDF8435DB4078E
+    - name: default
+        queues:
+            - name: root
+            parent: true
+            submitacl: "*"
+        placementrules:
+            - name: tag
+            create: true
+            value: namespace
+checksum: FD5D3726DF0F02416E02F3919D78F61B15D14425A34142D93B24C137ED056946
+extra:
+    event.trackingEnabled: "false"
+    log.core.scheduler.level: info
+    log.core.security.level: info
+    log.level: debug
+
 ```
 
 ## Application history
@@ -1787,16 +1839,17 @@ Endpoint to retrieve historical data about critical logs, negative resource on n
 
 Endpoint to retrieve the following information in a single response:
 
+* Current timestamp (Unix timestamp in nanosecond)
 * List of partitions
-* List of applications (running and completed)
+* List of applications (running, completed and rejected)
 * Application history
 * Nodes
-* Utilization of nodes
 * Generic cluster information
-* Cluster utilization
 * Container history
 * Queues
 * RMDiagnostics
+* Log level
+* Configuration
 
 **URL** : `/ws/v1/fullstatedump`
 
@@ -1842,49 +1895,3 @@ None
 ### Error response
 
 **Code**: `400 Bad Request`
-
-## Get log level
-Retrieve the current log level.
-
-**URL** : `/ws/v1/loglevel`
-
-**Method** : `GET`
-
-**Auth required** : NO
-
-### Success response
-
-**Code**: `200 OK`
-
-**Content examples**
-
-```
-info
-```
-
-## Set log level
-Set the log level.
-
-**URL** : `/ws/v1/loglevel/{level}`
-
-**Method** : `PUT`
-
-**Auth required** : NO
-
-### Success response
-
-**Code**: `200 OK`
-
-### Error response
-
-**Code**: `400 Bad Request`
-
-**Content examples**
-
-```json
-{
-    "status_code":400,
-    "message":"failed to change log level, old level active",
-    "description":"failed to change log level, old level active"
-}
-```
