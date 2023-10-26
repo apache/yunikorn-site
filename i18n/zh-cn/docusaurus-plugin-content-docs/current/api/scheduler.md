@@ -82,8 +82,8 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
             "Pending": 5,
             "total": 10
         },
-        "totalContainers": "0",
-        "totalNodes": "2"
+        "totalContainers": 0,
+        "totalNodes": 2
     },
     {
         "clusterId": "mycluster",
@@ -117,8 +117,8 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
             "Pending": 5,
             "total": 20
         },
-        "totalContainers": "20",
-        "totalNodes": "5"
+        "totalContainers": 20,
+        "totalNodes": 5
     }
 ]
 ```
