@@ -122,6 +122,3 @@ The node status changes based on the status provided by the resource manager (sh
 
 ### Node
 ![node state diagram](./../assets/k8shim-node-state.png)
-
-### Scheduler
-![scheduler state diagram](./../assets/k8shim-scheduler-state.png)
