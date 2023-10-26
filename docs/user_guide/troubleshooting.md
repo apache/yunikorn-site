@@ -45,56 +45,36 @@ The recommended setup is to leverage [fluentd](https://www.fluentd.org/) to coll
 
 ### Set Logging Level
 
-:::note
-We recommend altering the log level via REST API call as this way we don't need to restart the scheduler pod every time.
-:::`
-
-Stop the scheduler:
+Edit the yunikorn-configs configmap:
 
 ```shell script
-kubectl scale deployment yunikorn-scheduler -n yunikorn --replicas=0
-```
-edit the deployment config in vim:
-
-```shell script
-kubectl edit deployment yunikorn-scheduler -n yunikorn
+kubectl edit configmap/yunikorn-configs -n yunikorn
 ```
 
-add `LOG_LEVEL` to the `env` field of the container template. For example setting `LOG_LEVEL` to `0` sets the logging
-level to `INFO`.
+Add `log.level` to the `data` field of the configmap. For example setting `log.level` to `DEBUG` sets the logging
+level to `DEBUG`.
 
 ```yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: v1
+data:
+  log.level: DEBUG
+  ...
+kind: ConfigMap
 metadata:
- ...
-spec:
-  template: 
    ...
-    spec:
-      containers:
-      - env:
-        - name: LOG_LEVEL
-          value: '0'
 ```
 
-Start the scheduler:
+The `log.level` value can be either numeric (-1 through 5) or textual (DEBUG through FATAL).
 
-```shell script
-kubectl scale deployment yunikorn-scheduler -n yunikorn --replicas=1
-```
-
-Available logging levels:
-
-| Value 	| Logging Level 	|
-|:-----:	|:-------------:	|
-|   -1  	|     DEBUG     	|
-|   0   	|      INFO     	|
-|   1   	|      WARN     	|
-|   2   	|     ERROR     	|
-|   3   	|     DPanic    	|
-|   4   	|     Panic     	|
-|   5   	|     Fatal     	|
+| Value  | Logging Level |
+|:------:|:-------------:|
+|   -1   |     DEBUG     | 
+|    0   |     INFO      |
+|    1   |     WARN      |
+|    2   |     ERROR     |
+|    3   |     DPANIC    |
+|    4   |     PANIC     |
+|    5   |     FATAL     |
 
 ## Pods are stuck at Pending state
 
