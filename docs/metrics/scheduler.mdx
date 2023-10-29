@@ -84,7 +84,7 @@ This metric includes latencies, such as `Node sorting`, `Trynode` and `Trypreemp
 
 **Subsystem**: `scheduler`
 
-```
+```json
 yunikorn_scheduler_scheduling_latency_milliseconds_bucket{le="0.0001"} 0
 yunikorn_scheduler_scheduling_latency_milliseconds_bucket{le="0.001"} 0
 yunikorn_scheduler_scheduling_latency_milliseconds_bucket{le="0.01"} 0
@@ -117,53 +117,47 @@ Latencies including `node sorting`, `application sorting` and `queue sorting`, i
   ]}>
 <TabItem value="app_sorting">
 
-```json
-/*
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.0001"} 5
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.001"} 6
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.01"} 6
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.1"} 6
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="1"} 6
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="10"} 6
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="+Inf"} 6
-yunikorn_scheduler_node_sorting_latency_milliseconds_sum{level="app"} 0.00026345400000000004
-yunikorn_scheduler_node_sorting_latency_milliseconds_count{level="app"} 6
-*/
-```
+  ```json
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.0001"} 5
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.001"} 6
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.01"} 6
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="0.1"} 6
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="1"} 6
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="10"} 6
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="app",le="+Inf"} 6
+  yunikorn_scheduler_node_sorting_latency_milliseconds_sum{level="app"} 0.00026345400000000004
+  yunikorn_scheduler_node_sorting_latency_milliseconds_count{level="app"} 6
+  ```
 
 </TabItem>
 <TabItem value="node_sorting">
 
-```json
-/*
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.0001"} 3
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.001"} 3
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.01"} 3
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.1"} 3
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="1"} 3
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="10"} 3
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="+Inf"} 3
-yunikorn_scheduler_node_sorting_latency_milliseconds_sum{level="node"} 2.5013999999999998e-05
-yunikorn_scheduler_node_sorting_latency_milliseconds_count{level="node"} 3
-*/
-```
+  ```json
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.0001"} 3
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.001"} 3
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.01"} 3
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="0.1"} 3
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="1"} 3
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="10"} 3
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="node",le="+Inf"} 3
+  yunikorn_scheduler_node_sorting_latency_milliseconds_sum{level="node"} 2.5013999999999998e-05
+  yunikorn_scheduler_node_sorting_latency_milliseconds_count{level="node"} 3
+  ```
 
 </TabItem>
 <TabItem value="queue_sorting">
 
-```json
-/*
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.0001"} 9
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.001"} 9
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.01"} 9
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.1"} 9
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="1"} 9
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="10"} 9
-yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="+Inf"} 9
-yunikorn_scheduler_node_sorting_latency_milliseconds_sum{level="queue"} 4.0093e-05
-yunikorn_scheduler_node_sorting_latency_milliseconds_count{level="queue"} 9
-*/
-```
+  ```json
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.0001"} 9
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.001"} 9
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.01"} 9
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="0.1"} 9
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="1"} 9
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="10"} 9
+  yunikorn_scheduler_node_sorting_latency_milliseconds_bucket{level="queue",le="+Inf"} 9
+  yunikorn_scheduler_node_sorting_latency_milliseconds_sum{level="queue"} 4.0093e-05
+  yunikorn_scheduler_node_sorting_latency_milliseconds_count{level="queue"} 9
+  ```
 
 </TabItem>
 </Tabs>
@@ -179,7 +173,7 @@ Latency of node condition checks for container allocations, such as placement co
 
 **Subsystem**: `scheduler`
 
-```
+```json
 yunikorn_scheduler_trynode_latency_milliseconds_bucket{le="0.0001"} 0
 yunikorn_scheduler_trynode_latency_milliseconds_bucket{le="0.001"} 0
 yunikorn_scheduler_trynode_latency_milliseconds_bucket{le="0.01"} 0
@@ -201,7 +195,8 @@ Latency of preemption condition checks for container allocations, in millisecond
 **Namespace**: `yunikorn`
 
 **Subsystem**: `scheduler`
-```
+
+```json
 yunikorn_scheduler_trypreemption_latency_milliseconds_bucket{le="0.0001"} 0
 yunikorn_scheduler_trypreemption_latency_milliseconds_bucket{le="0.001"} 0
 yunikorn_scheduler_trypreemption_latency_milliseconds_bucket{le="0.01"} 0
@@ -249,78 +244,70 @@ Total resource usage of node, by resource name.
   ]}>
 <TabItem value="ephemeral_storage">
 
-```json
-yunikorn_scheduler_ephemeral_storage_node_usage_total
-/*
-yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(10%, 20%]"} 0
-yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(20%,30%]"} 0
-yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(30%,40%]"} 0
-yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(40%,50%]"} 0
-yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(50%,60%]"} 0
-yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(60%,70%]"} 0
-yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(70%,80%]"} 0
-yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(80%,90%]"} 0
-yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(90%,100%]"} 0
-yunikorn_scheduler_ephemeral_storage_node_usage_total{range="[0,10%]"} 1
-*/
-```
+  ```json
+  yunikorn_scheduler_ephemeral_storage_node_usage_total
+  yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(10%, 20%]"} 0
+  yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(20%,30%]"} 0
+  yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(30%,40%]"} 0
+  yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(40%,50%]"} 0
+  yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(50%,60%]"} 0
+  yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(60%,70%]"} 0
+  yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(70%,80%]"} 0
+  yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(80%,90%]"} 0
+  yunikorn_scheduler_ephemeral_storage_node_usage_total{range="(90%,100%]"} 0
+  yunikorn_scheduler_ephemeral_storage_node_usage_total{range="[0,10%]"} 1
+  ```
 
 </TabItem>
 <TabItem value="memory">
 
-```json
-yunikorn_scheduler_memory_node_usage_total
-/*
-yunikorn_scheduler_memory_node_usage_total{range="(10%, 20%]"} 0
-yunikorn_scheduler_memory_node_usage_total{range="(20%,30%]"} 0
-yunikorn_scheduler_memory_node_usage_total{range="(30%,40%]"} 0
-yunikorn_scheduler_memory_node_usage_total{range="(40%,50%]"} 0
-yunikorn_scheduler_memory_node_usage_total{range="(50%,60%]"} 0
-yunikorn_scheduler_memory_node_usage_total{range="(60%,70%]"} 0
-yunikorn_scheduler_memory_node_usage_total{range="(70%,80%]"} 0
-yunikorn_scheduler_memory_node_usage_total{range="(80%,90%]"} 0
-yunikorn_scheduler_memory_node_usage_total{range="(90%,100%]"} 0
-yunikorn_scheduler_memory_node_usage_total{range="[0,10%]"} 1
-*/
-```
+  ```json
+  yunikorn_scheduler_memory_node_usage_total
+  yunikorn_scheduler_memory_node_usage_total{range="(10%, 20%]"} 0
+  yunikorn_scheduler_memory_node_usage_total{range="(20%,30%]"} 0
+  yunikorn_scheduler_memory_node_usage_total{range="(30%,40%]"} 0
+  yunikorn_scheduler_memory_node_usage_total{range="(40%,50%]"} 0
+  yunikorn_scheduler_memory_node_usage_total{range="(50%,60%]"} 0
+  yunikorn_scheduler_memory_node_usage_total{range="(60%,70%]"} 0
+  yunikorn_scheduler_memory_node_usage_total{range="(70%,80%]"} 0
+  yunikorn_scheduler_memory_node_usage_total{range="(80%,90%]"} 0
+  yunikorn_scheduler_memory_node_usage_total{range="(90%,100%]"} 0
+  yunikorn_scheduler_memory_node_usage_total{range="[0,10%]"} 1
+  ```
 
 </TabItem>
 <TabItem value="pods">
 
-```json
-yunikorn_scheduler_pods_node_usage_total
-/*
-yunikorn_scheduler_pods_node_usage_total{range="(10%, 20%]"} 0
-yunikorn_scheduler_pods_node_usage_total{range="(20%,30%]"} 0
-yunikorn_scheduler_pods_node_usage_total{range="(30%,40%]"} 0
-yunikorn_scheduler_pods_node_usage_total{range="(40%,50%]"} 0
-yunikorn_scheduler_pods_node_usage_total{range="(50%,60%]"} 0
-yunikorn_scheduler_pods_node_usage_total{range="(60%,70%]"} 0
-yunikorn_scheduler_pods_node_usage_total{range="(70%,80%]"} 0
-yunikorn_scheduler_pods_node_usage_total{range="(80%,90%]"} 0
-yunikorn_scheduler_pods_node_usage_total{range="(90%,100%]"} 0
-yunikorn_scheduler_pods_node_usage_total{range="[0,10%]"} 1
-*/
-```
+  ```json
+  yunikorn_scheduler_pods_node_usage_total
+  yunikorn_scheduler_pods_node_usage_total{range="(10%, 20%]"} 0
+  yunikorn_scheduler_pods_node_usage_total{range="(20%,30%]"} 0
+  yunikorn_scheduler_pods_node_usage_total{range="(30%,40%]"} 0
+  yunikorn_scheduler_pods_node_usage_total{range="(40%,50%]"} 0
+  yunikorn_scheduler_pods_node_usage_total{range="(50%,60%]"} 0
+  yunikorn_scheduler_pods_node_usage_total{range="(60%,70%]"} 0
+  yunikorn_scheduler_pods_node_usage_total{range="(70%,80%]"} 0
+  yunikorn_scheduler_pods_node_usage_total{range="(80%,90%]"} 0
+  yunikorn_scheduler_pods_node_usage_total{range="(90%,100%]"} 0
+  yunikorn_scheduler_pods_node_usage_total{range="[0,10%]"} 1
+  ```
 
 </TabItem>
 <TabItem value="vcore">
 
-```json
-yunikorn_scheduler_vcore_node_usage_total
-/*
-yunikorn_scheduler_vcore_node_usage_total{range="(10%, 20%]"} 0
-yunikorn_scheduler_vcore_node_usage_total{range="(20%,30%]"} 0
-yunikorn_scheduler_vcore_node_usage_total{range="(30%,40%]"} 0
-yunikorn_scheduler_vcore_node_usage_total{range="(40%,50%]"} 0
-yunikorn_scheduler_vcore_node_usage_total{range="(50%,60%]"} 0
-yunikorn_scheduler_vcore_node_usage_total{range="(60%,70%]"} 0
-yunikorn_scheduler_vcore_node_usage_total{range="(70%,80%]"} 0
-yunikorn_scheduler_vcore_node_usage_total{range="(80%,90%]"} 0
-yunikorn_scheduler_vcore_node_usage_total{range="(90%,100%]"} 0
-yunikorn_scheduler_vcore_node_usage_total{range="[0,10%]"} 1
-*/
-```
+  ```json
+  yunikorn_scheduler_vcore_node_usage_total
+  yunikorn_scheduler_vcore_node_usage_total{range="(10%, 20%]"} 0
+  yunikorn_scheduler_vcore_node_usage_total{range="(20%,30%]"} 0
+  yunikorn_scheduler_vcore_node_usage_total{range="(30%,40%]"} 0
+  yunikorn_scheduler_vcore_node_usage_total{range="(40%,50%]"} 0
+  yunikorn_scheduler_vcore_node_usage_total{range="(50%,60%]"} 0
+  yunikorn_scheduler_vcore_node_usage_total{range="(60%,70%]"} 0
+  yunikorn_scheduler_vcore_node_usage_total{range="(70%,80%]"} 0
+  yunikorn_scheduler_vcore_node_usage_total{range="(80%,90%]"} 0
+  yunikorn_scheduler_vcore_node_usage_total{range="(90%,100%]"} 0
+  yunikorn_scheduler_vcore_node_usage_total{range="[0,10%]"} 1
+  ```
   
 </TabItem>
 </Tabs>

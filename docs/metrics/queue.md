@@ -36,7 +36,7 @@ These application states include `running`, `accepted`, `rejected`, `failed` and
 
 **TYPE**: `yunikorn_<queue name>_queue_app`
 
-```
+```json
 yunikorn_root_default_queue_app{state="accepted"} 3
 yunikorn_root_default_queue_app{state="running"} 3
 ```
@@ -53,7 +53,7 @@ These resource states include `guaranteed`, `max`, `allocated`, `pending`, `pree
 
 **TYPE**: `yunikorn_<queue name>_queue_resource`
 
-```
+```json
 yunikorn_root_queue_resource{resource="ephemeral-storage",state="max"} 9.41009558e+10
 yunikorn_root_queue_resource{resource="hugepages-1Gi",state="max"} 0
 yunikorn_root_queue_resource{resource="hugepages-2Mi",state="max"} 0
