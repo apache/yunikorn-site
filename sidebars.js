@@ -57,7 +57,7 @@ module.exports = {
             },
             {
                 type: 'category',
-                label: 'Metrics',
+                label: 'Metrics for Prometheus',
                 items: [
                     'metrics/scheduler',
                     'metrics/runtime',
