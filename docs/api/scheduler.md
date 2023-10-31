@@ -165,33 +165,33 @@ to the client.
 There are currently 2 applications, with 2 pods assigned to each application.
 
 <details>
-  <summary>Fields of the queue info</summary>
-  <div>
+<summary>Fields of the queue info</summary>
+<div>
 The response json is based on the queue info.
 
-In the response, certain fields of the queue information will be omitted if their values are empty.
+In the json response, certain fields of the queue information will be omitted if their values are empty.
 
-| Field                  | Type              | omitted if empty | Description                                                                                                                |
-|------------------------|-------------------|:-----------------|----------------------------------------------------------------------------------------------------------------------------|
-| QueueName              | string            | false            | Name of the queue.                                                                                                         |    
-| Status                 | string            | true             | The status of the queue, could be `Draining`, `Active` or `Stopped`.                                                       |
-| Partition              | string            | false            | The name of the partition.                                                                                                 |
-| PendingResource        | map[string]int64  | true             | Collections of pending resources.                                                                                          |
-| MaxResource            | map[string]int64  | true             | Collections of max resources.                                                                                              |
-| GuaranteedResource     | map[string]int64  | true             | Collections of guaranteed resources.                                                                                       |
-| AllocatedResource      | map[string]int64  | true             | Collections of allocated resources.                                                                                        |
-| PreemptingResource     | map[string]int64  | true             | Collections of preempting resources.                                                                                       |
-| IsLeaf                 | bool              | false            | True if the queue is a leaf queue.                                                                                         |
-| IsManaged              | bool              | false            | True if the queue is part of the config, not auto created.                                                                 |
-| Properties             | map[string]string | true             | A map from the property key to the value.                                                                                  |
-| Parent                 | string            | true             | The parent of this queue.                                                                                                  |
-| TemplateInfo           | *TemplateInfo     | true             | The child template of this queue. Define the behaviour of dynamic leaf queues. It will be named as `template` in response. |
-| Children               | []QueueInfo       | true             | Collections of the children.                                                                                               |
-| AbsUsedCapacity        | map[string]int64  | true             | Collections of the absolute used resources as a percentage.                                                                |
-| MaxRunningApps         | uint64            | true             | A number of the max running applications of this queue.                                                                    |
-| RunningApps            | uint64            | true             | A number of the current running applications of this queue.                                                                |
-| CurrentPriority        | int32             | true             | A number of the priority, higher priority has higher value.                                                                |
-| AllocatingAcceptedApps | []string          | true             | Collections of the allocating accepted applications name.                                                                  |
+| Field                  | Type     | omitted if empty | Description                                                                                                                |
+|------------------------|----------|:-----------------|----------------------------------------------------------------------------------------------------------------------------|
+| QueueName              | string   | false            | Name of the queue.                                                                                                         |    
+| Status                 | string   | true             | The status of the queue, could be `Draining`, `Active` or `Stopped`.                                                       |
+| Partition              | string   | false            | The name of the partition.                                                                                                 |
+| PendingResource        | object   | true             | Collections of pending resources.                                                                                          |
+| MaxResource            | object   | true             | Collections of max resources.                                                                                              |
+| GuaranteedResource     | object   | true             | Collections of guaranteed resources.                                                                                       |
+| AllocatedResource      | object   | true             | Collections of allocated resources.                                                                                        |
+| PreemptingResource     | object   | true             | Collections of preempting resources.                                                                                       |
+| IsLeaf                 | boolean  | false            | True if the queue is a leaf queue.                                                                                         |
+| IsManaged              | boolean  | false            | True if the queue is part of the config, not auto created.                                                                 |
+| Properties             | object   | true             | A map from the property key to the value.                                                                                  |
+| Parent                 | string   | true             | The parent of this queue.                                                                                                  |
+| TemplateInfo           | object   | true             | The child template of this queue. Define the behaviour of dynamic leaf queues. It will be named as `template` in response. |
+| Children               | object[] | true             | Collections of the children.                                                                                               |
+| AbsUsedCapacity        | object   | true             | Collections of the absolute used resources as a percentage.                                                                |
+| MaxRunningApps         | number   | true             | A number of the max running applications of this queue.                                                                    |
+| RunningApps            | number   | true             | A number of the current running applications of this queue.                                                                |
+| CurrentPriority        | number   | true             | A number of the priority, higher priority has higher value.                                                                |
+| AllocatingAcceptedApps | string[] | true             | Collections of the allocating accepted applications name.                                                                  |
 </div>
 </details>
 
