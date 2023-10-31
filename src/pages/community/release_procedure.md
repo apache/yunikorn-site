@@ -463,6 +463,20 @@ Links for the releases have to follow these rules:
 A limited set of three (3) or four (4) releases should be maintained in the table for direct access.
 Older releases not mentioned in the table can still be accessed via the archive link on the bottom of the page and do not need to be referenced.
 
+### Update the DOAP file
+A [DOAP file](https://github.com/apache/yunikorn-site/blob/master/doap_YuniKorn.rdf) containing project details has to be maintained.
+Update the DOAP file with the release version and release date.
+
+```xml
+<release>
+  <Version>
+    <name>YuniKorn x.y.z</name>
+    <created>YYYY-MM-DD</created>
+    <revision>x.y.z</revision>
+  </Version>
+</release>
+```
+
 ## Signing your first release
 If you haven't signed any releases before, read the documentation to [generate signing key](https://infra.apache.org/openpgp.html#generate-key)
 Follow the steps below to add the key you can use to sign.
