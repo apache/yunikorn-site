@@ -31,6 +31,9 @@ Many of these APIs return collections of resources. Internally, all resources ar
 are returned in units of bytes while resources of type `vcore` are returned in units of millicores
 (thousands of a core). All other resource types have no specific unit assigned.
 
+Additionally, it should be note that in the JSON response bodies, some fields may be omitted if their values are empty. Specifically, if a field is not present in the response, it can be assumed that the value is empty/null.
+
+
 Under the `allocations` field in the response content for the app/node-related calls in the following spec, `placeholderUsed` refers to whether or not the allocation is a replacement for a placeholder. If true, `requestTime` is the creation time of its placeholder allocation, otherwise it's that of the allocation's ask. `allocationTime` is the creation time of the allocation, and `allocationDelay` is simply the difference between `allocationTime` and `requestTime`.
 
 ## Partitions
@@ -169,29 +172,27 @@ There are currently 2 applications, with 2 pods assigned to each application.
 <div>
 The response json is based on the queue info.
 
-In the json response, certain fields of the queue information will be omitted if their values are empty.
-
-| Field                  | Type     | omitted if empty | Description                                                                                                                |
-|------------------------|----------|:-----------------|----------------------------------------------------------------------------------------------------------------------------|
-| QueueName              | string   | false            | Name of the queue.                                                                                                         |    
-| Status                 | string   | true             | The status of the queue, could be `Draining`, `Active` or `Stopped`.                                                       |
-| Partition              | string   | false            | The name of the partition.                                                                                                 |
-| PendingResource        | object   | true             | Collections of pending resources.                                                                                          |
-| MaxResource            | object   | true             | Collections of max resources.                                                                                              |
-| GuaranteedResource     | object   | true             | Collections of guaranteed resources.                                                                                       |
-| AllocatedResource      | object   | true             | Collections of allocated resources.                                                                                        |
-| PreemptingResource     | object   | true             | Collections of preempting resources.                                                                                       |
-| IsLeaf                 | boolean  | false            | True if the queue is a leaf queue.                                                                                         |
-| IsManaged              | boolean  | false            | True if the queue is part of the config, not auto created.                                                                 |
-| Properties             | object   | true             | A map from the property key to the value.                                                                                  |
-| Parent                 | string   | true             | The parent of this queue.                                                                                                  |
-| TemplateInfo           | object   | true             | The child template of this queue. Define the behaviour of dynamic leaf queues. It will be named as `template` in response. |
-| Children               | object[] | true             | Collections of the children.                                                                                               |
-| AbsUsedCapacity        | object   | true             | Collections of the absolute used resources as a percentage.                                                                |
-| MaxRunningApps         | number   | true             | A number of the max running applications of this queue.                                                                    |
-| RunningApps            | number   | true             | A number of the current running applications of this queue.                                                                |
-| CurrentPriority        | number   | true             | A number of the priority, higher priority has higher value.                                                                |
-| AllocatingAcceptedApps | string[] | true             | Collections of the allocating accepted applications name.                                                                  |
+| Field                  | Type     | Description                                                                                                                |
+|------------------------|----------|----------------------------------------------------------------------------------------------------------------------------|
+| QueueName              | string   | Name of the queue.                                                                                                         |    
+| Status                 | string   | The status of the queue, could be `Draining`, `Active` or `Stopped`.                                                       |
+| Partition              | string   | The name of the partition.                                                                                                 |
+| PendingResource        | object   | Collections of pending resources.                                                                                          |
+| MaxResource            | object   | Collections of max resources.                                                                                              |
+| GuaranteedResource     | object   | Collections of guaranteed resources.                                                                                       |
+| AllocatedResource      | object   | Collections of allocated resources.                                                                                        |
+| PreemptingResource     | object   | Collections of preempting resources.                                                                                       |
+| IsLeaf                 | boolean  | True if the queue is a leaf queue.                                                                                         |
+| IsManaged              | boolean  | True if the queue is part of the config, not auto created.                                                                 |
+| Properties             | object   | A map from the property key to the value.                                                                                  |
+| Parent                 | string   | The parent of this queue.                                                                                                  |
+| TemplateInfo           | object   | The child template of this queue. Define the behaviour of dynamic leaf queues. It will be named as `template` in response. |
+| Children               | object[] | Collections of the children.                                                                                               |
+| AbsUsedCapacity        | object   | Collections of the absolute used resources as a percentage.                                                                |
+| MaxRunningApps         | number   | A number of the max running applications of this queue.                                                                    |
+| RunningApps            | number   | A number of the current running applications of this queue.                                                                |
+| CurrentPriority        | number   | A number of the priority, higher priority has higher value.                                                                |
+| AllocatingAcceptedApps | string[] | Collections of the allocating accepted applications name.                                                                  |
 </div>
 </details>
 
