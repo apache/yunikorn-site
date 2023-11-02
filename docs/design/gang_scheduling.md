@@ -246,7 +246,7 @@ The state change and placeholder allocation releases can be handled in a single 
 *   one or more _AllocationRelease_ messages, one for each placeholder, with the  _TerminationType_ set to TIMEOUT
 *   one or more AllocationAskRelease messages with the _TerminationType_ set to TIMEOUT
 
-The shim processes the AllocationAskRelease messages first, followed by the _AllocationResponse_ messages, and finally the _UpdatedApplication_ message. The application state change to the _killed_ state on the core side is only dependent on the removal of all placeholders pods, not on a response to the _UpdatedApplication _message.
+The shim processes the AllocationAskRelease messages first, followed by the _AllocationResponse_ messages, and finally the _UpdatedApplication_ message. The application state change to the _killed_ state on the core side is only dependent on the removal of all placeholders pods, not on a response to the _UpdatedApplication_ message.
 
 ![placeholder timeout](./../assets/gang_timeout.png)
 
@@ -271,7 +271,7 @@ The message will have the following content:
 *   zero or more _AllocationRelease_ messages, one for each placeholder, with the  _TerminationType_ set to TIMEOUT
 
 The shim processes the _AllocationResponse_ messages first followed by the _UpdatedApplication_ message.
-The application state change to the _completed_ state on the core side is only dependent on the removal of all placeholders pods, not on a response to the _UpdatedApplication _message.
+The application state change to the _completed_ state on the core side is only dependent on the removal of all placeholders pods, not on a response to the _UpdatedApplication_ message.
 
 Entering into the _completed_ state will move the application out of the queue automatically.
 This should also handle the case we discussed earlier around a possible delayed processing of requests from the shim as we can move back from _waiting_ to _running_ if needed.
@@ -456,7 +456,7 @@ Confirmation behaviour of the action should be triggered on the type of terminat
 The core will confirm the release to the shim of all types that originate in the shim and vice versa.
 
 A confirmation or response uses the same _TerminationType_ as was set in the original message.
-An example of this is a pod that is removed from K8s will trigger an _AllocationRelease _message to be sent from the shim to the core with the TerminationType STOPPED_BY_RM. The core processes the request removing the allocation from the internal structures, and when all processing is done it responds to the shim with a message using the same _TerminationType_.
+An example of this is a pod that is removed from K8s will trigger an _AllocationRelease_ message to be sent from the shim to the core with the TerminationType STOPPED_BY_RM. The core processes the request removing the allocation from the internal structures, and when all processing is done it responds to the shim with a message using the same _TerminationType_.
 The shim can ignore that or make follow up changes if needed.
 
 A similar process happens for a release that originates in the core.
