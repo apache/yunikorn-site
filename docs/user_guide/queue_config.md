@@ -65,22 +65,26 @@ Optionally the following keys can be defined for a partition:
 * [statedumpfilepath](#statedump-filepath) (deprecated since v1.2.0)
 * [limits](#limits)
 * nodesortpolicy
-* preemption (deprecated since v1.3.0)
+* preemption
 
 Placement rules and limits are explained in their own chapters
 
 The `nodesortpolicy` key defines the way the nodes are sorted for the partition.
 Details on the values that can be used are in the [sorting policy](sorting_policies.md#node-sorting) documentation.
 
-The `preemption` key can have only one sub key: _enabled_. NOTE: This property
-has been deprecated since v1.3.0 and will be ignored. Preemption policies are
-now configured per-queue.
+The `preemption` key can have only one sub key: _enabled_.
+This boolean value defines the preemption behavior for the whole partition.
 
-Example `partition` yaml entry with a `nodesortpolicy` of _fair_:
+The default value for _enabled_ is _true_.
+Allowed values: _true_ or _false_, any other value will cause a parse error.
+
+Example `partition` yaml entry with a `nodesortpolicy` of _fair_ and preemption disabled:
 ```yaml
 partitions:
   - name: <name of the partition>
     nodesortpolicy: fair
+    preemption:
+      enabled: false
 ```
 NOTE:
 Currently the Kubernetes unique shim does not support any other partition than the `default` partition..
