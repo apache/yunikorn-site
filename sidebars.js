@@ -56,6 +56,15 @@ module.exports = {
                     'api/system'
                 ]
             },
+            {
+                type: 'category',
+                label: 'Metrics for Prometheus',
+                items: [
+                    'metrics/scheduler',
+                    'metrics/runtime',
+                    'metrics/queue',
+                ]
+            },
             'user_guide/troubleshooting'
         ],
         'Developer Guide': [
