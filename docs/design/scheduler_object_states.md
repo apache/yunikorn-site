@@ -60,11 +60,10 @@ This is a final state and after this state the application cannot be tracked any
 * Failing: An application marked for failing, what still has some allocations or asks what needs to be cleaned up before entering into the Failed state. 
   The application can be Failing when the partition it belongs to is removed or during gang scheduling, if the placeholder processing times out, and the application has no real allocations yet.
 * Failed: An application is considered failed when it was marked for failure and all the pending requests and allocations were already removed.
-This is a final state. The application cannot change state after entering.
+From this state the application can only move to the Expired state.
 * Rejected: The application was rejected when it was added to the scheduler. 
 This only happens when a resource manager tries to add a new application, when it gets created in a New state, and the scheduler rejects the creation.
-Applications can be rejected due ACLs denying access to a queue the application has specified, or a placement via placement rules has failed. 
-This is a final state. The application cannot change state after entering.
+Applications can be rejected due ACLs denying access to a queue the application has specified, or a placement via placement rules has failed. From this state the application can only move to the Expired state.
 
 The events that can trigger a state change:
 * Reject: rejecting the application by the scheduler (source: core scheduler)
