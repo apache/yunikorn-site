@@ -26,10 +26,10 @@ under the License.
 -->
 
 ## Yunikorn with NVIDIA GPUs
-This guide gives an overview of how to set up NVIDIA Device Plugin which enable user to run GPUs with Yunikorn, for more details please check [**Kubernetes with GPUs**](https://docs.nvidia.com/datacenter/cloud-native/kubernetes/install-k8s.html#option-2-installing-kubernetes-using-kubeadm).
+This guide gives an overview of how to set up NVIDIA Device Plugin which enable user to run GPUs with Yunikorn, for more details please check [**NVIDIA device plugin for Kubernetes**](https://github.com/NVIDIA/k8s-device-plugin#nvidia-device-plugin-for-kubernetes).
 
 ### Prerequisite
-Before following the steps below, Yunikorn need to deploy on the [**Kubernetes with GPUs**](https://docs.nvidia.com/datacenter/cloud-native/kubernetes/install-k8s.html#install-kubernetes).
+Before following the steps below, Yunikorn need to deploy on the Kubernetes with GPUs.
 
 ### Install NVIDIA Device Plugin
 Add the nvidia-device-plugin helm repository.
@@ -42,14 +42,17 @@ helm repo list
 Verify the latest release version of the plugin is available.
 ```
 helm search repo nvdp --devel
-NAME                     	  CHART VERSION  APP VERSION	   DESCRIPTION
-nvdp/nvidia-device-plugin	  0.12.3         0.12.3         A Helm chart for ...
+NAME                     	  CHART VERSION  APP VERSION	 DESCRIPTION
+nvdp/nvidia-device-plugin	  0.14.1         0.14.1          A Helm chart for ...
 ```
 
 Deploy the device plugin
 ```
 kubectl create namespace nvidia
-helm install --generate-name nvdp/nvidia-device-plugin --namespace nvidia --version 0.12.3
+helm install nvidia-device-plugin nvdp/nvidia-device-plugin \
+  --namespace nvidia \
+  --create-namespace \
+  --version 0.14.1
 ```
 
 Check the status of the pods to ensure NVIDIA device plugin is running
@@ -65,25 +68,29 @@ kube-system    kube-apiserver-katlantyss-nzxt            1/1     Running   4 (11
 kube-system    kube-controller-manager-katlantyss-nzxt   1/1     Running   3 (11h ago)   11h
 kube-system    kube-proxy-4wz7r                          1/1     Running   1 (11h ago)   11h
 kube-system    kube-scheduler-katlantyss-nzxt            1/1     Running   4 (11h ago)   11h
-kube-system    nvidia-device-plugin-1659451060-c92sb     1/1     Running   1 (11h ago)   11h
+nvidia         nvidia-device-plugin-1659451060-c92sb     1/1     Running   1 (11h ago)   11h
 ```
 
 ### Testing NVIDIA Device Plugin
 Create a gpu test yaml file.
-```
+```yaml
 # gpu-pod.yaml
-	apiVersion: v1
-	kind: Pod
-	metadata:
-	  name: gpu-operator-test
-	spec:
-	  restartPolicy: OnFailure
-	  containers:
-	  - name: cuda-vector-add
-	    image: "nvidia/samples:vectoradd-cuda10.2"
-	    resources:
-	      limits:
-	         nvidia.com/gpu: 1
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu-pod
+spec:
+  restartPolicy: Never
+  containers:
+    - name: cuda-container
+      image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.7.1-ubi8
+      resources:
+        limits:
+          nvidia.com/gpu: 1 #requesting 1 GPU
+  tolerations:
+  - key: nvidia.com/gpu
+    operator: Exists
+    effect: NoSchedule
 ```
 Deploy the application.
 ```
@@ -91,14 +98,14 @@ kubectl apply -f gpu-pod.yaml
 ```
 Check the logs to ensure the app completed successfully.
 ```
-kubectl get pods gpu-operator-test
+kubectl get pod gpu-pod
 
 NAME                READY   STATUS      RESTARTS   AGE
-gpu-operator-test   0/1     Completed   0          9d
+gpu-pod   0/1     Completed   0          9d
 ```
 Check the result.
 ```
-kubectl logs gpu-operator-test
+kubectl logs gpu-pod
 	
 [Vector addition of 50000 elements]
 Copy input data from the host memory to the CUDA device
