@@ -89,7 +89,6 @@ module.exports = {
                     'design/preemption',
                     'design/simple_preemptor',
                     'design/generic_resource',
-                    'design/pluggable_app_management',
                     'design/priority_scheduling',
                     'design/resilience',
                     'design/state_aware_scheduling',
@@ -107,6 +106,7 @@ module.exports = {
                     'archived_design/predicates',
                     'archived_design/scheduler_core_design',
                     'archived_design/cross_queue_preemption',
+                    'archived_design/pluggable_app_management',
                 ]                
             },
         ],

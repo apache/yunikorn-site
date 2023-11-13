@@ -400,7 +400,7 @@ or via the Helm `yunikornDefaults` section:
 
 | Deprecated setting                     | ConfigMap replacement                           |
 |----------------------------------------|-------------------------------------------------|
-| operatorPlugins                        | service.operatorPlugins                         |
+| operatorPlugins                        | -                                               |
 | placeHolderImage                       | service.placeholderImage                        |
 | admissionController: processNamespaces | admissionController.filtering.processNamespaces |
 | admissionController: bypassNamespaces  | admissionController.filtering.bypassNamespaces  |
@@ -432,7 +432,6 @@ Replacement example:
 ```yaml
 yunikornDefaults:
   service.policyGroup: queues
-  service.operatorPlugins: general
   service.placeholderImage: registry.k8s.io/pause:3.7
   admissionController.filtering.processNamespaces: "^spark-,^mpi-"
   admissionController.filtering.bypassNamespaces: "^kube-system$"
@@ -485,7 +484,6 @@ data:
   service.volumeBindTimeout: "10s"
   service.eventChannelCapacity: "1048576"
   service.dispatchTimeout: "5m"
-  service.operatorPlugins: "general"
   service.disableGangScheduling: "false"
   service.enableConfigHotRefresh: "true"
   service.placeholderImage: "registry.k8s.io/pause:3.7"
@@ -604,19 +602,6 @@ Example:
 ```yaml
 service.dispatchTimeout: "10m"
 ```
-#### service.operatorPlugins
-Controls the set of operator plugins which are enabled within YuniKorn.
-Currently, only the `general`, `spark-k8s-operator`, and `yunikorn-app`
-plugins are implemented. The `general` plugin should not be disabled.
-
-A change to this setting requires a restart of YuniKorn to take effect.
-
-Default: `general`
-
-Example:
-```yaml
-service.operatorPlugins: "general,spark-k8s-operator"
-```
 #### service.disableGangScheduling
 Allows global disabling of the gang scheduling feature (not recommended).
 
@@ -734,7 +719,6 @@ The `log.level` is the default log level for all loggers.
 log.level: "INFO"
 log.admission.level: "DEBUG"
 log.core.config.level: "INFO"
-log.shim.appmgmt.sparkoperator.level: "ERROR"
 ```
 
 ### Kubernetes settings
@@ -991,6 +975,27 @@ Example:
 ```yaml
 # allow 'sales', 'marketing', and 'admin-*'
 admissionController.accessControl.externalGroups: "^sales$,^marketing$,^admin-"
+```
+
+### Deprecated settings
+
+#### service.operatorPlugins
+
+**_DEPRECATED in 1.4.0:_** No replacement
+
+Controls the set of operator plugins which are enabled within YuniKorn.
+Currently, only the `general` plugin is implemented, and the plugin
+functionality will be removed entirely in a future release.  The `general`
+plugin should not be disabled as it is critical to the proper operation of
+YuniKorn.
+
+A change to this setting requires a restart of YuniKorn to take effect.
+
+Default: `general`
+
+Example:
+```yaml
+service.operatorPlugins: "general"
 ```
 
 [^1]: Available log subsystem values:
