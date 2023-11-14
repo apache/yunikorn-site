@@ -148,12 +148,12 @@ Additionally, there are two additional auxiliary repositories:
 #### Affected repositories
 The following dependencies exist between the repositories:
 
-| Repository| Depends on |
-| --- | --- |
-| yunikorn-core | yunikorn-scheduler-interface | 
-| yunikorn-k8shim | yunikorn-scheduler-interface, yunikorn-core |
-| yunikorn-scheduler-interface | none |
-| yunikorn-web | none |
+| Repository                   | Depends on                                  |
+|------------------------------|---------------------------------------------|
+| yunikorn-core                | yunikorn-scheduler-interface                | 
+| yunikorn-k8shim              | yunikorn-scheduler-interface, yunikorn-core |
+| yunikorn-scheduler-interface | none                                        |
+| yunikorn-web                 | none                                        |
 
 The `yunikorn-web` repository has no direct go dependency on the other
 repositories. However any change to the `yunikorn-core` web services can affect
