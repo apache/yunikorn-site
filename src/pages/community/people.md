@@ -50,16 +50,17 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 | Luciano Resende         | lresende    | Apple        | -8                  |
 | Manikandan R            | mani        | Cloudera     | +5.5                |
 | Peter Bacsko            | pbacsko     | Cloudera     | +1                  |
+| Rainie Li               | rainieli    | Pinterest    | -8                  |
 | Subramaniam Krishnan    | subru       | Microsoft    | -8                  |
 | Sunil Govindan          | sunilg      | Cloudera     | -8                  |
 | Tao Yang                | taoyang     | Alibaba      | +8                  |
 | Tingyao Huang           | tingyao     | TrendMicro   | +8                  |
-| Yu Teng Chen            | yuteng      | NTCU         | +8                  |
 | Vinod Kumar Vavilapalli | vinodkv     | Cloudera     | +5.5                |
-| Wangda Tan              | wangda      | Snowflake    | -8                  |
+| Wangda Tan              | wangda      | Waii         | -8                  |
 | Wei-Chiu Chuang         | weichiu     | Cloudera     | -8                  |
 | Weiwei Yang             | wwei        | Apple        | -8                  |
 | Wilfred Spiegelenburg   | wilfreds    | Cloudera     | +11                 |
+| Yu Teng Chen            | yuteng      | NTCU         | +8                  |
 
 ## Committer
 
@@ -69,7 +70,8 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 |----------------|---------------|--------------|---------------------|
 | Chia-Ping Tsai | chia7712      | Is-Land      | +8                  |
 | Li Gao         | ligao         | Databricks   | -8                  |
-| Rainie Li      | rainieli      | Pinterest    | -8                  |
+| PoAn Yang      | payang        |              | +8                  |
+| Hsuan Zong Wu  | samhxwu       |              | +8                  |
 | Ted Lin        | steinsgateted | NCKU         | +8                  |
 | Qi Zhu         | zhuqi         | Cloudera     | +8                  |
 
