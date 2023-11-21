@@ -56,7 +56,7 @@ DaemonSet pod 的抢占已作为 [yunikorn-1085](https://issues.apache.org/jira/
 整个集群中，所有命名空间内的所有 Pod 都会根据优先级进行排序。
 相较于优先级低的 Pod，优先级高的 Pod 会先被进行调度。
 Kubernetes 调度程序中的抢占也仅基于这种优先级。
-完整的文档可以在[这里](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/)找到。
+完整的文档可以在[这里](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) 找到。
 
 关于调度顺序和抢占行为的基本原理是：具有较高优先级的 Pod 比具有较低优先级的 Pod 更重要。
 这个是跨命名空间的，且没有任何限制。
