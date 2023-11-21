@@ -22,6 +22,7 @@ module.exports = {
         ],
         'User Guide': [
             'user_guide/deployment_modes',
+            'user_guide/admission_controller',
             'user_guide/service_config',
             'user_guide/queue_config',
             'user_guide/placement_rules',
