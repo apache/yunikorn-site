@@ -147,7 +147,7 @@ the correct cluster. Without setting the environment minikube might not find
 the docker images when deploying the scheduler.
 
 1. Make sure minikube is started.
-2. In the terminal where you wll run the build, execute:
+2. In the terminal where you will run the build, execute:
    ```shell script
    eval $(minikube docker-env)
    ```
