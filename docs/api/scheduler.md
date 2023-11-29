@@ -1388,8 +1388,11 @@ Shows how nodes are distributed with regarding the utilization
       },
       {
         "bucketName": "10-20%",
-        "numOfNodes": 3,
-        "nodeNames": null
+        "numOfNodes": 2,
+        "nodeNames": [
+            "primary-node",
+            "second-node"
+        ]
       },
       ...  
     ]
