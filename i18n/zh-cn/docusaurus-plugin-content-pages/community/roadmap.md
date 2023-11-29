@@ -24,32 +24,31 @@ under the License.
 
 # Kubernetes 版本支持
 支持的 Kubernetes 版本和 Kubernetes 依赖项将在开发周期中进行选择和最终确定。
-随着 Kubernetes 依赖项更改计划作为该版本的主要功能之一，一些信息已经为人所知。
-有关初步详细信息，请参阅 YuniKorn 1.3 [发布公告](/release-announce/1.3.0)。
+目前的构建依赖版本: 1.27
 
 # 下一个发布研发内容
 发布详情：
-- 版本：1.4.0
-- 目标发布日期：2023 年 10 月/11 月
+- 版本：1.5.0
+- 目标发布日期：2024 年 2 月/3 月
 - 发布负责人：尚未决定
 - 开发状态：[问题跟踪器](https://issues.apache.org/jira/issues/?filter=12348416)
 
 计划的主要功能：
-- [YUNIKORN-1699](https://issues.apache.org/jira/browse/YUNIKORN-1699) K8s 1.27 支持，包括预先入队hook
-- [YUNIKORN-1573](https://issues.apache.org/jira/browse/YUNIKORN-1573) [Umbrella] 基于用户和群组的配额执行
-- [YUNIKORN-1628](https://issues.apache.org/jira/browse/YUNIKORN-1628) [Umbrella] 应用跟踪历史
-- [YUNIKORN-1777](https://issues.apache.org/jira/browse/YUNIKORN-1777) [Umbrella] 恢复和启动
-- [YUNIKORN-22](https://issues.apache.org/jira/browse/YUNIKORN-22) 节点的分区支持
-- [YUNIKORN-1728](https://issues.apache.org/jira/browse/YUNIKORN-1728) 队列最大应用量和资源的百分比支持
-
-- Web UI更改:
-  - [还没有jira] 显示抢占信息
-  - [还没有jira] 资源显示返工
-  - [YUNIKORN-1727](https://issues.apache.org/jira/browse/YUNIKORN-1727) 构建信息扩展
-  - [YUNIKORN-1362](https://issues.apache.org/jira/browse/YUNIKORN-1362) 在 UI 中过滤节点
+- [YUNIKORN-970](https://issues.apache.org/jira/browse/YUNIKORN-970) 将队列指标改为可标记的
+- [YUNIKORN-1544](https://issues.apache.org/jira/browse/YUNIKORN-1544) 使用者与群组配额实施 - 阶段 2
+- [YUNIKORN-2099](https://issues.apache.org/jira/browse/YUNIKORN-2099) [Umbrella] 简化 K8shim
+- [YUNIKORN-2115](https://issues.apache.org/jira/browse/YUNIKORN-2125) [Umbrella] 应用程式追踪历史 - 阶段 2
+- [YUNIKORN-1362](https://issues.apache.org/jira/browse/YUNIKORN-1362) UI 中的节点过滤
+- [YUNIKORN-1727](https://issues.apache.org/jira/browse/YUNIKORN-1727) 建置资讯扩展
+- [YUNIKORN-1922](https://issues.apache.org/jira/browse/YUNIKORN-1922) 在网页UI中显示待处理的资源
+- [YUNIKORN-2140](https://issues.apache.org/jira/browse/YUNIKORN-2140) Web UI: 资源显示重制
+- [no jira yet] 在 web UI 中显示抢占讯息
 
 # 未来发展：长期的目标
-- REST 和 Web UI：authn、authz和加密
-- 支持隊列型態雙向改變(从叶队列到父队列和从父队列到叶队列)
-- 将应用从一个队列移动到另一个队列
-- 压缩队列配置（configmap 1MB 限制）
+- [YUNIKORN-22](https://issues.apache.org/jira/browse/YUNIKORN-22) 支援节点分区
+- [YUNIKORN-1728](https://issues.apache.org/jira/browse/YUNIKORN-1728) 支持队列最大应用程式及资源百分比
+- 队列类型从叶节点变为父节点，反之亦然
+- 应用程式的队列间移动
+- 压缩队列配置 (configmap 1MB 限制)
+- 可重复的构建
+- FIPS 构建
