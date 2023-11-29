@@ -28,35 +28,36 @@ YuniKorn 社区是开放的、多样化的和协作的。
 
 ## PMC
 
-| 公开名称                    | ApacheID    | 组织          | 时区 <br/>(UTC) |
-|-------------------------|-------------|-------------|---------------|
-| Akhil PB                | akhilpb     | Cloudera    | +5.5          |
-| Arun Suresh             | asuresh     | Oracle      | -8            |
-| Carlo Curino            | curino      | Microsoft   | -8            |
-| Chaoran Yu              | yuchaoran   | Apple       | -8            |
-| Chenya Zhang            | chenya      | Apple       | -8            |
-| Craig Condit            | ccondit     | Cloudera    | -6            |
-| DB Tsai                 | dbtsai      | Apple       | -8            |
-| Felix Cheung            | felixcheung | SafeGraph   | -8            |
-| Holden Karau            | holden      | Netflix     | -8            |
-| Jason Lowe              | jlowe       | NVIDIA      | -6            |
-| Jonathan Hung           | jhung       | LinkedIn    | -8            |
-| Junping Du              | junping_du  | Huawei      | 0             |
-| Kinga Marton            | kmarton     | Cloudera    | +1            |
-| Konstantinos Karanasos  | kkaranasos  | Microsoft   | -8            |
-| Luciano Resende         | lresende    | Apple       | -8            |
-| Manikandan R            | mani        | Cloudera    | +5.5          |
-| Peter Bacsko            | pbacsko     | Cloudera    | +1            |
-| Subramaniam Krishnan    | subru       | Microsoft   | -8            |
-| Sunil Govindan          | sunilg      | Cloudera    | -8            |
-| Tao Yang                | taoyang     | Alibaba     | +8            |
-| Tingyao Huang           | tingyao     | TrendMicro  | +8            |
-| Yu Teng Chen            | yuteng      | NTCU        | +8            |
-| Vinod Kumar Vavilapalli | vinodkv     | Cloudera    | +5.5          |
-| Wangda Tan              | wangda      | Snowflake   | -8            |
-| Wei-Chiu Chuang         | weichiu     | Cloudera    | -8            |
-| Weiwei Yang             | wwei        | Apple       | -8            |
-| Wilfred Spiegelenburg   | wilfreds    | Cloudera    | +11           |
+| 公开名称                    | ApacheID    | 组织         | 时区 <br/>(UTC) |
+|-------------------------|-------------|------------|---------------|
+| Akhil PB                | akhilpb     | Cloudera   | +5.5          |
+| Arun Suresh             | asuresh     | Oracle     | -8            |
+| Carlo Curino            | curino      | Microsoft  | -8            |
+| Chaoran Yu              | yuchaoran   | Apple      | -8            |
+| Chenya Zhang            | chenya      | Apple      | -8            |
+| Craig Condit            | ccondit     | Cloudera   | -6            |
+| DB Tsai                 | dbtsai      | Apple      | -8            |
+| Felix Cheung            | felixcheung | SafeGraph  | -8            |
+| Holden Karau            | holden      | Netflix    | -8            |
+| Jason Lowe              | jlowe       | NVIDIA     | -6            |
+| Jonathan Hung           | jhung       | LinkedIn   | -8            |
+| Junping Du              | junping_du  | Huawei     | 0             |
+| Kinga Marton            | kmarton     | Cloudera   | +1            |
+| Konstantinos Karanasos  | kkaranasos  | Microsoft  | -8            |
+| Luciano Resende         | lresende    | Apple      | -8            |
+| Manikandan R            | mani        | Cloudera   | +5.5          |
+| Peter Bacsko            | pbacsko     | Cloudera   | +1            |
+| Rainie Li               | rainieli    | Pinterest  | -8            |
+| Subramaniam Krishnan    | subru       | Microsoft  | -8            |
+| Sunil Govindan          | sunilg      | Cloudera   | -8            |
+| Tao Yang                | taoyang     | Alibaba    | +8            |
+| Tingyao Huang           | tingyao     | TrendMicro | +8            |
+| Vinod Kumar Vavilapalli | vinodkv     | Cloudera   | +5.5          |
+| Wangda Tan              | wangda      | Waii       | -8            |
+| Wei-Chiu Chuang         | weichiu     | Cloudera   | -8            |
+| Weiwei Yang             | wwei        | Apple      | -8            |
+| Wilfred Spiegelenburg   | wilfreds    | Cloudera   | +11           |
+| Yu Teng Chen            | yuteng      | NTCU       | +8            |
 
 ## Committer
 
@@ -66,7 +67,8 @@ YuniKorn 社区是开放的、多样化的和协作的。
 |----------------|---------------|-------------|---------------|
 | Chia-Ping Tsai | chia7712      | Is-Land     | +8            |
 | Li Gao         | ligao         | Databricks  | -8            |
-| Rainie Li      | rainieli      | Pinterest   | -8            |
+| PoAn Yang      | payang        |             | +8            |
+| Hsuan Zong Wu  | samhxwu       |             | +8            |
 | Ted Lin        | steinsgateted | NCKU        | +8            |
 | Qi Zhu         | zhuqi         | Cloudera    | +8            |
 

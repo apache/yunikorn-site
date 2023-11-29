@@ -25,33 +25,33 @@ under the License.
 # Kubernetes version support
 
 Supported Kubernetes versions and the Kubernetes dependency will be defined and finalised during the development cycle.
-With a Kubernetes dependency change planned as one of the major features for the release some info is already known.
-See the announcement as part of YuniKorn 1.3 [release notes](/release-announce/1.3.0) for preliminary details.
+Current build dependency: 1.27
 
 # Next Release Development
 
 Release Details:
-- Version: 1.4.0
-- Target release date: October / November 2023
+- Version: 1.5.0
+- Target release date: February / March 2024
 - Release manager: undecided
 - Development status: [Issue tracker](https://issues.apache.org/jira/issues/?filter=12348416)
 
 Planned major features:
-- [YUNIKORN-1699](https://issues.apache.org/jira/browse/YUNIKORN-1699) K8s 1.27 support, includes pre-enqueue hook
-- [YUNIKORN-1573](https://issues.apache.org/jira/browse/YUNIKORN-1573) [Umbrella] User & Group Based Quota Enforcement
-- [YUNIKORN-1628](https://issues.apache.org/jira/browse/YUNIKORN-1628) [Umbrella] Application tracking history
-- [YUNIKORN-1777](https://issues.apache.org/jira/browse/YUNIKORN-1777) [Umbrella] Recovery & startup
-- [YUNIKORN-22](https://issues.apache.org/jira/browse/YUNIKORN-22)Partition support for nodes
-- [YUNIKORN-1728](https://issues.apache.org/jira/browse/YUNIKORN-1728) Percentage support for queue max app and resources
+- [YUNIKORN-970](https://issues.apache.org/jira/browse/YUNIKORN-970) Change queue metrics to labeled
+- [YUNIKORN-1544](https://issues.apache.org/jira/browse/YUNIKORN-1544) User and group quota enforcement - Phase 2
+- [YUNIKORN-2099](https://issues.apache.org/jira/browse/YUNIKORN-2099) [Umbrella] K8shim simplification
+- [YUNIKORN-2115](https://issues.apache.org/jira/browse/YUNIKORN-2125) [Umbrella] Application tracking history - Phase 2
+- [YUNIKORN-1362](https://issues.apache.org/jira/browse/YUNIKORN-1362) filtering nodes in UI
+- [YUNIKORN-1727](https://issues.apache.org/jira/browse/YUNIKORN-1727) build info extension
+- [YUNIKORN-1922](https://issues.apache.org/jira/browse/YUNIKORN-1922) display pending resources in web UI
+- [YUNIKORN-2140](https://issues.apache.org/jira/browse/YUNIKORN-2140) Web UI: resource display rework
+- [no jira yet] display preemption info in web UI
 
-- Web UI changes:
-  - [no jira yet] display preemption information
-  - [no jira yet] resource display rework
-  - [YUNIKORN-1727](https://issues.apache.org/jira/browse/YUNIKORN-1727) build info extension
-  - [YUNIKORN-1362](https://issues.apache.org/jira/browse/YUNIKORN-1362) filtering nodes in UI
 
 # Future development: long term goals
-- REST and Web UI: authn, authz and encryption
+- [YUNIKORN-22](https://issues.apache.org/jira/browse/YUNIKORN-22) Partition support for nodes
+- [YUNIKORN-1728](https://issues.apache.org/jira/browse/YUNIKORN-1728) Percentage support for queue max app and resources
 - Queue type change from leaf to parent and reverse
 - moving applications from queue to queue
 - compressed queue config (configmap 1MB limit)
+- reproducible builds
+- FIPS builds

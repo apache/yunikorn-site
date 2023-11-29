@@ -18,7 +18,7 @@ const versions = require('./versions.json');
 
 module.exports = {
   title: 'Apache YuniKorn',
-  tagline: 'Unleash the power of resource scheduling for running Big Data & ML on Kubernetes!',
+  tagline: 'Unleash the power of resource scheduling for running Batch, Data & ML on Kubernetes!',
   url: 'https://yunikorn.apache.org',
   baseUrl: '/',
   favicon: 'img/yunikorn.ico',
@@ -61,7 +61,7 @@ module.exports = {
     announcementBar: {
       id: 'new_release',
       content:
-          '1.3.0 has been released, check the <a href="/community/download">DOWNLOADS</a>.',
+          '1.4.0 has been released, check the <a href="/community/download">DOWNLOADS</a>.',
       backgroundColor: '#fafbfc',
       textColor: '#091E42',
     },
