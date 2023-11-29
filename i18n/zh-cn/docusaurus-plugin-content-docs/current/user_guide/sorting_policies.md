@@ -89,7 +89,7 @@ partitions:
 配置值： `stateaware`
 
 此排序策略需要了解应用程序状态。
-应用程序状态在[应用程序状态](design/scheduler_object_states.md#application-state)文档中进行了描述。
+应用程序状态在[应用程序状态](developer_guide/scheduler_object_states.md#application-state)文档中进行了描述。
 
 在对所有排队的应用程序进行排序之前，将应用以下过滤器：
 第一个过滤器基于应用程序状态。

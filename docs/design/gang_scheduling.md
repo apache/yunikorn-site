@@ -181,7 +181,7 @@ The scheduler processes the AllocationAsk as follows:
 ## Application completion
 Application completion has been a long standing issue.
 Currently, applications do not transition to a _completed_ state when done.
-The current states for the application are [documented here](./scheduler_object_states.md).
+The current states for the application are [documented here](developer_guide/scheduler_object_states.md).
 However, at this point in time an application will not reach the _completed_ state and will be stuck in _waiting_.
 
 This provides a number of issues specifically around memory usage and cleanup of queues in long running deployments.

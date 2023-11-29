@@ -92,7 +92,7 @@ Short description: limit of one (1) application in Starting or Accepted state
 Config value: `stateaware`
 
 This sorting policy requires an understanding of the application states.
-Applications states are described in the [application states](design/scheduler_object_states.md#application-state) documentation.
+Applications states are described in the [application states](developer_guide/scheduler_object_states.md#application-state) documentation.
 
 Before sorting applications the following filters are applied to all applications in the queue:
 The first filter is based on the application state.
