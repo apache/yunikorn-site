@@ -60,9 +60,9 @@ This kubernetes environment can be either local or remote.
 ```
 curl -o yunikorn-configs.yaml https://raw.githubusercontent.com/apache/yunikorn-k8shim/master/deployments/scheduler/yunikorn-configs.yaml
 ```
-- modify the content of yunikorn-configs.yaml file as needed, and create ConfigMap in kubernetes:
+- modify the content of yunikorn-configs.yaml file as needed, and apply yunikorn-configs.yaml file in kubernetes:
 ```
-kubectl create configmap yunikorn-configs --from-file=yunikorn-configs.yaml
+kubectl apply -f yunikorn-configs.yaml
 ```
 - Or update ConfigMap in kubernetes:
 ```
