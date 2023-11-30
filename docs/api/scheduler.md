@@ -31,7 +31,8 @@ Many of these APIs return collections of resources. Internally, all resources ar
 are returned in units of bytes while resources of type `vcore` are returned in units of millicores
 (thousands of a core). All other resource types have no specific unit assigned.
 
-Additionally, it should be note that in the JSON response bodies, some fields may be omitted if their values are empty. Specifically, if a field is not present in the response, it can be assumed that the value is empty/null.
+:::note In the JSON response bodies, some fields may be omitted if their values are empty. Specifically, if a field is not present in the response, it can be assumed that the value is empty/null.
+:::
 
 
 Under the `allocations` field in the response content for the app/node-related calls in the following spec, `placeholderUsed` refers to whether or not the allocation is a replacement for a placeholder. If true, `requestTime` is the creation time of its placeholder allocation, otherwise it's that of the allocation's ask. `allocationTime` is the creation time of the allocation, and `allocationDelay` is simply the difference between `allocationTime` and `requestTime`.
