@@ -43,6 +43,8 @@ and a [validation webhook](https://kubernetes.io/docs/reference/access-authn-aut
 1. The `mutation webhook` mutates pod spec by:
    - Adding `schedulerName: yunikorn`
      - By explicitly specifying the scheduler name, the pod will be scheduled by YuniKorn scheduler.
+   - Adding `allowPreemption` annotations
+     - It sets the allowPreemption annotation to `True` or `False`, ensuring that pods are either protected from or susceptible to preemption in a Kubernetes cluster managed by the YuniKorn scheduler.
    - Adding `applicationId` label
      - When a label `applicationId` exists, reuse the given applicationId.
      - When a label `spark-app-selector` exists, reuse the given spark app ID.
