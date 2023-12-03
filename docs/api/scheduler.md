@@ -1361,15 +1361,17 @@ Node details include host and rack name, capacity, resources, utilization, and a
 }
 ```
 
-## Nodes utilization
+## Node utilization
 
-Shows how nodes are distributed with regarding the utilization
+Shows how node are distributed with regarding the utilization
 
 **URL** : `/ws/v1/scheduler/node-utilization`
 
 **Method** : `GET`
 
 **Auth required** : NO
+
+### Success response
 
 **Code** : `200 OK`
 
