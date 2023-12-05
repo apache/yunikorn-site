@@ -907,7 +907,7 @@ For certain use-cases, there may be a need to skip adding a default queue name t
 
 Adding default queue name should be avoided when `provided` rule is used in conjunction with other placement rules and `provided` rule is higher in the hierarchy. If default queue label is added whenever there is no queue name specified, all the apps will be placed via `provided` rule and the other rules after that will never be executed.
 
-Default: empty
+Default: `root.default`
 
 Example:
 ```yaml
