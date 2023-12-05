@@ -285,6 +285,10 @@ Fetch all Applications for the given Partition/Queue combination and displays ge
 
 **Code** : `200 OK`
 
+**Deprecated**:
+
+`uuid` has been deprecated, would be removed from below response in next major release 1.5.0. Instead, `AllocationID` can be used.
+
 **Content examples**
 
 In the example below there are three allocations belonging to two applications, one with a pending request.
@@ -364,6 +368,7 @@ In the example below there are three allocations belonging to two applications, 
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+                "allocationID": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
                 "resource": {
                     "memory": 4000000000,
                     "vcore": 4000
@@ -445,6 +450,7 @@ In the example below there are three allocations belonging to two applications, 
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
+                "allocationID": "08033f9a-4699-403c-9204-6333856b41bd",
                 "resource": {
                     "memory": 2000000000,
                     "vcore": 2000
@@ -469,6 +475,7 @@ In the example below there are three allocations belonging to two applications, 
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
+                "allocationID": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
                 "resource": {
                     "memory": 2000000000,
                     "vcore": 2000
@@ -539,6 +546,10 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
 ### Success response
 
 **Code** : `200 OK`
+
+**Deprecated**:
+
+`uuid` has been deprecated, would be removed from below response in next major release 1.5.0. Instead, `AllocationID` can be used.
 
 **Content example**
 
@@ -616,6 +627,7 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
             "allocationTime": 1648754035973982920,
             "allocationDelay": 1875070459,
             "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+            "allocationID": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
             "resource": {
                 "memory": 4000000000,
                 "vcore": 4000
@@ -1112,6 +1124,7 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
+                "allocationID": "08033f9a-4699-403c-9204-6333856b41bd",
                 "resource": {
                     "memory": 2000000000,
                     "vcore": 2000
@@ -1136,6 +1149,7 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+                "allocationID": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
                 "resource": {
                     "memory": 4000000000,
                     "vcore": 4000
@@ -1208,6 +1222,7 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
+                "allocationID": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
                 "resource": {
                     "memory": 2000000000,
                     "vcore": 2000
@@ -1307,6 +1322,7 @@ Node details include host and rack name, capacity, resources, utilization, and a
          "allocationTime":1648754035973982920,
          "allocationDelay":1875070459,
          "uuid":"08033f9a-4699-403c-9204-6333856b41bd",
+         "allocationID":"08033f9a-4699-403c-9204-6333856b41bd",
          "resource":{
             "memory":2000000000,
             "vcore":2000
@@ -1331,6 +1347,7 @@ Node details include host and rack name, capacity, resources, utilization, and a
          "allocationTime":1648754035973982920,
          "allocationDelay":1875070459,
          "uuid":"9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+         "allocationID":"9af35d44-2d6f-40d1-b51d-758859e6b8a8",
          "resource":{
             "memory":4000000000,
             "vcore":4000
