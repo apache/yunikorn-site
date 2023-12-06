@@ -68,7 +68,7 @@ kubectl apply -f yunikorn-configs.yaml
 ```
 kubectl describe configmaps yunikorn-configs
 ```
-- for more configuration detail, see [Service Configuration](https://yunikorn.apache.org/docs/user_guide/service_config#servicetype).
+- for more configuration detail, see [Service Configuration](https://yunikorn.apache.org/docs/user_guide/service_config).
 
 ## Deploy the Scheduler
 
