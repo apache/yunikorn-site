@@ -64,14 +64,11 @@ curl -o yunikorn-configs.yaml https://raw.githubusercontent.com/apache/yunikorn-
 ```
 kubectl apply -f yunikorn-configs.yaml
 ```
-- if configuration changes are needed, update the yunikorn-configs.yaml file and apply it again:
-```
-kubectl apply -f yunikorn-configs.yaml
-```
 - check if the ConfigMap was created/updated correctly:
 ```
 kubectl describe configmaps yunikorn-configs
 ```
+- for more configuration detail, see [Service Configuration](https://yunikorn.apache.org/docs/user_guide/service_config#servicetype).
 
 ## Deploy the Scheduler
 
