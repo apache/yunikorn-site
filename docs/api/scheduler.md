@@ -1363,7 +1363,7 @@ Node details include host and rack name, capacity, resources, utilization, and a
 
 ## Node utilization
 
-Show how every node is distributed with regard to utilization.
+Show how every node is distributed with regard to dominant resource utilization.
 
 **URL** : `/ws/v1/scheduler/node-utilization`
 
