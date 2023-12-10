@@ -466,6 +466,3 @@ As an example:
 ```
 In this case, `root.parent.sales` will directly use the child template of parent queue `root.parent`. By contrast,
 `root.notemplate.sales` will use the child template set on the queue `root` since its parent queue `root.notemplate` inherits the child template from the queue `root`.
-
-[DEPRECATED] Please migrate to template if your cluster is relying on old behavior that dynamic leaf queue can inherit
-`application.sort.policy` from parent (introduced by [YUNIKORN-195](https://issues.apache.org/jira/browse/YUNIKORN-195)). The old behavior will get removed in the future release.
