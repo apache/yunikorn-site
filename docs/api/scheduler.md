@@ -287,7 +287,7 @@ Fetch all Applications for the given Partition/Queue combination and displays ge
 
 **Deprecated**:
 
-Field `uuid` has been deprecated, would be removed from below response in YUNIKORN 1.7.0 release. `AllocationID` has replaced `uuid`. Both `uuid` and `AllocationID` fields has same value. `AllocationID` has extra suffix containing hypen and counter (-0, -1 and so on..) at the end. 
+Field `uuid` has been deprecated, would be removed from below response in YUNIKORN 1.7.0 release. `AllocationID` has replaced `uuid`. Both `uuid` and `AllocationID` fields have the same value. `AllocationID` has extra suffix containing hyphen and counter (-0, -1 and so on) at the end. 
 
 **Content examples**
 
@@ -549,7 +549,7 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
 
 **Deprecated**:
 
-Field `uuid` has been deprecated, would be removed from below response in YUNIKORN 1.7.0 release. `AllocationID` has replaced `uuid`. Both `uuid` and `AllocationID` fields has same value. `AllocationID` has extra suffix containing hypen and counter (-0, -1 and so on..) at the end.
+Field `uuid` has been deprecated, would be removed from below response in YUNIKORN 1.7.0 release. `AllocationID` has replaced `uuid`. Both `uuid` and `AllocationID` fields have the same value. `AllocationID` has extra suffix containing hyphen and counter (-0, -1 and so on) at the end.
 
 **Content example**
 

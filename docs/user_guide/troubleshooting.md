@@ -25,12 +25,11 @@ title: Troubleshooting
 
 ### Understanding the linkage between Pod UUID, Task TaskID, AllocationAsk AllocationKey and Allocation AllocationID
 
-Pod is always submitted with `UUID`, a unique identifier to differentiate various pods. When a pod is submitted, `Task` gets created in Shim 
-uses Pod's `UUID` as `TaskID` and passed as `AllocationAsk` request to core through SI. `AllocationAsk` uses `Task`'s 
+Pod is always submitted with `UID`, a unique identifier to differentiate various pods. When a pod is submitted, a `Task` gets created in the Shim. It uses `UID` of the POD as `TaskID` and passed as an `AllocationAsk` request to the core. `AllocationAsk` uses `Task`'s 
 `TaskID` as `AllocationKey` and passed onto core for further processing. On receiving the ask request, Core tries to find a suitable 
 `Allocation` using `AllocationAsk`'s `AllocationKey` as `AllocationID`. Understanding this flow and its linkage between different objects helps to debug the issues.
 
-An example has been described below to explain how pod's `UUID` is getting translated with different name and passed through different objects. 
+An example has been described below to explain how pod's `UID` is getting translated with different name and passed through different objects. 
 
 On task creation,
 
