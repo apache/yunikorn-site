@@ -23,6 +23,32 @@ title: Troubleshooting
  
 ## Scheduler logs
 
+### Understanding the linkage between Pod UUID, Task TaskID, AllocationAsk AllocationKey and Allocation AllocationID
+
+Pod is always submitted with `UID`, a unique identifier to differentiate various pods. When a pod is submitted, a `Task` gets created in the Shim. It uses `UID` of the POD as `TaskID` and passed as an `AllocationAsk` request to the core. `AllocationAsk` uses `Task`'s 
+`TaskID` as `AllocationKey` and passed onto core for further processing. On receiving the ask request, Core tries to find a suitable 
+`Allocation` using `AllocationAsk`'s `AllocationKey` as `AllocationID`. Understanding this flow and its linkage between different objects helps to debug the issues.
+
+An example has been described below to explain how pod's `UID` is getting translated with different name and passed through different objects. 
+
+On task creation,
+
+```shell script
+2023-10-05T10:00:02.224Z  INFO cache/context.go:832 task added  {"appID": "yunikorn-dex-app-mqgh4dw2-autogen", "taskID": "849b762d-68c7-4cce-96e1-5acb545a8620", "taskState": "New"}
+```
+
+On processing allocation,
+
+```shell script
+2023-10-05T10:00:02.523Z  INFO  scheduler/partition.go:890  scheduler allocation processed  {"appID": "yunikorn-dex-app-mqgh4dw2-autogen", "allocationKey": "849b762d-68c7-4cce-96e1-5acb545a8620", "allocationID": "849b762d-68c7-4cce-96e1-5acb545a8620-0", "allocatedResource": "map[memory:343932928 vcore:200]", "placeholder": false, "targetNode": "ip-10-130-86-3.eu-west-1.compute.internal"}
+```
+
+On binding the pod to node,
+
+```shell script
+2023-10-05T10:00:02.523Z  INFO  client/kubeclient.go:112  bind pod to node  {"podName": "dbtdmchicdbdmchicdbstagingdata-1f8b6b53321f4cee9da13a7ac1f2a60c", "podUID": "849b762d-68c7-4cce-96e1-5acb545a8620", "nodeID": "ip-10-130-86-3.eu-west-1.compute.internal"}
+```
+
 ### Retrieve scheduler logs
 
 Currently, the scheduler writes its logs to stdout/stderr, docker container handles the redirection of these logs to a
