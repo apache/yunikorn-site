@@ -180,7 +180,7 @@ A queue with higher priority can preempt resources from a queue with lower prior
 
 ![preemption_priority_queue_case](../assets/preemption_priority_queue_case.png)
 
-### Preeemption Fence
+### Preemption Fence
 
 In a multi-tenant environment, it is essential to prevent one tenant from occupying the resources of another tenant. In YuniKorn, we map tenants to a queue hierarchy, the queue hierarchy can thus cross tenant boundaries.
 
