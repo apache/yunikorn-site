@@ -96,7 +96,7 @@ Multiple container specifications will be aggregated into one total pod resource
 
 In the case that static queue definitions are used for a queue there is no limit on the type of resource that can be specified in a quota.
 Quota annotations on namespaces, used as part of the automatic queue creation, are limited to the equivalent _cpu_ and _memory_ resources.
-See the [setup](#Namespace-quota) below for the annotations on the namespace for quotas.
+See the [setup](#namespace-quota) below for the annotations on the namespace for quotas.
 
 ## Kubernetes and YuniKorn quota interaction
 The recommendation is to turn off, not configure, the Kubernetes Namespace quotas.
@@ -191,7 +191,7 @@ Automatically map a Kubernetes `namespace` to a queue in YuniKorn.
 The user creates the required namespaces in Kubernetes. 
 The YuniKorn k8s shim and core scheduler automatically pass the required information and map the namespace to a queue, creating the queue if it does not exist.
 The resource quota will be managed by YuniKorn instead of using the Kubernetes namespace quota.
-This does require the namespaces to be setup without Kubernetes quota enforcement and tags as per the [setup](#Namespace-quota) below.
+This does require the namespaces to be setup without Kubernetes quota enforcement and tags as per the [setup](#namespace-quota) below.
 
 ### Configuration
 Apply the following configuration to YuniKorn's configmap:
@@ -216,7 +216,7 @@ The `create` flag is set to true which will trigger the creation of the queue wi
 
 Applications within the automatically created child queues will be sorted based sorting policy set on the parent queue.
 In this case the property `application.sort.policy` is in this configuration set to `stateaware`.
-This is a simple app sorting policy applicable for batch jobs, you can find more document [here](sorting_policies.md#StateAwarePolicy).
+This is a simple app sorting policy applicable for batch jobs, you can find more document [here](sorting_policies.md#stateawarepolicy).
 
 You can change the configuration using the helm charts during the installation by overwriting the configuration in the
 [helm chart template](https://github.com/apache/yunikorn-release/blob/master/helm-charts/yunikorn/values.yaml#L71-L81).
@@ -290,7 +290,7 @@ partitions:
                parent: true
 ```
 
-The configuration used for the namespace to queue mapping is the same as [above](#Namespace-to-queue-mapping).
+The configuration used for the namespace to queue mapping is the same as [above](#namespace-to-queue-mapping).
 As an extension to the placement rule a `parent` rule is added to support the grouping.
 The parent rule is used to generate the parent, or the queue above, in the hierarchy.
 The rule uses the tag `namespace.parentqueue` from the application to generate the parent queue name.

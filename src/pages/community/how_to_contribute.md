@@ -92,7 +92,7 @@ Once the workflow has run and has given a pass (a +1 vote) a committer will revi
 As part of the Kubernetes shim there is also a set of tests defined called the _end to end_ tests.
 These tests are more complex to execute as they require some extra tools to be installed.
 Execution, and a pass, of the tests is strongly recommended for changes to the Kubernetes shim repository.
-They can be executed locally via `make e2e_test`.
+They can be executed locally via `yunikorn-k8shim/scripts/run-e2e-tests.sh`.
 
 Finally, please write a good, clear commit message, with a short, descriptive title.
 The descriptive title must start with the JIRA ID you are working on.

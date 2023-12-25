@@ -98,7 +98,7 @@ spec:
 
 在为队列使用静态队列定义的情况下，对配额中可指定的资源类型没有限制。
 作为自动队列创建的一部分，命名空间上的配额注释被限制在相当于 _cpu_ 和 _memory_ 的资源。
-参见下面的 [设置](#Namespace-quota)，了解命名空间上的配额注释。
+参见下面的 [设置](#命名空间配额)，了解命名空间上的配额注释。
 
 ## Kubernetes 和 YuniKorn 配额互动
 建议关闭而不是配置 Kubernetes 命名空间配额。
@@ -193,7 +193,7 @@ labels:
 用户在 Kubernetes 中创建所需的命名空间。
 YuniKorn k8s shim 和核心调度器会自动传递所需信息，并将命名空间映射到队列中，如果队列不存在，则创建队列。
 资源配额将由 YuniKorn 管理，而不是使用 Kubernetes 命名空间配额。
-这确实需要按照下面的 [设置](#Namespace-quota) 设置命名空间，不需要 Kubernetes 配额的执行和标签。
+这确实需要按照下面的 [设置](#命名空间配额) 设置命名空间，不需要 Kubernetes 配额的执行和标签。
 
 ### 配置
 将以下配置应用于 YuniKorn 的配置图：
@@ -218,7 +218,7 @@ partitions:
 
 自动创建的子队列中的应用程序将根据父队列上设置的排序策略进行排序。
 在这种情况下，属性 `application.sort.policy` 在此配置中被设置为 `stateaware` 。
-这是一个适用于批处理作业的简单应用排序策略，你可以找到更多的文件 [这里](sorting_policies.md#StateAwarePolicy)。
+这是一个适用于批处理作业的简单应用排序策略，你可以找到更多的文件 [这里](sorting_policies.md#stateawarepolicy)。
 
 你可以在安装过程中使用 helm charts 来改变配置，通过覆盖在
 [helm chart template](https://github.com/apache/yunikorn-release/blob/master/helm-charts/yunikorn/values.yaml#L71-L81)。
