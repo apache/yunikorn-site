@@ -44,7 +44,7 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 | Holden Karau            | holden      | Netflix      | -8                  |
 | Jason Lowe              | jlowe       | NVIDIA       | -6                  | 
 | Jonathan Hung           | jhung       | LinkedIn     | -8                  |
-| Junping Du              | junping_du  | Huawei       | 0                   |
+| Junping Du              | junping_du  | Datastrato   | +8                  |
 | Kinga Marton            | kmarton     | Cloudera     | +1                  |
 | Konstantinos Karanasos  | kkaranasos  | Microsoft    | -8                  |
 | Luciano Resende         | lresende    | Apple        | -8                  |

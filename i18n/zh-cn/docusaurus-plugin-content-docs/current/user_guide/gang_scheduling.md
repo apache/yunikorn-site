@@ -121,7 +121,7 @@ pods永远卡住，请参考 [故障排除](troubleshooting.md#成组调度) 了
 #### 示例
 
 下面的例子是一个工作的yaml文件。这个工作启动了2个 pod，每个 pod 睡眠时间为 30 秒。
-在 pod 规范中值得注意的变化是 *spec.template.metadata.annotations*，在这里我们定义了 `yunikorn.apache.org/task-group-name
+在 pod 规范中值得注意的变化是 *spec.template.metadata.annotations*，在这里我们定义了 `yunikorn.apache.org/task-group-name`
 和 `yunikorn.apache.org/task-groups` 。
 
 ```yaml
@@ -232,7 +232,7 @@ Annotations:
 - `Hard Style`：当使用这种风格时，我们将有初始行为，更确切地说，如果应用程序不能根据分组调度规则进行调度，并且超时，它将被标记为失败，而不会重新尝试调度。
 - `Soft Style`：当应用程序不能被分组调度时，它将退回到正常的调度，并使用非分组调度策略来实现最佳努力的调度。当这种情况发生时，应用程序将过渡到恢复状态，所有剩余的占位符 pod 将被清理掉。
 
-**使用的默认样式**： ``Soft。
+**使用的默认样式**： `Soft`。
 
 **启用一个特定的风格**：可以通过在应用程序定义中设置'gangSchedulingStyle'参数来改变风格，即 Soft 或 Hard。
 

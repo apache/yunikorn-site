@@ -377,6 +377,3 @@ parent队列可以提供一个模板来定义它下面的动态leaf队列的行�
 ```
 在这种情况下，`root.parent.sales`将直接使用parent队列`root.parent`的子模板。
 相比之下，`root.notemplate.sales`将使用在队列`root`上设置的子模板，因为其parent队列 `root.notemplate` 从队列`root`继承了子模板。
-
-[已弃用] 如果您的集群依赖于动态叶队列可以从父级继承`application.sort.policy`的旧行为(由[YUNIKORN-195](https://issues.apache.org/jira/browse/YUNIKORN-195)引入)，请迁移到模板。
-旧的行为将在未来的版本中被删除。
