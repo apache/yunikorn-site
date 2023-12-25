@@ -27,35 +27,32 @@ under the License.
 The pod's yaml file can be easily configured through the admission controller. The admission controller automatically mutates the pod spec so that it can be scheduled by the Yunikorn Scheduler. The admission controller is also responsible for validating configuration additions and updates in the configmap.
 
 The admission controller runs in a separate pod, it runs a [mutation webhook](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
-and a [validation webhook](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook), where:
+and a [validation webhook](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 
-1. The `mutation webhook` mutates pod spec by:
-    - Adding `schedulerName: yunikorn`
-        - By explicitly specifying the scheduler name, the pod will be scheduled by YuniKorn scheduler.
-    - Adding `applicationId` label
-        - When a label `applicationId` exists, reuse the given applicationId.
-        - When a label `spark-app-selector` exists, reuse the given spark app ID.
-        - Otherwise, assign a generated application ID for this pod, using convention: `yunikorn-<namespace>-autogen`. This is unique per namespace.
-    - Adding `queue` label
-        - When a label `queue` exists, reuse the given queue name. Note, if placement rule is enabled, values set in the label is ignored.
-        - Otherwise, adds `queue: root.default`
-    - Adding `disableStateAware` label
-        - If pod was assigned a generated applicationId by the admission controller, also set `disableStateAware: true`. This causes the generated application to immediately transition from the `Starting` to `Running` state so that it will not block other applications.
-2. The `validation webhook` validates the configuration set in the configmap
-    - This is used to prevent writing malformed configuration into the configmap.
-    - The validation webhook calls scheduler [validation REST API](https://yunikorn.apache.org/docs/api/scheduler#configuration-validation) to validate configmap updates.
+### Mutation webhook
+The `mutation webhook` will add `schedulerName:yunikorn` to the pod spec so that the pod can be scheduled by the Yunikorn scheduler.
+
+In addition, The `mutation webhook` will also add the following labels:
+- `applicationId` label. If applicationId or spark-app-selector already exists, it will be used. Otherwise, an applicationId will be generated for the pod. The default is `yunikorn-<namespace>-autogen`. Pods in the same namespace will generate the same applicationId. For other generation methods, please refer to [Service configuration](service_config.md). 
+- `queue` label. If there is a queue label, it will be used. Note that if placement rule is enabled, the value set in label will be ignored. Otherwise, `root.default` will be assigned by default. If you want to change the default queue name, please refer to [Service configuration](service_config.md).
+- `disableStateAware` label, if the admission controller generates an applicationId for the pod, `disableStateAware: true` must also be set. This will cause the application to immediately transition from "Starting" to "Running" state so that it will not block other applications
+
+When updating a created pod, the admission controller will check whether the userinfo annotation before and after the update is the same. If it is different, the change will not be allowed.
+### Validation webhook
+The `validation webhook` validates the configuration set in the configmap.This is used to prevent writing malformed configuration into the configmap.
+The `validation webhook` calls scheduler [validation REST API](https://yunikorn.apache.org/docs/api/scheduler#configuration-validation) to validate configmap updates.
 
 ## Admission controller deployment
 By default, the admission controller is deployed as part of the YuniKorn Helm chart installation. This can be disabled if necessary (though not recommended) by setting the Helm parameter `embedAdmissionController` to `false`.
 
 On startup, the admission controller performs a series of tasks to ensure that it is properly registered with Kubernetes:
 
-1. Loads a Kubernetes secret called `admission-controller-secrets`. This secret stores a pair of CA certificates which are used to sign the TLS server certificate used by the admission controller.
-2. If the secret cannot be found or either CA certificate is within 90 days of expiration, generates new certificate(s). If a certificate is expiring, a new one is generated with an expiration of 12 months in the future. If both certificates are missing or expiring, the second certificate is generated with an expiration of 6 months in the future. This ensures that both certificates do not expire at the same time, and that there is an overlap of trusted certificates.
-3. If the CA certificates were created or updated, writes the secrets back to Kubernetes.
-4. Generates an ephemeral TLS server certificate signed by the CA certificate with the latest expiration date.
-5. Validates, and if necessary, creates or updates the Kubernetes webhook configurations named `yunikorn-admission-controller-validations` and `yunikorn-admission-controller-mutations`. If the CA certificates have changed, the webhooks will also be updated. These webhooks allow the Kubernetes API server to connect to the admission controller service to perform configmap validations and pod mutations.
-6. Starts up the admission controller HTTPS server.
+Loads a Kubernetes secret called `admission-controller-secrets`. This secret stores a pair of CA certificates which are used to sign the TLS server certificate used by the admission controller.
+If the secret cannot be found or either CA certificate is within 90 days of expiration, generates new certificate(s). If a certificate is expiring, a new one is generated with an expiration of 12 months in the future. If both certificates are missing or expiring, the second certificate is generated with an expiration of 6 months in the future. This ensures that both certificates do not expire at the same time, and that there is an overlap of trusted certificates.
+If the CA certificates were created or updated, writes the secrets back to Kubernetes.
+Generates an ephemeral TLS server certificate signed by the CA certificate with the latest expiration date.
+Validates, and if necessary, creates or updates the Kubernetes webhook configurations named `yunikorn-admission-controller-validations` and `yunikorn-admission-controller-mutations`. If the CA certificates have changed, the webhooks will also be updated. These webhooks allow the Kubernetes API server to connect to the admission controller service to perform configmap validations and pod mutations.
+Starts up the admission controller HTTPS server.
 
 Additionally, the admission controller also starts a background task to wait for CA certificates to expire. Once either certificate is expiring within the next 30 days, new CA and server certificates are generated, the webhook configurations are updated, and the HTTPS server is quickly restarted. This ensures that certificates rotate properly without downtime.
 
@@ -64,50 +61,14 @@ In production clusters, it is recommended to deploy the admission controller wit
 ## Configure the admission controller
 The admission controller can be configured with the `yunikorn-configs` configmap.
 
-Webhook configuration, all entries start with the prefix `admissionController.webHook.`.
+Through the configuration of the admission controller, you can control multiple settings, including specifying the namespace you want or not want Yunikorn to schedule, whether to generate a unique applicationId and default queue name for each application, etc. In addition, the admission controller can be used to control the access of users and groups.
 
-| Variable                  | Default value                           | Description                                                                |
-|---------------------------|-----------------------------------------|----------------------------------------------------------------------------|
-| `amServiceName`           | “yunikorn-addmission-controller-service”| name of the service that the YuniKorn admission controller is registered   |
-| `schedulerServiceAddress` | “yunikorn-service:9080”                 | address of the YuniKorn scheduler service								   |
+For more details on admission controller configuration, please refer to [Service configuration](service_config.md).
 
-`amServiceName` is required for the admission controller to register itself properly with Kubernetes, and should normally not be changed.
-
-`schedulerServiceAddress` must be reachable by the admission controller, and is used by the admission controller when validating ConfigMap changes. The admission controller will contact the REST API on the scheduler to validate any proposed ConfigMap changes. This setting should not normally be changed.
-
-:::note NOTE
-A change to `amServiceName` and `amServiceName` requires a restart of the YuniKorn admission controller to take effect.
-:::
-Filtering configuration, all entries start with the prefix `admissionController.filtering.`.
-
-
-| Variable             | Default value                         | Description                                                                							   |
-|----------------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| `processNamespaces`  | ""                                    | which namespaces will have pods forwarded to YuniKorn for scheduling       							   |
-| `bypassNamespaces`   | “^kube-system$”                       | which namespaces will not have pods forwarded to YuniKorn for scheduling   							   |
-| `labelNamespaces`    | "" 								   | which namespaces will have pods labeled with an applicationId              							   |
-| `noLabelNamespaces`  | ""                                    | which namespaces will not have pods labeled with an applicationId          							   |
-| `generateUniqueAppId`| "false"                               | Whether to generate unique applicationId for all the apps that do not have an applicationId to start with |
-| `defaultQueue`       | "root.default"                        | Default queue name      																				   |
-If `processNamespaces` is setting is an empty string, pods created in all namespaces will be scheduled by YuniKorn, similarly, if `labelNamespaces` is setting is an empty string, all pods forwarded to YuniKorn will have an `applicationId` label applied.
-
-`bypassNamespaces` and `noLabelNamespaces` act as exception lists for processNamespaces and labelNamespaces respectively.
-
-If `generateUniqueAppId` is set to false, all the apps in a namespace should be bundled under a single applicationId, otherwise, the namespace and pod's uid will be used to generate a unique applicationId for it.
-
-Access control configuration, all entries start with the prefix `admissionController.accessControl.`.
-
-| Variable           | Default value                         | Description                                                                |
-|--------------------|---------------------------------------|----------------------------------------------------------------------------|
-| `bypassAuth`       | false                                 | Allow any external user to create pods with user information set           |
-| `trustControllers` | true                                  | Allow Kubernetes controller users to create pods with user information set |
-| `systemUsers`      | "^system:serviceaccount:kube-system:" | Regular expression for the allowed controller service account list         |
-| `externalUsers`    | ""                                    | Regular expression for the allowed external user list                      |
-| `externalGroups`   | ""                                    | Regular expression for the allowed external group list                     |
-For more information about Access control configuration, please view [User & Group Resolution](user_guide/usergroup_resolution.md).
+For more information on user and group access management, please view [User&Group Resolutiona](usergroup_resolution.md).
 
 ## Example
-The following YAML does not set any information related to yunikorn
+The following YAML does not set any information related to YuniKorn
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -206,3 +167,34 @@ NAME				DATA	AGE
 yunikorn-configs	14		10s
 yunikorn-defaults   0		1d
 ```
+
+### Use case
+The following are the usage scenarios of using admission controller to set up in different deployment modes of Yunikorn.
+
+For more information on Yunikorn's deployment modes, please refer to [Deployment modes](deployment_modes.md).
+#### Standard deployment, everything scheduled by Yunikorn
+In standard deployment mode, can set which namespaces will be scheduled by YuniKorn through the `admissionController.filtering.processNamespaces` tag in `yunikorn-config`.
+
+If want all namespaces to be scheduled by YuniKorn, just set `admissionController.filtering.processNamespaces` to the empty string (default).
+
+```yaml
+#All namespaces will be schduler by YuniKorn
+admissionController.filtering.processNamespaces: ""
+```
+
+#### Plugin deployment, everything scheduled by YuniKorn
+Same as the standard mode, can set which namespaces will be scheduled by YuniKorn through the `admissionController.filtering.processNamespaces` tag in `yunikorn-config`.
+
+If want all namespaces to be scheduled by YuniKorn, just set `admissionController.filtering.processNamespaces` to the empty string (default).
+
+```yaml
+#All namespaces will be schduler by YuniKorn
+admissionController.filtering.processNamespaces: ""
+```
+#### Plugin deployment, only workloads in some namespaces scheduled byYuniKorn
+If only want a specific namespace to be scheduled by YuniKorn.
+```yaml
+#Only spark-* namespaces will be scheduled by YuniKorn
+admissionController.filtering.processNamespaces: "^spark-"
+```
+
