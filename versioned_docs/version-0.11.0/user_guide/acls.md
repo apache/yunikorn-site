@@ -23,7 +23,7 @@ under the License.
 -->
 
 :::info
-User information is passed to the core scheduler from the kubernetes shim using the methodology defined [here](usergroup_resolution)
+User information is passed to the core scheduler from the kubernetes shim using the methodology defined [here](../usergroup_resolution)
 :::
 
 ## Usage
@@ -116,4 +116,4 @@ If a check matches the ACL allows access and checking is stopped.
 If none of the checks match the ACL denies access.
 
 ## User and Group information
-For User & Group resolution, please follow instructions defined [here](usergroup_resolution)
+For User & Group resolution, please follow instructions defined [here](../usergroup_resolution)

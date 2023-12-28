@@ -21,7 +21,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-基础的放置规则(placement rules)配置[调度弃配置设计文档](../design/scheduler_configuration#placement-rules-definition)中有相关描述。
+基础的放置规则(placement rules)配置[调度弃配置设计文档](../../design/scheduler_configuration#placement-rules-definition)中有相关描述。
 
 我们可以将多个规则链结再一起形成一个放置策略，并通过[存取控制列表(Access control lists)](user_guide/acls.md)和规则过滤来定义和执行规则。
 

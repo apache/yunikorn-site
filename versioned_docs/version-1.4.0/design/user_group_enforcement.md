@@ -26,7 +26,7 @@ under the License.
 
 Enforcing resource allocation usage is currently limited to a queue.
 As part of the allocation process for an application, which owns the allocation, triggers an update of the resource usage for users and groups.
-The tracking for [user resource usage tracking in YuniKorn](user_based_resource_usage_tracking) is described and implemented independently of the enforcement.
+The tracking for [user resource usage tracking in YuniKorn](../user_based_resource_usage_tracking) is described and implemented independently of the enforcement.
 
 This design builds on top of the tracking design as referenced above. Like a queue a user/group could have a limit set. 
 A limit can specify a resource usage quota, and an application usage limit. 
@@ -48,11 +48,11 @@ Enforcing the limit which connects the usage to the limit settings is covered in
 * User and group retrieval is part of the k8shim which is out of scope
 * Exposing usage as a metric into prometheus
 * Enforcement of queue quotas or running applications.
-* Tracking of users and or groups, see [User and Group usage tracking design doc](user_based_resource_usage_tracking)
+* Tracking of users and or groups, see [User and Group usage tracking design doc](../user_based_resource_usage_tracking)
 
 ## Configuration processing
 
-The queue configuration definition has a limit object defined as [per the documentation](../user_guide/queue_config#limits). 
+The queue configuration definition has a limit object defined as [per the documentation](../../user_guide/queue_config#limits). 
 User and group limits are based on those objects.
 However the current configuration processing only performs a syntax check not a content check.
 

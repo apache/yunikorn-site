@@ -85,5 +85,5 @@ Any point, if you are facing any issues:
 - Clarify / Seek help in the YuniKorn slack `#yunikorn-user` channel
 
 ### Other feedback mechanisms
-- If you think, we can add more inputs to this document or additional documentation links for developers including setup etc, please raise issue under YuniKorn Documentation. Refer our [guide](reporting_issues).
+- If you think, we can add more inputs to this document or additional documentation links for developers including setup etc, please raise issue under YuniKorn Documentation. Refer our [guide](../reporting_issues).
 - Any other support please request at YuniKorn slack `#general` channel

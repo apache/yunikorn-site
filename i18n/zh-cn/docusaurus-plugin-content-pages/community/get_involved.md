@@ -33,7 +33,7 @@ Apache YuniKorn 社区非常多样化，我们有来自阿里巴巴、苹果、C
 请通过以下渠道之一加入我们：
 
 ### 通过 github 贡献
-- 这里解释了贡献项目的基本步骤 - [如何贡献](how_to_contribute)
+- 这里解释了贡献项目的基本步骤 - [如何贡献](../how_to_contribute)
 
 ### 沟通渠道
 
@@ -81,9 +81,9 @@ import TabItem from '@theme/TabItem';
 我们欢迎您试用我们的最新版本并分享您的经验。
 
 无论如何，如果您遇到任何问题：
-- 根据我们的 [指南](reporting_issues) 在 JIRA 中提出问题或反馈。
+- 根据我们的 [指南](../reporting_issues) 在 JIRA 中提出问题或反馈。
 - 在 YuniKorn slack `#yunikorn-user` 频道中阐明/寻求帮助
 
 ### 其他反馈机制
-- 如果您认为，我们可以在此文档中添加更多内容或为开发人员添加其他文档链接（包括设置等），请在 YuniKorn 文档下提出问题。具体可以参阅我们的 [指南](reporting_issues)。
+- 如果您认为，我们可以在此文档中添加更多内容或为开发人员添加其他文档链接（包括设置等），请在 YuniKorn 文档下提出问题。具体可以参阅我们的 [指南](../reporting_issues)。
 - 任何其他支持请在 YuniKorn slack `#general` 频道请求

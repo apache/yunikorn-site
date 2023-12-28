@@ -93,7 +93,7 @@ data:
               - name: group-b
 ```
 
-See the documentation on [Partition and Queue Configuration](queue_config) for more information.
+See the documentation on [Partition and Queue Configuration](../queue_config) for more information.
 
 ---
 
@@ -173,7 +173,7 @@ Here are the results for different users assigned to different queues. You can u
 | anonymous, anonymous | root.tenants.group-a | blocked | nginx-3.yaml  |
 | anonymous, anonymous | root.tenants.group-b | blocked | nginx-3.yaml  |
 
-See the documentation on [User & Group Resolution](usergroup_resolution) or [ACLs](acls) for more information.
+See the documentation on [User & Group Resolution](../usergroup_resolution) or [ACLs](../acls) for more information.
 
 ---
 
@@ -299,7 +299,7 @@ The following results are generated when creating a Pod according to different r
 | tag (value: namespace) | kim, group-b |                           | dev       | root.tenants.group-b.dev  | nginx-kim.yaml   |
 | tag (value: namespace) | kim, group-b |                           | test      | root.tenants.group-b.test | nginx-kim.yaml   |
 
-See the documentation on [App Placement Rules](placement_rules) for more information.
+See the documentation on [App Placement Rules](../placement_rules) for more information.
 
 ---
 
@@ -379,7 +379,7 @@ The results of deploying Pods in different queues are shown below. You can use t
 | admin, admin | {memory: 6G, vcore: 6}                 | {memory: 512M, vcore: 250m}         | 1       | run all replica                                          | nginx-admin.yaml |
 | sue, group-A | {memory: 2G, vcore: 4}                 | {memory: 512M, vcore: 500m}         | 5       | run 3 replica (4 replica will exceed the resource limit) | nginx-sue.yaml   |
 
-See the documentation on [Partition and Queue Configuration #Resources](queue_config#resources) for more information.
+See the documentation on [Partition and Queue Configuration #Resources](../queue_config#resources) for more information.
 
 ---
 
@@ -480,4 +480,4 @@ For the following tests, we run them in an environment with node resources of `{
 | root.tenants.group-a        | 20 (fenced) | 7                | 6                            | nginx-sue.yaml   |
 | root.tenants.group-b        | 5 (fenced)  | 7                | 0                            | nginx-kim.yaml   |
 
-See the documentation on [App & Queue Priorities](priorities) for more information.
+See the documentation on [App & Queue Priorities](../priorities) for more information.

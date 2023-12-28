@@ -51,6 +51,6 @@ spec:
 
 可以在此处找到更进阶的例子：
 
-* [运行Spark作业](run_spark)
-* [运行Flink作业](run_flink)
-* [运行TensorFlow作业](run_tf)
+* [运行Spark作业](../run_spark)
+* [运行Flink作业](../run_flink)
+* [运行TensorFlow作业](../run_tf)

@@ -30,7 +30,7 @@ It references both the [Access Control Lists](user_guide/acls.md) and [Placement
 This document explains how to create the partition and queue configuration for the scheduler with examples.
 
 The scheduler relies on the shim to reliably provide user information as part of the application submission.
-The current shim identifies the user and the groups the user belongs to using the methodology provided in [User & Group Resolution](usergroup_resolution) 
+The current shim identifies the user and the groups the user belongs to using the methodology provided in [User & Group Resolution](../usergroup_resolution) 
 
 ## Configuration
 The configuration file for the scheduler that is described here only provides the configuration for the partitions and queues.

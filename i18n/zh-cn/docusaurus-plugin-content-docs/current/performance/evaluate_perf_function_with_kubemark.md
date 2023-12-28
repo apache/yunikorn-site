@@ -70,7 +70,7 @@ YuniKorn 社区关注调度程序的性能，并继续在发布时对其进行�
 
 ### 节点排序
 
-当集群大小增加时，我们看到YuniKorn的性能明显下降。 这是因为在YuniKorn中，我们对集群节点进行了完整排序，以便为给定的pod找到 **“best-fit”** 节点。 这种策略使Pod分布更加优化，基于所使用的 [节点排序策略](./../user_guide/sorting_policies#node-sorting)。 但是，对节点进行排序很昂贵，在调度周期中这样做会产生很多开销。 为了克服这个问题，我们在 [YUNIKORN-807](https://issues.apache.org/jira/browse/YUNIKORN-807) 中改进了我们的节点排序机制，其背后的想法是使用 [B-Tree ](https://en.wikipedia.org/wiki/B-tree)来存储所有节点并在必要时应用增量更新。 这显着改善了延迟，根据我们的基准测试，这在500、1000、2000 和 5000个节点的集群上分别提高了 35 倍、42 倍、51 倍、74 倍。
+当集群大小增加时，我们看到YuniKorn的性能明显下降。 这是因为在YuniKorn中，我们对集群节点进行了完整排序，以便为给定的pod找到 **“best-fit”** 节点。 这种策略使Pod分布更加优化，基于所使用的 [节点排序策略](../../user_guide/sorting_policies#node-sorting)。 但是，对节点进行排序很昂贵，在调度周期中这样做会产生很多开销。 为了克服这个问题，我们在 [YUNIKORN-807](https://issues.apache.org/jira/browse/YUNIKORN-807) 中改进了我们的节点排序机制，其背后的想法是使用 [B-Tree ](https://en.wikipedia.org/wiki/B-tree)来存储所有节点并在必要时应用增量更新。 这显着改善了延迟，根据我们的基准测试，这在500、1000、2000 和 5000个节点的集群上分别提高了 35 倍、42 倍、51 倍、74 倍。
 
 ### 每个节点的前提条件检查
 

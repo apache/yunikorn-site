@@ -23,7 +23,7 @@ under the License.
 -->
 
 :::info
-用户信息通过 [这里](usergroup_resolution) 定义的方法从 kubernetes shim 传递给 Yunikorn core。
+用户信息通过 [这里](../usergroup_resolution) 定义的方法从 kubernetes shim 传递给 Yunikorn core。
 :::
 
 ## 使用方法
@@ -117,4 +117,4 @@ partitions:
 如果没有一个检查匹配，则 ACL 拒绝访问。
 
 ## 用户和组信息
-对于用户和组的解决，请遵循 [这里](usergroup_resolution) 定义的说明
+对于用户和组的解决，请遵循 [这里](../usergroup_resolution) 定义的说明

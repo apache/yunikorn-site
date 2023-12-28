@@ -102,7 +102,7 @@ When a set of guaranteed resources is defined, preemption aims to ensure that al
 
 ### Priority
 
-In general, a pod can preempt a pod with equal or lower priority. You can set the priority by defining a [PriorityClass](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) or by utilizing [queue priorities](priorities).
+In general, a pod can preempt a pod with equal or lower priority. You can set the priority by defining a [PriorityClass](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) or by utilizing [queue priorities](../priorities).
 
 While preemption allows service-type pods to scale up or down through preemption, it can also lead to the preemption of pods that should not be preempted in certain scenarios:
 
@@ -155,7 +155,7 @@ For example, even with `allow-preemption` set to `false`, DaemonSet pods can sti
 
 ### Priority Queue
 
-In addition to utilizing the default PriorityClass in Kubernetes, you can configure priorities directly on a [YuniKorn queue](priorities).
+In addition to utilizing the default PriorityClass in Kubernetes, you can configure priorities directly on a [YuniKorn queue](../priorities).
 
 In the following example, we will demonstrate preemption based on queue priority.
 
