@@ -53,14 +53,8 @@ yunikorn.apache.org/namespace.quota
 The content of the annotation must be a simple string. There are no length limits for a specific annotation. All annotations together on one object do have a size limit however that is not a restriction we have to plan around.
 
 Since the content must be a simple string we should use a simple json representation for the quota that contains a list of resources. Representing the quota:
-```
-yunikorn.apache.org/namespace.quota: "
-{
-cpu: 100m,
-memory: 1GB,
-nvidia.com/gpu: 1
-}
-"
+```yaml
+yunikorn.apache.org/namespace.quota: "{\"cpu\": \"100m\",\"memory\": \"1G\",\"nvidia.com/gpu\": \"1\"}"
 ```
 
 Similar as for other resources we allow in annotations: we allow any string as the key content.
