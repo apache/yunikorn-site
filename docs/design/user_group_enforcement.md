@@ -60,7 +60,7 @@ However the current configuration processing only performs a syntax check not a 
 
 Limits can be configured for queues at any level. Limits are applied recursively in the case of a queue limit. 
 This means that a limit on the root queue is an overall limit in the cluster for the user or group.
-A root queue limit is thus also equivalent with the partition limit.
+A root queue limit is thus also equivalent with the partition limit. While if both the root queue limit and the partition limit exist and are not equal, an error will be returned.
 
 A limit is per individual user or group. It is not a combined limit for all users or groups specified in the limit object.
 See the below limit object as an example.
