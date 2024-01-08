@@ -271,6 +271,26 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 ## Applications
 
+### Partition applications
+
+Fetch all Applications for the given Partition/State combination and displays general information about the applications like used resources, queue name, submission time and allocations.
+Only following application states are allowed: active, rejected, completed. Active is a fake state that represents all application states except completed and rejected.
+For active state, can narrow the result by status query parameters.
+
+**URL** : `/ws/v1/partition/{partitionName}/applications/{state}?status`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+ref to [Queue Applications](#queue-applications)
+
 ### Queue applications
 
 Fetch all Applications for the given Partition/Queue combination and displays general information about the applications like used resources, queue name, submission time and allocations.
@@ -535,9 +555,9 @@ In the example below there are three allocations belonging to two applications, 
 
 ### Queue application
 
-Fetch an Application given a Partition, Queue and Application ID and displays general information about the application like used resources, queue name, submission time and allocations.
+Fetch an Application given a Partition, Queue(optional) and Application ID and displays general information about the application like used resources, queue name, submission time and allocations.
 
-**URL** : `/ws/v1/partition/{partitionName}/queue/{queueName}/application/{appId}`
+**URL** : `/ws/v1/partition/{partitionName}/queue/{queueName}/application/{appId}` or `/ws/v1/partition/{partitionName}/application/{appId}`
 
 **Method** : `GET`
 
