@@ -1378,6 +1378,60 @@ Node details include host and rack name, capacity, resources, utilization, and a
 }
 ```
 
+## Node utilization
+
+Show how every node is distributed with regard to dominant resource utilization.
+
+**URL** : `/ws/v1/scheduler/node-utilization`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```text
+{
+    "type": "vcore",
+    "utilization": [
+      {
+        "bucketName": "0-10%",
+        "numOfNodes": 1,
+        "nodeNames": [
+          "aethergpu"
+        ]
+      },
+      {
+        "bucketName": "10-20%",
+        "numOfNodes": 2,
+        "nodeNames": [
+            "primary-node",
+            "second-node"
+        ]
+      },
+      ...  
+    ]
+}
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
 ## Goroutines info
 
 Dumps the stack traces of the currently running goroutines.
