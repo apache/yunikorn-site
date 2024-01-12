@@ -76,7 +76,7 @@ module.exports = {
       items: [
         {
           to: 'docs/',
-          label: 'Quick Start',
+          label: 'Docs',
         },
         {
           to: 'community/roadmap',
@@ -154,24 +154,8 @@ module.exports = {
         },
         {
           label: 'Docs',
-          to: 'docs',
+          type: 'docsVersionDropdown',
           position: 'right',
-          items: [
-            {
-              label: 'Master',
-              to: 'docs/next/',
-            },
-            {
-              label: versions[0],
-              to: 'docs/',
-              // required for correct style on current version menu item
-              activeBaseRegex: `docs/(?!${versions.join('|')}|next)`,
-            },
-            ...versions.slice(1).map((version) => ({
-              label: version,
-              to: `docs/${version}/`,
-            })),
-          ],
         },
         {
           type: 'localeDropdown',
