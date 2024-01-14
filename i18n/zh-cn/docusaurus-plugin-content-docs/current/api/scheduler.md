@@ -954,6 +954,139 @@ Yunikorn调度器能透过REST API来返回多个对象的信息
 }
 ```
 
+## 节点主要资源使用率
+
+每个节点在主要资源利用率的分布。
+
+**状态 (Status)** : 自v1.5.0起已被弃用，并将在下一个主要版本中移除。替代为 `/ws/v1/scheduler/node-utilizations`。
+
+**位置（URL）** : `/ws/v1/scheduler/node-utilization`
+
+**方法（Method）** : `GET`
+
+**需求权限** : NO
+
+### 成功时的响应
+
+**返回代码** : `200 OK`
+
+**示例**
+
+```json
+{
+    "type": "vcore",
+    "utilization": [
+      {
+        "bucketName": "0-10%",
+        "numOfNodes": 1,
+        "nodeNames": [
+          "aethergpu"
+        ]
+      },
+      {
+        "bucketName": "10-20%",
+        "numOfNodes": 2,
+        "nodeNames": [
+            "primary-node",
+            "second-node"
+        ]
+      },
+      ...  
+    ]
+}
+```
+
+### 错误时的响应
+
+**返回代码** : `500 Internal Server Error`
+
+**示例**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## 节点资源使用率
+
+每个节点各种资源的利用率分布。
+
+**位置（URL）** : `/ws/v1/scheduler/node-utilizations`
+
+**方法（Method）** : `GET`
+
+**需求权限** : NO
+
+### 成功时的响应
+
+**返回代码** :`200 OK`
+
+**示例**
+
+```json
+[
+    {
+        "clusterId": "mycluster",
+        "partition": "default",
+        "utilizations": [
+            {
+                "type": "pods",
+                "utilization": [
+                    {
+                        "bucketName": "0-10%",
+                        "numOfNodes": 2,
+                        "nodeNames": [
+                            "primary-node",
+                            "second-node"
+                        ]
+                    },
+                    {
+                        "bucketName": "10-20%"
+                    },
+                    ...
+                ]
+            },
+            {
+                "type": "vcores",
+                "utilization": [
+                    {
+                        "bucketName": "0-10%",
+                        "numOfNodes": 2,
+                        "nodeNames": [
+                            "primary-node",
+                            "second-node"
+                        ]
+                    },
+                    {
+                        "bucketName": "10-20%"
+                    },
+                    ...
+                ]
+            },
+            ...
+        ]
+    }
+]
+```
+
+### 错误时的响应
+
+**返回代码** : `500 Internal Server Error`
+
+**示例**
+
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
 ## Goroutines信息
 
 获取当前运行的goroutines的堆栈跟踪（stack traces）

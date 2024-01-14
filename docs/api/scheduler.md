@@ -1382,6 +1382,8 @@ Node details include host and rack name, capacity, resources, utilization, and a
 
 Show how every node is distributed with regard to dominant resource utilization.
 
+**Status** : Deprecated since v1.5.0 and will be removed in the next major release. Replaced with `/ws/v1/scheduler/node-utilizations`.
+
 **URL** : `/ws/v1/scheduler/node-utilization`
 
 **Method** : `GET`
@@ -1394,7 +1396,7 @@ Show how every node is distributed with regard to dominant resource utilization.
 
 **Content examples**
 
-```text
+```json
 {
     "type": "vcore",
     "utilization": [
@@ -1416,6 +1418,82 @@ Show how every node is distributed with regard to dominant resource utilization.
       ...  
     ]
 }
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## Node utilizations
+
+Show the nodes utilization of different types of resources in a cluster.
+
+**URL** : `/ws/v1/scheduler/node-utilizations`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+[
+    {
+        "clusterId": "mycluster",
+        "partition": "default",
+        "utilizations": [
+            {
+                "type": "pods",
+                "utilization": [
+                    {
+                        "bucketName": "0-10%",
+                        "numOfNodes": 2,
+                        "nodeNames": [
+                            "primary-node",
+                            "second-node"
+                        ]
+                    },
+                    {
+                        "bucketName": "10-20%"
+                    },
+                    ...
+                ]
+            },
+            {
+                "type": "vcores",
+                "utilization": [
+                    {
+                        "bucketName": "0-10%",
+                        "numOfNodes": 2,
+                        "nodeNames": [
+                            "primary-node",
+                            "second-node"
+                        ]
+                    },
+                    {
+                        "bucketName": "10-20%"
+                    },
+                    ...
+                ]
+            },
+            ...
+        ]
+    }
+]
 ```
 
 ### Error response
