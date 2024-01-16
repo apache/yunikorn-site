@@ -277,7 +277,7 @@ Fetch all Applications for the given Partition/State combination and displays ge
 Only following application states are allowed: active, rejected, completed. Active is a fake state that represents all application states except completed and rejected.
 For active state, can narrow the result by status query parameters.
 
-**URL** : `/ws/v1/partition/{partitionName}/applications/{state}?status`
+**URL** : `/ws/v1/partition/:partition/applications/:state`
 
 **Method** : `GET`
 
@@ -553,11 +553,11 @@ In the example below there are three allocations belonging to two applications, 
 
 ## Application
 
-### Queue application
+### Partition/Queue application
 
 Fetch an Application given a Partition, Queue(optional) and Application ID and displays general information about the application like used resources, queue name, submission time and allocations.
 
-**URL** : `/ws/v1/partition/{partitionName}/queue/{queueName}/application/{appId}` or `/ws/v1/partition/{partitionName}/application/{appId}`
+**URL** : `/ws/v1/partition/{partitionName}/application/{appId}` or `/ws/v1/partition/{partitionName}/queue/{queueName}/application/{appId}`
 
 **Method** : `GET`
 
