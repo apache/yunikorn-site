@@ -74,6 +74,9 @@ This mechanism can avoid this pod gets starved by later submitted smaller, less-
 This feature is important in the batch workloads scenario because when a large amount of heterogeneous pods is submitted
 to the cluster, it's very likely some pods can be starved even they are submitted much earlier. 
 
+## Preemption
+YuniKorn's preemption feature allows higher-priority tasks to dynamically reallocate resources by preempting lower-priority ones, ensuring critical workloads get necessary resources in a multi-tenant Kubernetes environment. This proactive mechanism maintains system stability and fairness, integrating with Kubernetes' priority classes and YuniKorn's hierarchical queue system.
+
 ## Throughput
 Throughput is a key criterion to measure scheduler performance. It is critical for a large scale distributed system.
 If throughput is bad, applications may waste time on waiting for scheduling, and further impact service SLAs.
