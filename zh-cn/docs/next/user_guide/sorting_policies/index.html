@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v2.4.1">
 <title data-rh="true">排序策略 | Apache YuniKorn</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://yunikorn.apache.org/zh-cn/img/logo/yunikorn-logo-main.png"><meta data-rh="true" name="twitter:image" content="https://yunikorn.apache.org/zh-cn/img/logo/yunikorn-logo-main.png"><meta data-rh="true" property="og:url" content="https://yunikorn.apache.org/zh-cn/docs/next/user_guide/sorting_policies"><meta data-rh="true" name="docusaurus_locale" content="zh-cn"><meta data-rh="true" name="docsearch:language" content="zh-cn"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="排序策略 | Apache YuniKorn"><meta data-rh="true" name="description" content="&lt;!--"><meta data-rh="true" property="og:description" content="&lt;!--"><link data-rh="true" rel="icon" href="/zh-cn/img/yunikorn.ico"><link data-rh="true" rel="canonical" href="https://yunikorn.apache.org/zh-cn/docs/next/user_guide/sorting_policies"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/user_guide/sorting_policies" hreflang="en"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/zh-cn/docs/next/user_guide/sorting_policies" hreflang="zh-cn"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/user_guide/sorting_policies" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://Q1V951BG2V-dsn.algolia.net" crossorigin="anonymous"><link rel="search" type="application/opensearchdescription+xml" title="Apache YuniKorn" href="/zh-cn/opensearch.xml"><link rel="stylesheet" href="/zh-cn/assets/css/styles.d55030c1.css">
-<link rel="preload" href="/zh-cn/assets/js/runtime~main.5195433d.js" as="script">
-<link rel="preload" href="/zh-cn/assets/js/main.56230079.js" as="script">
+<link rel="preload" href="/zh-cn/assets/js/runtime~main.72346d21.js" as="script">
+<link rel="preload" href="/zh-cn/assets/js/main.8a8e9172.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}return t}()||function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}(),document.documentElement.setAttribute("data-announcement-bar-initially-dismissed",function(){try{return"true"===localStorage.getItem("docusaurus.announcement.dismiss")}catch(t){}return!1}())</script><div id="__docusaurus">
@@ -21,7 +21,7 @@
 较晚请求的应用程序将在满足之前应用程序当前所有请求之后获得资源。</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="fairsortpolicy">FairSortPolicy<a href="#fairsortpolicy" class="hash-link" aria-label="FairSortPolicy的直接链接" title="FairSortPolicy的直接链接">​</a></h3><p>简短描述：基于资源利用率公平性排序。</p><p>配置值： <code>fair</code></p><p>在排序之前，需要过滤应用程序，并且必须有挂起(pending)的资源请求。</p><p>经过筛选后，剩下的应用程序将根据使用情况进行排序。
 应用程序的使用情况是指应用程序所有已确认和未确认的分配。
 计算使用情况时，将考虑应用程序中定义的所有资源。</p><p>达到的效果是资源相对平均分配给所有请求资源的应用程序</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="stateawarepolicy">StateAwarePolicy<a href="#stateawarepolicy" class="hash-link" aria-label="StateAwarePolicy的直接链接" title="StateAwarePolicy的直接链接">​</a></h3><p>简短描述：限制同一时间只有一个为 Starting 或 Accepted 状态的应用程序。</p><p>配置值： <code>stateaware</code></p><p>此排序策略需要了解应用程序状态。
-应用程序状态在<a href="/zh-cn/docs/next/design/scheduler_object_states#application-state">应用程序状态</a>文档中进行了描述。</p><p>在对所有排队的应用程序进行排序之前，将应用以下过滤器：
+应用程序状态在<a href="/zh-cn/docs/next/developer_guide/scheduler_object_states#application-state">应用程序状态</a>文档中进行了描述。</p><p>在对所有排队的应用程序进行排序之前，将应用以下过滤器：
 第一个过滤器基于应用程序状态。
 以下应用程序通过过滤器并生成第一个中间列表：</p><ul><li>处于 <em>running</em> 状态的所有应用程序</li><li><em>一个</em>（1）处于 <em>starting</em> 状态的应用程序</li><li>如果<em>没有</em>处于 <em>starting</em> 状态的应用程序，则添加 <em>一个</em>（1）处于 <em>accepted</em> 状态的应用程序</li></ul><p>第二个过滤器将第一个过滤器的结果作为输入。
 再次过滤初步列表：删除所有<em>没有</em>挂起(pending)请求的应用程序。</p><p>根据状态和挂起(pending)请求进行过滤后，剩余的应用程序将进行排序。
@@ -58,7 +58,7 @@ Copyright © 2020-2024 <a href="https://www.apache.org/">The Apache Software Fou
 <p>The Apache Software Foundation Apache YuniKorn, YuniKorn, Apache, the Apache feather, and the Apache YuniKorn project logo are either registered trademarks or trademarks of the Apache Software Foundation.</p>
 </div>
 </div></div></div></div></footer></div>
-<script src="/zh-cn/assets/js/runtime~main.5195433d.js"></script>
-<script src="/zh-cn/assets/js/main.56230079.js"></script>
+<script src="/zh-cn/assets/js/runtime~main.72346d21.js"></script>
+<script src="/zh-cn/assets/js/main.8a8e9172.js"></script>
 </body>
 </html>
