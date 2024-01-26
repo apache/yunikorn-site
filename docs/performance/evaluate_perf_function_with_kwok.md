@@ -29,7 +29,7 @@ Using Kwok, we replicated previous performance tests, deploying 10 deployments o
 
 ## Environment
 
-The test is conducted using KWOK in a Cluster. The cluster environment is optimized according to the performance tuning settings in the YuniKorn documentation. For more details, refer to the [Benchmarking Tutorial](performance/performance_tutorial.md#performance-tuning).
+The test is conducted using KWOK in a Cluster. The cluster environment is optimized according to the performance tuning settings in the YuniKorn documentation. For more details, refer to the [Benchmarking Tutorial](performance/performance_tutorial.md#performance-tuning). You can conveniently set up Kwok in your Kubernetes Cluster by downloading the scripts we provide [here](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/kwok-perf-test/kwok-setup.sh). 
 
 For data monitoring, Prometheus will be employed to gather metrics. We'll use count(kube_pod_status_scheduled_time{namespace="default"}) as an indicator of throughput.
 
@@ -37,13 +37,12 @@ For data monitoring, Prometheus will be employed to gather metrics. We'll use co
 
 We will start a comparative analysis with kube-scheduler to evaluate the throughput of these two different schedulers. In addition, we will compare the performance differences when managing large numbers of Taints and Tolerations, configuring Affinity and Anti-Affinity settings, and handling PriorityClass jobs.
 
-#### Test Cases:
-- Throughput
-- Taint & Tolerations
-- Affinity & Non-Affinity
-- PriorityClass
+:::important
+YuniKorn schedules pods according to the application. Bearing this in mind, our testing focuses on assessing the impact of various features like Taint & Tolerations, Affinity, and PriorityClass on performance. This requires assigning unique configurations to each pod to understand their effects accurately. We use shell scripts to configure a large number of pods efficiently, storing their configurations in a YAML file. These pods are then deployed as needed to evaluate the impact on system performance.
 
-## Test Result
+During this process, we've identified that the primary constraint is the processing capability of the api-server. Our data indicates that it is capable of deploying 5,000 pods in just 38 seconds, achieving a throughput of 131.6 pods per second.
+:::
+
 ### Throughtput
 In this experiment, we will use the following three test cases to measure the throughput and scheduling duration of different schedulers. Each application will be deployed at one-second intervals.
 
@@ -61,23 +60,114 @@ In this experiment, we will use the following three test cases to measure the th
 | -------------------- | -------------- | -------- | -------------------- |
 | makespan             | 99             | 6        | 99                   |
 | throughput(pods/sec) | 50.5           | 833.3    | 50.5                 |
+![throughput-result-01](../assets/kwok-throughput-01.png)
 
 | #2                   | kube-scheduler | yunikorn | yunikorn plugin mode |
 | -------------------- | -------------- | -------- | -------------------- |
 | makespan             | 99             | 9        | 100                  |
 | throughput(pods/sec) | 50.5           | 555.6    | 50                   |
+![throughput-result-02](../assets/kwok-throughput-02.png)
 
 | #3                   | kube-scheduler | yunikorn | yunikorn plugin mode |
 | -------------------- | -------------- | -------- | -------------------- |
 | makespan             | 99             | 32       | 100                  |
 | throughput(pods/sec) | 50.5           | 156.3    | 50                   |
-
-![throughput-result-01](../assets/kwok-throughput-01.png)
-![throughput-result-02](../assets/kwok-throughput-02.png)
+:::note
+Regarding the throughput of the YuniKorn Scheduler, the third test took the longest time. This can be attributed to the fact that the application is deployed only every second, thereby lengthening the makespan.
+:::
 ![throughput-result-03](../assets/kwok-throughput-03.png)
 
-#### Summary
+### Taint & Tolerations 
+
+In the Taint & Tolerations test case, each node is initially assigned a taint that corresponds to its numerical identifier. Following this, pods are randomly assigned tolerations based on the indexes of different nodes. To assess the impact on system performance, we will deploy a YAML file containing 5000 pods and monitor the outcome.
+
+```yaml
+kubectl taint nodes kwok-node-1 key-1=value-1:NoSchedule
+```
+
+```yaml
+tolerations:
+- key: key-$rand
+  operator: "Exists"
+```
+
+#### Result:
+
+| Taint & Tolerations  | kube-scheduler | yunikorn | yunikorn plugin mode |
+| -------------------- | -------------- | -------- | -------------------- |
+| makespan             | 99             | 36       | 99                   |
+| throughput(pods/sec) | 50.5           | 138.9    | 50.5                 |
+![taint-tolerations-result](../assets/kwok-toleration-taint.png)
+
+### Affinity & Non-Affinity
+
+In the test cases for Affinity & Non-Affinity, 5,000 pods will be divided into four different combinations as follows:
+
+| Types of Node affinity and anti-affinity | Operator | Numbers of Pods |
+| ---------------------------------------- | -------- | --------------- |
+| Preferred                                | In       | 625             |
+| Preferred                                | NotIn    | 625             |
+| Required                                 | In       | 625             |
+| Required                                 | NotIn    | 625             |
+
+
+| Types of Pod affinity and anti-affinity | Operator | Numbers of Pods |
+| --------------------------------------- | -------- | --------------- |
+| Preferred                               | In       | 1250            |
+| Preferred                               | NotIn    | 1250            |
+
+
+In the Node affinity section, the matchExpressions value is set to the hostname of a randomly selected node.
+```yaml
+affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: $operator
+            values:
+            - kwok-node-$randHost
+```
+
+In the Pod affinity section, the value of matchExpressions is a randomly assigned applicationId.
+```yaml
+affinity:
+  podAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: applicationId
+            operator: $operator
+            values:
+            - nginx-$randAppID1
+        topologyKey: kubernetes.io/role
+```
+
+#### Result
+
+| Affinity & Non-Affinity | kube-scheduler | yunikorn | yunikorn plugin mode |
+| ----------------------- | -------------- | -------- | -------------------- |
+| makespan                | 99             | 42       | 100                  |
+| throughput(pods/sec)    | 50.5           | 119      | 50                   |
+![taint-affinity-result](../assets/kwok-affinity.png)
+
+
+### PriorityClass
+Firstly, deploy 100 distinct PriorityClasses. Subsequently, deploy Jobs with 5,000 Pods at the same time. As YuniKorn sorts priorities solely based on the application and queue, we will assign unique applicationIDs to each Pod and randomly assign different PriorityClasses to the Pods. This approach allows us to observe and analyze the throughput differences between different schedulers.
+
+#### Result
+
+| PriorityClass        | kube-scheduler | yunikorn | yunikorn plugin mode |
+| -------------------- | -------------- | -------- | -------------------- |
+| makespan             | 99             | 38       | 99                   |
+| throughput(pods/sec) | 50.5           | 131.6    | 50.5                 |
+![taint-tolerations-result](../assets/kwok-priorityclass.png)
+
+## Summary
 
 The test results reveal that YuniKorn demonstrates the highest throughput across all three tests. Both Kube-scheduler and YuniKorn plugin mode perform comparably.
 
-Regarding the throughput of the YuniKorn Scheduler, the third test took the longest time. This can be attributed to the fact that the application is deployed only every second, thereby lengthening the makespan.
+In tests involving Taint & Tolerations, Affinity & Anti-affinity, and PriorityClass, it's observed that despite numerous parameters and constraints in the deployment process, there's minimal impact on the final throughput and makespan. With the YuniKorn scheduler, a relatively lower throughput was noted, primarily due to the api-server becoming a bottleneck when deploying 5,000 pods simultaneously.
