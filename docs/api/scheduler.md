@@ -1907,6 +1907,12 @@ Endpoint is used to retrieve a batch of event records.
 
 **Auth required** : NO
 
+**URL query parameters** :
+- `count` (optional) : Specifies the maxmem number of events to be included in the response.
+- `start` (optional) : Specifies the starting ID for retrieving events. If the specified ID is outside the ring buffer 
+(too low or too high), the response will include the lowest and highest ID values with `EventRecords` being empty. 
+
+
 ### Success response
 
 **Code**: `200 OK`
