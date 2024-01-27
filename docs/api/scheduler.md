@@ -275,7 +275,8 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 Fetch all Applications for the given Partition/State combination and displays general information about the applications like used resources, queue name, submission time and allocations.
 Only following application states are allowed: active, rejected, completed. Active is a fake state that represents all application states except completed and rejected.
-For active state, can narrow the result by status query parameters.
+For active state, can narrow the result by status query parameters(case-insensitive). For example, can fetch `Running` applications for the default partition by
+`/ws/v1/partition/default/applications/active?status=running`.
 
 **URL** : `/ws/v1/partition/:partition/applications/:state`
 
@@ -289,7 +290,8 @@ For active state, can narrow the result by status query parameters.
 
 **Content examples**
 
-ref to [Queue Applications](#queue-applications)
+The content of the application object is the same as Queue Applications. See
+ [Queue Applications](#queue-applications) for details.
 
 ### Queue applications
 
