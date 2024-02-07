@@ -977,6 +977,40 @@ Example:
 admissionController.accessControl.externalGroups: "^sales$,^marketing$,^admin-"
 ```
 
+### Using compressed values
+
+The data in ConfigMap cannot exceed 1 MiB. YuniKorn supports the gzip algorithm to decompress data in the `binaryData` field.
+If a key ends with `.gz`. YuniKorn will treat the value as gzip-compressed data and decompress it automatically. The base64 encoding is automatically.
+If a value is set in both the `data` and `binaryData` sections, the value in the `binaryData` section will be used.
+
+Example:
+
+Users can run the command to get the value.
+
+```bash
+echo "
+partitions:
+  - name: default
+    queues:
+      - name: root
+        submitacl: '*'
+        parent: true
+        queues:
+          - name: parent
+            submitacl: '*'" | gzip | base64
+```
+
+Set the result in the `binaryData` field.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yunikorn-configs
+binaryData:
+  queues.yaml.gz: "H4sIAMyHs2UAA2WMSQ6AIBAE77yibyQmfoDfoI4JCYvCzP/FjWDsY3Wl1GYzO3YpFqOAEdEGMlhoteK5EmAXErrec6+RU+IHAUWm4NjO3kAPuuHapsgGnIUa/Ob65K13xy98AFwE9HmuAAAA"
+```
+
 ### Deprecated settings
 
 #### service.operatorPlugins
