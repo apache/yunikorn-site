@@ -12,7 +12,7 @@
   "dependencies": {
     "@docusaurus/core": "2.4.1",
     "@docusaurus/preset-classic": "2.4.1",
-    "@docusaurus/theme-search-algolia": "^2.4.1",
+    "@docusaurus/theme-search-algolia": "^3.1.1",
     "@mdx-js/react": "^1.5.8",
     "clsx": "^1.1.1",
     "node": "^18.8.0",

@@ -18,7 +18,8 @@ module.exports = {
     docs: {
         'Get Started': [
             'get_started/user_guide',
-            'get_started/core_features'
+            'get_started/core_features',
+            'get_started/version'
         ],
         'User Guide': [
             'user_guide/deployment_modes',
