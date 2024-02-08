@@ -28,6 +28,8 @@ The recommendation is to always run the latest possible version of YuniKorn.
 New releases are made regular driven by new features for YuniKorn itself and or the shim. 
 Features and fixes are currently only added to the development branch from which releases are cut.
 
+At this point in time the project only creates minor releases, no patch releases.
+
 If a shim version, i.e. Kubernetes, is supported by multiple YuniKorn releases we recommend to always use the latest YuniKorn release possible.
 Older build dependencies in earlier releases could prevent you from using some new functionality exposed by a newer shim.
 
