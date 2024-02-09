@@ -33,7 +33,7 @@ At this point in time the project only creates minor releases, no patch releases
 If a shim version, i.e. Kubernetes, is supported by multiple YuniKorn releases we recommend to always use the latest YuniKorn release possible.
 Older build dependencies in earlier releases could prevent you from using some new functionality exposed by a newer shim.
 
-# Kubernetes versions per YuniKorn release
+# Kubernetes versions supported by YuniKorn
 
 | K8s Version         | Supported <br/>from version | Support ended |
 |---------------------|:---------------------------:|:-------------:|
