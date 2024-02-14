@@ -116,7 +116,7 @@ function print_usage() {
   cat <<EOF
 Usage: $(basename "$0") run [locale] | build | clean | help
     run     build the website, and launch the server in a docker image.
-            a locale can be specified, currently supported: "en", "zh-cn"
+            a locale can be specified, currently supported: "en"
     build   create a production build, input for manual update of the website.
     clean   remove old build and cached files.
     help    print this message.
