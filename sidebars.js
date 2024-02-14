@@ -74,7 +74,6 @@ module.exports = {
             'developer_guide/dependencies',
             'developer_guide/deployment',
             'developer_guide/openshift_development',
-            'developer_guide/translation',
             'developer_guide/scheduler_object_states',
             {
                 type: 'category',
