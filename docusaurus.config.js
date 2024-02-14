@@ -27,18 +27,6 @@ module.exports = {
   customFields: {
     trailingSlashes: true,
   },
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh-cn'],
-    localeConfigs: {
-      en: {
-        label: 'English',
-      },
-      "zh-cn": {
-        label: '中文',
-      },
-    },
-  },
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -155,10 +143,6 @@ module.exports = {
         {
           label: 'Docs',
           type: 'docsVersionDropdown',
-          position: 'right',
-        },
-        {
-          type: 'localeDropdown',
           position: 'right',
         },
         {
