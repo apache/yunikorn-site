@@ -62,7 +62,6 @@ The queues configuration is explained below.
 
 Optionally the following keys can be defined for a partition:
 * [placementrules](#placement-rules)
-* [statedumpfilepath](#statedump-filepath) (deprecated since v1.2.0)
 * [limits](#limits)
 * nodesortpolicy
 * preemption
@@ -203,14 +202,6 @@ The placement rules are defined and documented in the [placement rule](placement
 
 Each partition can have only one set of placement rules defined. 
 If no rules are defined the placement manager is not started and each application *must* have a queue set on submit.
-
-### Statedump filepath
-
-**Status** : Deprecated and ignored since v1.2.0, no replacement.
-
-```yaml
-statedumpfilepath: <path/to/statedump/file>
-```
 
 ### Limits
 Limits define a set of limit objects for a queue, and can be set on a queue at any level.
