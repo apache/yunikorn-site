@@ -2025,27 +2025,6 @@ The current content shows the cached objects:
 
 **Code**: `500 Internal Server Error`
 
-## Enable or disable periodic state dump
-
-Endpoint to enable a state dump to be written periodically.
-
-**Status** : Deprecated and ignored since v1.2.0, no replacement.
-
-**URL** : `/ws/v1/periodicstatedump/{switch}/{periodSeconds}`
-
-**Method** : `PUT`
-
-**Auth required** : NO
-
-### Success response
-
-None
-
-### Error response
-
-**Code**: `400 Bad Request`
-
-
 ## Batch Events
 
 Endpoint is used to retrieve a batch of event records.
