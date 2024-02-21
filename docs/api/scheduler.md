@@ -2094,3 +2094,37 @@ Endpoint is used to retrieve a batch of event records.
 ### Error response
 
 **Code** : `500 Internal Server Error`
+
+### Event stream
+
+Creates a persistent HTTP connection for event streaming. New events are sent to the clients immediately, so unlike the batch interface, there is no need for polling.
+The number of active connections is limited. The default setting is 100 connections total and 15 connections per host. The respective configmap properties are `event.maxStreams` and `event.maxStreamsPerHost`. 
+
+**URL**: `/ws/v1/events/stream`
+
+**METHOD** : `GET`
+
+**Auth required** : NO
+
+**URL query parameters**:
+- `count` (optional) : Specifies the number of past events (those which have been generated before the connection establishment) to include in the response. Default value is 0.
+
+### Success response
+
+**Code**: `200 OK`
+
+**Content examples**
+
+```json
+{"type":2,"objectID":"app-1","timestampNano":1708465452903045265,"eventChangeType":1,"eventChangeDetail":204,"resource":{}}
+{"type":2,"objectID":"app-1","timestampNano":1708465452903192898,"eventChangeType":2,"eventChangeDetail":201,"referenceID":"alloc-1","resource":{"resources":{"memory":{"value":10000000},"vcore":{"value":1000}}}}
+{"type":3,"objectID":"node-1:1234","timestampNano":1708465452903312146,"eventChangeType":2,"eventChangeDetail":303,"referenceID":"alloc-1","resource":{"resources":{"memory":{"value":10000000},"vcore":{"value":1000}}}}
+{"type":2,"objectID":"app-1","timestampNano":1708465452903474210,"eventChangeType":1,"eventChangeDetail":205,"resource":{}}
+{"type":5,"objectID":"testuser","timestampNano":1708465452903506166,"eventChangeType":2,"eventChangeDetail":603,"referenceID":"root.singleleaf","resource":{"resources":{"memory":{"value":10000000},"vcore":{"value":1000}}}}
+```
+
+### Error responses
+
+**Code** : `400 Bad Request` (URL query is invalid)
+**Code** : `503 Service Unavailable` (Too many active streaming connections)
+**Code** : `500 Internal Server Error`
