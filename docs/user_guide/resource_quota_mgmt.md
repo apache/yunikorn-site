@@ -207,7 +207,7 @@ partitions:
       - name: root
         submitacl: '*'
         properties:
-          application.sort.policy: stateaware
+          application.sort.policy: fifo
 ```
 
 This configuration places an application based on the `tag` rule.
@@ -215,8 +215,7 @@ The tag selected is the `namespace` tag which is automatically added by the k8s 
 The `create` flag is set to true which will trigger the creation of the queue with the same name as the namespace if it does not exist. 
 
 Applications within the automatically created child queues will be sorted based sorting policy set on the parent queue.
-In this case the property `application.sort.policy` is in this configuration set to `stateaware`.
-This is a simple app sorting policy applicable for batch jobs, you can find more document [here](sorting_policies.md#stateawarepolicy).
+In this case the property `application.sort.policy` is in this configuration set to `fifo`.
 
 You can change the configuration using the helm charts during the installation by overwriting the configuration in the
 [helm chart template](https://github.com/apache/yunikorn-release/blob/master/helm-charts/yunikorn/values.yaml#L71-L81).

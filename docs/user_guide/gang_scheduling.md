@@ -52,7 +52,7 @@ To configure queue sorting policy, please refer to doc: [app sorting policies](s
 #### Why the `FIFO` sorting policy
 
 When Gang Scheduling is enabled, the scheduler proactively reserves resources
-for each application. If the queue sorting policy is not FIFO based (StateAware is FIFO based sorting policy),
+for each application. If the queue sorting policy is not FIFO-based (StateAware is FIFO based sorting policy),
 the scheduler might reserve partial resources for each app and causing resource segmentation issues.
 
 #### Side effects of `StateAware` sorting policy
@@ -61,6 +61,7 @@ We do not recommend using `StateAware`, even-though it is a FIFO based policy. A
 This is specifically an issue with Spark jobs when the driver performs a lot of pre-processing before requesting the executors.
 The `StateAware` timeout in those cases would slow down processing to just one application per timeout.
 This in effect will overrule the gang reservation and cause slowdowns and excessive resource usage.
+`StateAware` sorting is **deprecated** in YuniKorn 1.5.0 and will be **removed** from YuniKorn 1.6.0.
 
 ### App Configuration
 

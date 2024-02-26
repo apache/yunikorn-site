@@ -25,13 +25,13 @@ under the License.
 YuniKorn utilizes several Kubernetes labels and annotations to support various features:
 
 ### Labels in YuniKorn
-| Name                 | Description                                                                                                                                             |
-|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `applicationId`      | Associates this pod with an application.                                                                                                                |
-| `queue`              | Selects the YuniKorn queue this application should be scheduled in. This may be ignored if a placement policy is in effect.                             |
-| `spark-app-selector` | Alternative method of specifying `applicationId` used by Spark Operator if the label `applicationId` and annotation `yunikorn.apache.org/app-id` unset. |
-| `disableStateAware`  | If present, disables the YuniKorn state-aware scheduling policy for this pod. Set internally by the YuniKorn admission controller.                      |
-| `placeholder`        | Set if this pod represents a placeholder for gang scheduling. Set internally by YuniKorn.                                                               |
+| Name                              | Description                                                                                                                                             |
+|-----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `applicationId`                   | Associates this pod with an application.                                                                                                                |
+| `queue`                           | Selects the YuniKorn queue this application should be scheduled in. This may be ignored if a placement policy is in effect.                             |
+| `spark-app-selector`              | Alternative method of specifying `applicationId` used by Spark Operator if the label `applicationId` and annotation `yunikorn.apache.org/app-id` unset. |
+| [DEPRECATED] `disableStateAware`  | If present, disables the YuniKorn state-aware scheduling policy for this pod. Set internally by the YuniKorn admission controller.                      |
+| `placeholder`                     | Set if this pod represents a placeholder for gang scheduling. Set internally by YuniKorn.                                                               |
 
 ### Annotations in YuniKorn
 All annotations are under the namespace `yunikorn.apache.org`. For example `yunikorn.apache.org/app-id`.

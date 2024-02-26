@@ -299,6 +299,10 @@ Default value: `fifo`
 Sets the policy to be used when sorting applications within a queue. This
 setting has no effect on a _parent_ queue.
 
+**NOTE:** The `stateaware` policy is **deprecated** in YuniKorn 1.5.0 and will
+be **removed** from YuniKorn 1.6.0, where it will be treated as an alias for
+`fifo`.
+
 See the documentation on [application sorting](sorting_policies.md#application-sorting)
 for more information.
 
@@ -436,7 +440,7 @@ As an example:
          childtemplate:
            maxapplications: 10
            properties:
-             application.sort.policy: stateaware
+             application.sort.policy: fifo
            resources:
              guaranteed:
                vcore: 1
