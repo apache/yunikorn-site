@@ -91,6 +91,12 @@ Short description: limit of one (1) application in Starting or Accepted state
 
 Config value: `stateaware`
 
+**DEPRECATED:** The `stateaware` policy is **deprecated** in YuniKorn 1.5.0 and
+will be **removed** in YuniKorn 1.6.0. To preserve backwards compatibility,
+`stateaware` will become an alias for `fifo` in YuniKorn 1.6.0 and later.
+Users are encouraged to migrate to `fifo` and utilize either gang scheduling or
+`maxapplications` to limit concurrency instead.
+
 This sorting policy requires an understanding of the application states.
 Applications states are described in the [application states](developer_guide/scheduler_object_states.md#application-state) documentation.
 
