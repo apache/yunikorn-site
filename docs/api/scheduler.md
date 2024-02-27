@@ -2095,7 +2095,7 @@ Endpoint is used to retrieve a batch of event records.
 
 **Code** : `500 Internal Server Error`
 
-### Event stream
+## Event stream
 
 Creates a persistent HTTP connection for event streaming. New events are sent to the clients immediately, so unlike the batch interface, there is no need for polling.
 The number of active connections is limited. The default setting is 100 connections total and 15 connections per host. The respective configmap properties are `event.maxStreams` and `event.maxStreamsPerHost`. 
