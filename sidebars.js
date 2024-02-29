@@ -36,6 +36,7 @@ module.exports = {
             'user_guide/labels_and_annotations_in_yunikorn',
             'user_guide/prometheus',
             'user_guide/use_cases',
+            'user_guide/event_system',
             {
                 type: 'category',
                 label: 'Workloads',
