@@ -46,7 +46,7 @@ Work to be tracked under [YUNIKORN-1628](https://issues.apache.org/jira/browse/Y
 ## Goals
 
 -   Implementation of an event stream for an application, including:  
-  -   State changes
+   -   State changes
   -   Asks and allocation changes
 -   Implementation of an event stream for a node, including:
   -   State changes
