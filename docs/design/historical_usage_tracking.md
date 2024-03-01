@@ -61,7 +61,7 @@ Work to be tracked under [YUNIKORN-1628](https://issues.apache.org/jira/browse/Y
 -   Add a data store for the historical data
 -   Display the event information
 -   Rebuild data on recovery
-  -   Historical data will not be rebuild
+    -   Historical data will not be rebuild
 -   Authentication and Authorisation on the REST interface
 
 ## Existing Event System
