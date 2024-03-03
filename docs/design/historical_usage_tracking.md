@@ -45,15 +45,15 @@ Work to be tracked under [YUNIKORN-1628](https://issues.apache.org/jira/browse/Y
 
 ## Goals
 
--   Implementation of an event stream for an application, including:
-  -   State changes
-  -   Asks and allocation changes
+-   Implementation of an event stream for an application, including:  
+    -   State changes
+    -   Asks and allocation changes
 -   Implementation of an event stream for a node, including:
-  -   State changes
-  -   Allocation changes
+    -   State changes
+    -   Allocation changes
 -   Implementation of an event stream for a queue, including:
-  -   State changes
-  -   Usage changes
+    -   State changes
+    -   Usage changes
 -   Define a REST interface for event retrieval
 
 ## Non Goals
@@ -61,7 +61,7 @@ Work to be tracked under [YUNIKORN-1628](https://issues.apache.org/jira/browse/Y
 -   Add a data store for the historical data
 -   Display the event information
 -   Rebuild data on recovery
-  -   Historical data will not be rebuild
+    -   Historical data will not be rebuild
 -   Authentication and Authorisation on the REST interface
 
 ## Existing Event System
