@@ -44,7 +44,7 @@ setup which gives the same functionality with less impact.
 
 Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop).
 Newer Docker versions have an embedded version of Kubernetes so no additional
-installation is needed. Follow the instructions [here](https://docs.docker.com/docker-for-mac/#kubernetes)
+installation is needed. Follow the instructions [here](https://docs.docker.com/desktop/kubernetes/#install-and-turn-on-kubernetes)
 to get Kubernetes up and running within Docker Desktop.
 Alternatively, a Kind cluster may be created (see instructions
 [here](https://kind.sigs.k8s.io/docs/user/quick-start/#creating-a-cluster).
