@@ -50,18 +50,16 @@ For an overview of all options of the local build script run:
 ```
 
 ## Local build
-Instead of running the build inside a docker image you can also run it locally when you have yarn installed. 
+Instead of running the build inside a docker image you can also run it locally when you have pnpm installed. 
 This is faster than running the build inside a Docker image:
 ```shell script
-yarn install
-yarn add @docusaurus/theme-search-algolia
-yarn build
+pnpm install
+pnpm build
 ```
 Run the website server locally in development mode with the following command:
 ```shell script
-yarn install
-yarn add @docusaurus/theme-search-algolia
-yarn run start
+pnpm install
+pnpm run start
 ```
 
 ## Updating the site

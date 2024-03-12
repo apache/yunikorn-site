@@ -16,10 +16,12 @@
 ARG NODE_VERSION=
 FROM node:${NODE_VERSION}
 
-ADD . /yunikorn-site
 WORKDIR /yunikorn-site
+RUN npm install -g pnpm
+COPY pnpm-lock.yaml /yunikorn-site
+RUN pnpm fetch
 
-RUN yarn install
-RUN yarn add @docusaurus/theme-search-algolia
-RUN yarn build
-ENTRYPOINT yarn start --host 0.0.0.0
+COPY . /yunikorn-site
+RUN pnpm install -r --offline
+RUN pnpm build
+ENTRYPOINT pnpm start --host 0.0.0.0
