@@ -74,7 +74,7 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 | Li Gao        | ligao         | Databricks   | -8                  |
 | PoAn Yang     | payang        |              | +8                  |
 | Qi Zhu        | zhuqi         | Cloudera     | +8                  |
-| Ryan Lo       | wenchih       | NCKU         | +8                  |
+| Ryan Lo       | wenchih       | Fazz         | +8                  |
 | Ted Lin       | steinsgateted | NCKU         | +8                  |
 | Yu-Lin Chen   | chenyulin0719 | NCKU         | +8                  |
 
