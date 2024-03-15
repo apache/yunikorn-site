@@ -67,16 +67,16 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 
 > The listing below excludes the PMC members
 
-| Name          | ApacheID      | Organization | Timezone <br/>(UTC) |
-|---------------|---------------|--------------|---------------------|
-| Hsuan Zong Wu | samhxwu       |              | +8                  |
-| Kuan-Po Tseng | brandboat     | SUSE         | +8                  |
-| Li Gao        | ligao         | Databricks   | -8                  |
-| PoAn Yang     | payang        |              | +8                  |
-| Qi Zhu        | zhuqi         | Cloudera     | +8                  |
-| Ryan Lo       | wenchih       | Fazz         | +8                  |
-| Ted Lin       | steinsgateted | NCKU         | +8                  |
-| Yu-Lin Chen   | chenyulin0719 | NCKU         | +8                  |
+| Name          | ApacheID      | Organization   | Timezone <br/>(UTC) |
+|---------------|---------------|----------------|---------------------|
+| Hsuan Zong Wu | samhxwu       |                | +8                  |
+| Kuan-Po Tseng | brandboat     | SUSE           | +8                  |
+| Li Gao        | ligao         | Databricks     | -8                  |
+| PoAn Yang     | payang        |                | +8                  |
+| Qi Zhu        | zhuqi         | Cloudera       | +8                  |
+| Ryan Lo       | wenchih       | Fazz           | +8                  |
+| Ted Lin       | steinsgateted | NCKU           | +8                  |
+| Yu-Lin Chen   | chenyulin0719 | opensource4you | +8                  |
 
 ## Become a Committer
 
