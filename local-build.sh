@@ -27,7 +27,6 @@ function clean() {
   echo "removing build artifacts:"
   echo "  docusaurus install" && rm -rf .docusaurus
   echo "  node modules" && rm -rf node_modules
-  echo "  yarn lock file" && rm -f yarn.lock
   echo "  build output" && rm -rf build
 }
 
@@ -44,8 +43,12 @@ function image_build() {
   # build local docker image
   cat <<EOF >.dockerfile.tmp
 FROM node:${NODE_VERSION}
-ADD . /yunikorn-site
 WORKDIR /yunikorn-site
+RUN npm install -g pnpm
+COPY pnpm-lock.yaml /yunikorn-site
+RUN pnpm fetch
+COPY . /yunikorn-site
+RUN pnpm install -r --offline
 EOF
 
   if ! docker build -t yunikorn/yunikorn-website:latest -f .dockerfile.tmp .; then
@@ -59,7 +62,7 @@ EOF
 function web() {
   # start the web server
   echo " Starting development server with locale $LOCALE"
-  docker exec -it yunikorn-site-local /bin/bash -c "yarn start --locale=$LOCALE --host 0.0.0.0"
+  docker exec -it yunikorn-site-local /bin/bash -c "pnpm start --locale=$LOCALE --host 0.0.0.0"
   RET=$?
   [ ${RET} -eq 131 ] && echo "  ctrl-\ caught, restarting" && return 2
   [ ${RET} -eq 130 ] && echo "  ctrl-c caught, exiting build" && return 0
@@ -73,23 +76,13 @@ function run_base() {
   if ! docker run -it --name yunikorn-site-local -d \
     -p 3000:3000 \
     -v "$PWD":/yunikorn-site \
+    --mount type=volume,dst=/yunikorn-site/node_modules \
     yunikorn/yunikorn-website:latest; then
 
     echo "run local docker image failed"
     return 1
   fi
 
-  # install dependency in docker container
-  if ! docker exec -it yunikorn-site-local /bin/bash -c "yarn install"; then
-    echo "yarn install failed"
-    return 1
-  fi
-
-  # install dependency in docker container
-  if ! docker exec -it yunikorn-site-local /bin/bash -c "yarn add @docusaurus/theme-search-algolia"; then
-    echo "yarn add failed"
-    return 1
-  fi
   return 0
 }
 
@@ -105,8 +98,8 @@ function run_web() {
 
 function run_build() {
   # run build inside the container
-  if ! docker exec -it yunikorn-site-local /bin/bash -c "yarn build"; then
-    echo "yarn build failed"
+  if ! docker exec -it yunikorn-site-local pnpm build; then
+    echo "pnpm build failed"
     return 1
   fi
   return 0

@@ -9,5 +9,6 @@ package-lock.json
 yarn.lock
 _site/
 .docusaurus/
+.pnpm-store/
 node_modules/
 build/

@@ -16,3 +16,8 @@
 # Ignore files to keep site clean
 Dockerfile
 README.md
+*.swp
+**/node_modules/
+**/.pnpm-store/
+local-build.sh
+check_license.sh
