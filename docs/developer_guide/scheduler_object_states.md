@@ -38,14 +38,7 @@ An application can have the following states:
 * New: A new application that is being submitted or created, from here the application transitions into the accepted state when it is ready for scheduling.
 The first ask to be added will trigger the transition.
 * Accepted: The application is ready and part of the scheduling cycle.
-On allocation of the first ask the application moves into a starting state.
-This state is part of the normal scheduling cycle.
-* Starting: The application has exactly one allocation confirmed this corresponds to one running container/pod. 
-The application transitions to running if and when more allocations are added to the application.
-This state times out automatically to prevent applications that consist of just one allocation from getting stuck in this state.
-The current time out is set to 5 minutes, and cannot be changed.
-If after the timeout expires the application will auto transition to running.
-The state change on time out is independent of the number of allocations added. 
+On allocation of the first ask the application moves into a running state.
 This state is part of the normal scheduling cycle.
 * Running: The state in which the application will spend most of its time.
 Containers/pods can be added to and removed from the application. 
@@ -118,6 +111,3 @@ The node status changes based on the status provided by the resource manager (sh
 
 ### Task
 ![task state diagram](./../assets/k8shim-task-state.png)
-
-### Node
-![node state diagram](./../assets/k8shim-node-state.png)
