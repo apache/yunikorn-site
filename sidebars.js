@@ -93,7 +93,6 @@ module.exports = {
                     'design/generic_resource',
                     'design/priority_scheduling',
                     'design/resilience',
-                    'design/state_aware_scheduling',
                     'design/config_v2',
                     'design/scheduler_configuration',
                 ]
@@ -106,6 +105,7 @@ module.exports = {
                     'archived_design/namespace_resource_quota',
                     'archived_design/predicates',
                     'archived_design/scheduler_core_design',
+                    'archived_design/state_aware_scheduling',
                     'archived_design/cross_queue_preemption',
                     'archived_design/pluggable_app_management',
                 ]                

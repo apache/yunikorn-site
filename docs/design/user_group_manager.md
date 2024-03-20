@@ -105,11 +105,11 @@ Since placeholders and placeholder timeout can play a role in state changes the 
 
 ### Running state entry
 
-The application when submitted and placed into a queue is in the _New_ state. At this point there is no allocation or pending request present on the application. After one or more requests, _AllocationAsks_, are added the application moves into an _Accepted_ state. The _Accepted_ state is exited when the first _Allocation_ is added to the application. The application then transitions into the Starting state.
+The application when submitted and placed into a queue is in the _New_ state. At this point there is no allocation or pending request present on the application. After one or more requests, _AllocationAsks_, are added the application moves into an _Accepted_ state. The _Accepted_ state is exited when the first _Allocation_ is added to the application. The application then transitions into the Running state.
 
 At this point a resource quota would be used by the application and the application should be considered as running from a tracking perspective. This means that the addition of the first _Allocation_ onto the application also must be the trigger point for the increase of the running applications. This trigger point for tracking is when the application is in the _Accepted_ state. This is also the point at which the group for the usage tracking needs to be set as described in the [group limitations](#group-limitations).
 
-Note that currently, the application state transition code block in application_state.go updates the application running queue metrics when the application enters _Running_ state. The metric must be updated to be consistent with the above definition of a running application. Linking this back to a state transition the entry into the Starting state should be used.
+Note that currently, the application state transition code block in application_state.go updates the application running queue metrics when the application enters _Running_ state. The metric must be updated to be consistent with the above definition of a running application. Linking this back to a state transition the entry into the Running state should be used.
 
 ### Running state exit
 

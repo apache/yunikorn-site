@@ -417,10 +417,6 @@ In the example below there are three allocations belonging to two applications, 
                 "applicationState": "Accepted"
             },
             {
-                "time": 1648741409145509400,
-                "applicationState": "Starting"
-            },
-            {
                 "time": 1648741409147432100,
                 "applicationState": "Running"
             }
@@ -522,10 +518,6 @@ In the example below there are three allocations belonging to two applications, 
             {
                 "time": 1648741409145224000,
                 "applicationState": "Accepted"
-            },
-            {
-                "time": 1648741409145509400,
-                "applicationState": "Starting"
             },
             {
                 "time": 1648741409147432100,
@@ -674,10 +666,6 @@ Field `uuid` has been deprecated, would be removed from below response in YUNIKO
         {
             "time": 1648741409145224000,
             "applicationState": "Accepted"
-        },
-        {
-            "time": 1648741409145509400,
-            "applicationState": "Starting"
         },
         {
             "time": 1648741409147432100,
