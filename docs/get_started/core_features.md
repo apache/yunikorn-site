@@ -93,3 +93,9 @@ The [Partition and Queue Configuration](user_guide/queue_config.md) provides con
 ## CPU Architecture support
 YuniKorn supports running on ARM as well as on AMD/Intel CPUs.
 With the release of YuniKorn 1.1.0, prebuilt convenience images for both architectures are provided in docker hub.
+
+## Event system and application history tracking
+Whenever something relevant happens inside the scheduler (eg. request is added, allocation happens in a queue, node removal, queue or user quota is exceeded, etc) an appropriate event is generated.
+This enables users to reliably generate usage statistics about their workloads over time. Since the event structure is well-defined, this is much more suitable for automated processing than logs.
+Application history (state transitions & allocations), node, queue, user and group resource usage can be examined without having to look at the logs.
+The events accessible on the REST interface in two ways: batch or streaming. A [batch query](../api/scheduler.md#batch-events) simply returns the list of events, while the [streaming](../api/scheduler.md#event-stream) endpoint keeps the connection open and new events are immediately sent to the client.
