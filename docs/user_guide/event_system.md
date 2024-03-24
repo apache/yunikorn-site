@@ -1,6 +1,6 @@
 ---
 id: event_system
-title: event_system
+title: Event System
 ---
 
 <!--
@@ -22,7 +22,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Overview
+## Overview
 
 The Yunikorn scheduler core generates well-defined events at various points during the execution. Since an event has a fixed structure, it is an ideal input for automated tools for further processing. Although Yunikorn has extensive logging, the output is textual and needs to be parsed. Not only is it error-prone, but also nothing guarantees that it never changes over time: it might be completely removed in a future release or the log level can change. 
 
@@ -32,7 +32,7 @@ Certain types of events which are related to pods and nodes are also sent to Kub
 
 Various properties of the event subsystem are configurable. Changes are picked up and applied immediately.
 
-# Event types
+## Event types
 
 Events always describe a specific object type. There are four types of events: application, queue, node and user/group.
 When it is appropriate, the event will be sent to Kubernetes using the K8s event API. Since the API requires a "regarding" object (ie. which K8s object the event is about), we only send node and pod events.
@@ -79,7 +79,7 @@ The following table summarizes when they are generated.
 
 `*` a predicate is a plugin located in the default scheduler. They're responsible for functionality like node selectors, affinity, anti-affinity, etc. Yunikorn runs the predicates for every allocation to see if it fits the candidate node.
 
-# In-memory storage of historical events
+## In-memory storage of historical events
 
 Yunikorn stores a previously generated event objects in a ring buffer. Once it gets full, oldest elements are overwritten. The default size of the buffer is 100000.
 On a busy cluster this might not be enough. The size can be changed in the configmap by using the key `event.ringBufferCapacity`.
@@ -90,17 +90,17 @@ Every event is assigned an ID starting from 0. This can be used to fetch them ba
 
 Yunikorn currently does not offer a solution which stores the generated events in a persistent storage. However, this might change in the upcoming releases.
 
-# Retrieving events
+## Retrieving events
 
 The REST API provides two ways to see the generated events.
 
-## Batch REST endpoint
+### Batch REST endpoint
 
 The batch endpoint is available at `/ws/v1/events/batch`. If not defined, the start ID is 0 and a maximum of 10000 events are returned. This can be changed by defining the "start" and "count" URL query parameters.
 
 See [batch interface](../api/scheduler.md#batch-events) for details.
  
-## Streaming REST endpoint
+### Streaming REST endpoint
 
 The streaming endpoint is available at `/ws/v1/events/stream`. Unlike the batch interface, which closes the connection after the query, streaming keeps the HTTP connection open. There is no idle timeout, so as long as the connection is stable, it is never closed. New events are sent immediately to active clients. The URL parameter "count" is also accepted; it tells Yunikorn how many recent events we want to fetch that were generated before the connection.
 
@@ -108,7 +108,7 @@ Since this approach uses more resources inside Yunikorn, the number of streaming
 
 The active streaming connections are also shown in the state dump.
 
-# Event structure
+## Event structure
 
 A Yunikorn event has the following fields:
 
@@ -141,7 +141,7 @@ We use the following unique identifiers:
 
 All events will contain the allocated resource.
 
-# Disabling the event system
+## Disabling the event system
 
 Although it has negligible overhead, it is possible to completely disable Yunikorn events. This can be achieved by setting `event.trackingEnabled` to `false`. This does NOT clear the ring buffer contents, so the history recorded until the change is still available.
 
