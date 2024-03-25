@@ -651,6 +651,49 @@ Example:
 ```yaml
 service.instanceTypeNodeLabelKey: "node.kubernetes.io/my-instance-type"
 ```
+
+### Event system settings
+
+#### event.trackingEnabled
+Enables or disables the event system and event generation.
+
+Default: `true`
+
+Example:
+```yaml
+event.trackingEnabled: "false"
+```
+
+#### event.ringbufferCapacity
+Sets the capacity of the ring buffer which stores Yunikorn generated events.
+
+Default: `10000`
+
+Example:
+```yaml
+event.ringbufferCapacity: "300000"
+```
+
+#### event.maxStreams
+Sets the maximum number of event stream connections.
+
+Default: `100`
+
+Example:
+```yaml
+event.maxStreams: "50"
+```
+
+#### event.maxStreamsPerHost
+Sets the maximum number of event stream connections from a given host.
+
+Default: `15`
+
+Example:
+```yaml
+event.maxStreamsPerHost: "5"
+```
+
 ### Health settings
 
 #### health.checkInterval
