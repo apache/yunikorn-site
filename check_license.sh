@@ -22,9 +22,9 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 echo "checking license headers:"
 # run different finds on mac vs linux
 if [ "${OS}" = "darwin" ]; then
-  find -E . ! -path "./.git*" ! -path "./.docusaurus*" ! -path "./node_modules*" -regex ".*(Dockerfile|\.(js|sh|md|conf|yaml|yml|html|css))" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > LICRES
+  find -E . ! -path "./.git*" ! -path "./.docusaurus*" ! -path "./node_modules*" ! -path ./pnpm-lock.yaml -regex ".*(Dockerfile|\.(js|sh|md|conf|yaml|yml|html|css))" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > LICRES
 else
-  find . ! -path "./.git*" ! -path "./.docusaurus*" ! -path "./node_modules*" -regex ".*\(Dockerfile\|\.\(js\|sh\|md\|conf\|yaml\|yml\|html\|css\)\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > LICRES
+  find . ! -path "./.git*" ! -path "./.docusaurus*" ! -path "./node_modules*" ! -path ./pnpm-lock.yaml -regex ".*\(Dockerfile\|\.\(js\|sh\|md\|conf\|yaml\|yml\|html\|css\)\)" -exec grep -L "Licensed to the Apache Software Foundation" {} \; > LICRES
 fi
 # any file mentioned in the output is missing the license
 if [ -s LICRES ]; then

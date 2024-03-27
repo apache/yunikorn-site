@@ -47,7 +47,6 @@
       "developer_guide/dependencies",
       "developer_guide/deployment",
       "developer_guide/openshift_development",
-      "developer_guide/translation",
       {
         "type": "category",
         "label": "Designs",

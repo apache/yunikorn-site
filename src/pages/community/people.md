@@ -38,13 +38,14 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 | Carlo Curino            | curino      | Microsoft    | -8                  |
 | Chaoran Yu              | yuchaoran   | Apple        | -8                  |
 | Chenya Zhang            | chenya      | Apple        | -8                  |
+| Chia-Ping Tsai          | chia7712    | Alpha Link   | +8                  |
 | Craig Condit            | ccondit     | Cloudera     | -6                  |
 | DB Tsai                 | dbtsai      | Apple        | -8                  |
 | Felix Cheung            | felixcheung | SafeGraph    | -8                  |
 | Holden Karau            | holden      | Netflix      | -8                  |
 | Jason Lowe              | jlowe       | NVIDIA       | -6                  | 
 | Jonathan Hung           | jhung       | LinkedIn     | -8                  |
-| Junping Du              | junping_du  | Huawei       | 0                   |
+| Junping Du              | junping_du  | Datastrato   | +8                  |
 | Kinga Marton            | kmarton     | Cloudera     | +1                  |
 | Konstantinos Karanasos  | kkaranasos  | Microsoft    | -8                  |
 | Luciano Resende         | lresende    | Apple        | -8                  |
@@ -66,14 +67,16 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 
 > The listing below excludes the PMC members
 
-| Name           | ApacheID      | Organization | Timezone <br/>(UTC) |
-|----------------|---------------|--------------|---------------------|
-| Chia-Ping Tsai | chia7712      | Is-Land      | +8                  |
-| Li Gao         | ligao         | Databricks   | -8                  |
-| PoAn Yang      | payang        |              | +8                  |
-| Hsuan Zong Wu  | samhxwu       |              | +8                  |
-| Ted Lin        | steinsgateted | NCKU         | +8                  |
-| Qi Zhu         | zhuqi         | Cloudera     | +8                  |
+| Name          | ApacheID      | Organization   | Timezone <br/>(UTC) |
+|---------------|---------------|----------------|---------------------|
+| Hsuan Zong Wu | samhxwu       |                | +8                  |
+| Kuan-Po Tseng | brandboat     | SUSE           | +8                  |
+| Li Gao        | ligao         | Databricks     | -8                  |
+| PoAn Yang     | payang        |                | +8                  |
+| Qi Zhu        | zhuqi         | Cloudera       | +8                  |
+| Ryan Lo       | wenchih       | Fazz           | +8                  |
+| Ted Lin       | steinsgateted | NCKU           | +8                  |
+| Yu-Lin Chen   | chenyulin0719 | opensource4you | +8                  |
 
 ## Become a Committer
 

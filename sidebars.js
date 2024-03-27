@@ -18,7 +18,8 @@ module.exports = {
     docs: {
         'Get Started': [
             'get_started/user_guide',
-            'get_started/core_features'
+            'get_started/core_features',
+            'get_started/version'
         ],
         'User Guide': [
             'user_guide/deployment_modes',
@@ -35,6 +36,7 @@ module.exports = {
             'user_guide/labels_and_annotations_in_yunikorn',
             'user_guide/prometheus',
             'user_guide/use_cases',
+            'user_guide/event_system',
             {
                 type: 'category',
                 label: 'Workloads',
@@ -73,7 +75,7 @@ module.exports = {
             'developer_guide/dependencies',
             'developer_guide/deployment',
             'developer_guide/openshift_development',
-            'developer_guide/translation',
+            'developer_guide/scheduler_object_states',
             {
                 type: 'category',
                 label: 'Designs',
@@ -92,8 +94,6 @@ module.exports = {
                     'design/generic_resource',
                     'design/priority_scheduling',
                     'design/resilience',
-                    'design/state_aware_scheduling',
-                    'design/scheduler_object_states',
                     'design/config_v2',
                     'design/scheduler_configuration',
                 ]
@@ -106,6 +106,7 @@ module.exports = {
                     'archived_design/namespace_resource_quota',
                     'archived_design/predicates',
                     'archived_design/scheduler_core_design',
+                    'archived_design/state_aware_scheduling',
                     'archived_design/cross_queue_preemption',
                     'archived_design/pluggable_app_management',
                 ]                
@@ -113,6 +114,7 @@ module.exports = {
         ],
         'Performance': [
             'performance/evaluate_perf_function_with_kubemark',
+            'performance/evaluate_perf_function_with_kwok',
             'performance/performance_tutorial',
             'performance/metrics',
             'performance/profiling'

@@ -27,18 +27,6 @@ module.exports = {
   customFields: {
     trailingSlashes: true,
   },
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh-cn'],
-    localeConfigs: {
-      en: {
-        label: 'English',
-      },
-      "zh-cn": {
-        label: '中文',
-      },
-    },
-  },
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -61,7 +49,7 @@ module.exports = {
     announcementBar: {
       id: 'new_release',
       content:
-          '1.4.0 has been released, check the <a href="/community/download">DOWNLOADS</a>.',
+          '1.5.0 has been released, check the <a href="/community/download">DOWNLOADS</a>.',
       backgroundColor: '#fafbfc',
       textColor: '#091E42',
     },
@@ -76,7 +64,7 @@ module.exports = {
       items: [
         {
           to: 'docs/',
-          label: 'Quick Start',
+          label: 'Docs',
         },
         {
           to: 'community/roadmap',
@@ -154,27 +142,7 @@ module.exports = {
         },
         {
           label: 'Docs',
-          to: 'docs',
-          position: 'right',
-          items: [
-            {
-              label: 'Master',
-              to: 'docs/next/',
-            },
-            {
-              label: versions[0],
-              to: 'docs/',
-              // required for correct style on current version menu item
-              activeBaseRegex: `docs/(?!${versions.join('|')}|next)`,
-            },
-            ...versions.slice(1).map((version) => ({
-              label: version,
-              to: `docs/${version}/`,
-            })),
-          ],
-        },
-        {
-          type: 'localeDropdown',
+          type: 'docsVersionDropdown',
           position: 'right',
         },
         {

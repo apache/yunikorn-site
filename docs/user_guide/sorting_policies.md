@@ -86,37 +86,6 @@ All resources defined on the application will be taken into account when calcula
 
 The result is that the resources available are spread equally over all applications that request resources.
 
-### StateAwarePolicy
-Short description: limit of one (1) application in Starting or Accepted state  
-
-Config value: `stateaware`
-
-This sorting policy requires an understanding of the application states.
-Applications states are described in the [application states](design/scheduler_object_states.md#application-state) documentation.
-
-Before sorting applications the following filters are applied to all applications in the queue:
-The first filter is based on the application state.
-The following applications pass through the filter and generate the first intermediate list:
-* all applications in the state _running_
-* _one_ (1) application in the _starting_ state
-* if there are _no_ applications in the _starting_ state _one_ (1) application in the _accepted_ state is added
-
-The second filter takes the result of the first filter as an input.
-The preliminary list is filtered again: all applications _without_ a pending request are removed.
-
-After filtering based on status and pending requests the applications that remain are sorted.
-The final list is thus filtered twice with the remaining applications sorted on create time.
-
-To recap the _staring_ and _accepted_ state interactions: 
-The application in the _accepted_ state is only added if there is no application in the _starting_ state.
-The application in the _starting_ state does not have to have pending requests.
-Any application in the _starting_ state will prevent _accepted_ applications from being added to the filtered list.
-
-For further details see the [Example run](design/state_aware_scheduling.md#example-run) in the design document.
-
-The result is that already running applications that request resources will get resources first.
-A drip feed of one new applications is added to the list of running applications to be allocated after all running applications.  
-
 ## Node sorting
 The node sorting policy is set for a partition via the config.
 Each partition can use a different policy.

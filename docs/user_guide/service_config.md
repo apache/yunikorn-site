@@ -651,6 +651,49 @@ Example:
 ```yaml
 service.instanceTypeNodeLabelKey: "node.kubernetes.io/my-instance-type"
 ```
+
+### Event system settings
+
+#### event.trackingEnabled
+Enables or disables the event system and event generation.
+
+Default: `true`
+
+Example:
+```yaml
+event.trackingEnabled: "false"
+```
+
+#### event.ringbufferCapacity
+Sets the capacity of the ring buffer which stores Yunikorn generated events.
+
+Default: `10000`
+
+Example:
+```yaml
+event.ringbufferCapacity: "300000"
+```
+
+#### event.maxStreams
+Sets the maximum number of event stream connections.
+
+Default: `100`
+
+Example:
+```yaml
+event.maxStreams: "50"
+```
+
+#### event.maxStreamsPerHost
+Sets the maximum number of event stream connections from a given host.
+
+Default: `15`
+
+Example:
+```yaml
+event.maxStreamsPerHost: "5"
+```
+
 ### Health settings
 
 #### health.checkInterval
@@ -907,7 +950,7 @@ For certain use-cases, there may be a need to skip adding a default queue name t
 
 Adding default queue name should be avoided when `provided` rule is used in conjunction with other placement rules and `provided` rule is higher in the hierarchy. If default queue label is added whenever there is no queue name specified, all the apps will be placed via `provided` rule and the other rules after that will never be executed.
 
-Default: empty
+Default: `root.default`
 
 Example:
 ```yaml
@@ -975,6 +1018,40 @@ Example:
 ```yaml
 # allow 'sales', 'marketing', and 'admin-*'
 admissionController.accessControl.externalGroups: "^sales$,^marketing$,^admin-"
+```
+
+### Using compressed values
+
+The data in ConfigMap cannot exceed 1 MiB. YuniKorn supports the gzip algorithm to decompress data in the `binaryData` field.
+If a key ends with `.gz`. YuniKorn will treat the value as gzip-compressed data and decompress it automatically. The base64 encoding is automatically.
+If a value is set in both the `data` and `binaryData` sections, the value in the `binaryData` section will be used.
+
+Example:
+
+Users can run the command to get the value.
+
+```bash
+echo "
+partitions:
+  - name: default
+    queues:
+      - name: root
+        submitacl: '*'
+        parent: true
+        queues:
+          - name: parent
+            submitacl: '*'" | gzip | base64
+```
+
+Set the result in the `binaryData` field.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yunikorn-configs
+binaryData:
+  queues.yaml.gz: "H4sIAMyHs2UAA2WMSQ6AIBAE77yibyQmfoDfoI4JCYvCzP/FjWDsY3Wl1GYzO3YpFqOAEdEGMlhoteK5EmAXErrec6+RU+IHAUWm4NjO3kAPuuHapsgGnIUa/Ob65K13xy98AFwE9HmuAAAA"
 ```
 
 ### Deprecated settings

@@ -45,15 +45,15 @@ Work to be tracked under [YUNIKORN-1628](https://issues.apache.org/jira/browse/Y
 
 ## Goals
 
--   Implementation of an event stream for an application, including:
-  -   State changes
-  -   Asks and allocation changes
+-   Implementation of an event stream for an application, including:  
+    -   State changes
+    -   Asks and allocation changes
 -   Implementation of an event stream for a node, including:
-  -   State changes
-  -   Allocation changes
+    -   State changes
+    -   Allocation changes
 -   Implementation of an event stream for a queue, including:
-  -   State changes
-  -   Usage changes
+    -   State changes
+    -   Usage changes
 -   Define a REST interface for event retrieval
 
 ## Non Goals
@@ -61,7 +61,7 @@ Work to be tracked under [YUNIKORN-1628](https://issues.apache.org/jira/browse/Y
 -   Add a data store for the historical data
 -   Display the event information
 -   Rebuild data on recovery
-  -   Historical data will not be rebuild
+    -   Historical data will not be rebuild
 -   Authentication and Authorisation on the REST interface
 
 ## Existing Event System
@@ -228,7 +228,6 @@ APP_REQUEST = 201 // Request changed
 APP_REJECT = 202 // Application rejected on create
 APP_NEW = 203 // Application added with state new
 APP_ACCEPTED = 204 // State change to accepted
-APP_STARTING = 205 // State change to starting
 APP_RUNNING = 206 // State change to running
 APP_COMPLETING = 207 // State change to completing
 APP_COMPLETED = 208 // State change to completed
@@ -466,7 +465,6 @@ It serves as a reference for the core scheduler actions that will trigger the ev
 | APP        | REMOVE      | REQUEST_CANCEL    | RequestID      | Removal triggered by application removal         |
 | APP        | SET         | APP_NEW           |                | State change: New                                |
 | APP        | SET         | APP_ACCEPTED      |                | State change: Accepted                           |
-| APP        | SET         | APP_STARTING      |                | State change: Starting                           |
 | APP        | SET         | APP_RUNNING       |                | State change: Running                            |
 | APP        | SET         | APP_COMPLETING    |                | State change: Completing                         |
 | APP        | SET         | APP_COMPLETED     |                | State change: Completed                          |
@@ -568,7 +566,6 @@ An application undergoes state transitions, so the following events are generate
 -   Add new application
 -   State change: New
 -   State change: Accepted
--   State change: Starting
 -   State change: Running
 -   State change: Completing
 -   State change: Completed

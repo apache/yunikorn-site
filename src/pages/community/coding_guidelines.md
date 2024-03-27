@@ -31,7 +31,7 @@ That means tabs and not spaces etc.
 Read the [Effective GO](https://golang.org/doc/effective_go.html) page for further details.
 Before creating a pull request make sure the code at least is formatted using `gofmt`.
 
-Beside the effective GO guide follow the recommendations from the [CodeReviewComments](https://github.com/golang/go/wiki/CodeReviewComments) wiki page.
+Beside the effective GO guide follow the recommendations from the [CodeReviewComments](https://go.dev/wiki/CodeReviewComments) wiki page.
 The wiki provides a good collection of comments from code reviews.
 Most of the comments will be checked in the automated checks described below.
 

@@ -271,6 +271,28 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 ## Applications
 
+### Partition applications
+
+Fetch all Applications for the given Partition/State combination and displays general information about the applications like used resources, queue name, submission time and allocations.
+Only following application states are allowed: active, rejected, completed. Active is a fake state that represents all application states except completed and rejected.
+For active state, can narrow the result by status query parameters(case-insensitive). For example, can fetch `Running` applications for the default partition by
+`/ws/v1/partition/default/applications/active?status=running`.
+
+**URL** : `/ws/v1/partition/:partition/applications/:state`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+The content of the application object is the same as Queue Applications. See
+ [Queue Applications](#queue-applications) for details.
+
 ### Queue applications
 
 Fetch all Applications for the given Partition/Queue combination and displays general information about the applications like used resources, queue name, submission time and allocations.
@@ -284,6 +306,10 @@ Fetch all Applications for the given Partition/Queue combination and displays ge
 ### Success response
 
 **Code** : `200 OK`
+
+**Deprecated**:
+
+Field `uuid` has been deprecated, would be removed from below response in YUNIKORN 1.7.0 release. `AllocationID` has replaced `uuid`. Both `uuid` and `AllocationID` fields have the same value. `AllocationID` has extra suffix containing hyphen and counter (-0, -1 and so on) at the end. 
 
 **Content examples**
 
@@ -364,6 +390,7 @@ In the example below there are three allocations belonging to two applications, 
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+                "allocationID": "9af35d44-2d6f-40d1-b51d-758859e6b8a8-0",
                 "resource": {
                     "memory": 4000000000,
                     "vcore": 4000
@@ -388,10 +415,6 @@ In the example below there are three allocations belonging to two applications, 
             {
                 "time": 1648741409145224000,
                 "applicationState": "Accepted"
-            },
-            {
-                "time": 1648741409145509400,
-                "applicationState": "Starting"
             },
             {
                 "time": 1648741409147432100,
@@ -445,6 +468,7 @@ In the example below there are three allocations belonging to two applications, 
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
+                "allocationID": "08033f9a-4699-403c-9204-6333856b41bd-0",
                 "resource": {
                     "memory": 2000000000,
                     "vcore": 2000
@@ -469,6 +493,7 @@ In the example below there are three allocations belonging to two applications, 
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
+                "allocationID": "96beeb45-5ed2-4c19-9a83-2ac807637b3b-0",
                 "resource": {
                     "memory": 2000000000,
                     "vcore": 2000
@@ -493,10 +518,6 @@ In the example below there are three allocations belonging to two applications, 
             {
                 "time": 1648741409145224000,
                 "applicationState": "Accepted"
-            },
-            {
-                "time": 1648741409145509400,
-                "applicationState": "Starting"
             },
             {
                 "time": 1648741409147432100,
@@ -526,11 +547,11 @@ In the example below there are three allocations belonging to two applications, 
 
 ## Application
 
-### Queue application
+### Partition/Queue application
 
-Fetch an Application given a Partition, Queue and Application ID and displays general information about the application like used resources, queue name, submission time and allocations.
+Fetch an Application given a Partition, Queue(optional) and Application ID and displays general information about the application like used resources, queue name, submission time and allocations.
 
-**URL** : `/ws/v1/partition/{partitionName}/queue/{queueName}/application/{appId}`
+**URL** : `/ws/v1/partition/{partitionName}/application/{appId}` or `/ws/v1/partition/{partitionName}/queue/{queueName}/application/{appId}`
 
 **Method** : `GET`
 
@@ -539,6 +560,10 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
 ### Success response
 
 **Code** : `200 OK`
+
+**Deprecated**:
+
+Field `uuid` has been deprecated, would be removed from below response in YUNIKORN 1.7.0 release. `AllocationID` has replaced `uuid`. Both `uuid` and `AllocationID` fields have the same value. `AllocationID` has extra suffix containing hyphen and counter (-0, -1 and so on) at the end.
 
 **Content example**
 
@@ -616,6 +641,7 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
             "allocationTime": 1648754035973982920,
             "allocationDelay": 1875070459,
             "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+            "allocationID": "9af35d44-2d6f-40d1-b51d-758859e6b8a8-0",
             "resource": {
                 "memory": 4000000000,
                 "vcore": 4000
@@ -640,10 +666,6 @@ Fetch an Application given a Partition, Queue and Application ID and displays ge
         {
             "time": 1648741409145224000,
             "applicationState": "Accepted"
-        },
-        {
-            "time": 1648741409145509400,
-            "applicationState": "Starting"
         },
         {
             "time": 1648741409147432100,
@@ -1112,6 +1134,7 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "08033f9a-4699-403c-9204-6333856b41bd",
+                "allocationID": "08033f9a-4699-403c-9204-6333856b41bd-0",
                 "resource": {
                     "memory": 2000000000,
                     "vcore": 2000
@@ -1136,6 +1159,7 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+                "allocationID": "9af35d44-2d6f-40d1-b51d-758859e6b8a8-0",
                 "resource": {
                     "memory": 4000000000,
                     "vcore": 4000
@@ -1208,6 +1232,7 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "allocationTime": 1648754035973982920,
                 "allocationDelay": 1875070459,
                 "uuid": "96beeb45-5ed2-4c19-9a83-2ac807637b3b",
+                "allocationID": "96beeb45-5ed2-4c19-9a83-2ac807637b3b-0",
                 "resource": {
                     "memory": 2000000000,
                     "vcore": 2000
@@ -1307,6 +1332,7 @@ Node details include host and rack name, capacity, resources, utilization, and a
          "allocationTime":1648754035973982920,
          "allocationDelay":1875070459,
          "uuid":"08033f9a-4699-403c-9204-6333856b41bd",
+         "allocationID":"08033f9a-4699-403c-9204-6333856b41bd-0",
          "resource":{
             "memory":2000000000,
             "vcore":2000
@@ -1331,6 +1357,7 @@ Node details include host and rack name, capacity, resources, utilization, and a
          "allocationTime":1648754035973982920,
          "allocationDelay":1875070459,
          "uuid":"9af35d44-2d6f-40d1-b51d-758859e6b8a8",
+         "allocationID":"9af35d44-2d6f-40d1-b51d-758859e6b8a8-0",
          "resource":{
             "memory":4000000000,
             "vcore":4000
@@ -1345,6 +1372,138 @@ Node details include host and rack name, capacity, resources, utilization, and a
    ],
    "schedulable":true
 }
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## Node utilization
+
+Show how every node is distributed with regard to dominant resource utilization.
+
+**Status** : Deprecated since v1.5.0 and will be removed in the next major release. Replaced with `/ws/v1/scheduler/node-utilizations`.
+
+**URL** : `/ws/v1/scheduler/node-utilization`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+    "type": "vcore",
+    "utilization": [
+      {
+        "bucketName": "0-10%",
+        "numOfNodes": 1,
+        "nodeNames": [
+          "aethergpu"
+        ]
+      },
+      {
+        "bucketName": "10-20%",
+        "numOfNodes": 2,
+        "nodeNames": [
+            "primary-node",
+            "second-node"
+        ]
+      },
+      ...  
+    ]
+}
+```
+
+### Error response
+
+**Code** : `500 Internal Server Error`
+
+**Content examples**
+
+```json
+{
+    "status_code": 500,
+    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
+    "description": "system error message. for example, json: invalid UTF-8 in string: .."
+}
+```
+
+## Node utilizations
+
+Show the nodes utilization of different types of resources in a cluster.
+
+**URL** : `/ws/v1/scheduler/node-utilizations`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+[
+    {
+        "clusterId": "mycluster",
+        "partition": "default",
+        "utilizations": [
+            {
+                "type": "pods",
+                "utilization": [
+                    {
+                        "bucketName": "0-10%",
+                        "numOfNodes": 2,
+                        "nodeNames": [
+                            "primary-node",
+                            "second-node"
+                        ]
+                    },
+                    {
+                        "bucketName": "10-20%"
+                    },
+                    ...
+                ]
+            },
+            {
+                "type": "vcores",
+                "utilization": [
+                    {
+                        "bucketName": "0-10%",
+                        "numOfNodes": 2,
+                        "nodeNames": [
+                            "primary-node",
+                            "second-node"
+                        ]
+                    },
+                    {
+                        "bucketName": "10-20%"
+                    },
+                    ...
+                ]
+            },
+            ...
+        ]
+    }
+]
 ```
 
 ### Error response
@@ -1876,22 +2035,106 @@ The current content shows the cached objects:
 
 **Code**: `500 Internal Server Error`
 
-## Enable or disable periodic state dump
+## Batch Events
 
-Endpoint to enable a state dump to be written periodically.
+Endpoint is used to retrieve a batch of event records.
 
-**Status** : Deprecated and ignored since v1.2.0, no replacement.
+**URL**: `/ws/v1/events/batch`
 
-**URL** : `/ws/v1/periodicstatedump/{switch}/{periodSeconds}`
-
-**Method** : `PUT`
+**METHOD** : `GET`
 
 **Auth required** : NO
 
+**URL query parameters** :
+- `count` (optional) : Specifies the maxmem number of events to be included in the response.
+- `start` (optional) : Specifies the starting ID for retrieving events. If the specified ID is outside the ring buffer 
+(too low or too high), the response will include the lowest and highest ID values with `EventRecords` being empty. 
+
+
 ### Success response
 
-None
+**Code**: `200 OK`
+
+**Content examples**
+
+```json
+{
+  "InstanceUUID": "400046c6-2180-41a2-9be1-1c251ab2c498",
+  "LowestID": 0,
+  "HighestID": 7,
+  "EventRecords": [
+    {
+      "type": 3,
+      "objectID": "yk8s-worker",
+      "message": "schedulable: true",
+      "timestampNano": 1701347180239597300,
+      "eventChangeType": 1,
+      "eventChangeDetail": 302,
+      "resource": {}
+    },
+    {
+      "type": 3,
+      "objectID": "yk8s-worker",
+      "message": "Node added to the scheduler",
+      "timestampNano": 1701347180239650600,
+      "eventChangeType": 2,
+      "resource": {
+        "resources": {
+          "ephemeral-storage": {
+            "value": 502921060352
+          },
+          "hugepages-1Gi": {},
+          "hugepages-2Mi": {},
+          "memory": {
+            "value": 33424998400
+          },
+          "pods": {
+            "value": 110
+          },
+          "vcore": {
+            "value": 8000
+          }
+        }
+      }
+    }
+  ]
+}
+```
 
 ### Error response
 
-**Code**: `400 Bad Request`
+**Code** : `500 Internal Server Error`
+
+## Event stream
+
+Creates a persistent HTTP connection for event streaming. New events are sent to the clients immediately, so unlike the batch interface, there is no need for polling.
+The number of active connections is limited. The default setting is 100 connections total and 15 connections per host. The respective configmap properties are `event.maxStreams` and `event.maxStreamsPerHost`. 
+
+**URL**: `/ws/v1/events/stream`
+
+**METHOD** : `GET`
+
+**Auth required** : NO
+
+**URL query parameters**:
+- `count` (optional) : Specifies the number of past events (those which have been generated before the connection establishment) to include in the response. Default value is 0.
+
+### Success response
+
+**Code**: `200 OK`
+
+**Content examples**
+
+```json
+{"type":2,"objectID":"app-1","timestampNano":1708465452903045265,"eventChangeType":1,"eventChangeDetail":204,"resource":{}}
+{"type":2,"objectID":"app-1","timestampNano":1708465452903192898,"eventChangeType":2,"eventChangeDetail":201,"referenceID":"alloc-1","resource":{"resources":{"memory":{"value":10000000},"vcore":{"value":1000}}}}
+{"type":3,"objectID":"node-1:1234","timestampNano":1708465452903312146,"eventChangeType":2,"eventChangeDetail":303,"referenceID":"alloc-1","resource":{"resources":{"memory":{"value":10000000},"vcore":{"value":1000}}}}
+{"type":2,"objectID":"app-1","timestampNano":1708465452903474210,"eventChangeType":1,"eventChangeDetail":205,"resource":{}}
+{"type":5,"objectID":"testuser","timestampNano":1708465452903506166,"eventChangeType":2,"eventChangeDetail":603,"referenceID":"root.singleleaf","resource":{"resources":{"memory":{"value":10000000},"vcore":{"value":1000}}}}
+```
+
+### Error responses
+
+**Code** : `400 Bad Request` (URL query is invalid)
+**Code** : `503 Service Unavailable` (Too many active streaming connections)
+**Code** : `500 Internal Server Error`
