@@ -60,18 +60,15 @@ This kubernetes environment can be either local or remote.
 ```
 curl -o yunikorn-configs.yaml https://raw.githubusercontent.com/apache/yunikorn-k8shim/master/deployments/scheduler/yunikorn-configs.yaml
 ```
-- modify the content of yunikorn-configs.yaml file as needed, and create ConfigMap in kubernetes:
+- modify the content of yunikorn-configs.yaml file as needed, and apply yunikorn-configs.yaml file in kubernetes:
 ```
-kubectl create configmap yunikorn-configs --from-file=yunikorn-configs.yaml
-```
-- Or update ConfigMap in kubernetes:
-```
-kubectl create configmap yunikorn-configs --from-file=yunikorn-configs.yaml -o yaml --dry-run=client | kubectl apply -f -
+kubectl apply -f yunikorn-configs.yaml
 ```
 - check if the ConfigMap was created/updated correctly:
 ```
 kubectl describe configmaps yunikorn-configs
 ```
+- for more configuration detail, see [Service Configuration](../user_guide/service_config.md).
 
 ## Deploy the Scheduler
 
