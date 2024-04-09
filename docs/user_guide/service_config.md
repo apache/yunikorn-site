@@ -733,7 +733,7 @@ Example:
 log.level: "DEBUG"
 ```
 
-#### log.{subsystem}.level
+#### log.\{subsystem\}.level
 Sets the verbosity that YuniKorn subsystem will log at.
 
 Yunikorn allows fine-grained logging configuration in a hierarchical manner. For example, 

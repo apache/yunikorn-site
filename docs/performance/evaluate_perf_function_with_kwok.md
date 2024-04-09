@@ -31,7 +31,7 @@ Using Kwok, we replicated previous performance tests, deploying 10 deployments o
 
 The test is conducted using KWOK in a Cluster. The cluster environment is optimized according to the performance tuning settings in the YuniKorn documentation. For more details, refer to the [Benchmarking Tutorial](performance/performance_tutorial.md#performance-tuning). You can conveniently set up Kwok in your Kubernetes Cluster by downloading the scripts we provide [here](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/kwok-perf-test/kwok-setup.sh). 
 
-For data monitoring, Prometheus will be employed to gather metrics. We'll use count(kube_pod_status_scheduled_time{namespace="default"}) as an indicator of throughput.
+For data monitoring, Prometheus will be employed to gather metrics. We'll use count(kube_pod_status_scheduled_time\{namespace="default"\}) as an indicator of throughput.
 
 ## Test Cases
 

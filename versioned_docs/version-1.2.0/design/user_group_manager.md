@@ -331,8 +331,8 @@ The usage tracking information that is part of the user group manager must be ex
 
 Based on the current REST api definition for other object the proposal is to expose the following new endpoints:
 
-- /ws/v1/partition/{partitionName}/usage/users
-- /ws/v1/partition/{partitionName}/usage/groups
+- /ws/v1/partition/\{partitionName\}/usage/users
+- /ws/v1/partition/\{partitionName\}/usage/groups
 
 For both endpoints we expose the full queue hierarchy. As an example below the approximate output for the user's endpoint for one user:
 
