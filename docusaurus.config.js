@@ -203,7 +203,7 @@ module.exports = {
             },
             {
               label: 'People',
-              href: 'community/people'
+              to: 'community/people'
             },
             {
               label: 'Issues',
