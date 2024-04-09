@@ -180,32 +180,37 @@ Each Spark job runs 2 types of pods, driver and executor. Hence, we need to defi
 The annotations for the driver pod looks like:
 
 ```yaml
-Annotations:
-  yunikorn.apache.org/schedulingPolicyParameters: “placeholderTimeoutSeconds=30”
-  yunikorn.apache.org/taskGroupName: “spark-driver”
-  yunikorn.apache.org/taskGroup: “
-    TaskGroups: [
-     {
-       Name: “spark-driver”,
-       minMember: 1,
-       minResource: {
-         Cpu: 1,
-         Memory: 2Gi
-       },
-       Node-selector: ...,
-       Tolerations: ...,
-       Affinity: ...
-     },
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    spark-app-id: spark-driver
+    queue: root.sandbox
+  annotations:
+    yunikorn.apache.org/schedulingPolicyParameters: "placeholderTimeoutInSeconds=30 gangSchedulingStyle=Hard"
+    yunikorn.apache.org/task-group-name: "spark-driver"
+    yunikorn.apache.org/task-groups: |-
+      [{
+          "name": "spark-driver",
+          "minMember": 1,
+          "minResource": {
+            "cpu": "1",
+            "memory": "2Gi"
+          },
+          "nodeSelector": {},
+          "tolerations": [],
+          "affinity": {}
+      },
       {
-        Name: “spark-executor”,
-        minMember: 10, 
-        minResource: {
-          Cpu: 1,
-          Memory: 2Gi
-        }
-      }
-  ]
-  ”
+          "name": "spark-executor",
+          "minMember": 1,
+          "minResource": {
+            "cpu": "1",
+            "memory": "2Gi"
+          }
+      }]
+spec:
+  schedulerName: yunikorn
 ```
 
 :::note
@@ -216,10 +221,18 @@ See the [Spark documentation](https://spark.apache.org/docs/latest/configuration
 For all the executor pods,
 
 ```yaml
-Annotations:
-  # the taskGroup name should match to the names
-  # defined in the taskGroups field
-  yunikorn.apache.org/taskGroupName: “spark-executor”
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    spark-app-id: spark-executor
+    queue: root.sandbox
+  annotations:
+    # the taskGroup name should match to the names
+    # defined in the taskGroups field
+    yunikorn.apache.org/task-group-name: "spark-executor"
+spec:
+  schedulerName: yunikorn
 ```
 
 Once the job is submitted to the scheduler, the job won’t be scheduled immediately.
