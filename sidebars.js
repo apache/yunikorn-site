@@ -76,6 +76,7 @@ module.exports = {
             'developer_guide/deployment',
             'developer_guide/openshift_development',
             'developer_guide/scheduler_object_states',
+            'developer_guide/e2e_test',
             {
                 type: 'category',
                 label: 'Designs',
