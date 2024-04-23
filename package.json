@@ -11,15 +11,15 @@
     "release": "docusaurus docs:version"
   },
   "dependencies": {
-    "@docusaurus/core": "2.4.1",
-    "@docusaurus/preset-classic": "2.4.1",
-    "@docusaurus/theme-search-algolia": "2.4.1",
-    "@mdx-js/react": "^1.5.8",
-    "axios": "0.28.0",
-    "clsx": "^1.1.1",
-    "node": "^18.8.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "@docusaurus/core": "3.2.1",
+    "@docusaurus/preset-classic": "3.2.1",
+    "@docusaurus/theme-search-algolia": "3.2.1",
+    "@mdx-js/react": "^3.0.1",
+    "axios": "1.6.8",
+    "clsx": "^2.1.0",
+    "node": "^18.20.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "browserslist": {
     "production": [

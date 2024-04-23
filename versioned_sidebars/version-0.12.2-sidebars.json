@@ -1,5 +1,5 @@
 {
-  "version-0.12.2/docs": [
+  "docs": [
     {
       "type": "category",
       "collapsed": true,
@@ -8,11 +8,11 @@
       "items": [
         {
           "type": "doc",
-          "id": "version-0.12.2/get_started/user_guide"
+          "id": "get_started/user_guide"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/get_started/core_features"
+          "id": "get_started/core_features"
         }
       ]
     },
@@ -24,31 +24,31 @@
       "items": [
         {
           "type": "doc",
-          "id": "version-0.12.2/user_guide/queue_config"
+          "id": "user_guide/queue_config"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/user_guide/placement_rules"
+          "id": "user_guide/placement_rules"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/user_guide/usergroup_resolution"
+          "id": "user_guide/usergroup_resolution"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/user_guide/sorting_policies"
+          "id": "user_guide/sorting_policies"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/user_guide/acls"
+          "id": "user_guide/acls"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/user_guide/resource_quota_management"
+          "id": "user_guide/resource_quota_management"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/user_guide/gang_scheduling"
+          "id": "user_guide/gang_scheduling"
         },
         {
           "type": "category",
@@ -56,15 +56,15 @@
           "items": [
             {
               "type": "doc",
-              "id": "version-0.12.2/user_guide/workloads/run_spark"
+              "id": "user_guide/workloads/run_spark"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/user_guide/workloads/run_flink"
+              "id": "user_guide/workloads/run_flink"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/user_guide/workloads/run_tf"
+              "id": "user_guide/workloads/run_tf"
             }
           ],
           "collapsible": true,
@@ -76,15 +76,15 @@
           "items": [
             {
               "type": "doc",
-              "id": "version-0.12.2/api/cluster"
+              "id": "api/cluster"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/api/scheduler"
+              "id": "api/scheduler"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/api/system"
+              "id": "api/system"
             }
           ],
           "collapsible": true,
@@ -92,7 +92,7 @@
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/user_guide/trouble_shooting"
+          "id": "user_guide/trouble_shooting"
         }
       ]
     },
@@ -104,19 +104,19 @@
       "items": [
         {
           "type": "doc",
-          "id": "version-0.12.2/developer_guide/env_setup"
+          "id": "developer_guide/env_setup"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/developer_guide/build"
+          "id": "developer_guide/build"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/developer_guide/deployment"
+          "id": "developer_guide/deployment"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/developer_guide/openshift_development"
+          "id": "developer_guide/openshift_development"
         },
         {
           "type": "category",
@@ -124,55 +124,55 @@
           "items": [
             {
               "type": "doc",
-              "id": "version-0.12.2/design/architecture"
+              "id": "design/architecture"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/scheduler_core_design"
+              "id": "design/scheduler_core_design"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/cache_removal"
+              "id": "design/cache_removal"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/k8shim"
+              "id": "design/k8shim"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/cross_queue_preemption"
+              "id": "design/cross_queue_preemption"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/namespace_resource_quota"
+              "id": "design/namespace_resource_quota"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/pluggable_app_management"
+              "id": "design/pluggable_app_management"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/resilience"
+              "id": "design/resilience"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/predicates"
+              "id": "design/predicates"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/scheduler_configuration"
+              "id": "design/scheduler_configuration"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/state_aware_scheduling"
+              "id": "design/state_aware_scheduling"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/scheduler_object_states"
+              "id": "design/scheduler_object_states"
             },
             {
               "type": "doc",
-              "id": "version-0.12.2/design/gang_scheduling"
+              "id": "design/gang_scheduling"
             }
           ],
           "collapsible": true,
@@ -188,19 +188,19 @@
       "items": [
         {
           "type": "doc",
-          "id": "version-0.12.2/performance/evaluate_perf_function_with_kubemark"
+          "id": "performance/evaluate_perf_function_with_kubemark"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/performance/performance_tutorial"
+          "id": "performance/performance_tutorial"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/performance/metrics"
+          "id": "performance/metrics"
         },
         {
           "type": "doc",
-          "id": "version-0.12.2/performance/profiling"
+          "id": "performance/profiling"
         }
       ]
     }

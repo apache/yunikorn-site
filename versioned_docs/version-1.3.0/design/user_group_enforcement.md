@@ -387,8 +387,8 @@ The quota set in the queueTracker at the specific entry is the quota that is enf
 From a troubleshooting perspective this would be a requirement to allow an administrator to assess state.
 
 Based on the current REST api definition the data exposed in the following two endpoints will be updated to expose the limits:  
-_/ws/v1/partition/{partitionName}/usage/users_  
-_/ws/v1/partition/{partitionName}/usage/groups_  
+_/ws/v1/partition/\{partitionName\}/usage/users_  
+_/ws/v1/partition/\{partitionName\}/usage/groups_  
 
 For both endpoints we expose the full queue hierarchy. As an example below the approximate output for the users endpoint for one user:
 

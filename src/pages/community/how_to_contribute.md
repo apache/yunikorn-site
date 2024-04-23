@@ -204,10 +204,10 @@ Abandoning the process leaves the local system in the same state as it was befor
 :::caution
 Using the GitHub web UI there is no control over the author or committers details.
 
-The committer is always set to "GitHub <noreply@github.com>".
+The committer is always set to "GitHub \<[noreply@github.com](mailto:noreply@github.com)\>".
 The user logged into the GitHub web UI and performing the action is not tracked in the commit.
 The author name is influenced by the GitHub setting "Keep my email addresses private",
-this can cause author names like "username <12345678-username@users.noreply.github.com>" to be used.
+this can cause author names like "username \<12345678-username@users.noreply.github.com\>" to be used.
 :::
 
 Commit messages **must** comply to a simple set of rules:

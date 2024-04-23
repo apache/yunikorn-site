@@ -376,8 +376,8 @@ The results of deploying Pods in different queues are shown below. You can use t
 
 | user, group  | Resource Limits for Destination Queues | request resources for each replicas | replica | result                                                   | YAML filename    |
 |--------------|----------------------------------------|-------------------------------------|---------|----------------------------------------------------------|------------------|
-| admin, admin | {memory: 6G, vcore: 6}                 | {memory: 512M, vcore: 250m}         | 1       | run all replica                                          | nginx-admin.yaml |
-| sue, group-A | {memory: 2G, vcore: 4}                 | {memory: 512M, vcore: 500m}         | 5       | run 3 replica (4 replica will exceed the resource limit) | nginx-sue.yaml   |
+| admin, admin | \{memory: 6G, vcore: 6\}                 | \{memory: 512M, vcore: 250m\}         | 1       | run all replica                                          | nginx-admin.yaml |
+| sue, group-A | \{memory: 2G, vcore: 4\}                 | \{memory: 512M, vcore: 500m\}         | 5       | run 3 replica (4 replica will exceed the resource limit) | nginx-sue.yaml   |
 
 See the documentation on [Partition and Queue Configuration #Resources](queue_config#resources) for more information.
 

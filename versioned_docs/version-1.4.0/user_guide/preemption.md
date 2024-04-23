@@ -91,7 +91,7 @@ We will deploy 10 pods with a resource requirement of 1 to both `queue-1` and `q
 
 Result:
 
-When a set of guaranteed resources is defined, preemption aims to ensure that all queues satisfy their guaranteed resources. Preemption stops once the guaranteed resources are met (law 4). A queue may be preempted if it has more resources than its guaranteed amount. For instance, in this case, if queue-1 has fewer resources than its guaranteed amount (<5), it will not be preempted (law 5).
+When a set of guaranteed resources is defined, preemption aims to ensure that all queues satisfy their guaranteed resources. Preemption stops once the guaranteed resources are met (law 4). A queue may be preempted if it has more resources than its guaranteed amount. For instance, in this case, if queue-1 has fewer resources than its guaranteed amount (\<5), it will not be preempted (law 5).
 
 | Queue            | Resource before preemption | Resource after preemption |
 | ---------------- | -------------------------- | ------------------------- |

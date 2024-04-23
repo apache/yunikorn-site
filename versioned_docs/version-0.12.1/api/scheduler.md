@@ -352,7 +352,7 @@ Fetch all Applications across different Partitions and displays general informat
 
 **Query Params** : 
 
-1. queue=<fully qualified queue name\>
+1. queue=\<fully qualified queue name\>
 
 The fully qualified queue name used to filter the applications that run within the given queue. For example, "/ws/v1/apps?queue=root.default" returns the applications running in "root.default" queue.
 
