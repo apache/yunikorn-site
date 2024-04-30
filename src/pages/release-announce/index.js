@@ -31,21 +31,24 @@ const LinkPage = () => {
     return (
         <Layout description="Apache YuniKorn website">
             <main>
+                <br/>
                 <div className={styles.postContainer}>
-                <h1>Release Announcements</h1>
+                    <h1>Release Announcements</h1>
                     <div>
                         List of all release announcements for Apache YuniKorn.
                         Sorted by version, not by release date.
                     </div>
+                    <br/>
                     {releaseNames.map((release) => {
-                        const name = release.replace("./","").replace(".md", "");
+                        const name = release.replace("./", "").replace(".md", "");
                         const link = `/release-announce/${name}`;
                         return (
-                            <div>
+                            <div className={styles.indentReleases}>
                                 <a href={link}>Release v{name}</a>
                             </div>
                         )
                     })}
+                    <br/>
                 </div>
             </main>
         </Layout>
