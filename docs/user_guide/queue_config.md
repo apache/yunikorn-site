@@ -201,7 +201,7 @@ partitions:
 The placement rules are defined and documented in the [placement rule](placement_rules.md) document.
 
 Each partition can have only one set of placement rules defined. 
-If no rules are defined, `implicit provided rule` will be applied.
+If no rules are defined, [provided rule](placement_rules#provided-rule) will be applied.
 Each application *must* have a queue set on submit.
 
 ### Limits
