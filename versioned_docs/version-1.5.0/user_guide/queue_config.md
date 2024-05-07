@@ -201,7 +201,8 @@ partitions:
 The placement rules are defined and documented in the [placement rule](placement_rules.md) document.
 
 Each partition can have only one set of placement rules defined. 
-If no rules are defined the placement manager is not started and each application *must* have a queue set on submit.
+If no rules are defined, [provided rule](placement_rules#provided-rule) will be applied.
+Each application *must* have a queue set on submit.
 
 ### Limits
 Limits define a set of limit objects for a queue, and can be set on a queue at any level.
