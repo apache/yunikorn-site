@@ -60,7 +60,7 @@
 }
 
 .postContainer {
-  alignment: center;
+  align-content: center;
   min-width: 300px;
   max-width: 800px;
   margin: 0 20%;
@@ -97,4 +97,11 @@
   text-align:center;
   color: cadetblue;
   margin-bottom: 30px;
+}
+
+.indentReleases {
+  display: list-item;
+  list-style-type: square;
+  list-style-position: inside;
+  margin-left: 10px
 }
