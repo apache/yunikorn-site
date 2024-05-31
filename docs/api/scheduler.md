@@ -141,6 +141,48 @@ Returns general information and statistics about a partition.
 }
 ```
 
+## PlacementRules
+
+Returns the list of currently active placement rules for the partition.
+This list can be different from the list in the configuration.
+
+**URL** : `/ws/v1/partition/{partitionName}/placementrules`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+[
+    {
+        "name": "provided",
+        "parameters": {
+            "create":"false"
+        }
+    },
+    {
+        "name":"recovery",
+        "parameters": {
+            "queue": "root.@recovery@"
+        }
+    }
+]
+```
+
+### Error responses
+
+**Code** : `400 Bad Request` (URL query is invalid, missing partition name)
+
+**Code** : `404 Not Found` (Partition not found)
+
+**Code** : `500 Internal Server Error`
+
 ## Queues
 
 ### Partition queues
@@ -2009,6 +2051,8 @@ Endpoint to retrieve the following information in a single response:
 * RMDiagnostics
 * Log level
 * Configuration
+* Placement rules
+* Event stream overview (client hostname and creation timestamp)
 
 **URL** : `/ws/v1/fullstatedump`
 
