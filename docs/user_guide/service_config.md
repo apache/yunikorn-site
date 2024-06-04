@@ -694,6 +694,16 @@ Example:
 event.maxStreamsPerHost: "5"
 ```
 
+#### event.requestCapacity
+Sets the size of the temporary storage (slice) from which the shim publisher
+(which sends pod and node specific K8s events) regularly fetches event objects.
+
+Default: `1000`
+
+Example:
+```yaml
+event.requestCapacity: "500"
+
 ### Health settings
 
 #### health.checkInterval
