@@ -667,7 +667,7 @@ event.trackingEnabled: "false"
 #### event.ringbufferCapacity
 Sets the capacity of the ring buffer which stores Yunikorn generated events.
 
-Default: `10000`
+Default: `100000`
 
 Example:
 ```yaml
