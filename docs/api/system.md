@@ -23,6 +23,7 @@ under the License.
 -->
 
 These endpoints are for the [pprof](https://github.com/google/pprof) profiling tool.
+Also, they are `unstable` because they are entirely dependent on what version of the go compiler and stdlibs were used to build YuniKorn.
 
 ## pprof
 
@@ -173,7 +174,7 @@ trace: A trace of execution of the current program. You can specify the duration
 **Content examples**
 
 ```proto
-// binary data from proto
+/yunikorn-scheduler
 ```
 
 ## Profile
@@ -205,7 +206,7 @@ trace: A trace of execution of the current program. You can specify the duration
 **Content examples**
 
 ```proto
-// binary data from proto
+num_symbols: 1
 ```
 
 ## Trace		

@@ -667,7 +667,7 @@ event.trackingEnabled: "false"
 #### event.ringbufferCapacity
 Sets the capacity of the ring buffer which stores Yunikorn generated events.
 
-Default: `10000`
+Default: `100000`
 
 Example:
 ```yaml
@@ -693,6 +693,16 @@ Example:
 ```yaml
 event.maxStreamsPerHost: "5"
 ```
+
+#### event.requestCapacity
+Sets the size of the temporary storage (slice) from which the shim publisher
+(which sends pod and node specific K8s events) regularly fetches event objects.
+
+Default: `1000`
+
+Example:
+```yaml
+event.requestCapacity: "500"
 
 ### Health settings
 
