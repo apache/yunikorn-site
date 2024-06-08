@@ -193,7 +193,8 @@ annotations:
         },
         "nodeSelector": {},
         "tolerations": [],
-        "affinity": {}
+        "affinity": {},
+        "topologySpreadConstraints": []
      },
      {
         "name": "spark-executor",
