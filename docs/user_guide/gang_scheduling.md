@@ -85,9 +85,8 @@ one for the driver pod and the other one for the executor pods.
 
 #### How to define task groups?
 
-The task group definition is a copy of the app’s real pod definition, values for fields like resources, node-selector, toleration
-and affinity should be the same as the real pods. This is to ensure the scheduler can reserve resources with the
-exact correct pod specification.
+The task group definition is a copy of the app’s real pod definition, values for fields like resources, node-selector, toleration, affinity and topology spread constraints
+should be the same as the real pods. This is to ensure the scheduler can reserve resources with the exact correct pod specification.
 
 #### Scheduling Policy Parameters
 
@@ -151,7 +150,8 @@ spec:
               },
               "nodeSelector": {},
               "tolerations": [],
-              "affinity": {}
+              "affinity": {},
+              "topologySpreadConstraints": []
           }]
     spec:
       schedulerName: yunikorn
@@ -193,7 +193,8 @@ annotations:
         },
         "nodeSelector": {},
         "tolerations": [],
-        "affinity": {}
+        "affinity": {},
+        "topologySpreadConstraints": []
      },
      {
         "name": "spark-executor",
@@ -220,7 +221,7 @@ annotations:
 ```
 
 Once the job is submitted to the scheduler, the job won’t be scheduled immediately.
-Instead, the scheduler will ensure it gets its minimal resources before actually starting the driver/executors. 
+Instead, the scheduler will ensure it gets its minimal resources before actually starting the driver/executors.
 
 ## Gang scheduling Styles
 
@@ -262,7 +263,8 @@ spec:
               },
               "nodeSelector": {},
               "tolerations": [],
-              "affinity": {}
+              "affinity": {},
+              "topologySpreadConstraints": []
           }]
     spec:
       schedulerName: yunikorn
@@ -286,7 +288,7 @@ To verify if the configuration has been done completely and correctly, check the
 If you define 2 task groups, 1 with minMember 1 and the other with minMember 5, that means we are expecting 6 placeholder
 gets created once the job is submitted.
 2. Verify the placeholder spec is correct. Each placeholder needs to have the same info as the real pod in the same taskGroup.
-Check field including: namespace, pod resources, node-selector, toleration and affinity.
+Check field including: namespace, pod resources, node selector, toleration, affinity and topology spread constraints.
 3. Verify the placeholders can be allocated on correct type of nodes, and verify the real pods are started by replacing the placeholder pods.
 
 ## Troubleshooting
