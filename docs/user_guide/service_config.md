@@ -23,8 +23,9 @@ under the License.
 -->
 
 The official distribution of YuniKorn is deployed via Helm charts to
-Kubernetes. Configuration for YuniKorn is split into two parts: Helm
-configuration, and YuniKorn service configuration.
+Kubernetes. Configuration for YuniKorn is split into two parts: [Helm
+configuration](https://github.com/apache/yunikorn-release/blob/master/helm-charts/yunikorn/values.yaml)
+, and YuniKorn service configuration.
 
 ## Helm Configuration
 Helm configuration is used to configure options for the deployment of
