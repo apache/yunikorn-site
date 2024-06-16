@@ -80,9 +80,7 @@ Once this is done, web UI will be available at: `http://localhost:9889`.
 
 :::info
 
-If a load Balacner, [Metallb](https://metallb.universe.tf/), [Cloud Provider KIND](https://kind.sigs.k8s.io/docs/user/loadbalancer/) and so on, is available, foloowing ways expose yunikorn.
-1. `LoadBalancer` service type via `kubectl patch yunikorn-service -n yunikorn {"spec": {"type": "LoadBalancer"}}`
-2. [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+If a load Balacner, [Metallb](https://metallb.universe.tf/), [Cloud Provider KIND](https://kind.sigs.k8s.io/docs/user/loadbalancer/) and so on, is available, setting `LoadBalancer` service type or [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) are able to expose yunikorn service.
 
 :::
 
