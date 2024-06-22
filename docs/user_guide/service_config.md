@@ -368,6 +368,15 @@ Example:
 ```yaml
 enableSchedulerPlugin: true
 ```
+#### enableWebService
+Controls whether to enable the YuniKorn Web UI service.
+
+Default: `true`
+
+Example:
+```yaml
+enableWebService: false
+```
 ### YuniKorn defaults
 
 #### yunikornDefaults
