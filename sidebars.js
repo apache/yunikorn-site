@@ -46,7 +46,9 @@ module.exports = {
                     'user_guide/workloads/run_spark',
                     'user_guide/workloads/run_flink',
                     'user_guide/workloads/run_tf',
-                    'user_guide/workloads/run_mpi'
+                    'user_guide/workloads/run_mpi',
+                    'user_guide/workloads/run_ray_cluster',
+                    'user_guide/workloads/run_ray_job'
                 ],
             },
             {
