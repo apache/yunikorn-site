@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.2.1">
 <title data-rh="true">Build and Run | Apache YuniKorn</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" name="twitter:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" property="og:url" content="https://yunikorn.apache.org/docs/next/developer_guide/build"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Build and Run | Apache YuniKorn"><meta data-rh="true" name="description" content="&lt;!--"><meta data-rh="true" property="og:description" content="&lt;!--"><link data-rh="true" rel="icon" href="/img/yunikorn.ico"><link data-rh="true" rel="canonical" href="https://yunikorn.apache.org/docs/next/developer_guide/build"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/developer_guide/build" hreflang="en"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/developer_guide/build" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://Q1V951BG2V-dsn.algolia.net" crossorigin="anonymous"><link rel="search" type="application/opensearchdescription+xml" title="Apache YuniKorn" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.57f4caef.css">
-<script src="/assets/js/runtime~main.e6641a9a.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.51e075e3.js" defer="defer"></script>
 <script src="/assets/js/main.1ba8fec7.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -102,8 +102,16 @@ the web interface.</p>
 <p>To make sure that the local changes will not break other parts of the
 build you should run:</p>
 <ul>
-<li>A full build <code>make</code> (build target depends on the repository)</li>
-<li>A full unit test run <code>make test</code></li>
+<li>
+<p>A full build <code>make</code> (build target depends on the repository)</p>
+</li>
+<li>
+<p>A full unit test run <code>make test</code></p>
+</li>
+<li>
+<p>For diagnosing flaky tests, which are challenging due to their infrequent failures, use a looping command to repeatedly run the test. For instance, to diagnose <code>TestNoFillWithoutEventPluginRegistered</code> in <code>yunikorn-core/pkg/events/event_publisher_test.go</code>, you can use the following command:</p>
+<div class="language-sh codeBlockContainer_l7z8 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_N19i"><pre tabindex="0" class="prism-code language-sh codeBlock_adB6 thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_fSw7"><span class="token-line" style="color:#bfc7d5"><span class="token plain">I=0; while go test -run TestNoFillWithoutEventPluginRegistered ./pkg/... -count=1; do (( I=$I+1 )); echo &quot;Completed loop: $I&quot;; sleep 1; done</span><br></span></code></pre><div class="buttonGroup_ZiWg"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_Gl1a" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_mJ2i"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_rLlY"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
 </ul>
 <p>Any test failures should be fixed before proceeding.</p>
 <h4 class="anchor anchorWithStickyNavbar_NlAN" id="updating-dependencies">Updating dependencies<a href="#updating-dependencies" class="hash-link" aria-label="Direct link to Updating dependencies" title="Direct link to Updating dependencies">​</a></h4>
