@@ -130,6 +130,11 @@ The `yunikorn-web` repository has no direct go dependency on the other repositor
 To make sure that the local changes will not break other parts of the build you should run:
 - A full build `make` (build target depends on the repository)
 - A full unit test run `make test`
+- For diagnosing flaky tests, which are challenging due to their infrequent failures, use a looping command to repeatedly run the test. For instance, to diagnose `TestNoFillWithoutEventPluginRegistered` in `yunikorn-core/pkg/events/event_publisher_test.go`, you can use the following command:
+
+  ```sh
+  I=0; while go test -run TestNoFillWithoutEventPluginRegistered ./pkg/... -count=1; do (( I=$I+1 )); echo "Completed loop: $I"; sleep 1; done
+  ```
 
 Any test failures should be fixed before proceeding.
 
