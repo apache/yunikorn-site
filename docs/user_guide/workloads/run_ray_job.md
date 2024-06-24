@@ -39,6 +39,8 @@ helm repo add kuberay https://ray-project.github.io/kuberay-helm/
 helm repo update
 helm install kuberay-operator kuberay/kuberay-operator --version 1.1.1
 ```
+### Configure your application(optional)
+If you disable admin controller, you need to add the schedulerName: yunikorn in [operator spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/kuberay-operator/templates/deployment.yaml#L31).
 
 ## Run a RayJob
 ```

@@ -58,6 +58,18 @@ helm install raycluster kuberay/ray-cluster --version 1.1.1
   ![ray_cluster_cluster](../../assets/ray_cluster_cluster.png)
 - YuniKorn UI
   ![ray_cluster_on_ui](../../assets/ray_cluster_on_ui.png)
+### Configure your Ray Cluster(optional)
+If you disable admin controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40).
+```
+#example
+metadata:
+  labels:
+    applicaionId: ray-cluster-0001
+    queue: root.ray.clusters
+spec:
+  schedulerName: yunikorn # k8s will inform yunikorn based on this
+```
+
 
 ## Submit a RayJob to Ray Cluster
 ```
