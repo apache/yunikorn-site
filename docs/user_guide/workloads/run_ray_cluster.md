@@ -59,7 +59,7 @@ helm install raycluster kuberay/ray-cluster --version 1.1.1
 - YuniKorn UI
   ![ray_cluster_on_ui](../../assets/ray_cluster_on_ui.png)
 ### Configure your Ray Cluster(optional)
-If you disable admin controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40).
+If you disable admin controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40).By applicationId label, pods with same id are marked under same application or all pods from raycluster CRD share a application.
 ```
 #example
 metadata:
