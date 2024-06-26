@@ -25,20 +25,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-This example is how to setup [KubeRay](https://docs.ray.io/en/master/cluster/kubernetes/getting-started.html) and run [Ray Cluster](https://docs.ray.io/en/master/cluster/kubernetes/getting-started/raycluster-quick-start.html) with YuniKorn scheduler
+## Note
+This example demonstrates how to set up [KubeRay](https://docs.ray.io/en/master/cluster/kubernetes/getting-started.html) and run a [Ray Cluster](https://docs.ray.io/en/master/cluster/kubernetes/getting-started/raycluster-quick-start.html) with the YuniKorn scheduler. It relies on an admission controller to configure the default applicationId and queue name.
+[Yunikorn supported labels](https://yunikorn.apache.org/docs/user_guide/labels_and_annotations_in_yunikorn) and [Yunikorn queue setting](https://yunikorn.apache.org/docs/user_guide/queue_config)
 
 ## Modify YuniKorn settings
 Follow [YuniKorn install guide](https://yunikorn.apache.org/docs/) and modify YuniKorn configmap "yunikorn-defaults" to allow ray operator based on k8s service account.
 ```
 kubectl patch configmap yunikorn-defaults -n yunikorn --patch '{"data":{"admissionController.accessControl.systemUsers": "^system:serviceaccount:kube-system:,^system:serviceaccount:default:"}}' 
-```
-
-## Install Helm
-Follow commands to install the Helm ,or refer to the [Helm installation method](https://helm.sh/docs/intro/install/)
-```
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 \
-    && chmod 700 get_helm.sh \
-    && ./get_helm.sh
 ```
 
 ## Setup a KubeRay operator
@@ -59,7 +53,7 @@ helm install raycluster kuberay/ray-cluster --version 1.1.1
 - YuniKorn UI
   ![ray_cluster_on_ui](../../assets/ray_cluster_on_ui.png)
 ### Configure your Ray Cluster(optional)
-If you disable admin controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40).By applicationId label, pods with same id are marked under same application or all pods from raycluster CRD share a application.
+If you disable admission controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40).By applicationId label, pods with same id are marked under same application or all pods from raycluster CRD share a application.
 ```
 #example
 metadata:
@@ -78,6 +72,13 @@ echo $HEAD_POD
 
 kubectl exec -it $HEAD_POD -- python -c "import ray; ray.init(); print(ray.cluster_resources())"
 ```
+
+Services in Kubernetes aren't directly accessible by default. However, you can use port-forwarding to connect to them locally.
+```
+kubectl port-forward raycluster-kuberay-head-svc 8265:8265
+```
+After port-forward set up, you can access the Ray dashboard by going to http://localhost:8265/ in your web browser.
+
 - Ray Dashboard
   ![ray_cluster_ray_dashborad](../../assets/ray_cluster_ray_dashborad.png)
 
