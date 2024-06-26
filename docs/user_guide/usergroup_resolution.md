@@ -55,14 +55,6 @@ Assumption:
   Yunikorn assumes that all pods belonging to an application are owned by the same user. We recommend that the user label is added to every pod of an app. This is to ensure that there is no discrepency. 
 :::
 
-The `yunikorn.apache.org/username` key can be customized by overriding the default value using the `USER_LABEL_KEY`env variable in the [K8s Deployment](https://github.com/apache/yunikorn-release/blob/master/helm-charts/yunikorn/templates/deployment.yaml). This is particularly useful in scenarios where the user label is already being added or if the label has to be modified for some secuirty reasons. 
-
-```yaml          
-            env:
-            - name: USER_LABEL_KEY
-              value: "custom_user_label"
-```
-
 ### Group resolution
 
 Group membership resolution is pluggables and is defined here. Groups do not have to be part of provided user and group object. When the object is added to the cache the groups are automatically resolved based on the resolution that is configured.
