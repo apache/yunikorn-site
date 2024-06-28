@@ -25,7 +25,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-This example is how to setup [KubeRay](https://docs.ray.io/en/master/cluster/kubernetes/getting-started.html) and run [Ray Job](https://docs.ray.io/en/master/cluster/kubernetes/getting-started/rayjob-quick-start.html) with YuniKorn scheduler
+## Note
+This example is how to setup [KubeRay](https://docs.ray.io/en/master/cluster/kubernetes/getting-started.html) and run [Ray Job](https://docs.ray.io/en/master/cluster/kubernetes/getting-started/rayjob-quick-start.html) with YuniKorn scheduler.It relies on an admission controller to configure the default applicationId and queue name.If you want more details, please refer to [Yunikorn supported labels](https://yunikorn.apache.org/docs/user_guide/labels_and_annotations_in_yunikorn) and [Yunikorn queue setting](https://yunikorn.apache.org/docs/user_guide/queue_config).
 
 ## Modify YuniKorn settings
 Follow [YuniKorn install](https://yunikorn.apache.org/docs/) and modify YuniKorn configmap "yunikorn-defaults"
@@ -39,8 +40,18 @@ helm repo add kuberay https://ray-project.github.io/kuberay-helm/
 helm repo update
 helm install kuberay-operator kuberay/kuberay-operator --version 1.1.1
 ```
-### Configure your application(optional)
-If you disable admin controller, you need to add the schedulerName: yunikorn in [operator spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/kuberay-operator/templates/deployment.yaml#L31).
+
+### Configure your Ray Cluster(optional)
+If you disable admission controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40). By using applicationId label, pods with the same applicationId are marked under the same application .
+```
+#example
+metadata:
+  labels:
+    applicaionId: ray-cluster-0001
+    queue: root.ray.clusters
+spec:
+  schedulerName: yunikorn # k8s will inform yunikorn based on this
+```
 
 ## Run a RayJob
 ```
@@ -49,6 +60,13 @@ kubectl apply -f https://raw.githubusercontent.com/ray-project/kuberay/v1.1.1/ra
 
 - View the job status
     ![ray_job_job](../../assets/ray_job_job.png)
+
+Services in Kubernetes aren't directly accessible by default. However, you can use port-forwarding to connect to them locally.
+```
+kubectl port-forward service/raycluster-kuberay-head-svc 8265:8265
+```
+After port-forward set up, you can access the Ray dashboard by going to `http://localhost:8265` in your web browser.
+
 - Ray Dashboard
     ![ray_job_ray_dashboard](../../assets/ray_job_ray_dashboard.png)
 - YuniKorn UI

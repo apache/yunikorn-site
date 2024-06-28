@@ -26,8 +26,7 @@ under the License.
 -->
 
 ## Note
-This example demonstrates how to set up [KubeRay](https://docs.ray.io/en/master/cluster/kubernetes/getting-started.html) and run a [Ray Cluster](https://docs.ray.io/en/master/cluster/kubernetes/getting-started/raycluster-quick-start.html) with the YuniKorn scheduler. It relies on an admission controller to configure the default applicationId and queue name.
-[Yunikorn supported labels](https://yunikorn.apache.org/docs/user_guide/labels_and_annotations_in_yunikorn) and [Yunikorn queue setting](https://yunikorn.apache.org/docs/user_guide/queue_config)
+This example demonstrates how to set up [KubeRay](https://docs.ray.io/en/master/cluster/kubernetes/getting-started.html) and run a [Ray Cluster](https://docs.ray.io/en/master/cluster/kubernetes/getting-started/raycluster-quick-start.html) with the YuniKorn scheduler. It relies on an admission controller to configure the default applicationId and queue name.If you want more details, please refer to [Yunikorn supported labels](https://yunikorn.apache.org/docs/user_guide/labels_and_annotations_in_yunikorn) and [Yunikorn queue setting](https://yunikorn.apache.org/docs/user_guide/queue_config).
 
 ## Modify YuniKorn settings
 Follow [YuniKorn install guide](https://yunikorn.apache.org/docs/) and modify YuniKorn configmap "yunikorn-defaults" to allow ray operator based on k8s service account.
@@ -52,8 +51,9 @@ helm install raycluster kuberay/ray-cluster --version 1.1.1
   ![ray_cluster_cluster](../../assets/ray_cluster_cluster.png)
 - YuniKorn UI
   ![ray_cluster_on_ui](../../assets/ray_cluster_on_ui.png)
+  
 ### Configure your Ray Cluster(optional)
-If you disable admission controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40).By applicationId label, pods with same id are marked under same application or all pods from raycluster CRD share a application.
+If you disable admission controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40). By using applicationId label, pods with the same applicationId are marked under the same application .
 ```
 #example
 metadata:
@@ -63,7 +63,6 @@ metadata:
 spec:
   schedulerName: yunikorn # k8s will inform yunikorn based on this
 ```
-
 
 ## Submit a RayJob to Ray Cluster
 ```
@@ -75,9 +74,9 @@ kubectl exec -it $HEAD_POD -- python -c "import ray; ray.init(); print(ray.clust
 
 Services in Kubernetes aren't directly accessible by default. However, you can use port-forwarding to connect to them locally.
 ```
-kubectl port-forward raycluster-kuberay-head-svc 8265:8265
+kubectl port-forward service/raycluster-kuberay-head-svc 8265:8265
 ```
-After port-forward set up, you can access the Ray dashboard by going to http://localhost:8265/ in your web browser.
+After port-forward set up, you can access the Ray dashboard by going to `http://localhost:8265` in your web browser.
 
 - Ray Dashboard
   ![ray_cluster_ray_dashborad](../../assets/ray_cluster_ray_dashborad.png)
