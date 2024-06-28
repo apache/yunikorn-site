@@ -53,7 +53,7 @@ helm install raycluster kuberay/ray-cluster --version 1.1.1
   ![ray_cluster_on_ui](../../assets/ray_cluster_on_ui.png)
   
 ### Configure your Ray Cluster(optional)
-If you disable admission controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40). By using applicationId label, pods with the same applicationId are marked under the same application .
+If you disable admission controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40). 
 ```
 #example
 metadata:
