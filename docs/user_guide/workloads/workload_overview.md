@@ -58,3 +58,5 @@ Examples of more advanced use cases can be found here:
 * [Run Flink Jobs](run_flink)
 * [Run TensorFlow Jobs](run_tf)
 * [Run MPI Jobs](run_mpi)
+* [Run Ray Cluster](run_ray_cluster)
+* [Run RayJob](run_ray_job)
