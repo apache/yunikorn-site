@@ -246,4 +246,4 @@ In addition to the unit tests for each project, YuniKorn contains many e2e
 functionaliy of the scheduler on a functioning Kubernetes cluster.
 
 How to run the tests locally is described
-[here](https://yunikorn.apache.org/docs/next/developer_guide/e2e_test/).
+[here](developer_guide/e2e_test.md).
