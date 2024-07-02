@@ -60,3 +60,4 @@ Examples of more advanced use cases can be found here:
 * [Run MPI Jobs](run_mpi)
 * [Run Ray Cluster](run_ray_cluster)
 * [Run RayJob](run_ray_job)
+* [Run Ray Service Jobs](run_ray_service)
