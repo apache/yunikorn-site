@@ -25,7 +25,11 @@ under the License.
 
 Before reading this guide, we assume you either have a Kubernetes cluster, or a local Kubernetes dev environment, e.g MiniKube.
 It is also assumed that `kubectl` is on your path and properly configured.
+:::info
+
 Follow this [guide](developer_guide/env_setup.md) on how to setup a local Kubernetes cluster using docker-desktop.
+
+:::
 
 ## Install
 
@@ -74,10 +78,20 @@ kubectl port-forward svc/yunikorn-service 9889:9889 -n yunikorn
 `9889` is the default port for web UI.
 Once this is done, web UI will be available at: `http://localhost:9889`.
 
+:::info
+
+If a load Balacner, [Metallb](https://metallb.universe.tf/), [Cloud Provider KIND](https://kind.sigs.k8s.io/docs/user/loadbalancer/) and so on, is available, setting `LoadBalancer` service type or [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) are able to expose yunikorn service.
+
+:::
+
 ![UI Screenshots](./../assets/yk-ui-screenshots.gif)
 
 YuniKorn UI provides a centralised view for cluster resource capacity, utilization, and all application info.
 
 Besides, YuniKorn also exposes its scheduling metrics via Prometheus.
 
+:::info
+
 If you want to monitor the yunikorn core services by using Prometheus and Grafana, you can find our step-by-step tutorial [here](../user_guide/prometheus.md).
+
+:::

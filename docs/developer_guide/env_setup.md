@@ -177,6 +177,14 @@ Kind version 0.15 is required for Kubernetes 1.25 or later.
 Later versions of Kind add Kubernetes 1.26, 1.27 and 1.28.
 Check the Kind release notes for the specific Kubernetes releases supported.
 
+### Load Balancer
+Cloud provider KIND is a standalone binary which connect to the KIND cluster and provision new Load Balancer containers.
+```shell script
+go install sigs.k8s.io/cloud-provider-kind@latest
+export PATH=$PATH:$(go env GOPATH)/bin 
+cloud-provider-kind
+```
+
 ### Using Kind
 
 To test a new version of Kubernetes, you can pull a corresponding image from
