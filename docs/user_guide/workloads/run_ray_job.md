@@ -6,6 +6,10 @@ keywords:
  - Ray_crd
 ---
 
+import RayOperator from './kuberay/_ray_operator.mdx';
+import RayCRDYunikornConfig from './kuberay/_ray_crd_yunikorn_config.mdx';
+import YunikornConfigMapPatch from './utils/_yunikorn_configmap_patch.mdx';
+
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -25,33 +29,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-## Note
+:::info[Note]
 This example is how to setup [KubeRay](https://docs.ray.io/en/master/cluster/kubernetes/getting-started.html) and run [Ray Job](https://docs.ray.io/en/master/cluster/kubernetes/getting-started/rayjob-quick-start.html) with YuniKorn scheduler. It relies on an admission controller to configure the default applicationId and queue name. If you want more details, please refer to [Yunikorn supported labels](https://yunikorn.apache.org/docs/user_guide/labels_and_annotations_in_yunikorn) and [Yunikorn queue setting](https://yunikorn.apache.org/docs/user_guide/queue_config).
+:::
 
-## Modify YuniKorn settings
-Follow [YuniKorn install](https://yunikorn.apache.org/docs/) and modify YuniKorn configmap "yunikorn-defaults"
-```
-kubectl patch configmap yunikorn-defaults -n yunikorn --patch '{"data":{"admissionController.accessControl.systemUsers": "^system:serviceaccount:kube-system:,^system:serviceaccount:default:"}}' 
-```
-
-## Setup a KubeRay operator
-```
-helm repo add kuberay https://ray-project.github.io/kuberay-helm/
-helm repo update
-helm install kuberay-operator kuberay/kuberay-operator --version 1.1.1
-```
-
-### Configure your Ray Cluster(optional)
-If you disable admission controller, you need to add the schedulerName: yunikorn in [raycluster spec](https://github.com/ray-project/kuberay/blob/master/helm-chart/ray-cluster/templates/raycluster-cluster.yaml#L40). By using applicationId label, pods with the same applicationId are marked under the same application .
-```
-#example
-metadata:
-  labels:
-    applicaionId: ray-cluster-0001
-    queue: root.ray.clusters
-spec:
-  schedulerName: yunikorn # k8s will inform yunikorn based on this
-```
+<YunikornConfigMapPatch />
+<RayOperator/>
+<RayCRDYunikornConfig />
 
 ## Run a RayJob
 ```
