@@ -337,7 +337,7 @@ The content of the application object is the same as Queue Applications. See
 
 ### Queue applications
 
-Fetch all Applications for the given Partition/Queue combination and displays general information about the applications like used resources, queue name, submission time and allocations. In case queue name contains any special characters, needs to be url escaped to avoid issues.
+Fetch all Applications for the given Partition/Queue combination and displays general information about the applications like used resources, queue name, submission time and allocations. In case the queue name contains any special characters, it needs to be url escaped to avoid issues.
 
 **URL** : `/ws/v1/partition/{partitionName}/queue/{queueName}/applications`
 
@@ -591,7 +591,7 @@ In the example below there are three allocations belonging to two applications, 
 
 ### Partition/Queue application
 
-Fetch an Application given a Partition, Queue(optional) and Application ID and displays general information about the application like used resources, queue name, submission time and allocations. In case queue name contains any special characters, needs to be url escaped to avoid issues.
+Fetch an Application given a Partition, Queue(optional) and Application ID and displays general information about the application like used resources, queue name, submission time and allocations. In case the queue name contains any special characters, it needs to be url escaped to avoid issues.
 
 **URL** : `/ws/v1/partition/{partitionName}/application/{appId}` or `/ws/v1/partition/{partitionName}/queue/{queueName}/application/{appId}`
 
@@ -854,7 +854,7 @@ Fetch all users usage given a Partition and displays general information about t
 
 ## UserTracker
 ### Get specific user usage tracking information
-Fetch specific user usage given a Partition and displays general information about the users managed by YuniKorn. In case username contains any special characters, needs to be url escaped to avoid issues.
+Fetch specific user usage given a Partition and displays general information about the users managed by YuniKorn. In case the username contains any special characters, it needs to be url escaped to avoid issues.
 
 **URL** : `/ws/v1/partition/{partitionName}/usage/user/{userName}`
 
@@ -1027,7 +1027,7 @@ Fetch all groups usage given a Partition and displays general information about 
 ## GroupTracker
 ### Get specific group usage tracking information
 
-Fetch specific group usage given a Partition and displays general information about the groups managed by YuniKorn. In case group name contains any special characters, needs to be url escaped to avoid issues.
+Fetch specific group usage given a Partition and displays general information about the groups managed by YuniKorn. In case the group name contains any special characters, it needs to be url escaped to avoid issues.
 
 **URL** : `/ws/v1/partition/{partitionName}/usage/group/{groupName}`
 
