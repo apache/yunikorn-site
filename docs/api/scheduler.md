@@ -131,15 +131,7 @@ Returns general information and statistics about a partition.
 
 **Code** : `500 Internal Server Error`
 
-**Content examples**
 
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## PlacementRules
 
@@ -299,17 +291,11 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 ### Error response
 
-**Code** : `500 Internal Server Error`
+**Code** : `400 Bad Request` (URL query is invalid, missing partition name)
 
-**Content examples**
+**Code** : `404 Not Found` (Partition not found)
 
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
+**Code** : `500 Internal Server Error` 
 
 ## Applications
 
@@ -334,6 +320,14 @@ For active state, can narrow the result by status query parameters(case-insensit
 
 The content of the application object is the same as Queue Applications. See
  [Queue Applications](#queue-applications) for details.
+
+### Error Response
+
+**Code** : `400 Bad Request` (URL query is invalid)
+
+**Code** : `404 Not Found` (Partition not found)
+
+**Code** : `500 Internal Server Error` 
 
 ### Queue applications
 
@@ -575,17 +569,12 @@ In the example below there are three allocations belonging to two applications, 
 
 ### Error response
 
+**Code** : `400 Bad Request` (URL query is invalid)
+
+**Code** : `404 Not Found` (Partition or Application not found)
+
 **Code** : `500 Internal Server Error`
 
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## Application
 
@@ -733,17 +722,12 @@ Field `uuid` has been deprecated, would be removed from below response in YUNIKO
 
 ### Error response
 
+**Code** : `400 Bad Request` (URL query is invalid)
+
+**Code** : `404 Not Found` (Partition or Application not found)
+
 **Code** : `500 Internal Server Error`
 
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## UsersTracker
 ### Get users usage tracking information
@@ -840,17 +824,9 @@ Fetch all users usage given a Partition and displays general information about t
 ```
 
 ### Error response
+
 **Code** : `500 Internal Server Error`
 
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## UserTracker
 ### Get specific user usage tracking information
@@ -909,17 +885,11 @@ Fetch specific user usage given a Partition and displays general information abo
 
 ### Error response
 
-**Code** : `500 Internal Server Error`
+**Code** : `400 Bad Request` (URL query is invalid)
 
-**Content examples**
+**Code** : `404 Not Found` (User not found)
 
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
+**Code** : `500 Internal Server Error`  
 
 ## GroupsTracker
 ### Get groups usage tracking information
@@ -1014,15 +984,6 @@ Fetch all groups usage given a Partition and displays general information about 
 
 **Code** : `500 Internal Server Error`
 
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## GroupTracker
 ### Get specific group usage tracking information
@@ -1080,17 +1041,11 @@ Fetch specific group usage given a Partition and displays general information ab
 
 ### Error response
 
+**Code** : `400 Bad Request` (URL query is invalid)
+
+**Code** : `404 Not Found` (Group not found)
+
 **Code** : `500 Internal Server Error`
-
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## Nodes
 
@@ -1296,17 +1251,11 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 
 ### Error response
 
+**Code** : `400 Bad Request` (URL query is invalid)
+
+**Code** : `404 Not Found` (Partition not found)
+
 **Code** : `500 Internal Server Error`
-
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## Node
 
@@ -1418,17 +1367,11 @@ Node details include host and rack name, capacity, resources, utilization, and a
 
 ### Error response
 
+**Code** : `400 Bad Request` (URL query is invalid)
+
+**Code** : `404 Not Found` (Partition or Node not found)
+
 **Code** : `500 Internal Server Error`
-
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## Node utilization
 
@@ -1476,15 +1419,6 @@ Show how every node is distributed with regard to dominant resource utilization.
 
 **Code** : `500 Internal Server Error`
 
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## Node utilizations
 
@@ -1552,15 +1486,6 @@ Show the nodes utilization of different types of resources in a cluster.
 
 **Code** : `500 Internal Server Error`
 
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## Goroutines info
 
@@ -1643,15 +1568,6 @@ created by os/signal.init.0
 
 **Code** : `500 Internal Server Error`
 
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 ## Metrics
 
@@ -1705,6 +1621,9 @@ yunikorn_scheduler_vcore_nodes_usage{range="(80%,90%]"} 0
 yunikorn_scheduler_vcore_nodes_usage{range="(90%,100%]"} 0
 yunikorn_scheduler_vcore_nodes_usage{range="[0,10%]"} 0
 ```
+### Error response
+
+**Code** : `500 Internal Server Error`
 
 ## Configuration validation
 
@@ -1892,16 +1811,6 @@ Endpoint to retrieve historical data about the number of total applications by t
 
 **Code** : `500 Internal Server Error`
 
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
-
 ## Container history
 
 Endpoint to retrieve historical data about the number of total containers by timestamp.
@@ -1947,15 +1856,6 @@ Endpoint to retrieve historical data about the number of total containers by tim
 
 **Code** : `500 Internal Server Error`
 
-**Content examples**
-
-```json
-{
-    "status_code": 500,
-    "message": "system error message. for example, json: invalid UTF-8 in string: ..",
-    "description": "system error message. for example, json: invalid UTF-8 in string: .."
-}
-```
 
 
 ## Endpoint healthcheck
@@ -2180,5 +2080,7 @@ The number of active connections is limited. The default setting is 100 connecti
 ### Error responses
 
 **Code** : `400 Bad Request` (URL query is invalid)
+
 **Code** : `503 Service Unavailable` (Too many active streaming connections)
+
 **Code** : `500 Internal Server Error`
