@@ -571,7 +571,7 @@ In the example below there are three allocations belonging to two applications, 
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
-**Code** : `404 Not Found` (Partition or Application not found)
+**Code** : `404 Not Found` (Partition or Queue not found)
 
 **Code** : `500 Internal Server Error`
 
@@ -1621,9 +1621,6 @@ yunikorn_scheduler_vcore_nodes_usage{range="(80%,90%]"} 0
 yunikorn_scheduler_vcore_nodes_usage{range="(90%,100%]"} 0
 yunikorn_scheduler_vcore_nodes_usage{range="[0,10%]"} 0
 ```
-### Error response
-
-**Code** : `500 Internal Server Error`
 
 ## Configuration validation
 
