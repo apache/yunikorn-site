@@ -715,6 +715,16 @@ Example:
 event.requestCapacity: "500"
 ```
 
+#### event.RESTResponseSize
+Sets the maximum number of events that are returned by the batch event API (`/ws/v1/events/batch`).
+
+Default: `10000`
+
+Example:
+```yaml
+event.RESTResponseSize: "20000"
+```
+
 ### Health settings
 
 #### health.checkInterval
@@ -730,16 +740,6 @@ Default: `30s`
 Example:
 ```yaml
 health.checkInterval: "1m"
-```
-
-#### event.RESTResponseSize
-Sets the maximum number of events that are returned by the batch event API (`/ws/v1/events/batch`).
-
-Default: `10000`
-
-Example:
-```yaml
-event.RESTResponseSize: "20000"
 ```
 
 ### Log settings
