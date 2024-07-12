@@ -98,7 +98,7 @@ ginkgo run -r -v --skip-file "admission_controller_test.go" -- -yk-namespace "yu
 
 ## Checking E2E Test Logs
 
-After implementing [YUNIKORN-2305](https://issues.apache.org/jira/browse/YUNIKORN-2305), the logs of failed E2E tests are stored locally and uploaded to the GitHub Action Artifact. This section explains how to retrieve and understand these logs.
+The logs of failed E2E tests are stored locally and uploaded to the GitHub Action Artifact. This section explains how to retrieve and understand these logs.
 
 ### Local E2E Test Logs
 
