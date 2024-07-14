@@ -95,52 +95,64 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 helm repo update
 ```
     
-### 2. Configuring yunikorn for prometheus
-
-Get the config from repository.
-```yaml
-helm show values prometheus-community/kube-prometheus-stack > /tmp/values.yaml
-```
-
-Add a new job in Prometheus to collect metrics by scraping the metrics HTTP endpoints of the targets.
-
-```yaml
-vim /tmp/values.yaml
-```
-```yaml
-...
-additionalScrapeConfigs:
-  - job_name: "yunikorn"
-    scrape_interval: 1s
-    metrics_path: '/ws/v1/metrics'
-    static_configs:
-      - targets: ["yunikorn-service.yunikorn.svc.cluster.local:9080"]
-...
-```
-    
-### 3. Use helm to create Prometheus
+### 2. Use helm to create Prometheus
 
 ```yaml
 # create k8s namespace
 kubectl create namespace prometheus
 
 # deploy chart
-helm install prometheus prometheus-community/kube-prometheus-stack -n prometheus -f /tmp/values.yaml
+helm install prometheus prometheus-community/kube-prometheus-stack -n prometheus
 ```
-    
+
+### 3. Use Service Mointor to Define monitor yunikorn service target
+
+create `yunikorn-service-monitor.yaml` as following configuration.
+
+```yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: yunikorn-service-monitor
+  namespace: yunikorn
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: yunikorn
+  namespaceSelector:
+    matchNames:
+      - yunikorn
+  endpoints:
+    - port: yunikorn-service
+      path: /ws/v1/metrics
+      interval: 30s
+```
+
+Run the following command to create service monitor.
+
+```shell
+kubectl apply -f yunikorn-service-monitor.yaml
+```
+
 ### 4. Access the Prometheus Web UI
     
-```yaml
+```shell
 kubectl port-forward -n prometheus svc/prometheus-kube-prometheus-prometheus 9090:9090
 ```
 
 After running port-forward, you can enter [localhost:9090](http://localhost:9090) to access Prometheus Web UI.
 
+We can search yunikorn keyword to find the mointor target in targets page, and check the status.
+
+![prometheus-web-ui-target-yunikorn](../assets/prometheus-web-ui-target-yunikorn.png)
+
 ## Access Grafana Dashboard
 
 Port forwarding for the Grafana web service on the standard port can be turned on via:
 
-```yaml
+```shell
 kubectl port-forward -n prometheus svc/prometheus-grafana 7070:80
 ```
 
