@@ -145,22 +145,19 @@ helm upgrade --install promtail grafana/promtail -f promtail.yaml
 ![promtail](../assets/promtail.png)
 
 ## Grafana settings to connect to Loki
-1. Access the Grafana Web UI
+### 1. Access the Grafana Web UI
 ```
 kubectl port-forward -n meta service/grafana 3000:3000
 ```
 After running port forwarding, you can access Grafana's web interface by [localhost:3000](http://localhost:3000) in your browser.
 
-2. Set URL 
+### 2. Set URL and HTTP headers
+In grafana, adding a loki data source with url and http headers allows grafana to fetch logs.
 
-    set URL field `http://loki-gateway`
-
+#### set URL field `http://loki-gateway`
 ![setting_1](../assets/grafana_loki_setting_1.png)
 
-3. Set HTTP headers
-
-    set HTTP headers field `X-Scope-OrgId` and set value field `user`
-
+#### In order to fetch logs from promtail which tenantID is user, set HTTP headers field X-Scope-OrgId with user.
 ![setting_2](../assets/grafana_loki_setting_2.png)
 
 ## Loki log result
@@ -169,4 +166,4 @@ After running port forwarding, you can access Grafana's web interface by [localh
 2. bar chart
 ![bar＿chart](../assets/loki_log_1.png)
 3. INFO log
-![bar＿chart](../assets/loki_log_2.png)
+![logs trace](../assets/loki_log_2.png)
