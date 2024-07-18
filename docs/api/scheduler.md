@@ -362,9 +362,9 @@ If the query parameter `subtree` is not set, the queue's children will not be re
 
 ### Error response
 
-**Code** : `400 Bad Request` (URL query is invalid, missing partition name)
+**Code** : `400 Bad Request` (URL query is invalid)
 
-**Code** : `404 Not Found` (Partition not found)
+**Code** : `404 Not Found` (Partition or Queue not found)
 
 **Code** : `500 Internal Server Error`
 
