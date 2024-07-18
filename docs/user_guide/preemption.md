@@ -238,7 +238,7 @@ Setting up guaranteed resources for the queue present at a higher level in the w
 
 For example, root.region[1-N].country[1-N].state[1-N]
 
-![preemption_quota_redistribution](../assets/preemption_quota_redistribution.jpg)
+![preemption_quota_redistribution](../assets/preemption_quota_redistribution.png)
 
 This queue set up has N regions under “root”, each region has N countries. If administrators want to redistribute the workloads of the same priority among different regions, then it is better to define the guaranteed quota for each region so that preemption helps to reach the situation of running the workloads by redistribution based on the guaranteed quota each region is supposed to get. That way each region uses the resources it deserves to get at the maximum possible level from the overall cluster resources.
 
@@ -248,7 +248,7 @@ With setup like above, there is a side effect of increasing the possibilities of
 
 ReplicaSets are a good example to look at for looping and circular preemption. Each time a pod from a replica set is removed the ReplicaSet controller will create a new pod to make sure the set is complete. That auto-recreation could trigger loops as described below.
 
-![preemption_storm](../assets/preemption_storm.jpg)
+![preemption_storm](../assets/preemption_storm.png)
 
 Replica set <i>State1 Repl</i> runs in queue <i>State1</i>. Replica set <i>State2 Repl</i> runs in the queue <i>State2</i>. Both queues belong to the same parent queue (they are siblings), <i>Country1</i>. The pods all run with the same settings for priority and preemption. There is no space left on the cluster. <i>State1</i> has no guaranteed quota, 4  pods of each vcores:1 are running and multiple pods of each vcores:1 of the replica set are pending. <i>State2</i> has no guaranteed quota, 4 pods of each vcores:1 are running and multiple pods of each vcores:1 of the replica set are pending. Both region, <i>region1</i> and country, <i>country1</i> queue usage is vcores:4. Since <i>region1</i> has a guaranteed quota of vcores:10 and usage of vcores:8 lower than its guaranteed quota leading to starvation of resources. All the queues (including both direct or indirect) below the parent queue are starving as it inherits the “under guaranteed” behavior from above said parent queue, <i>region1</i> calculation unless each state (leaf) queue has its own guaranteed quota. Now, either one of these state queues can trigger preemption. 
 
