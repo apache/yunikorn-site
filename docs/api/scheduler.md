@@ -297,6 +297,77 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 
 **Code** : `500 Internal Server Error` 
 
+## Queue
+
+### Partition queue
+
+Fetch a Queue associated with given Partition and displays general information about the queue like name, status, capacities and properties. 
+
+If the query parameter `subtree` is not set, the queue's children will not be returned.
+
+**URL** : `/ws/v1/partition/{partitionName}/queue/{queueName}`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+**URL query parameters** :
+- `subtree` (optional) : When `subtree` is set (it can be any value, e.g., `true`), the queue's children will be returned.
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+    "queuename": "root.default",
+    "status": "Active",
+    "maxResource": {
+        "memory": 8000000000,
+        "vcore": 8000
+    },
+    "guaranteedResource": {
+        "memory": 54000000,
+        "vcore": 80
+    },
+    "allocatedResource": {
+        "memory": 54000000,
+        "vcore": 80
+    },
+    "pendingResource": {
+        "memory": 54000000,
+        "vcore": 80
+    },
+    "isLeaf": "true",
+    "isManaged": "false",
+    "properties": {
+        "application.sort.policy": "stateaware"
+    },
+    "parent": "root",
+    "template": null,
+    "absUsedCapacity": {
+        "memory": 1,
+        "vcore": 0
+    },
+    "maxRunningApps": 12,
+    "runningApps": 4,
+    "allocatingAcceptedApps": [
+        "app-1",
+        "app-2"
+    ]
+}
+```
+
+### Error response
+
+**Code** : `400 Bad Request` (URL query is invalid, missing partition name)
+
+**Code** : `404 Not Found` (Partition not found)
+
+**Code** : `500 Internal Server Error`
+
 ## Applications
 
 ### Partition applications
