@@ -95,3 +95,35 @@ ginkgo run -r -v --skip-file "admission_controller_test.go" -- -yk-namespace "yu
 ```shell
 ./scripts/run-e2e-tests.sh -a cleanup -n yktest
 ```
+
+## Checking E2E Test Logs
+
+The logs of failed E2E tests are stored locally and uploaded to the GitHub Action Artifact. This section explains how to retrieve and understand these logs.
+
+### Local E2E Test Logs
+
+When an E2E test fails, logs are saved locally in the `yunikorn-k8shim/build/e2e/{suite}/` directory. The logs are categorized as follows:
+
+- `{specName}_k8sClusterInfo.txt`: Contains information about the Kubernetes cluster state at the time of the test.
+- `{specName}_ykContainerLog.txt`: Includes logs from the YuniKorn containers.
+- `{specName}_ykFullStateDump.json`: Provides a full state dump of YuniKorn.
+
+### Steps to Retrieve Local Logs
+
+1. Run the E2E test using `./scripts/run-e2e-tests.sh -a test -n yk8s -v kindest/node:v1.30.0`. (change the k8s version as needed)
+2. If the test fails, navigate to the `yunikorn-k8shim/build/e2e/{suite}/` directory.
+3. Locate the logs using the above-mentioned naming conventions.
+
+### Downloading Logs from GitHub Actions
+
+In the event of a failed Continuous Integration (CI) run, logs are uploaded to GitHub Actions as artifacts. Follow these steps to download the logs:
+
+1. Navigate to the GitHub repository for YuniKorn k8shim.
+2. Go to the "Actions" tab.
+3. Find the failed CI run and click on it.
+4. In the run summary, look for the "Artifacts" section.
+5. Click on the artifact to download the logs.
+
+Here is an example screenshot showing where to find the download link for logs in a failed CI run (at the buttom):
+
+![CI artifacts example](./../assets/github-ci-log-artifacts.png)
