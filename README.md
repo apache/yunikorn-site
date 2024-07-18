@@ -63,7 +63,7 @@ pnpm run start
 ```
 
 ## Updating the site
-The website is built based using [docusaurus-v2](https://v2.docusaurus.io/docs/docs-introduction). 
+The website is built based using [docusaurus-v3](https://docusaurus.io/docs/3.2.1). 
 The pages and documentation are written in MD file format, the data required is located at:
 * `docusaurus.config.js` the main site layout and menu definition
 * `src/pages` the non-versioned static pages of the site
