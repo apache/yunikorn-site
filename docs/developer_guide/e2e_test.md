@@ -110,7 +110,7 @@ When an E2E test fails, logs are saved locally in the `yunikorn-k8shim/build/e2e
 
 ### Steps to Retrieve Local Logs
 
-1. Run the E2E test using `make e2e_test`.
+1. Run the E2E test using `./scripts/run-e2e-tests.sh -a test -n yk8s -v kindest/node:v1.30.0`. (change the k8s version as needed)
 2. If the test fails, navigate to the `yunikorn-k8shim/build/e2e/{suite}/` directory.
 3. Locate the logs using the above-mentioned naming conventions.
 
