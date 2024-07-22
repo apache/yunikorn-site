@@ -261,20 +261,22 @@ State of the queues:
 #### `State1`
 
 * Guaranteed: nil
-* Usage: vcores = 4
-* Pending: vcores = 5
+* A ReplicaSet is submitted to queue and requesting 9 replicas, with each replica requiring `{vcores: 1}`.
+* 4 replicas are running. Usage: vcores = 4
+* 5 replicas are waiting for resources. Pending: vcores = 5
 * Inherits "under guaranteed" behaviour from `Region1`, eligible to trigger preemption
 
 #### `State2`
 
 * Guaranteed: nil
-* Usage: vcores = 4
-* Pending: vcores = 5
+* A ReplicaSet is submitted to queue and requesting 9 replicas, with each replica requiring `{vcores: 1}`.
+* 4 replicas are running. Usage: vcores = 4
+* 5 replicas are waiting for resources. Pending: vcores = 5
 * Inherits "under guaranteed" behaviour from `Region1`, eligible to trigger preemption
 
-Replica set `State1 Repl` runs in queue `State1`. Replica set `State2 Repl` runs in the queue `State2`. Both queues belong to the same parent queue (they are siblings), `Country1`. The pods all run with the same settings for priority and preemption. There is no space left on the cluster. `State1` has no guaranteed quota, 4  pods of each vcores:1 are running and multiple pods of each vcores:1 of the replica set are pending. `State2` has no guaranteed quota, 4 pods of each vcores:1 are running and multiple pods of each vcores:1 of the replica set are pending. Both region, `region1` and country, `country1` queue usage is vcores:4. Since `region1` has a guaranteed quota of vcores:10 and usage of vcores:8 lower than its guaranteed quota leading to starvation of resources. All the queues (including both direct or indirect) below the parent queue are starving as it inherits the “under guaranteed” behavior from above said parent queue, `region1` calculation unless each state (leaf) queue has its own guaranteed quota. Now, either one of these state queues can trigger preemption. 
+Replica set `State1 Repl` runs in queue `State1`. Replica set `State2 Repl` runs in the queue `State2`. Both queues belong to the same parent queue (they are siblings), `Country1`. The pods all run with the same settings for priority and preemption. There is no space left on the cluster. Both region, `Region1` and country, `Country1` queue usage is `{vcores:8}`. Since `Region1` has a guaranteed quota of `{vcores:10}` and usage of `{vcores:8}` lower than its guaranteed quota leading to starvation of resources. All the queues (including both direct or indirect) below the parent queue are starving as it inherits the “under guaranteed” behavior from above said parent queue, `Region1` calculation unless each state (leaf) queue has its own guaranteed quota. Now, either one of these state queues can trigger preemption. 
 
 Let's say, `state1` triggers preemption to meet resource requirements for pending pods.
-To make room for a `State1 Repl` pod, a pod from the `State2 Repl` set is preempted. Now, the pending `State1 Repl` pod moves from pending to running. Now, the next scheduling cycle comes. Let's say, `State2` triggers preemption to meet resource requirements for its pending pods. In addition to already existing pending pods, pod preempted (killed) in earlier scheduling cycles would have been recreated automatically by this time as it is a replica set. To make room for a `State2 Repl` pod, a pod from the `State1 Repl` set is preempted. Now, the pending `State2 Repl` pod moves from pending to running and preempted (killed) pod belonging to `State1 Repl` set would be recreated again. Now, the next scheduling cycle comes. Again, the whole loop repeats killing each other from the siblings without going anywhere leading to a preemption storm causing instability of the queues. It could even happen for a child queue below country 2 that gets caught in the preemption storm.
+To make room for a `State1 Repl` pod, a pod from the `State2 Repl` set is preempted. Now, the pending `State1 Repl` pod moves from pending to running. Now, the next scheduling cycle comes. Let's say, `State2` triggers preemption to meet resource requirements for its pending pods. In addition to already existing pending pods, pod preempted (killed) in earlier scheduling cycles would have been recreated automatically by this time as it is a replica set. To make room for a `State2 Repl` pod, a pod from the `State1 Repl` set is preempted. Now, the pending `State2 Repl` pod moves from pending to running and preempted (killed) pod belonging to `State1 Repl` set would be recreated again. Now, the next scheduling cycle comes. Again, the whole loop repeats killing each other from the siblings without going anywhere leading to a preemption storm causing instability of the queues. It could even happen for a child queue below `Country2` that gets caught in the preemption storm.
 
 Defining guaranteed resources at queues at lower level or at end leaf queues can avoid the preemption storm or loop from happening in the cluster. Administrators should be aware of the side effects of setting up guaranteed resources at any specific location in the queue hierarchy to reap the best possible outcomes of the preemption process.
