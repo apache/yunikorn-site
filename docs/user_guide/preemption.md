@@ -229,3 +229,54 @@ In this example, two imbalances are observed:
 | `rt.ten-b`         | 15                         | 10                        |
 | `rt.ten-b.queue-3` | 15                         | 10                        |
 | `rt.sys`           | 0                          | 10                        |
+
+### Redistribution of Quota and Preemption Storm
+
+#### Redistribution of Quota
+
+Setting up guaranteed resources for the queue present at a higher level in the queue hierarchy helps to re-distribute the quota among different groups. Especially when workloads of the same priority run in different groups, unlike the default scheduler, YuniKorn preempts workloads of the same priority to free up resources for pending workloads who deserve to get the resources as per the queues guaranteed quota. At times, one needs this kind of queue setup in a real production cluster for redistribution.
+
+For example, root.region[1-N].country[1-N].state[1-N]
+
+![preemption_quota_redistribution](../assets/preemption_quota_redistribution.png)
+
+This queue setup has N regions under “root”, each region has N countries. If administrators want to redistribute the workloads of the same priority among different regions, then it is better to define the guaranteed quota for each region so that preemption helps to reach the situation of running the workloads by redistribution based on the guaranteed quota each region is supposed to get. That way each region uses the resources it deserves to get at the maximum possible level from the overall cluster resources.
+
+#### Preemption Storm
+
+With a setup like above, there is a side effect of increasing the chance of a preemption storm or loop happening within the specific region between different state queues (siblings belonging to same parent).
+
+ReplicaSets are a good example to look at for looping and circular preemption. Each time a pod from a replica set is removed the ReplicaSet controller will create a new pod to make sure the set is complete. That auto-recreation could trigger loops as described below.
+
+![preemption_storm](../assets/preemption_storm.png)
+
+State of the queues:
+
+#### `Region1`
+
+* Guaranteed: vcores = 10
+* Usage: vcores = 8
+* Under guaranteed: usage < guaranteed, starving
+
+#### `State1`
+
+* Guaranteed: nil
+* A ReplicaSet is submitted to queue and requesting 9 replicas, with each replica requiring `{vcores: 1}`.
+* 4 replicas are running. Usage: vcores = 4
+* 5 replicas are waiting for resources. Pending: vcores = 5
+* Inherits "under guaranteed" behaviour from `Region1`, eligible to trigger preemption
+
+#### `State2`
+
+* Guaranteed: nil
+* A ReplicaSet is submitted to queue and requesting 9 replicas, with each replica requiring `{vcores: 1}`.
+* 4 replicas are running. Usage: vcores = 4
+* 5 replicas are waiting for resources. Pending: vcores = 5
+* Inherits "under guaranteed" behaviour from `Region1`, eligible to trigger preemption
+
+Replica set `State1 Repl` runs in queue `State1`. Replica set `State2 Repl` runs in the queue `State2`. Both queues belong to the same parent queue (they are siblings), `Country1`. The pods all run with the same settings for priority and preemption. There is no space left on the cluster. Both region, `Region1` and country, `Country1` queue usage is `{vcores:8}`. Since `Region1` has a guaranteed quota of `{vcores:10}` and usage of `{vcores:8}` lower than its guaranteed quota leading to starvation of resources. All the queues (including both direct or indirect) below the parent queue are starving as it inherits the “under guaranteed” behavior from above said parent queue, `Region1` calculation unless each state (leaf) queue has its own guaranteed quota. Now, either one of these state queues can trigger preemption. 
+
+Let's say, `state1` triggers preemption to meet resource requirements for pending pods.
+To make room for a `State1 Repl` pod, a pod from the `State2 Repl` set is preempted. Now, the pending `State1 Repl` pod moves from pending to running. Now, the next scheduling cycle comes. Let's say, `State2` triggers preemption to meet resource requirements for its pending pods. In addition to already existing pending pods, pod preempted (killed) in earlier scheduling cycles would have been recreated automatically by this time as it is a replica set. To make room for a `State2 Repl` pod, a pod from the `State1 Repl` set is preempted. Now, the pending `State2 Repl` pod moves from pending to running and preempted (killed) pod belonging to `State1 Repl` set would be recreated again. Now, the next scheduling cycle comes. Again, the whole loop repeats killing each other from the siblings without going anywhere leading to a preemption storm causing instability of the queues. It could even happen for a child queue below `Country2` that gets caught in the preemption storm.
+
+Defining guaranteed resources at queues at lower level or at end leaf queues can avoid the preemption storm or loop from happening in the cluster. Administrators should be aware of the side effects of setting up guaranteed resources at any specific location in the queue hierarchy to reap the best possible outcomes of the preemption process.
