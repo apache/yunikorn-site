@@ -196,6 +196,15 @@ partitions:
                 {memory: 5G, vcore: 50}
 ```
 
+### Recovery queue
+
+The recovery queue, identified by the name `root.@recovery@`, is a dynamic queue that is not directly queryable. It is used exclusively during the initialization phase for already running allocations that are part of applications failing placement. Its primary function is to handle tasks that need to be reassigned or recovered without user intervention.
+
+- The queue is created dynamically and will disappear when it is no longer in use.
+- The queue does not have quotas or Access Control Lists (ACLs).
+- It cannot be submitted to directly by users. It is managed internally by YuniKorn for specific recovery operations.
+- While the queue is unqueryable directly, its existence and activities can be observed through the application RESTful API at [/ws/v1/partition/:partition/applications/:state](../api/scheduler#partition-applications).
+
 ### Placement rules
 
 The placement rules are defined and documented in the [placement rule](placement_rules.md) document.
