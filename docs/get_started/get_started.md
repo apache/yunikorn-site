@@ -50,6 +50,27 @@ admission controller delegating all scheduling to YuniKorn. Because this mode is
 
 If you are unsure which deployment mode you should use, refer to our [side-by-side comparison](user_guide/deployment_modes).
  
+If you want to use specific YuniKorn version, you can update helm chart via helm upgrade.
+```shell script
+helm upgrade -f custom.yml  -install yunikorn yunikorn/yunikorn -n yunikorn --create-namespace
+```
+
+The custom.yml is
+```yml
+image:
+  tag: scheduler-{version}    # default depends on YuniKorn version
+
+admissionController:
+  image:
+    tag: admission-{version}  # default depends on YuniKorn version
+
+web:
+  image:
+    tag: web-{version}        # default depends on YuniKorn version
+```
+
+You can check available `{version}` on [DockerHub](https://hub.docker.com/r/apache/yunikorn/tags).
+
 Further configuration options for installing YuniKorn via Helm are available in the [YuniKorn Helm hub page](https://hub.helm.sh/charts/yunikorn/yunikorn).
 
 If you don't want to use helm charts, you can find our step-by-step
@@ -80,4 +101,4 @@ YuniKorn UI provides a centralised view for cluster resource capacity, utilizati
 
 Besides, YuniKorn also exposes its scheduling metrics via Prometheus.
 
-If you want to monitor the yunikorn core services by using Prometheus and Grafana, you can find our step-by-step tutorial [here](../user_guide/prometheus.md).
+If you want to monitor the YuniKorn core services by using Prometheus and Grafana, you can find our step-by-step tutorial [here](../user_guide/prometheus.md).
