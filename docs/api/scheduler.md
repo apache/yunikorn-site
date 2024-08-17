@@ -646,6 +646,31 @@ In the example below there are three allocations belonging to two applications, 
 
 **Code** : `500 Internal Server Error`
 
+### Queue applications by state
+
+Fetch all Applications for the given Partition/Queue/State combination and displays general information about the applications like used resources, queue name, submission time and allocations. Only following application states are allowed: active, rejected, completed. Active is a fake state that represents all application states except completed and rejected. For active state, can narrow the result by status query parameters(case-insensitive). For example, can fetch `Running` applications for the default partition and root queue by `/ws/v1/partition/default/queue/root/applications/active?status=running`. In case the queue name contains any special characters, it needs to be url escaped to avoid issues.
+
+**URL** : `/ws/v1/partition/:partition/queue/:queue/applications/:state`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+### Success response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+The content of the application object is the same as Queue Applications. See [Queue Applications](#queue-applications) for details.
+
+### Error response
+
+**Code** : `400 Bad Request` (URL query is invalid)
+
+**Code** : `404 Not Found` (Partition or Queue not found)
+
+**Code** : `500 Internal Server Error`
 
 ## Application
 
