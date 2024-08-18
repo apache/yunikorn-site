@@ -648,13 +648,26 @@ In the example below there are three allocations belonging to two applications, 
 
 ### Queue applications by state
 
-Fetch all Applications for the given Partition/Queue/State combination and displays general information about the applications like used resources, queue name, submission time and allocations. Only following application states are allowed: active, rejected, completed. Active is a fake state that represents all application states except completed and rejected. For active state, can narrow the result by status query parameters(case-insensitive). For example, can fetch `Running` applications for the default partition and root queue by `/ws/v1/partition/default/queue/root/applications/active?status=running`. In case the queue name contains any special characters, it needs to be url escaped to avoid issues.
+Fetch all Applications for the given Partition/Queue/State combination and displays general information about the applications like used resources, queue name, submission time and allocations. 
+
+The state parameter must be set to "active", which is not an actual application state but a virtual state used for this API call. This fake state represents the following application states: New, Accepted, Running, Completing, Failing, and Resuming. You can further narrow down the results using the optional status query parameter to filter for specific real states.
 
 **URL** : `/ws/v1/partition/:partition/queue/:queue/applications/:state`
 
 **Method** : `GET`
 
 **Auth required** : NO
+
+**URL query parameters** :
+- `status` (optional) : Filters active applications by their specific real state (New, Accepted, Running, Completing, Failing, Resuming)
+
+**Example requests**:
+- Fetch active applications in the default partition and root queue:
+  `/ws/v1/partition/default/queue/root/applications/active`
+- Fetch only running applications in the default partition and root queue:
+  `/ws/v1/partition/default/queue/root/applications/active?status=running`
+
+Note: If the queue name contains any special characters, it needs to be URL escaped to avoid issues.
 
 ### Success response
 
