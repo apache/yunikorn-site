@@ -43,27 +43,27 @@ policies can be customized as follows:
 # Image information for the standard scheduler
 image:
   repository: apache/yunikorn
-  tag: scheduler-1.0.0          # default depends on YuniKorn version
+  tag: scheduler-{version}          # default depends on YuniKorn version
   pullPolicy: Always
 
 # Image information for the plugin scheduler
 pluginImage:
   repository: apache/yunikorn
-  tag: scheduler-plugin-1.0.0   # default depends on YuniKorn version
+  tag: scheduler-plugin-{version}   # default depends on YuniKorn version
   pullPolicy: Always
 
 # Image information for the web UI
 web:
   image:
     repository: apache/yunikorn
-    tag: web-1.0.0              # default depends on YuniKorn version
+    tag: web-{version}              # default depends on YuniKorn version
     pullPolicy: Always
 
 # Image information for the admission controller
 admissionController:
   image:
     repository: apache/yunikorn
-    tag: admission-1.0.0        # default depends on YuniKorn version
+    tag: admission-{version}        # default depends on YuniKorn version
     pullPolicy: Always
 ```
 ### Kubernetes configuration
