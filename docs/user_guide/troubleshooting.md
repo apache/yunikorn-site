@@ -217,6 +217,13 @@ the garbage collection is not working properly.
 
 *Solution*: check the placeholder `ownerReference` and the garbage collector in Kubernetes.    
 
+# Task failed with pod volume binding time out
+*Reason*: The timeout value for service.volumeBindTimeout (which is set at 10 seconds by default). 
+But some cases, the pod volume binding will take more time, for example:
+When a node brought in by the autoscaler where the csi-node daemonset hasn’t been installed yet, which causes a delay with the volume binding (15-20 seconds). 
+
+
+*Solution*: Increase the timeout value for service.volumeBindTimeout, for example, set it to 60 seconds.
 
 ## Still got questions?
 
