@@ -34,8 +34,6 @@ module.exports = {
             'user_guide/resource_quota_management',
             'user_guide/gang_scheduling',
             'user_guide/labels_and_annotations_in_yunikorn',
-            'user_guide/prometheus',
-            'user_guide/loki',
             'user_guide/use_cases',
             'user_guide/event_system',
             {
@@ -55,6 +53,23 @@ module.exports = {
             },
             {
                 type: 'category',
+                label: 'Observability',
+                items:  [
+                    'user_guide/observability/prometheus',
+                    'user_guide/observability/loki',
+                    {
+                        type: 'category',
+                        label: 'Metrics for Prometheus',
+                        items: [
+                            'metrics/scheduler',
+                            'metrics/runtime',
+                            'metrics/queue',
+                        ]
+                    },
+                ],
+            },
+            {
+                type: 'category',
                 label: 'REST APIs',
                 items: [
                     'api/cluster',
@@ -62,15 +77,7 @@ module.exports = {
                     'api/system'
                 ]
             },
-            {
-                type: 'category',
-                label: 'Metrics for Prometheus',
-                items: [
-                    'metrics/scheduler',
-                    'metrics/runtime',
-                    'metrics/queue',
-                ]
-            },
+            
             'user_guide/troubleshooting'
         ],
         'Developer Guide': [

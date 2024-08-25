@@ -26,7 +26,7 @@ YuniKorn exposes its scheduling metrics via Prometheus. Thus, we need to set up 
 
 We will provide two methods for building Prometheus: either running it locally or using Helm to deploy it in your cluster. Additionally, in the Helm version, we will explain how to integrate it with Grafana and provide generic Grafana Dashboards for monitoring Yunikorn's metrics and observing the changes over time.
 
-If you don't know what metric can be used, you can use [REST API](../api/scheduler.md#metrics).
+If you don't know what metric can be used, you can use [REST API](../../api/scheduler.md#metrics).
 
 ## Run Prometheus locally
 
@@ -75,13 +75,13 @@ kubectl port-forward svc/yunikorn-service 9080:9080 -n yunikorn
 ./prometheus --config.file=prometheus.yml
 ```
 
-![prometheus-cmd](../assets/prometheus-cmd.png)
+![prometheus-cmd](../../assets/prometheus-cmd.png)
 
 ### 5. Access the Prometheus UI
 
 You should be able to browse to a status page at [localhost:9090](http://localhost:9090/). Give it a couple of seconds to collect data about itself from its own HTTP metrics endpoint.
 
-![prometheus-web-ui](../assets/prometheus-web-ui.png)
+![prometheus-web-ui](../../assets/prometheus-web-ui.png)
 
 You can also verify that Prometheus is serving metrics by navigating to its metrics endpoint:[localhost:9090/metrics](http://localhost:9090/metrics)
 
@@ -146,7 +146,7 @@ After running port-forward, you can enter [localhost:9090](http://localhost:9090
 
 We can search yunikorn keyword to find the mointor target in targets page, and check the status.
 
-![prometheus-web-ui-target-yunikorn](../assets/prometheus-web-ui-target-yunikorn.png)
+![prometheus-web-ui-target-yunikorn](../../assets/prometheus-web-ui-target-yunikorn.png)
 
 ## Access Grafana Dashboard
 
@@ -158,7 +158,7 @@ kubectl port-forward -n prometheus svc/prometheus-grafana 7070:80
 
 After running port-forward, you can enter [localhost:7070](http://localhost:7070) to access grafana, and in the login page, enter account:`admin` ,password:`prom-operator`.
 
-![grafana-login-page](../assets/grafana_login_page.png)
+![grafana-login-page](../../assets/grafana_login_page.png)
     
 ### Download JSON files for Yunikorn Dashboard
     
@@ -166,16 +166,16 @@ A dashboard consists of multiple panels that are organized and arranged in rows.
 
 We provide a sample dashboard JSON file. To access it, you can navigate to the `/deployments/grafana-dashboard` directory in the Yunikorn-k8shim repository.
 
-You can refer to the [REST API](../api/scheduler.md#metrics) to build your own custom Dashboard.
+You can refer to the [REST API](../../api/scheduler.md#metrics) to build your own custom Dashboard.
 
 ### Import the JSON files in the Dashboard
 
 Once you access the Dashboard page, you can proceed to import the provided JSON file.
 
-![import_dashboard_01](../assets/import_dashboard_01.png)
+![import_dashboard_01](../../assets/import_dashboard_01.png)
 
-![import_dashboard_02](../assets/import_dashboard_02.png)
+![import_dashboard_02](../../assets/import_dashboard_02.png)
 
 Once the import is complete, you will be able to locate Yunikorn's Dashboard on the page. From there, you can regularly monitor the status of Yunikorn.
 
-![grafana_dashboard](../assets/grafana_dashboard.png)
+![grafana_dashboard](../../assets/grafana_dashboard.png)
