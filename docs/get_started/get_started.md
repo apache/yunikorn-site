@@ -101,4 +101,4 @@ YuniKorn UI provides a centralised view for cluster resource capacity, utilizati
 
 Besides, YuniKorn also exposes its scheduling metrics via Prometheus.
 
-If you want to monitor the YuniKorn core services by using Prometheus and Grafana, you can find our step-by-step tutorial [here](../user_guide/prometheus.md).
+If you want to monitor the YuniKorn core services by using Prometheus and Grafana, you can find our step-by-step tutorial [here](../user_guide/observability/prometheus.md).
