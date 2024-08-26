@@ -50,23 +50,9 @@ admission controller delegating all scheduling to YuniKorn. Because this mode is
 
 If you are unsure which deployment mode you should use, refer to our [side-by-side comparison](user_guide/deployment_modes).
  
-If you want to use specific YuniKorn version, you can update helm chart via helm upgrade.
+If you want to use a specific version of YuniKorn, you can add the `--version` flag to the `helm install` command as follows:
 ```shell script
-helm upgrade -f custom.yml  -install yunikorn yunikorn/yunikorn -n yunikorn --create-namespace
-```
-
-The custom.yml is
-```yml
-image:
-  tag: scheduler-{version}    # default depends on YuniKorn version
-
-admissionController:
-  image:
-    tag: admission-{version}  # default depends on YuniKorn version
-
-web:
-  image:
-    tag: web-{version}        # default depends on YuniKorn version
+helm install yunikorn yunikorn/yunikorn --namespace yunikorn --version {version}
 ```
 
 You can check available `{version}` on [DockerHub](https://hub.docker.com/r/apache/yunikorn/tags).
