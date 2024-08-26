@@ -37,7 +37,7 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm upgrade --install grafana grafana/grafana -n meta --create-namespace
 ```
-![grafana](../assets/grafana.png)
+![grafana](../../assets/grafana.png)
 
 ## Install Loki
 1. Create the `binary.yaml` file
@@ -120,7 +120,7 @@ bloomGateway:
 ```
 helm upgrade --install loki grafana/loki -n meta -f binary.yaml
 ```
-![loki](../assets/loki.png)
+![loki](../../assets/loki.png)
 
 
 :::info[Troubleshoot]
@@ -142,7 +142,7 @@ config:
 ```
 helm upgrade --install promtail grafana/promtail -f promtail.yaml
 ```
-![promtail](../assets/promtail.png)
+![promtail](../../assets/promtail.png)
 
 ## Grafana settings to connect to Loki
 ### 1. Access the Grafana Web UI
@@ -155,15 +155,15 @@ After running port forwarding, you can access Grafana's web interface by [localh
 In grafana, adding a loki data source with url and http headers allows grafana to fetch logs.
 
 #### set URL field `http://loki-gateway`
-![setting_1](../assets/grafana_loki_setting_1.png)
+![setting_1](../../assets/grafana_loki_setting_1.png)
 
 #### In order to fetch logs from promtail which tenantID is user, set HTTP headers field X-Scope-OrgId with user.
-![setting_2](../assets/grafana_loki_setting_2.png)
+![setting_2](../../assets/grafana_loki_setting_2.png)
 
 ## Loki log result
 1. Set tracking target
-![track_target](../assets/loki_track_tg.png)
+![track_target](../../assets/loki_track_tg.png)
 2. bar chart
-![bar＿chart](../assets/loki_log_1.png)
+![bar＿chart](../../assets/loki_log_1.png)
 3. INFO log
-![logs trace](../assets/loki_log_2.png)
+![logs trace](../../assets/loki_log_2.png)
