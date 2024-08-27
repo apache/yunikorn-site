@@ -66,6 +66,9 @@ admissionController:
     tag: admission-{version}        # default depends on YuniKorn version
     pullPolicy: Always
 ```
+
+You can check [Docker Hub](https://hub.docker.com/r/apache/yunikorn/tags) to see the available tag versions for YuniKorn images.
+
 ### Kubernetes configuration
 
 #### affinity
