@@ -55,9 +55,7 @@ If you want to use a specific version of YuniKorn, you can add the `--version` f
 helm install yunikorn yunikorn/yunikorn --namespace yunikorn --version {version}
 ```
 
-You can check available `{version}` on [here](https://artifacthub.io/packages/helm/yunikorn/yunikorn).
-
-Further configuration options for installing YuniKorn via Helm are available in the [YuniKorn Helm hub page](https://hub.helm.sh/charts/yunikorn/yunikorn).
+You can check [YuniKorn Helm hub page](https://artifacthub.io/packages/helm/yunikorn/yunikorn) to see the available versions and further configuration options for YuniKorn Helm chart.
 
 If you don't want to use helm charts, you can find our step-by-step
 tutorial [here](developer_guide/deployment.md).
