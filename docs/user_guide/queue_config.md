@@ -147,7 +147,7 @@ A queue cannot contain a dot "." character as that character is used to separate
 Valid Queue name:
 
 * must be 64 characters or less,
-* could contain alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), hashes (#), slashes (/), ampersands (&), and dashes (-).
+* could contain alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), hashes (#), slashes (/), at signs (@), and dashes (-).
 
 If the name is not unique for the queue in the configuration or contains a dot or do not follow the above rules a parsing error is generated and the configuration is rejected.
 
@@ -275,7 +275,7 @@ When a wildcard group is configured, a limit must be configured with at least on
 Valid User name:
 
 * must start with lower case or upper case alphabet,
-* followed by alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), hashes (#), slashes (/), ampersands (&), dots (.), and dashes (-).
+* followed by alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), hashes (#), slashes (/), at signs (@), dots (.), and dashes (-).
 * could end with dollar ($).
 
 Valid Group name:
