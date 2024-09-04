@@ -143,7 +143,13 @@ The name of a queue must be unique at the level that the queue is defined.
 Since the queue structure is fully hierarchical queues at different points in the hierarchy may have the same name.
 As an example: the queue structure `root.testqueue` and `root.parent.testqueue` is a valid structure.
 A queue cannot contain a dot "." character as that character is used to separate the queues in the hierarchy.
-If the name is not unique for the queue in the configuration or contains a dot a parsing error is generated and the configuration is rejected. 
+
+Valid Queue name:
+
+* must be 64 characters or less,
+* can contain alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), hashes (#), slashes (/), at signs (@), and dashes (-).
+
+If the name is not unique for the queue in the configuration or contains a dot or does not follow the above rules, a parsing error is generated and the configuration is rejected.
 
 Queues in the structure will automatically get a type assigned.
 The type of the queue is based on the fact that the queue has children or sub queues.
@@ -265,7 +271,19 @@ The star "*" is the wildcard character and matches all users or groups.
 Duplicate entries in the lists are ignored and do not cause a parsing error.
 Specifying a star beside other list elements is not allowed.
 When a wildcard group is configured, a limit must be configured with at least one named group.
-Parsing will reject the configuration with limits that do not follow this rule.
+
+Valid User name:
+
+* must start with a letter (uppercase or lowercase) or an underscore (_),
+* followed by alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), hashes (#), slashes (/), at signs (@), dots (.), and dashes (-).
+* can end with dollar ($).
+
+Valid Group name:
+
+* must start with a letter (uppercase or lowercase) or an underscore (_),
+* followed by alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), dots (.), and dashes (-).
+
+Parsing will reject the configuration with limits that do not follow the above rules.
 
 _maxapplications_ is an unsigned integer value, which allows you to limit the number of running applications for the configured user or group.
 Specifying 0 for _maxapplications_ is not allowed.
