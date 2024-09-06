@@ -164,3 +164,10 @@ to YuniKorn and being considered as a job. The job is scheduled and running as t
 YuniKorn allocates the driver pod to a node, binds the pod and starts all the containers. Once the driver pod gets started,
 it requests for a bunch of executor pods to run its tasks. Those pods will be created in the same namespace as well and
 scheduled by YuniKorn as well.
+
+## Using YuniKorn as a custom scheduler for Apache Spark on Amazon EMR on EKS
+
+YuniKorn can be configured as a custom scheduler for Apache Spark jobs on Amazon EMR on EKS. This setup allows our resource management and scheduling algorithms on Kubernetes clusters.
+
+For a detailed guide on how to set up YuniKorn with Apache Spark on Amazon EMR on EKS, please refer to the [AWS EMR documentation](https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/tutorial-yunikorn.html).
+
