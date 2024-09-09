@@ -3,7 +3,7 @@ id: run_spark
 title: Run Spark Jobs
 description: How to run Spark jobs with YuniKorn
 keywords:
- - spark
+  - spark
 ---
 
 <!--
@@ -36,13 +36,15 @@ To run Spark on Kubernetes, you'll need the Spark docker images. You can 1) use 
 team, or 2) build one from scratch.
 If you want to build your own Spark docker image, you can find the [full instructions](https://spark.apache.org/docs/latest/building-spark.html)
 in the Spark documentation. Simplified steps:
-* Download a Spark version that has Kubernetes support, URL: https://github.com/apache/spark
-* Build spark with Kubernetes support:
+
+- Download a Spark version that has Kubernetes support, URL: https://github.com/apache/spark
+- Build spark with Kubernetes support:
+
 ```shell script
 ./build/mvn -Pkubernetes -DskipTests clean package
 ```
-Recommendation is to use the official images with different spark versions in the [dockerhub](https://hub.docker.com/r/apache/spark/tags)
 
+Recommendation is to use the official images with different spark versions in the [dockerhub](https://hub.docker.com/r/apache/spark/tags)
 
 ## Create a namespace for Spark jobs
 
@@ -106,12 +108,14 @@ security context for running Spark jobs. See more about how to configure proper 
 ## Submit a Spark job
 
 If this is running from local machine, you will need to start the proxy in order to talk to the api-server.
+
 ```shell script
 kubectl proxy
 ```
 
 There are official images with different spark versions in the [dockerhub](https://hub.docker.com/r/apache/spark/tags)
 Run a simple SparkPi job, this assumes that the Spark binaries are installed locally in the `/usr/local` directory.
+
 ```shell script
 export SPARK_HOME=/usr/local/spark/
 ${SPARK_HOME}/bin/spark-submit --master k8s://http://localhost:8001 --deploy-mode cluster --name spark-pi \
@@ -128,12 +132,14 @@ ${SPARK_HOME}/bin/spark-submit --master k8s://http://localhost:8001 --deploy-mod
 :::note
 There are more options for setting the driver and executor in the [spark](https://spark.apache.org/docs/latest/running-on-kubernetes.html#configuration).
 Assigning the applicationId and the queue path are possible.
+
 ```
 --conf spark.kubernetes.executor.label.applicationId=application-spark-0001
 --conf spark.kubernetes.driver.label.applicationId=application-spark-0001
 --conf spark.kubernetes.executor.label.queue=root.default.sandbox
 --conf spark.kubernetes.driver.label.queue=root.default.sandbox
 ```
+
 :::
 
 You'll see Spark driver and executors been created on Kubernetes:
@@ -167,7 +173,8 @@ scheduled by YuniKorn as well.
 
 ## Using YuniKorn as a custom scheduler for Apache Spark on Amazon EMR on EKS
 
-YuniKorn can be configured as a custom scheduler for Apache Spark jobs on Amazon EMR on EKS. This setup allows our resource management and scheduling algorithms on Kubernetes clusters.
+YuniKorn can be configured as a custom scheduler for Apache Spark jobs on Amazon EMR on EKS. This setup allows our
+resource management and scheduling algorithms on Kubernetes clusters.
 
-For a detailed guide on how to set up YuniKorn with Apache Spark on Amazon EMR on EKS, please refer to the [AWS EMR documentation](https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/tutorial-yunikorn.html).
-
+For a detailed guide on how to set up YuniKorn with Apache Spark on Amazon EMR on EKS, please refer to the
+[AWS EMR documentation](https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/tutorial-yunikorn.html).
