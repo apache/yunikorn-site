@@ -25,7 +25,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-## Deploy spark operator with Helm
+## Deploy with Spark operator and Helm
 
 :::note
 Pre-requisites:
