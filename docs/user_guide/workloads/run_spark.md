@@ -91,6 +91,8 @@ spec:
 EOF
 ```
 
+To view the specifics, visit [Spark operator official documentation](https://www.kubeflow.org/docs/components/spark-operator/user-guide/yunikorn-integration/).
+
 ## Deploy Spark job using Spark submit
 
 :::note
