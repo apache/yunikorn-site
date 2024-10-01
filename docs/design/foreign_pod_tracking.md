@@ -24,11 +24,11 @@ under the License.
 
 ## Introduction
 
-Currently, we only know about pods in the scheduler core which have been scheduled by Yunikorn. Resource calculation which decides whether a pod fits a node or not depends on a field called `occupiedResources`. This is first calculated in the shim then sent to the core.
+Currently, we only know about pods in the scheduler core which have been scheduled by YuniKorn. Resource calculation which decides whether a pod fits a node or not depends on a field called `occupiedResources`. This is first calculated in the shim then sent to the core.
 
 This is not ideal for a couple of reasons:
 1. Pod count is not maintained
-2. The state dump and UI only contain Yunikorn pods
+2. The state dump and UI only contain YuniKorn pods
 3. The occupied field is not relevant inside the shim, only in the core
 
 If we have issues regarding available resources, it’s very difficult to figure out what happened. With adequate logging and proper pod tracking, troubleshooting is easier.
@@ -52,7 +52,7 @@ Registering existing pods got significantly simpler after YUNIKORN-2180 and YUNI
 `NodeInfo.ExistingAllocations` no longer exists.
 
 No change is needed. Pods that are already assigned to a node are registered via the
-`Context.AddPod()` callback method. When Yunikorn is initializing the state, existing pods are
+`Context.AddPod()` callback method. When YuniKorn is initializing the state, existing pods are
 seen as new ones. From the perspective of the shim, it doesn’t matter if it got created after
 the startup or it had already existed before.
 
@@ -126,18 +126,18 @@ Proposal: remove the `OccupiedResource` field because it won’t be used anymore
 **Event system**
 
 With the introduction of tracking all pods in the cluster, now we can generate events about
-each individual allocations. Events for Yunikorn pods already exist: `APP_ALLOC` application
+each individual allocations. Events for YuniKorn pods already exist: `APP_ALLOC` application
 event and `NODE_ALLOC` node event. We won’t use the `APP_ALLOC` because we can’t tie the
-non-Yunikorn allocation to an existing application.
+non-YuniKorn allocation to an existing application.
 Proposal: still generate `NODE_OCCUPIED` in the next release (Yunkorn 1.7), but announce the
-deprecation of this event. It will be removed in Yunikorn 1.8.
-We will also generate `NODE_ALLOC` for non-Yunikorn allocations, marking it foreign in the
+deprecation of this event. It will be removed in YuniKorn 1.8.
+We will also generate `NODE_ALLOC` for non-YuniKorn allocations, marking it foreign in the
 "message" field.
 
 |Event type|Event ID|State|When is it generated|
 |--|--|--|--|
 |Node|NODE_OCCUPIED|Existing - to be removed in 1.8|Occupied resource changes on a node|
-|Node|NODE_ALLOC|Already exists for Yunikorn allocations|Allocation (node assignment) occurs|
+|Node|NODE_ALLOC|Already exists for YuniKorn allocations|Allocation (node assignment) occurs|
 
 **Constants**
 
@@ -170,7 +170,7 @@ Proposed changes: remove the path `or != nil`, because that field won’t be use
 **Allocation object**
 
 The `objects.Allocations` type needs to be extended. The scheduler core needs to know if
-the allocation was scheduled by Yunikorn or not and if we want to support preemption, we
+the allocation was scheduled by YuniKorn or not and if we want to support preemption, we
 have to mark allocations which represent static pods. These will be determined from the
 allocation tags explained in the K8s shim part.
 
@@ -193,16 +193,16 @@ The way how allocations are counted gives the user more detailed information abo
 resource usage of all pods. Now we can show individual foreign allocations, not just a single
 counter.
 
-In Yunikorn 1.7, the data in the REST output will not change. We can still calculate
+In YuniKorn 1.7, the data in the REST output will not change. We can still calculate
 OccupiedResources information per node. We also announce that AllocatedResources is
 about to change, because the value will be based on all pods on the node.
 
-From Yunikorn 1.8 onwards, we remove OccupiedResources and update the calculation of
+From YuniKorn 1.8 onwards, we remove OccupiedResources and update the calculation of
 `AllocatedResources`.
 
 To support easier integration with the web UI, a separate list will be maintained for the two
-types of allocations. Allocations made by Yunikorn are still available under `allocations`.
-Non-Yunikorn allocations will be listed under `foreign_allocations`.
+types of allocations. Allocations made by YuniKorn are still available under `allocations`.
+Non-YuniKorn allocations will be listed under `foreignAllocations`.
 
 
 The foreign allocation will have a separate, lightweight DAO object with the following
@@ -291,12 +291,12 @@ Changes are expected in the following methods - go for a 100% coverage wherever
 possible:
 - `Context.updateForeignPod()` and `Context.updateYunikornPod()`
   - These will be merged, make sure new method has coverage for both
-Yunikorn and foreign pods
+YuniKorn and foreign pods
 - `CreateTagsForTask()`
   - Determining whether pod is static or not
 - `Context.deleteForeignPod()` and `Context.deleteYunikornPod()`
   - These will be merged, make sure new method has coverage for both
-Yunikorn and foreign pods
+YuniKorn and foreign pods
 - `CreateAllocationForForeignPod()`
   - New helper method to build an `AllocationRequest`
 
@@ -307,19 +307,19 @@ Assumption: no change should be needed for existing tests.
 Write a new test case with the following behavior:
 - Create a new pod with `PodSpec.SchedulerName` being empty
 - Wait until it gets scheduled by the default scheduler
-- Perform a REST query to Yunikorn
+- Perform a REST query to YuniKorn
 - Retrieve output from the endpoint `/ws/v1/partition/default/nodes`
 - Verify that:
-  - It has allocations and `foreign_allocations` entries
-  - Foreign pod is listed under `foreign_allocations`
+  - It has allocations and `foreignAllocations` entries
+  - Foreign pod is listed under `foreignAllocations`
 
 ## Summary
 
 |Event|Curent|New|Notes|
 |--|--|--|--|
-|Yunikorn pod updated (node assignment)|Update scheduler cache|Update scheduler cache|Existing shim behavior doesn’t change (allocation is already in the core)|
-|Yunikorn pod updated (resource usage)|Update scheduler cache|1. Update scheduler cache<br/>2. Send AllocationRequest|YUNIKORN-1765 will implement this for both YuniKorn and foreign pods|
-|Yunikorn pod deleted|1. Remove pod from scheduler cache<br/>2. Notify core|1. Remove pod from scheduler cache<br/>2. Notify core|Existing shim behavior doesn’t change|
+|YuniKorn pod updated (node assignment)|Update scheduler cache|Update scheduler cache|Existing shim behavior doesn’t change (allocation is already in the core)|
+|YuniKorn pod updated (resource usage)|Update scheduler cache|1. Update scheduler cache<br/>2. Send AllocationRequest|YUNIKORN-1765 will implement this for both YuniKorn and foreign pods|
+|YuniKorn pod deleted|1. Remove pod from scheduler cache<br/>2. Notify core|1. Remove pod from scheduler cache<br/>2. Notify core|Existing shim behavior doesn’t change|
 |Foreign pod updated (node assignment)|1. Update scheduler cache<br/>2. Send NodeInfo with new OccupiedResources|Send AllocationRequest||
 |Foreign pod updated (resource usage)|Update scheduler cache|1. Update scheduler cache<br/>2. Send AllocationRequest|YUNIKORN-1765 will implement this for both YuniKorn and foreign pods|
 |Foreign pod deleted|1. Update scheduler cache<br/>2. Send NodeInfo with new OccupiedResources|Send AllocationReleasesRequest||
