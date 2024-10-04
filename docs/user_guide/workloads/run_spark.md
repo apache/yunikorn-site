@@ -25,7 +25,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-## Deploy with Spark operator and Helm
+## Deploy Spark job with Spark Operator and Helm
 
 :::note
 Pre-requisites:
@@ -38,7 +38,7 @@ Pre-requisites:
 This installation involves installing YuniKorn and Spark operator, which may take a few minutes to complete. To check the status we can use `kubectl get pods -n yunikorn` and `kubectl get pods -n spark-operator`
 :::
 
-### Install yunikorn
+### Install YuniKorn
 A simple script to install YuniKorn under the namespace `yunikorn`, refer to [Get Started](../../get_started/get_started.md) for more details.
 ```shell script
 helm upgrade --install yunikorn yunikorn/yunikorn \
@@ -48,7 +48,7 @@ helm upgrade --install yunikorn yunikorn/yunikorn \
 
 ### Install spark operator
 
-We should install with the batch scheduler enabled and set the default scheduler to YuniKorn. It's optional to set the default scheduler to YuniKorn since you can specify it later on, but it's recommended to do so.
+We should install `spark-operator` with `controller.batchScheduler.enable=true` and set `controller.batchScheduler.default=yunikorn`. It's optional to set the default scheduler to YuniKorn since you can specify it later on, but it's recommended to do so.
 
 ```shell script
 helm upgrade --install spark-operator spark-operator/spark-operator \
