@@ -21,6 +21,10 @@ on:
       - master
   workflow_dispatch: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   license:
     runs-on: ubuntu-latest
