@@ -51,6 +51,10 @@ helm upgrade --install yunikorn yunikorn/yunikorn \
 We should install `spark-operator` with `controller.batchScheduler.enable=true` and set `controller.batchScheduler.default=yunikorn`. It's optional to set the default scheduler to YuniKorn since you can specify it later on, but it's recommended to do so.
 
 ```shell script
+helm repo update # (optional) update the helm repo cache to prvent install wrong version
+```
+
+```shell script
 helm upgrade --install spark-operator spark-operator/spark-operator \
   --create-namespace \
   --namespace spark-operator \
@@ -80,7 +84,7 @@ spec:
   driver:
     cores: 1
     memory: 512m
-    serviceAccount: spark-operator-spark
+    serviceAccount: spark-operator-spark  # default service account created by spark operator
   executor:
     instances: 2
     cores: 1
