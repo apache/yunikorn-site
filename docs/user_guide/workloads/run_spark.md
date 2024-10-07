@@ -33,17 +33,18 @@ Pre-requisites:
 - Use spark-operator version >= 2.0 to enable support for YuniKorn gang scheduling
 :::
 
-
 :::warning
 This installation involves installing YuniKorn and Spark operator, which may take a few minutes to complete. To check the status we can use `kubectl get pods -n yunikorn` and `kubectl get pods -n spark-operator`
 :::
 
 ### Install YuniKorn
+
 A simple script to install YuniKorn under the namespace `yunikorn`, refer to [Get Started](../../get_started/get_started.md) for more details.
+
 ```shell script
-helm upgrade --install yunikorn yunikorn/yunikorn \
-  --create-namespace \
-  --namespace yunikorn
+helm repo add yunikorn https://apache.github.io/yunikorn-release
+helm repo update
+helm install yunikorn yunikorn/yunikorn --create-namespace --namespace yunikorn
 ```
 
 ### Install spark operator
@@ -51,11 +52,9 @@ helm upgrade --install yunikorn yunikorn/yunikorn \
 We should install `spark-operator` with `controller.batchScheduler.enable=true` and set `controller.batchScheduler.default=yunikorn`. It's optional to set the default scheduler to YuniKorn since you can specify it later on, but it's recommended to do so.
 
 ```shell script
-helm repo update # (optional) update the helm repo cache to prvent install wrong version
-```
-
-```shell script
-helm upgrade --install spark-operator spark-operator/spark-operator \
+helm repo add spark-operator https://kubeflow.github.io/spark-operator
+helm repo update 
+helm install spark-operator spark-operator/spark-operator \
   --create-namespace \
   --namespace spark-operator \
   --set controller.batchScheduler.enable=true \
