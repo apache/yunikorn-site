@@ -30,7 +30,7 @@ Follow this [guide](developer_guide/env_setup.md) on how to setup a local Kubern
 ## Install
 
 The easiest way to get started is to use our Helm Charts to deploy YuniKorn on an existing Kubernetes cluster.
-It is recommended to use Helm 3 or later versions.
+It is recommended to use [Helm 3](https://helm.sh/)  or later versions. (Follow this [guide](https://helm.sh/docs/intro/install/) to install Helm on your computer)
 
 ```shell script
 helm repo add yunikorn https://apache.github.io/yunikorn-release
