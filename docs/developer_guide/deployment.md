@@ -30,21 +30,24 @@ scheduler and admission controller. It is primarily intended for developers.
 
 ## Build docker image
 
-Under project root of the `yunikorn-k8shim`, run the command to build an image using the map for the configuration:
+Under project root of the `yunikorn-k8shim`, run the command to build YuniKorn Docker images:
+
 ```
 make image
 ```
 
-This command will build an image. The image will be tagged with a default version, image tag and your build architecture. 
+**Note** that the default build uses a hardcoded registry and tag. If you want to build docker image with a specific arch, version or registry, you can refer to the following command.
+```
+make image DOCKER_ARCH=amd64 REGISTRY=apache VERSION=latest
+```
+Given the example, the tag would be `apache/yunikorn:scheduler-amd64-latest`.
 
-**Note** the default build uses a hardcoded user and tag. You *must* update the `IMAGE_TAG` variable in the `Makefile` to push to an appropriate repository. 
+**Note** that the latest Yunikorn images in docker hub are not updated anymore due to ASF policy. Hence, you should build both scheduler image and web image locally before deploying them.
 
-**Note** the latest yunikorn images in docker hub are not updated anymore due to ASF policy. Hence, you should build both scheduler image and web image locally before deploying them.
-
-**Note** the imaging tagging includes your build architecture. For Intel, it would be `amd64` and for Mac M1, it would be `arm64`.
+**Note** that the image tag includes your build architecture. For Intel, it would be `amd64` and for Mac M1, it would be `arm64`.
 
 ## Setup RBAC for Scheduler
-In the example, RBAC are configured for the yuniKorn namespace.
+In the example, RBAC are configured for the Yunikorn namespace.
 The first step is to create the RBAC role for the scheduler, see [yunikorn-rbac.yaml](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/scheduler/yunikorn-rbac.yaml)
 ```
 kubectl create -f deployments/scheduler/yunikorn-rbac.yaml
