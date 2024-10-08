@@ -30,13 +30,13 @@ scheduler and admission controller. It is primarily intended for developers.
 
 ## Build docker image
 
-Under project root of the `yunikorn-k8shim`, run the command to build run the command to build YuniKorn Docker images:
+Under project root of the `yunikorn-k8shim`, run the command to build YuniKorn Docker images:
 
 ```
 make image
 ```
 
-**Note** that the default build uses a hardcoded registry and tag. If you want to build docker image with specific arch, version or registry, you can refer the following command.
+**Note** that the default build uses a hardcoded registry and tag. If you want to build docker image with a specific arch, version or registry, you can refer to the following command.
 ```
 make image DOCKER_ARCH=amd64 REGISTRY=apache VERSION=latest
 ```
