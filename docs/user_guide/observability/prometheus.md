@@ -164,7 +164,7 @@ After running port-forward, you can enter [localhost:7070](http://localhost:7070
     
 A dashboard consists of multiple panels that are organized and arranged in rows. Each panel has the ability to interact with data from any Grafana data source that has been configured. For more detailed information, please refer to the [Grafana Dashboards](https://grafana.com/docs/grafana/latest/dashboards).
 
-We provide a sample dashboard JSON file. To access it, you can navigate to the `/deployments/grafana-dashboard` directory in the Yunikorn-k8shim repository.
+We provide a sample dashboard JSON file. To access it, you can navigate to the [`/deployments/grafana-dashboard` directory](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/grafana-dashboard) in the Yunikorn-k8shim repository.
 
 You can refer to the [REST API](../../api/scheduler.md#metrics) to build your own custom Dashboard.
 
