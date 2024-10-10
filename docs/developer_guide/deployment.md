@@ -144,5 +144,8 @@ Once this is done, web UI will be available at: http://localhost:9889.
 
 YuniKorn uses config maps for configurations, and it supports loading configuration changes automatically by watching config map changes using shared informers.
 
-To make configuration changes, simply update the content in the configmap, which can be done either via Kubernetes dashboard UI or command line. Note, changes made to the configmap might have some delay to be picked up by the scheduler.
+To make configuration changes, simply update the content in the configmap, which can be done either via Kubernetes dashboard UI or command line. 
 
+**Note** that the changes made to the configmap might have some delay to be picked up by the scheduler.
+
+**Note** that if you're using the configmap as a [subPath](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#mounted-configmaps-are-updated-automatically) volume, the configuration hot refresh will not be triggered.
