@@ -120,7 +120,7 @@ These defaults already provide a good coverage and mark a lot of issues found by
 To extend the coverage further and help mark issues proactively check the following settings and change them to the settings as per the screenshots.
 
 ### Editor preferences
-Open the preferences pane and go to: Editor -> Code Style -> Go.
+Open the preferences pane and go to: `Editor` -> `Code Style` -> `Go`.
 There are three tabs to configure, the first two are crucial to comply with the basic rules from `gofmt` and `goimports`:
 
 |         |                                              |
