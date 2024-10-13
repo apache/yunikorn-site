@@ -31,9 +31,9 @@ The YuniKorn community continues to optimize the performance of the scheduler, e
 
 ## Hardware
 
-Be aware that performance result is highly variable depending on the underlying  hardware. All results published in the doc can only be used as references. We encourage each individual to run similar tests on their own environments in order to get a result based on your own hardware. This doc is just for demonstration purpose.
+Be aware that performance result is highly variable depending on the underlying hardware. All results published in the doc can only be used as references. We encourage each individual to run similar tests on their own environments in order to get a result based on your own hardware. This doc is just for demonstration purpose.
 
-A list of servers being used in this test are (Huge thanks to [National Taichung University of Education](http://www.ntcu.edu.tw/newweb/index.htm), [Kuan-Chou Lai](http://www.ntcu.edu.tw/kclai/) for providing these servers for running tests):
+A list of servers being used in this test are (Huge thanks to [National Taichung University of Education](https://www.ntcu.edu.tw), [Kuan-Chou Lai](https://sites.google.com/mail.ntcu.edu.tw/kclai) for providing these servers for running tests):
 
 | Manchine Type         | CPU | Memory | Download/upload(Mbps) |
 | --------------------- | --- | ------ | --------------------- |
