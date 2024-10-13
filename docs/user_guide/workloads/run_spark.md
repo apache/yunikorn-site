@@ -50,7 +50,7 @@ helm install yunikorn yunikorn/yunikorn --create-namespace --namespace yunikorn
 ### Install spark operator
 
 We should install `spark-operator` with `controller.batchScheduler.enable=true` and set `controller.batchScheduler.default=yunikorn`. It's optional to set the default scheduler to YuniKorn since you can specify it later on, but it's recommended to do so.  
-Also, note that our total allocated memory is `Driver + Execturor`, where Driver = `memory + memoryOverhead` and Execturor = `memory + memoryOverhead + spark.executor.pyspark.memory`, which will further propagate to the `yunikorn.apache.org/task-groups` annotation for subsequent use. 
+Also, note that our total allocated memory is `Driver + Execturor`, where Driver = `memory + memoryOverhead` and Execturor = `memory + memoryOverhead + spark.executor.pyspark.memory`, which will further propagate to the `yunikorn.apache.org/task-groups` annotation. 
 
 ```shell script
 helm repo add spark-operator https://kubeflow.github.io/spark-operator
