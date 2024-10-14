@@ -64,7 +64,7 @@ helm install spark-operator spark-operator/spark-operator \
   --set controller.batchScheduler.default=yunikorn
 ```
 
-### Create the example application
+### Create an example application
 
 Create a Spark application to run a sample Spark Pi job.
 
