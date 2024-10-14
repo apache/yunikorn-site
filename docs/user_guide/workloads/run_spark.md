@@ -25,7 +25,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-## Deploy Spark job with Spark Operator and Helm
+## Run a Spark job with Spark Operator
 
 :::note
 Pre-requisites:
