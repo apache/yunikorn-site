@@ -25,12 +25,84 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+## Run a Spark job with Spark Operator
+
+:::note
+Pre-requisites:
+- This tutorial assumes YuniKorn is [installed](../../get_started/get_started.md) under the namespace `yunikorn`
+- Use spark-operator version >= 2.0 to enable support for YuniKorn gang scheduling
+:::
+
+### Install YuniKorn
+
+A simple script to install YuniKorn under the namespace `yunikorn`, refer to [Get Started](../../get_started/get_started.md) for more details.
+
+```shell script
+helm repo add yunikorn https://apache.github.io/yunikorn-release
+helm repo update
+helm install yunikorn yunikorn/yunikorn --create-namespace --namespace yunikorn
+```
+
+### Install Spark Operator
+
+We should install `spark-operator` with `controller.batchScheduler.enable=true` and set `controller.batchScheduler.default=yunikorn` to enable Gang Scheduling. It's optional to set the default scheduler to YuniKorn since you can specify it later on, but it's recommended to do so.  
+Also, note that the total requested memory for the Spark job is the sum of memory requested for the driver and that for all executors, where each is computed as below:
+* Driver requested memory = `spark.driver.memory` + `spark.driver.memoryOverhead`
+* Executor requested memory = `spark.executor.memory` + `spark.executor.memoryOverhead` + `spark.executor.pyspark.memory`
+
+```shell script
+helm repo add spark-operator https://kubeflow.github.io/spark-operator
+helm repo update 
+helm install spark-operator spark-operator/spark-operator \
+  --create-namespace \
+  --namespace spark-operator \
+  --set controller.batchScheduler.enable=true \
+  --set controller.batchScheduler.default=yunikorn
+```
+
+### Create an example application
+
+Create a Spark application to run a sample Spark Pi job.
+
+```shell script
+cat <<EOF | kubectl apply -f -
+apiVersion: sparkoperator.k8s.io/v1beta2
+kind: SparkApplication
+metadata:
+  name: spark-pi-yunikorn
+  namespace: default
+spec:
+  type: Scala
+  mode: cluster
+  image: spark:3.5.2
+  imagePullPolicy: IfNotPresent
+  mainClass: org.apache.spark.examples.SparkPi
+  mainApplicationFile: local:///opt/spark/examples/jars/spark-examples_2.12-3.5.2.jar
+  sparkVersion: 3.5.2
+  driver:
+    cores: 1
+    memory: 512m
+    serviceAccount: spark-operator-spark  # default service account created by spark operator
+  executor:
+    instances: 2
+    cores: 1
+    memory: 512m
+  batchScheduler: yunikorn
+  batchSchedulerOptions:
+    queue: root.default
+EOF
+```
+
+To view the specifics, visit [Spark operator official documentation](https://www.kubeflow.org/docs/components/spark-operator/user-guide/yunikorn-integration/).
+
+## Deploy Spark job using Spark submit
+
 :::note
 This document assumes you have YuniKorn and its admission-controller both installed. Please refer to
 [get started](../../get_started/get_started.md) to see how that is done.
 :::
 
-## Prepare the docker image for Spark
+### Prepare the docker image for Spark
 
 To run Spark on Kubernetes, you'll need the Spark docker images. You can 1) use the docker images provided by the Spark
 team, or 2) build one from scratch.
@@ -46,7 +118,7 @@ in the Spark documentation. Simplified steps:
 
 Recommendation is to use the official images with different spark versions in the [dockerhub](https://hub.docker.com/r/apache/spark/tags)
 
-## Create a namespace for Spark jobs
+### Create a namespace for Spark jobs
 
 Create a namespace:
 
@@ -59,7 +131,7 @@ metadata:
 EOF
 ```
 
-## Create service account and role binding
+### Create service account and role binding
 
 Create service account and role bindings inside the `spark-test` namespace:
 
@@ -105,7 +177,7 @@ Do NOT use `ClusterRole` and `ClusterRoleBinding` to run Spark jobs in productio
 security context for running Spark jobs. See more about how to configure proper RBAC rules [here](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
 :::
 
-## Submit a Spark job
+### Submit a Spark job
 
 If this is running from local machine, you will need to start the proxy in order to talk to the api-server.
 
@@ -150,7 +222,7 @@ The spark-pi result is in the driver pod.
 
 ![spark-pods](./../../assets/sparkResult.png)
 
-## What happens behind the scenes?
+### What happens behind the scenes?
 
 When the Spark job is submitted to the cluster, the job is submitted to `spark-test` namespace. The Spark driver pod will
 be firstly created under this namespace. Since this cluster has YuniKorn admission-controller enabled, when the driver pod
