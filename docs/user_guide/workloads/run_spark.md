@@ -33,10 +33,6 @@ Pre-requisites:
 - Use spark-operator version >= 2.0 to enable support for YuniKorn gang scheduling
 :::
 
-:::warning
-This installation involves installing YuniKorn and Spark operator, which may take a few minutes to complete. To check the status we can use `kubectl get pods -n yunikorn` and `kubectl get pods -n spark-operator`
-:::
-
 ### Install YuniKorn
 
 A simple script to install YuniKorn under the namespace `yunikorn`, refer to [Get Started](../../get_started/get_started.md) for more details.
