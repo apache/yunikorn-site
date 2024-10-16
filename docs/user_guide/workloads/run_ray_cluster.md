@@ -29,11 +29,22 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-:::info[Note]
-This example demonstrates how to set up [KubeRay](https://docs.ray.io/en/master/cluster/kubernetes/getting-started.html) and run a [RayCluster](https://docs.ray.io/en/master/cluster/kubernetes/getting-started/raycluster-quick-start.html) with the YuniKorn scheduler. It relies on an admission controller to configure the default applicationId and queue name. If you want more details, please refer to [Yunikorn supported labels](https://yunikorn.apache.org/docs/user_guide/labels_and_annotations_in_yunikorn) and [Yunikorn queue setting](https://yunikorn.apache.org/docs/user_guide/queue_config).
+:::note
+This example demonstrates how to set up [KubeRay](https://docs.ray.io/en/master/cluster/kubernetes/getting-started.html) and run a [RayCluster](https://docs.ray.io/en/master/cluster/kubernetes/getting-started/raycluster-quick-start.html) with the YuniKorn scheduler. Here're the pre-requisites:
+- This tutorial assumes YuniKorn is [installed](../../get_started/get_started.md) under the namespace `yunikorn`
+- Use kube-ray version >= 1.2.2 to enable support for YuniKorn gang scheduling
 :::
 
-<YunikornConfigMapPatch />
+## Install YuniKorn
+
+A simple script to install YuniKorn under the namespace `yunikorn`, refer to [Get Started](../../get_started/get_started.md) for more details.
+
+```shell script
+helm repo add yunikorn https://apache.github.io/yunikorn-release
+helm repo update
+helm install yunikorn yunikorn/yunikorn --create-namespace --namespace yunikorn
+```
+
 <RayOperator/>
 
 ## Create RayCluster with YuniKorn
@@ -167,4 +178,6 @@ After port-forward set up, you can access the Ray dashboard by going to `http://
 
 - Ray Dashboard
   ![ray_cluster_ray_dashborad](../../assets/ray_cluster_ray_dashborad.png)
+
+Have doubts? Check out the [KubeRay integration with Apache YuniKorn](https://docs.ray.io/en/master/cluster/kubernetes/k8s-ecosystem/yunikorn.html) official documents.
 
