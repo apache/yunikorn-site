@@ -36,16 +36,120 @@ This example demonstrates how to set up [KubeRay](https://docs.ray.io/en/master/
 <YunikornConfigMapPatch />
 <RayOperator/>
 
-## Create RayCluster 
+## Create RayCluster with YuniKorn
+
+In the example, we set the `ray.io/gang-scheduling-enabled` label to `true` to enable gang scheduling.
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="amd64" label="x86-64 (Intel/Linux)">
+
+```yaml
+cat <<EOF | kubectl apply -f -
+apiVersion: ray.io/v1
+kind: RayCluster
+metadata:
+  name: test-yunikorn-0
+  labels:
+    ray.io/gang-scheduling-enabled: "true"
+    yunikorn.apache.org/app-id: test-yunikorn-0
+    yunikorn.apache.org/queue: root.default
+spec:
+  rayVersion: "2.9.0"
+  headGroupSpec:
+    rayStartParams: {}
+    template:
+      spec:
+        containers:
+          - name: ray-head
+            image: rayproject/ray:2.9.0
+            resources:
+              limits:
+                cpu: "1"
+                memory: "2Gi"
+              requests:
+                cpu: "1"
+                memory: "2Gi"
+  workerGroupSpecs:
+    - groupName: worker
+      rayStartParams: {}
+      replicas: 2
+      minReplicas: 2
+      maxReplicas: 2
+      template:
+        spec:
+          containers:
+            - name: ray-head
+              image: rayproject/ray:2.9.0
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: "1Gi"
+                requests:
+                  cpu: "1"
+                  memory: "1Gi"
+EOF
 ```
-helm install raycluster kuberay/ray-cluster --version 1.1.1
+
+</TabItem>
+<TabItem value="aarch64" label="Apple Silicon(arm64)">
+
+```yaml
+cat <<EOF | kubectl apply -f -
+apiVersion: ray.io/v1
+kind: RayCluster
+metadata:
+  name: test-yunikorn-0
+  labels:
+    ray.io/gang-scheduling-enabled: "true"
+    yunikorn.apache.org/app-id: test-yunikorn-0
+    yunikorn.apache.org/queue: root.default
+spec:
+  rayVersion: "2.9.0"
+  headGroupSpec:
+    rayStartParams: {}
+    template:
+      spec:
+        containers:
+          - name: ray-head
+            image: rayproject/ray:2.9.0-aarch64
+            resources:
+              limits:
+                cpu: "1"
+                memory: "2Gi"
+              requests:
+                cpu: "1"
+                memory: "2Gi"
+  workerGroupSpecs:
+    - groupName: worker
+      rayStartParams: {}
+      replicas: 2
+      minReplicas: 2
+      maxReplicas: 2
+      template:
+        spec:
+          containers:
+            - name: ray-head
+              image: rayproject/ray:2.9.0-aarch64
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: "1Gi"
+                requests:
+                  cpu: "1"
+                  memory: "1Gi"
+EOF
 ```
+
+</TabItem>
+</Tabs>
+
 - RayCluster result
   ![ray_cluster_cluster](../../assets/ray_cluster_cluster.png)
 - YuniKorn UI
   ![ray_cluster_on_ui](../../assets/ray_cluster_on_ui.png)
-  
-<RayCRDYunikornConfig />
 
 ## Submit a RayJob to RayCluster
 ```
@@ -57,7 +161,7 @@ kubectl exec -it $HEAD_POD -- python -c "import ray; ray.init(); print(ray.clust
 
 Services in Kubernetes aren't directly accessible by default. However, you can use port-forwarding to connect to them locally.
 ```
-kubectl port-forward service/raycluster-kuberay-head-svc 8265:8265
+kubectl port-forward service/test-yunikorn-0-head-svc 8265:8265
 ```
 After port-forward set up, you can access the Ray dashboard by going to `http://localhost:8265` in your web browser.
 
