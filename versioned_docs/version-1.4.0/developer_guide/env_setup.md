@@ -70,7 +70,7 @@ Dashboard Web UI. The dashboard may be deployed using the following steps:
     ```shell script
     kubectl proxy &
     ```
-3. Access the dashboard [here](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login).
+3. Access the dashboard [here](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard-kong-proxy:443/proxy/#/login).
 
 ### Access local Kubernetes cluster
 
