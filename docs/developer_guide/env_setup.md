@@ -66,11 +66,11 @@ Optionally, after setting up Kubernetes you may wish to deploy the Kubernetes
 Dashboard Web UI. The dashboard may be deployed using the following steps:
 
 1. Follow the instructions [here](https://github.com/kubernetes/dashboard) to deploy the dashboard.
-2. Start the Kubernetes proxy in the background from a terminal to get access on the dashboard on the local host:   
+2. Use port-forwarding to access the dashboard on the local host:   
     ```shell script
-    kubectl proxy &
+    kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
     ```
-3. Access the dashboard [here](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard-kong-proxy:443/proxy/#/login).
+3. Access the dashboard [here](https://localhost:8443/#/login).
 
 ### Access local Kubernetes cluster
 
