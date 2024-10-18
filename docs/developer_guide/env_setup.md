@@ -82,10 +82,8 @@ sign in. Here we use the token to sign in.
    kubectl -n kubernetes-dashboard create token default
    ```
 2. Copy the token.
-3. Select the **Token** option in the dashboard web UI:<br/>
-    ![Token Access in dashboard](./../assets/dashboard_token_select.png)
-4. Paste the token value into the input box and sign in:<br/>
-    ![Token Access in dashboard](./../assets/dashboard_secret.png)
+3. Paste the token value into the input box and sign in:<br/>
+    ![Token Access in dashboard](./../assets/dashboard_bearertoken.png)
 
 ## Local Kubernetes cluster with Minikube
 Minikube can be added to an existing Docker Desktop install. Minikube can
