@@ -77,10 +77,7 @@ Dashboard Web UI. The dashboard may be deployed using the following steps:
 The dashboard as deployed in the previous step requires a token or config to
 sign in. Here we use the token to sign in.
 
-1. Generate default user token:
-   ```shell script
-   kubectl -n kubernetes-dashboard create token default
-   ```
+1. Generate token instructions can be found [here](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
 2. Copy the token.
 3. Paste the token value into the input box and sign in:<br/>
     ![Token Access in dashboard](./../assets/dashboard_bearertoken.png)
