@@ -74,8 +74,8 @@ Dashboard Web UI. The dashboard may be deployed using the following steps:
 
 ### Access local Kubernetes cluster
 
-The dashboard as deployed in the previous step requires a token or config to
-sign in. Here we use the token to sign in.
+The dashboard as deployed in the previous step requires a token to
+sign in.
 
 1. Generate token instructions can be found [here](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
 2. Copy the token.
