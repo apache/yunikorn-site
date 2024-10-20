@@ -74,25 +74,13 @@ Dashboard Web UI. The dashboard may be deployed using the following steps:
 
 ### Access local Kubernetes cluster
 
-The dashboard as deployed in the previous step requires a token or config to
-sign in. Here we use the token to sign in. The token is generated
-automatically and can be retrieved from the system.
+The dashboard as deployed in the previous step requires a token to
+sign in.
 
-1. Retrieve the name of the dashboard token:
-    ```shell script
-    kubectl -n kube-system get secret | grep kubernetes-dashboard-token
-    ```
-2. Retrieve the content of the token. Note that the token name ends with a random
-   5 character code and needs to be replaced with the result of step 1. As an
-   example:
-    ```shell script
-    kubectl -n kube-system describe secret kubernetes-dashboard-token-tf6n8
-    ```
-3. Copy the token value which is part of the `Data` section with the tag `token`.
-4. Select the **Token** option in the dashboard web UI:<br/>
-    ![Token Access in dashboard](./../assets/dashboard_token_select.png)
-5. Paste the token value into the input box and sign in:<br/>
-    ![Token Access in dashboard](./../assets/dashboard_secret.png)
+1. Generate token instructions can be found [here](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
+2. Copy the token.
+3. Paste the token value into the input box and sign in:<br/>
+    ![Token Access in dashboard](./../assets/dashboard_bearertoken.png)
 
 ## Local Kubernetes cluster with Minikube
 Minikube can be added to an existing Docker Desktop install. Minikube can
