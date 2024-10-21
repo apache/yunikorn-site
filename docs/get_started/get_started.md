@@ -43,13 +43,6 @@ By default, the helm chart will install the scheduler, web-server and the admiss
 When `admission-controller` is installed, it simply routes all traffic to YuniKorn. That means the resource scheduling
 is delegated to YuniKorn. You can disable it by setting `embedAdmissionController` flag to `false` during the helm install.
 
-The YuniKorn scheduler can also be deployed as a Kubernetes scheduler plugin by setting the Helm `enableSchedulerPlugin`
-flag to `true`. This will deploy an alternate Docker image which contains YuniKorn compiled together with the default
-scheduler. This new mode offers better compatibility with the default Kubernetes scheduler and is suitable for use with the
-admission controller delegating all scheduling to YuniKorn. Because this mode is still very new, it is not enabled by default.
-
-If you are unsure which deployment mode you should use, refer to our [side-by-side comparison](user_guide/deployment_modes).
- 
 If you want to use a specific version of YuniKorn, you can add the `--version` flag to the `helm install` command as follows:
 ```shell script
 helm install yunikorn yunikorn/yunikorn --namespace yunikorn --version {version}
