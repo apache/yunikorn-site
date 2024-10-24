@@ -6,18 +6,19 @@
     "preinstall": "npx only-allow pnpm",
     "start": "docusaurus start",
     "build": "docusaurus build",
+    "serve": "docusaurus serve",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "release": "docusaurus docs:version"
   },
   "dependencies": {
-    "@docusaurus/core": "3.2.1",
-    "@docusaurus/preset-classic": "3.2.1",
-    "@docusaurus/theme-search-algolia": "3.2.1",
+    "@docusaurus/core": "3.5.2",
+    "@docusaurus/preset-classic": "3.5.2",
+    "@docusaurus/theme-search-algolia": "3.5.2",
     "@mdx-js/react": "^3.0.1",
-    "axios": "1.6.8",
-    "clsx": "^2.1.0",
-    "node": "^18.20.1",
+    "axios": "^1.7.7",
+    "clsx": "^2.1.1",
+    "node": "^20.17.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
@@ -39,7 +40,8 @@
       "trim@<0.0.3": ">=0.0.3",
       "loader-utils@>=3.0.0 <3.2.1": ">=3.2.1",
       "minimatch@<3.0.5": ">=3.0.5",
-      "axios@>=0.8.1 <0.28.0": ">=0.28.0"
+      "axios@>=0.8.1 <0.28.0": ">=0.28.0",
+      "path-to-regexp@>=2.0.0 <3.3.0": ">=3.3.0"
     }
   }
 }

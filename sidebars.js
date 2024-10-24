@@ -108,6 +108,7 @@ module.exports = {
                     'design/resilience',
                     'design/config_v2',
                     'design/scheduler_configuration',
+                    'design/foreign_pod_tracking',
                 ]
             },
             {

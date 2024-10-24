@@ -21,6 +21,10 @@ on:
       - master
   workflow_dispatch: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   license:
     runs-on: ubuntu-latest
@@ -33,5 +37,5 @@ jobs:
         run: ./check_license.sh
       - name: Build the site image
         run: |
-          NODE_VERSION=$(cat .nvmrc) && NODE_VERSION=${NODE_VERSION:-18.17}
+          NODE_VERSION=$(cat .nvmrc) && NODE_VERSION=${NODE_VERSION:-20.17}
           docker build -t yunikorn/yunikorn-website:2.0.0 . --build-arg NODE_VERSION=${NODE_VERSION}
