@@ -105,7 +105,7 @@ kubectl create namespace prometheus
 helm install prometheus prometheus-community/kube-prometheus-stack -n prometheus
 ```
 
-### 3. Use Service Mointor to Define monitor yunikorn service target
+### 3. Use Service Monitor to Define monitor yunikorn service target
 
 create `yunikorn-service-monitor.yaml` as following configuration.
 
@@ -144,7 +144,7 @@ kubectl port-forward -n prometheus svc/prometheus-kube-prometheus-prometheus 909
 
 After running port-forward, you can enter [localhost:9090](http://localhost:9090) to access Prometheus Web UI.
 
-We can search yunikorn keyword to find the mointor target in targets page, and check the status.
+We can search yunikorn keyword to find the monitor target in targets page, and check the status.
 
 ![prometheus-web-ui-target-yunikorn](../../assets/prometheus-web-ui-target-yunikorn.png)
 
