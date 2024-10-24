@@ -82,7 +82,7 @@ The queue as defined in the configuration will be assigned a queue type. This ca
 
 Access control lists provide a split between submission permission and administration permissions. Submission access to a queue allows an application to be submitted to the queue by the users or groups specified. The administration permissions allows submission to the queue plus the administrative actions. Administrative actions are currently limited to killing an application and moving an application to a different queue.
 
-Access control lists are checked recursively up to the root of the tree starting at the lowest point in the tree. In other words when the access control list of a queue does not allow access the parent queue is checked. The checks are repeated all the way up to the root of the queues.
+Access control lists are checked recursively up to the root of the tree starting at the lowest point in the tree. In other words, when the access control list of a queue does not allow access, the parent queue is checked. The checks are repeated all the way up to the root of the queues.
 
 On each queue, except the root queue, the following properties can be set:
 * QueueType:
@@ -95,7 +95,7 @@ On each queue, except the root queue, the following properties can be set:
 * Queue Permissions:
     * SubmitACL (ACL)
     * AdminACL (ACL)
-* Pre emption setting:
+* Pre-emption setting:
     * PreEmptionAllowed (boolean)
 * Application sort algorithm:
     * ApplicationSortPolicy (enumeration: fair, fifo)
@@ -115,7 +115,7 @@ Applications are run by a user could run in one or more queues. The queues can h
 From an administrative perspective setting a limit of the resources that can be used by a specific user can be important.  In this case a user is broadly defined as the identity that submits the application. This can be a service or a person, from a scheduling perspective there is no difference.
 User limits can prevent a take over of a queue or the cluster by a misbehaving user or application. From a multi tenancy perspective user limits also allows for sharing or subdivision of resources within the tenancy however that is defined.
 
-Adding user based limits will allow the cluster administrators to control the cluster wide resource usage of a user:
+Adding user-based limits will allow the cluster administrators to control the cluster-wide resource usage of a user:
 * Running Application limit:
     * Maximum (integer)
 * Resource setting:
