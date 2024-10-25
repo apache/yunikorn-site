@@ -48,9 +48,9 @@ Scheduler configuration as currently identified
 
 Configuration to consider:
 * Assign multiple containers in one go: use case is bin packing, don’t spread an application over large number of nodes. Needs to become configurable.
-* Pre-emption related configuration:
-    * threshold: do not pre-empt from a queue if the cluster load is below a certain threshold.
-    * Interval: pause between pre-emption checks
+* Preemption related configuration:
+    * threshold: do not preempt from a queue if the cluster load is below a certain threshold.
+    * Interval: pause between preemption checks
 ## Queue Configuration
 ### Queue Definition
 On startup the scheduler will load the configuration for the queues from the provided configuration file after initialising the service. If there is no queue configuration provided the scheduler should start up with a simple default configuration which performs a well documented default behaviour.
@@ -95,7 +95,7 @@ On each queue, except the root queue, the following properties can be set:
 * Queue Permissions:
     * SubmitACL (ACL)
     * AdminACL (ACL)
-* Pre-emption setting:
+* Preemption setting:
     * PreEmptionAllowed (boolean)
 * Application sort algorithm:
     * ApplicationSortPolicy (enumeration: fair, fifo)
