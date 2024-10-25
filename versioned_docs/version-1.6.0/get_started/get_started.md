@@ -48,10 +48,6 @@ flag to `true`. This will deploy an alternate Docker image which contains YuniKo
 scheduler. This new mode offers better compatibility with the default Kubernetes scheduler and is suitable for use with the
 admission controller delegating all scheduling to YuniKorn. Because this mode is still very new, it is not enabled by default.
 
-***NOTE:*** **Plugin mode is now deprecated and will be removed in a future release.
-It is strongly recommended to use the standard mode instead.
-Refer to [plugin mode](user_guide/deployment_modes#plugin-mode) for more details.**
-
 If you are unsure which deployment mode you should use, refer to our [side-by-side comparison](user_guide/deployment_modes).
  
 If you want to use a specific version of YuniKorn, you can add the `--version` flag to the `helm install` command as follows:
