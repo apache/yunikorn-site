@@ -402,8 +402,8 @@ yunikornDefaults:
               value: namespace
               create: true
           queues:
-        - name: root
-          submitacl: '*'
+          - name: root
+            submitacl: '*'
 ```
 
 ### Deprecated settings
@@ -438,8 +438,8 @@ configuration: |
           value: namespace
           create: true
       queues:
-    - name: root
-      submitacl: '*'
+      - name: root
+        submitacl: '*'
 ```
 Replacement example:
 ```yaml
@@ -458,8 +458,8 @@ yunikornDefaults:
             value: namespace
             create: true
         queues:
-      - name: root
-        submitacl: '*'
+        - name: root
+          submitacl: '*'
 ```
 Currently, if both the deprecated parameter and the replacement ConfigMap entry are specified, the ConfigMap entry will take precedence.
 
