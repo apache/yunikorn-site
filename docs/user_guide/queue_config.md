@@ -86,7 +86,7 @@ partitions:
       enabled: false
 ```
 NOTE:
-Currently the Kubernetes unique shim does not support any other partition than the `default` partition..
+Currently the Kubernetes unique shim does not support any other partition than the `default` partition.
 This has been logged as an [jira](https://issues.apache.org/jira/browse/YUNIKORN-22) for the shim.
 
 ### Queues
