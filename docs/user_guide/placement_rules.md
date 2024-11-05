@@ -94,7 +94,7 @@ The parent parameter allows specifying a rule that generates a parent queue for 
 Parent rules can be nested, a parent rule _may_ contain another parent rule.
 There is no enforced limit of parent rules that can be nested.
 
-A parent rule is treated as if it was a rule specified at the top level of the list and thus has the same parameters and requirements as a any other rule in the placement definition.
+A parent rule is treated as if it was a rule specified at the top level of the list and thus has the same parameters and requirements as any other rule in the placement definition.
 The exception is that using a parent rule on a rule that already generates a fully qualified queue is considered a configuration error.
 This error can only occur on the rule of type [fixed](#fixed-rule), see the rule specification for more details.
 
@@ -131,7 +131,7 @@ When an entry contains a character that is not allowed in a user or group name t
 The regular expression must compile as specified.
 A regular expression that does not compile is ignored.
 
-Specifically for the group regular expression: matching is performed one group at a time not the against the list of groups.
+Specifically for the group regular expression: matching is performed one group at a time not against the list of groups.
 
 Basic `filter` yaml entry:
 ```yaml
@@ -179,7 +179,7 @@ For more detail on the ACL syntax check the [ACL documentation](user_guide/acls.
 Name to be used in the configuration: *provided*
 
 Returns the queue provided during the submission of the application.
-The behaviour of the this rule is to fully qualify the queue provided by the application if the queue is not fully qualified.
+The behaviour of this rule is to fully qualify the queue provided by the application if the queue is not fully qualified.
 If a parent rule is set and the queue provided in the application submission is fully qualified then the parent rule will not be executed.
 
 Supported parameters:
