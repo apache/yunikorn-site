@@ -131,8 +131,6 @@ Returns general information and statistics about a partition.
 
 **Code** : `500 Internal Server Error`
 
-
-
 ## PlacementRules
 
 Returns the list of currently active placement rules for the partition.
@@ -936,7 +934,6 @@ Fetch all users usage given a Partition and displays general information about t
 
 **Code** : `500 Internal Server Error`
 
-
 ## UserTracker
 ### Get specific user usage tracking information
 Fetch specific user usage given a Partition and displays general information about the users managed by YuniKorn. In case the username contains any special characters, it needs to be url escaped to avoid issues.
@@ -1092,7 +1089,6 @@ Fetch all groups usage given a Partition and displays general information about 
 ### Error response
 
 **Code** : `500 Internal Server Error`
-
 
 ## GroupTracker
 ### Get specific group usage tracking information
@@ -1595,283 +1591,6 @@ Show the nodes utilization of different types of resources in a cluster.
 
 **Code** : `500 Internal Server Error`
 
-
-## Goroutines info
-
-Dumps the stack traces of the currently running goroutines.
-
-**URL** : `/ws/v1/stack`
-
-**Method** : `GET`
-
-**Auth required** : NO
-
-### Success response
-
-**Code** : `200 OK`
-
-**Content examples**
-
-```text
-goroutine 356 [running
-]:
-github.com/apache/yunikorn-core/pkg/webservice.getStackInfo.func1(0x30a0060,
-0xc003e900e0,
-0x2)
-	/yunikorn/go/pkg/mod/github.com/apache/yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/handlers.go: 41 +0xab
-github.com/apache/yunikorn-core/pkg/webservice.getStackInfo(0x30a0060,
-0xc003e900e0,
-0xc00029ba00)
-	/yunikorn/go/pkg/mod/github.com/apache/yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/handlers.go: 48 +0x71
-net/http.HandlerFunc.ServeHTTP(0x2df0e10,
-0x30a0060,
-0xc003e900e0,
-0xc00029ba00)
-	/usr/local/go/src/net/http/server.go: 1995 +0x52
-github.com/apache/yunikorn-core/pkg/webservice.Logger.func1(0x30a0060,
-0xc003e900e0,
-0xc00029ba00)
-	/yunikorn/go/pkg/mod/github.com/apache/yunikorn-core@v0.0.0-20200717041747-f3e1c760c714/pkg/webservice/webservice.go: 65 +0xd4
-net/http.HandlerFunc.ServeHTTP(0xc00003a570,
-0x30a0060,
-0xc003e900e0,
-0xc00029ba00)
-	/usr/local/go/src/net/http/server.go: 1995 +0x52
-github.com/gorilla/mux.(*Router).ServeHTTP(0xc00029cb40,
-0x30a0060,
-0xc003e900e0,
-0xc0063fee00)
-	/yunikorn/go/pkg/mod/github.com/gorilla/mux@v1.7.3/mux.go: 212 +0x140
-net/http.serverHandler.ServeHTTP(0xc0000df520,
-0x30a0060,
-0xc003e900e0,
-0xc0063fee00)
-	/usr/local/go/src/net/http/server.go: 2774 +0xcf
-net/http.(*conn).serve(0xc0000eab40,
-0x30a61a0,
-0xc003b74000)
-	/usr/local/go/src/net/http/server.go: 1878 +0x812
-created by net/http.(*Server).Serve
-	/usr/local/go/src/net/http/server.go: 2884 +0x4c5
-
-goroutine 1 [chan receive,
-	26 minutes
-]:
-main.main()
-	/yunikorn/pkg/shim/main.go: 52 +0x67a
-
-goroutine 19 [syscall,
-	26 minutes
-]:
-os/signal.signal_recv(0x1096f91)
-	/usr/local/go/src/runtime/sigqueue.go: 139 +0x9f
-os/signal.loop()
-	/usr/local/go/src/os/signal/signal_unix.go: 23 +0x30
-created by os/signal.init.0
-	/usr/local/go/src/os/signal/signal_unix.go: 29 +0x4f
-
-...
-```
-
-### Error response
-
-**Code** : `500 Internal Server Error`
-
-
-## Metrics
-
-Endpoint to retrieve metrics from the Prometheus server. 
-The metrics are dumped with help messages and type information.
-
-**URL** : `/ws/v1/metrics`
-
-**Method** : `GET`
-
-**Auth required** : NO
-
-### Success response
-
-**Code** : `200 OK`
-
-**Content examples**
-
-```text
-# HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
-# TYPE go_gc_duration_seconds summary
-go_gc_duration_seconds{quantile="0"} 2.567e-05
-go_gc_duration_seconds{quantile="0.25"} 3.5727e-05
-go_gc_duration_seconds{quantile="0.5"} 4.5144e-05
-go_gc_duration_seconds{quantile="0.75"} 6.0024e-05
-go_gc_duration_seconds{quantile="1"} 0.00022528
-go_gc_duration_seconds_sum 0.021561648
-go_gc_duration_seconds_count 436
-# HELP go_goroutines Number of goroutines that currently exist.
-# TYPE go_goroutines gauge
-go_goroutines 82
-# HELP go_info Information about the Go environment.
-# TYPE go_info gauge
-go_info{version="go1.12.17"} 1
-# HELP go_memstats_alloc_bytes Number of bytes allocated and still in use.
-# TYPE go_memstats_alloc_bytes gauge
-go_memstats_alloc_bytes 9.6866248e+07
-
-...
-
-# HELP yunikorn_scheduler_vcore_nodes_usage Nodes resource usage, by resource name.
-# TYPE yunikorn_scheduler_vcore_nodes_usage gauge
-yunikorn_scheduler_vcore_nodes_usage{range="(10%, 20%]"} 0
-yunikorn_scheduler_vcore_nodes_usage{range="(20%,30%]"} 0
-yunikorn_scheduler_vcore_nodes_usage{range="(30%,40%]"} 0
-yunikorn_scheduler_vcore_nodes_usage{range="(40%,50%]"} 0
-yunikorn_scheduler_vcore_nodes_usage{range="(50%,60%]"} 0
-yunikorn_scheduler_vcore_nodes_usage{range="(60%,70%]"} 0
-yunikorn_scheduler_vcore_nodes_usage{range="(70%,80%]"} 1
-yunikorn_scheduler_vcore_nodes_usage{range="(80%,90%]"} 0
-yunikorn_scheduler_vcore_nodes_usage{range="(90%,100%]"} 0
-yunikorn_scheduler_vcore_nodes_usage{range="[0,10%]"} 0
-```
-
-## Configuration validation
-
-**URL** : `/ws/v1/validate-conf`
-
-**Method** : `POST`
-
-**Auth required** : NO
-
-### Success response
-
-Regardless whether the configuration is allowed or not if the server was able to process the request, it will yield a 200 HTTP status code.
-
-**Code** : `200 OK`
-
-#### Allowed configuration
-
-Sending the following simple configuration yields an accept
-
-```yaml
-partitions:
-  - name: default
-    queues:
-      - name: root
-        queues:
-          - name: test
-```
-
-Reponse
-
-```json
-{
-    "allowed": true,
-    "reason": ""
-}
-```
-
-#### Disallowed configuration
-
-The following configuration is not allowed due to the "wrong_text" field put into the yaml file.
-
-```yaml
-partitions:
-  - name: default
-    queues:
-      - name: root
-        queues:
-          - name: test
-  - wrong_text
-```
-
-Reponse
-
-```json
-{
-    "allowed": false,
-    "reason": "yaml: unmarshal errors:\n  line 7: cannot unmarshal !!str `wrong_text` into configs.PartitionConfig"
-}
-```
-
-## Configuration
-
-Endpoint to retrieve the current scheduler configuration
-
-**URL** : `/ws/v1/config`
-
-**Method** : `GET`
-
-**Auth required** : NO
-
-### Success response
-
-**Code** : `200 OK`
-
-**Content example (with `Accept: application/json` header)**
-
-```json
-{
-    "Partitions": [
-        {
-            "Name": "default",
-            "Queues": [
-                {
-                    "Name": "root",
-                    "Parent": true,
-                    "Resources": {},
-                    "SubmitACL": "*",
-                    "ChildTemplate": {
-                        "Resources": {}
-                    }
-                }
-            ],
-            "PlacementRules": [
-                {
-                    "Name": "tag",
-                    "Create": true,
-                    "Filter": {
-                        "Type": ""
-                    },
-                    "Value": "namespace"
-                }
-            ],
-            "Preemption": {
-                "Enabled": false
-            },
-            "NodeSortPolicy": {
-                "Type": ""
-            }
-        }
-    ],
-    "Checksum": "FD5D3726DF0F02416E02F3919D78F61B15D14425A34142D93B24C137ED056946",
-    "Extra": {
-        "event.trackingEnabled": "false",
-        "log.core.scheduler.level": "info",
-        "log.core.security.level": "info",
-        "log.level": "debug"
-    }
-}
-```
-
-**Content example (without `Accept: application/json` header)**
-
-```yaml
-partitions:
-    - name: default
-        queues:
-            - name: root
-            parent: true
-            submitacl: "*"
-        placementrules:
-            - name: tag
-            create: true
-            value: namespace
-checksum: FD5D3726DF0F02416E02F3919D78F61B15D14425A34142D93B24C137ED056946
-extra:
-    event.trackingEnabled: "false"
-    log.core.scheduler.level: info
-    log.core.security.level: info
-    log.level: debug
-
-```
-
 ## Application history
 
 Endpoint to retrieve historical data about the number of total applications by timestamp.
@@ -1962,9 +1681,7 @@ Endpoint to retrieve historical data about the number of total containers by tim
 
 **Code** : `500 Internal Server Error`
 
-
-
-## Endpoint healthcheck
+## Healthcheck
 
 Endpoint to retrieve historical data about critical logs, negative resource on node/cluster/app, ...
 
@@ -2042,49 +1759,6 @@ Endpoint to retrieve historical data about critical logs, negative resource on n
 }
 ```
 
-## Retrieve full state dump
-
-Endpoint to retrieve the following information in a single response:
-
-* Current timestamp (Unix timestamp in nanosecond)
-* List of partitions
-* List of applications (running, completed and rejected)
-* Application history
-* Nodes
-* Generic cluster information
-* Container history
-* Queues
-* RMDiagnostics
-* Log level
-* Configuration
-* Placement rules
-* Event stream overview (client hostname and creation timestamp)
-
-**URL** : `/ws/v1/fullstatedump`
-
-**Method** : `GET`
-
-**Auth required** : NO
-
-### Success response
-
-**Code** : `200 OK`
-
-**Content examples**
-
-The output of this REST query can be rather large, and it is a combination of those which have already been demonstrated.
-
-The `RMDiagnostics` shows the content of the K8Shim cache. The exact content is version dependent and has not stabilised.
-The current content shows the cached objects:
-* nodes
-* pods
-* priorityClasses
-* schedulingState (pod status)
-
-### Failure response
-
-**Code**: `500 Internal Server Error`
-
 ## Batch Events
 
 Endpoint is used to retrieve a batch of event records.
@@ -2097,9 +1771,8 @@ Endpoint is used to retrieve a batch of event records.
 
 **URL query parameters** :
 - `count` (optional) : Specifies the maxmem number of events to be included in the response.
-- `start` (optional) : Specifies the starting ID for retrieving events. If the specified ID is outside the ring buffer 
-(too low or too high), the response will include the lowest and highest ID values with `EventRecords` being empty. 
-
+- `start` (optional) : Specifies the starting ID for retrieving events. If the specified ID is outside the ring buffer
+  (too low or too high), the response will include the lowest and highest ID values with `EventRecords` being empty.
 
 ### Success response
 
@@ -2175,12 +1848,90 @@ The number of active connections is limited. The default setting is 100 connecti
 
 **Content examples**
 
+Application (2) state change (1) to Accepted (204):
 ```json
-{"type":2,"objectID":"app-1","timestampNano":1708465452903045265,"eventChangeType":1,"eventChangeDetail":204,"resource":{}}
-{"type":2,"objectID":"app-1","timestampNano":1708465452903192898,"eventChangeType":2,"eventChangeDetail":201,"referenceID":"alloc-1","resource":{"resources":{"memory":{"value":10000000},"vcore":{"value":1000}}}}
-{"type":3,"objectID":"node-1:1234","timestampNano":1708465452903312146,"eventChangeType":2,"eventChangeDetail":303,"referenceID":"alloc-1","resource":{"resources":{"memory":{"value":10000000},"vcore":{"value":1000}}}}
-{"type":2,"objectID":"app-1","timestampNano":1708465452903474210,"eventChangeType":1,"eventChangeDetail":205,"resource":{}}
-{"type":5,"objectID":"testuser","timestampNano":1708465452903506166,"eventChangeType":2,"eventChangeDetail":603,"referenceID":"root.singleleaf","resource":{"resources":{"memory":{"value":10000000},"vcore":{"value":1000}}}}
+{
+  "type": 2,
+  "objectID": "app-1",
+  "timestampNano": 1708465452903045400,
+  "eventChangeType": 1,
+  "eventChangeDetail": 204,
+  "resource": {}
+}
+```
+Allocation (201) added (2) to Application (2):
+```json
+{
+  "type": 2,
+  "objectID": "app-1",
+  "timestampNano": 1708465452903192800,
+  "eventChangeType": 2,
+  "eventChangeDetail": 201,
+  "referenceID": "alloc-1",
+  "resource": {
+    "resources": {
+      "memory": {
+        "value": 10000000
+      },
+      "vcore": {
+        "value": 1000
+      }
+    }
+  }
+}
+```
+Allocation (303) added (2) to Node (3):
+```json
+{
+  "type": 3,
+  "objectID": "node-1:1234",
+  "timestampNano": 1708465452903312100,
+  "eventChangeType": 2,
+  "eventChangeDetail": 303,
+  "referenceID": "alloc-1",
+  "resource": {
+    "resources": {
+      "memory": {
+        "value": 10000000
+      },
+      "vcore": {
+        "value": 1000
+      }
+    }
+  }
+}
+```
+Application (2) state changed (1) to Completed (205):
+```json
+{
+  "type": 2,
+  "objectID": "app-1",
+  "timestampNano": 1708465452903474200,
+  "eventChangeType": 1,
+  "eventChangeDetail": 208,
+  "resource": {}
+}
+```
+Allocation (603) added (2) to user resource usage (5):
+```json
+{
+  "type": 5,
+  "objectID": "testuser",
+  "timestampNano": 1708465452903506200,
+  "eventChangeType": 2,
+  "eventChangeDetail": 603,
+  "referenceID": "root.singleleaf",
+  "resource": {
+    "resources": {
+      "memory": {
+        "value": 10000000
+      },
+      "vcore": {
+        "value": 1000
+      }
+    }
+  }
+}
 ```
 
 ### Error responses
@@ -2190,3 +1941,23 @@ The number of active connections is limited. The default setting is 100 connecti
 **Code** : `503 Service Unavailable` (Too many active streaming connections)
 
 **Code** : `500 Internal Server Error`
+
+## Retrieve full state dump
+
+Endpoint to retrieve most of the REST exposed information in a single response.
+See [Retrieve state dump](system.md#retrieve-state-dump) as part of the System group
+
+**Status** : Deprecated and permanently moved to `/debug/fullstatedump` since v1.7.0. Automatically redirected to the new endpoint.
+Users should update their calls to the new endpoint. 
+
+**URL** : `/ws/v1/fullstatedump`
+
+## Goroutines info
+
+Dumps the stack traces of the currently running goroutines.
+See [Goroutines info](system.md#go-routine-info) as part of the System group
+
+**Status** : Deprecated and permanently moved to `/debug/stack` since v1.7.0. Automatically redirected to the new endpoint.
+Users should update their calls to the new endpoint.
+
+**URL** : `/ws/v1/stack`

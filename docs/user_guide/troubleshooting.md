@@ -161,9 +161,9 @@ That displays and provides an easy user experience to view live full state dump.
 
 With the below scheduler REST API returns information about full state dump used by the YuniKorn Scheduler.
 
-`curl -X 'GET' http://localhost:9889/ws/v1/fullstatedump -H 'accept: application/json'`
+`curl -X 'GET' http://localhost:9889/debug/fullstatedump -H 'accept: application/json'`
 
-For more details around the content of the state dump, please refer to the documentation on [retrieve-full-state-dump](api/scheduler.md#retrieve-full-state-dump)
+For more details around the content of the state dump, please refer to the documentation on [retrieve-full-state-dump](api/system.md#retrieve-state-dump)
 
 ## Restart the scheduler
 
