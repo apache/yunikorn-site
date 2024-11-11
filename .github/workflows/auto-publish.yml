@@ -53,5 +53,9 @@ jobs:
           git config --local user.email "yunikornscheduler@gmail.com"
           git config --local user.name "yunikorn-bot"
           git add .
-          git commit -aF ../asf-site-commit.txt
-          git push
+          if output=$(git status --porcelain) && [ -z "$output" ]; then
+            echo "nothing changed, skipping commit"
+          else
+            git commit -aF ../asf-site-commit.txt
+            git push
+          fi
