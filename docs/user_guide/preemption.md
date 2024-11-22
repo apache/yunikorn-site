@@ -50,7 +50,7 @@ To prevent the occurrence of preemption storms or loops, where subsequent preemp
 
 For a detailed explanation of these preemption laws, please refer to the preemption [design document](design/preemption.md#the-laws-of-preemption).
 
-Next, we will provide a few examples to help you understand the functionality and impact of preemption, allowing you to deploy it effectively in your environment. You can find the necessary files for the examples in the yunikorn-k8shim/deployment/example/preemption directory.
+Next, we will provide a few examples to help you understand the functionality and impact of preemption, allowing you to deploy it effectively in your environment. You can find the necessary files for the examples in the yunikorn-k8shim/deployments/examples/preemption directory.
 
 Included in the files is a YuniKorn configuration that defines the queue configuration as follows:
 

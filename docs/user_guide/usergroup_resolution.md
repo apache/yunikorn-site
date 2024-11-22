@@ -85,7 +85,7 @@ The admission controller can be configured with the `yunikorn-configs` configmap
 | `externalUsers`    | ""                                    | Regular expression for the allowed external user list                      |
 | `externalGroups`   | ""                                    | Regular expression for the allowed external group list                     |
 
-If `bypassAuth` is set to true the admission controller will not add the annotation to a pod if the annotation is not present and the deprecated user labell is set. If the annotation is not set and the user label is not set the new annotation will be added. In the case that `bypassAuth` is false, the default, the admission controller will always add the new annotation, regardless of the existence of the deprecated label.
+If `bypassAuth` is set to true the admission controller will not add the annotation to a pod if the annotation is not present and the deprecated user label is set. If the annotation is not set and the user label is not set the new annotation will be added. In the case that `bypassAuth` is false, the default, the admission controller will always add the new annotation, regardless of the existence of the deprecated label.
 
 In certain scenarios, users and groups must be provided to Yunikorn upon submission because the user and group management is provided by external systems and the lookup mechanism is not trivial. In these cases, the `externalUsers` and `externalGroups` can be configured which are treated as regular expressions. Matching users and groups are allowed to set the `yunikorn.apache.org/user.info` annotation to any arbitrary value. Since this has implications which affects scheduling inside Yunikorn, these properties must be set carefully.
 

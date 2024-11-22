@@ -67,8 +67,8 @@ Config value: `fifo` (default)
 
 Before sorting, the applications are filtered and must have pending resource requests.
 
-After filtering the applications left are sorted based on the application create time stamp only, no other filtering is applied. 
-Since applications can only be added while the system is locked there can never be two applications with the exact same time stamp. 
+After filtering the applications left are sorted based on the application create timestamp only, no other filtering is applied. 
+Since applications can only be added while the system is locked there can never be two applications with the exact same timestamp. 
 
 The result is that the oldest application that requests resources gets resources.
 Younger applications will be given resources when all the current requests of older applications have been fulfilled. 
