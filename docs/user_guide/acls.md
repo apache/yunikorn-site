@@ -86,7 +86,7 @@ The user named `john` whom is a member of the group `dev` will be allowed access
 
 ### Escaping and quotation marks
 ACLs are currently implemented in the queue configuration which uses a yaml file.
-This places some limitations on the how to escape the values.
+This places some limitations on how to escape the values.
 Incorrectly quoted values will cause a yaml parse error or could lead to the incorrect interpretation of the value.
 
 The following points need to be taken into account:
