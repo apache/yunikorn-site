@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.5.2">
 <title data-rh="true">App &amp; Queue Priorities | Apache YuniKorn</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" name="twitter:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" property="og:url" content="https://yunikorn.apache.org/docs/next/user_guide/priorities"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="App &amp; Queue Priorities | Apache YuniKorn"><meta data-rh="true" name="description" content="&lt;!--"><meta data-rh="true" property="og:description" content="&lt;!--"><link data-rh="true" rel="icon" href="/img/yunikorn.ico"><link data-rh="true" rel="canonical" href="https://yunikorn.apache.org/docs/next/user_guide/priorities"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/user_guide/priorities" hreflang="en"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/user_guide/priorities" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://Q1V951BG2V-dsn.algolia.net" crossorigin="anonymous"><link rel="search" type="application/opensearchdescription+xml" title="Apache YuniKorn" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.3d2fe5d4.css">
-<script src="/assets/js/runtime~main.4931b262.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.36ddc58e.js" defer="defer"></script>
 <script src="/assets/js/main.c67a0264.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -88,7 +88,7 @@ schedules before <code>tenant-b</code>.</p>
 <p>The <em>leaf</em> queues of <code>tenant-a</code> and <code>tenant-b</code> are not fenced, so tasks from
 the entire <code>tenant-a</code> or <code>tenant-b</code> subtree will prioritize relative to each
 other, but not outside their respective subtrees.</p>
-<p><img decoding="async" loading="lazy" alt="priority tree" src="/assets/images/priority-tree-22c71367f79a99792c40f6c557dfe2b8.png" width="1281" height="931" class="img_jdBJ"></p>
+<p><img decoding="async" loading="lazy" alt="priority tree" src="/assets/images/priority-tree-339966fd5916321cceba7ae8023cdbd9.png" width="1281" height="931" class="img_jdBJ"></p>
 <p>In the figure above, multiple requests are shown with various priorities.
 Before scheduling, the queue priorities will be as follows:</p>
 <ul>
