@@ -387,7 +387,7 @@ See the documentation on [Partition and Queue Configuration #Resources](queue_co
 
 YuniKorn supports priority scheduling, where priorities can be assigned to each task and also to each queue. 
 
-This section demonstrates how to configure priority in a queue. If you want to configure the priority of each task, you can learn more about it from document Pod Priority and Preemption on Kubernete .
+This section demonstrates how to configure priority in a queue. If you want to configure the priority of each task, you can learn more about it from document [Pod Priority and Preemption](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) on Kubernetes.
 
 ### Explanation of Configuration
 
