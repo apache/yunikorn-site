@@ -29,7 +29,7 @@ On Kubernetes a pod must fit into the namespace quota when the pod is submitted.
 If the pod does not fit in the namespace quota the pod is rejected.
 The client must implement a retry-mechanism and re-submit the pod if it needs the pod to be scheduled.
 
-Contrary to quotas in Kubernetes YuniKorn does not enforce quotas on submission but only on actively consumed resources.
+Contrary to quotas in Kubernetes, YuniKorn does not enforce quotas on submission but only on actively consumed resources.
 To explain the difference: when using YuniKorn for quota enforcement a new pod submitted to Kubernetes is always accepted.
 Yunikorn will queue the pod without counting the queued pod's resources towards the consumed quota.
 When YuniKorn tries to schedule the pod it checks at scheduling time if the pod fits in the quota configured for the queue the pod is assigned to.
@@ -232,7 +232,7 @@ yunikorn.apache.org/namespace.quota: "{\"cpu\": \"64\", \"memory\": \"100G\", \"
 ```
 YuniKorn will parse these annotations and set the maximum capacity of the queue mapped to this namespace.
 The values specified follow the standard Kubernetes formatting and unit specification.
-Annotation value must be a single json compliant string. Ensure double quotes iare escaped properly to not cause any problems.
+Annotation value must be a single json compliant string. Ensure double quotes are escaped properly to not cause any problems.
 
 The example above will limit the queue mapped to the annotated namespace to 64 CPUs, 100GB memory and 1 `nvidia.com/gpu`.
 

@@ -168,7 +168,7 @@ spec:
 
 When this job is submitted to Kubernetes, 2 pods will be created using the same template, and they all belong to one taskGroup:
 *“task-group-example”*. YuniKorn will create 2 placeholder pods, each uses the resources specified in the taskGroup definition.
-When all 2 placeholders are allocated, the scheduler will bind the the real 2 sleep pods using the spot reserved by the placeholders.
+When all 2 placeholders are allocated, the scheduler will bind the real 2 sleep pods using the spot reserved by the placeholders.
 
 You can add more than one taskGroups if necessary, each taskGroup is identified by the taskGroup name,
 it is required to map each real pod with a pre-defined taskGroup by setting the taskGroup name. Note,
