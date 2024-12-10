@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.5.2">
 <title data-rh="true">Resource Quota Management | Apache YuniKorn</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" name="twitter:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" property="og:url" content="https://yunikorn.apache.org/docs/next/user_guide/resource_quota_management"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Resource Quota Management | Apache YuniKorn"><meta data-rh="true" name="description" content="&lt;!--"><meta data-rh="true" property="og:description" content="&lt;!--"><link data-rh="true" rel="icon" href="/img/yunikorn.ico"><link data-rh="true" rel="canonical" href="https://yunikorn.apache.org/docs/next/user_guide/resource_quota_management"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/user_guide/resource_quota_management" hreflang="en"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/user_guide/resource_quota_management" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://Q1V951BG2V-dsn.algolia.net" crossorigin="anonymous"><link rel="search" type="application/opensearchdescription+xml" title="Apache YuniKorn" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.3d2fe5d4.css">
-<script src="/assets/js/runtime~main.36ddc58e.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.4754a615.js" defer="defer"></script>
 <script src="/assets/js/main.c67a0264.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -13,7 +13,7 @@
 <p>On Kubernetes a pod must fit into the namespace quota when the pod is submitted.
 If the pod does not fit in the namespace quota the pod is rejected.
 The client must implement a retry-mechanism and re-submit the pod if it needs the pod to be scheduled.</p>
-<p>Contrary to quotas in Kubernetes YuniKorn does not enforce quotas on submission but only on actively consumed resources.
+<p>Contrary to quotas in Kubernetes, YuniKorn does not enforce quotas on submission but only on actively consumed resources.
 To explain the difference: when using YuniKorn for quota enforcement a new pod submitted to Kubernetes is always accepted.
 Yunikorn will queue the pod without counting the queued pod&#x27;s resources towards the consumed quota.
 When YuniKorn tries to schedule the pod it checks at scheduling time if the pod fits in the quota configured for the queue the pod is assigned to.
@@ -29,7 +29,7 @@ Setting a quota on a child queue larger than its parent queue&#x27;s quota would
 <p>In the hierarchy there are some further rules that need to be considered.
 If a parent queue has multiple children the sum of the <strong>usage</strong> of all children combined can never exceed the quota <strong>configured</strong> on the parent.
 However, from a configuration perspective this does not mean that the sum of the <strong>configured</strong> quotas for all children must be smaller than the parent quota.</p>
-<p><img decoding="async" loading="lazy" alt="Queue Quota" src="/assets/images/queue-resource-quotas-02ec11ddedad1f2057bbc4d3ef1c900a.png" width="1364" height="732" class="img_jdBJ"></p>
+<p><img decoding="async" loading="lazy" alt="Queue Quota" src="/assets/images/queue-resource-quotas-8bca509f02844925ce4179fa2b287590.png" width="1364" height="732" class="img_jdBJ"></p>
 <p>As an example the <code>root.parent</code> queue has a quota of 900.
 It contains three child queues, two with a quota set.
 The <code>root.parent.child1</code> has no quota set and will thus be limited to the <code>root.parent</code> quota.
@@ -141,7 +141,7 @@ In the case that YuniKorn is used for quota enforcement no quota must be set on 
 <div class="language-yaml codeBlockContainer_EajB theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_yYRp"><pre tabindex="0" class="prism-code language-yaml codeBlock_z86c thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_zIeA"><span class="token-line" style="color:#bfc7d5"><span class="token key atrule">yunikorn.apache.org/namespace.quota</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> </span><span class="token string" style="color:rgb(195, 232, 141)">&quot;{\&quot;cpu\&quot;: \&quot;64\&quot;, \&quot;memory\&quot;: \&quot;100G\&quot;, \&quot;nvidia.com/gpu\&quot;: \&quot;1\&quot;}&quot;</span><br></span></code></pre><div class="buttonGroup_mp8g"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_HhJ2" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_giQl"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_Nh_7"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <p>YuniKorn will parse these annotations and set the maximum capacity of the queue mapped to this namespace.
 The values specified follow the standard Kubernetes formatting and unit specification.
-Annotation value must be a single json compliant string. Ensure double quotes iare escaped properly to not cause any problems.</p>
+Annotation value must be a single json compliant string. Ensure double quotes are escaped properly to not cause any problems.</p>
 <p>The example above will limit the queue mapped to the annotated namespace to 64 CPUs, 100GB memory and 1 <code>nvidia.com/gpu</code>.</p>
 <p>[DEPRECATED]
 The below annotations are deprecated and will be removed from next major release.
