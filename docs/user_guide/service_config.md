@@ -351,6 +351,46 @@ admissionController:
       cpu: 500m
       memory: 500Mi
 ```
+
+Additionally, garbage collection and memory usage can be tuned as follows
+(default values are shown):
+```yaml
+# Scheduler container GC configuration
+goGC: 100
+goMemoryLimit: 1536MiB
+
+# Web UI container resources
+web:
+  goGC: 100
+  goMemoryLimit: 200MiB
+
+# Admission controller GC configuration
+admissionController:
+  goGC: 100
+  goMemoryLimit: 200MiB
+```
+
+The `goGC`, `web.goGC`, and `admissionController.goGC` settings control the
+percentage of new, unallocated heap memory vs. current live memory at which
+the Go runtime initates garbage collection for the scheduler, Web UI, and
+Admission Controller, respectively.
+
+The default value of `100` matches the Go runtime default. This value is
+passed into the container via the `GOGC` environment variable.
+
+The `goMemoryLimit`, `web.goMemoryLimit`, and
+`admissionController.goMemoryLimit` is used to set a soft limit on the
+total amount of memory the Go runtime is allowed to consume. This limit
+applies to memory managed by the Go runtime. This value should be set
+lower than the respective value of `resources.limits.memory` to allow
+for transient spikes in memory usage as well as memory usage which is
+not managed by the Go runtime.
+
+Legal values consist of a numeric value in bytes with an optional unit
+suffix. The supported suffixes include `B`, `KiB`, `MiB`, `GiB`, and
+`TiB`. This value is passsed into the container via the `GOMEMLIMIT`
+environment variable.
+
 ### Optional features
 
 #### embedAdmissionController
