@@ -88,31 +88,3 @@ The admission controller can be configured with the `yunikorn-configs` configmap
 If `bypassAuth` is set to true the admission controller will not add the annotation to a pod if the annotation is not present and the deprecated user label is set. If the annotation is not set and the user label is not set the new annotation will be added. In the case that `bypassAuth` is false, the default, the admission controller will always add the new annotation, regardless of the existence of the deprecated label.
 
 In certain scenarios, users and groups must be provided to Yunikorn upon submission because the user and group management is provided by external systems and the lookup mechanism is not trivial. In these cases, the `externalUsers` and `externalGroups` can be configured which are treated as regular expressions. Matching users and groups are allowed to set the `yunikorn.apache.org/user.info` annotation to any arbitrary value. Since this has implications which affects scheduling inside Yunikorn, these properties must be set carefully.
-
-
-## Legacy user handling
-
-### Using the `yunikorn.apache.org/username` label
-
-Since, Kubernetes has no pre-defined field or resource for user information and individual cluster deployments with unique user identification tools can vary, we have defined a standard way of identifying the user. Yunikorn requires a Kubernetes [Label](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) added. Using the [recommendation](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/) provided here, the default label is defined as below:
-
-| Label                          | Value                                                                                                        |
-|--------------------------------|--------------------------------------------------------------------------------------------------------------|
-| yunikorn.apache.org/username 	 | User name. It can have duplicate entries but only the first value will be used. The default user is `nobody` |
-
-Example:
-```yaml
-metadata:
-  labels:
-    yunikorn.apache.org/username: "john"
-```
-:::tip 
-In order to make this field uniquiely identifiable to the authorized user, the suggestion is to add this label as an immutable field by the user identification tool used by the cluster administrators. The cluster administrators or users are free to use any method or tool to add this field and value. This includes adding it manually at the time of submission. 
-:::
-
-:::note Assumption 
-Assumption:
-  Yunikorn assumes that all pods belonging to an application are owned by the same user. We recommend that the user label is added to every pod of an app. This is to ensure that there is no discrepency. 
-:::
-
-
