@@ -48,7 +48,7 @@ helm install yunikorn yunikorn/yunikorn --create-namespace --namespace yunikorn
 We should install `spark-operator` with `controller.batchScheduler.enable=true` and set `controller.batchScheduler.default=yunikorn` to enable Gang Scheduling. It's optional to set the default scheduler to YuniKorn since you can specify it later on, but it's recommended to do so.  
 Also, note that the total requested memory for the Spark job is the sum of memory requested for the driver and that for all executors, where each is computed as below:
 * Driver requested memory = `spark.driver.memory` + `spark.driver.memoryOverhead`
-* Executor requested memory = `spark.executor.memory` + `spark.executor.memoryOverhead` + `spark.executor.pyspark.memory`
+* Executor requested memory = `spark.executor.memory` + `spark.executor.memoryOverhead` + `spark.executor.pyspark.memory` + `spark.memory.offHeap.size`
 
 ```shell script
 helm repo add spark-operator https://kubeflow.github.io/spark-operator
