@@ -1,6 +1,7 @@
 ---
 id: scheduler
 title: Scheduler
+toc_max_heading_level: 4
 ---
 
 <!--
@@ -43,7 +44,7 @@ Returns general information and statistics about a partition.
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -127,7 +128,7 @@ Returns general information and statistics about a partition.
 ]
 ```
 
-### Error response
+#### Error response
 
 **Code** : `500 Internal Server Error`
 
@@ -142,7 +143,7 @@ This list can be different from the list in the configuration.
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -165,7 +166,7 @@ This list can be different from the list in the configuration.
 ]
 ```
 
-### Error responses
+#### Error responses
 
 **Code** : `400 Bad Request` (URL query is invalid, missing partition name)
 
@@ -186,7 +187,7 @@ The queues' hierarchy is kept in the response json.
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -287,7 +288,7 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
 ]
 ```
 
-### Error response
+#### Error response
 
 **Code** : `400 Bad Request` (URL query is invalid, missing partition name)
 
@@ -312,7 +313,7 @@ If the query parameter `subtree` is not set, the queue's children will not be re
 **URL query parameters** :
 - `subtree` (optional) : When `subtree` is set (it can be any value, e.g., `true`), the queue's children will be returned.
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -358,7 +359,7 @@ If the query parameter `subtree` is not set, the queue's children will not be re
 }
 ```
 
-### Error response
+#### Error response
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
@@ -381,7 +382,7 @@ For active state, can narrow the result by status query parameters(case-insensit
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -390,7 +391,7 @@ For active state, can narrow the result by status query parameters(case-insensit
 The content of the application object is the same as Queue Applications. See
  [Queue Applications](#queue-applications) for details.
 
-### Error Response
+#### Error Response
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
@@ -408,7 +409,7 @@ Fetch all Applications for the given Partition/Queue combination and displays ge
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -636,7 +637,7 @@ In the example below there are three allocations belonging to two applications, 
 ]
 ```
 
-### Error response
+#### Error response
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
@@ -667,7 +668,7 @@ The state parameter must be set to "active", which is not an actual application 
 
 Note: If the queue name contains any special characters, it needs to be URL escaped to avoid issues.
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -675,7 +676,7 @@ Note: If the queue name contains any special characters, it needs to be URL esca
 
 The content of the application object is the same as Queue Applications. See [Queue Applications](#queue-applications) for details.
 
-### Error response
+#### Error response
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
@@ -695,7 +696,7 @@ Fetch an Application given a Partition, Queue(optional) and Application ID and d
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -827,7 +828,7 @@ Field `uuid` has been deprecated, would be removed from below response in YUNIKO
 }
 ```
 
-### Error response
+#### Error response
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
@@ -847,7 +848,7 @@ Fetch all users usage given a Partition and displays general information about t
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -930,11 +931,10 @@ Fetch all users usage given a Partition and displays general information about t
 ]
 ```
 
-### Error response
+#### Error response
 
 **Code** : `500 Internal Server Error`
 
-## UserTracker
 ### Get specific user usage tracking information
 Fetch specific user usage given a Partition and displays general information about the users managed by YuniKorn. In case the username contains any special characters, it needs to be url escaped to avoid issues.
 
@@ -944,7 +944,7 @@ Fetch specific user usage given a Partition and displays general information abo
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -989,7 +989,7 @@ Fetch specific user usage given a Partition and displays general information abo
 }
 ```
 
-### Error response
+#### Error response
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
@@ -1007,7 +1007,7 @@ Fetch all groups usage given a Partition and displays general information about 
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -1086,7 +1086,7 @@ Fetch all groups usage given a Partition and displays general information about 
 ]
 ```
 
-### Error response
+#### Error response
 
 **Code** : `500 Internal Server Error`
 
@@ -1101,7 +1101,7 @@ Fetch specific group usage given a Partition and displays general information ab
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -1144,7 +1144,7 @@ Fetch specific group usage given a Partition and displays general information ab
 }
 ```
 
-### Error response
+#### Error response
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
@@ -1165,7 +1165,7 @@ Node details include host and rack name, capacity, resources, utilization, and a
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -1354,7 +1354,7 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
 ]
 ```
 
-### Error response
+#### Error response
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
@@ -1375,7 +1375,7 @@ Node details include host and rack name, capacity, resources, utilization, and a
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -1470,7 +1470,7 @@ Node details include host and rack name, capacity, resources, utilization, and a
 }
 ```
 
-### Error response
+#### Error response
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
@@ -1478,7 +1478,7 @@ Node details include host and rack name, capacity, resources, utilization, and a
 
 **Code** : `500 Internal Server Error`
 
-## Node utilization
+### Node utilization
 
 Show how every node is distributed with regard to dominant resource utilization.
 
@@ -1490,7 +1490,7 @@ Show how every node is distributed with regard to dominant resource utilization.
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -1520,12 +1520,12 @@ Show how every node is distributed with regard to dominant resource utilization.
 }
 ```
 
-### Error response
+#### Error response
 
 **Code** : `500 Internal Server Error`
 
 
-## Node utilizations
+### Node utilizations
 
 Show the nodes utilization of different types of resources in a cluster.
 
@@ -1535,7 +1535,7 @@ Show the nodes utilization of different types of resources in a cluster.
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -1587,7 +1587,7 @@ Show the nodes utilization of different types of resources in a cluster.
 ]
 ```
 
-### Error response
+#### Error response
 
 **Code** : `500 Internal Server Error`
 
@@ -1601,7 +1601,7 @@ Endpoint to retrieve historical data about the number of total applications by t
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -1632,7 +1632,7 @@ Endpoint to retrieve historical data about the number of total applications by t
 ]
 ```
 
-### Error response
+#### Error response
 
 **Code** : `500 Internal Server Error`
 
@@ -1646,7 +1646,7 @@ Endpoint to retrieve historical data about the number of total containers by tim
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -1677,7 +1677,7 @@ Endpoint to retrieve historical data about the number of total containers by tim
 ]
 ```
 
-### Error response
+#### Error response
 
 **Code** : `500 Internal Server Error`
 
@@ -1691,7 +1691,7 @@ Endpoint to retrieve historical data about critical logs, negative resource on n
 
 **Auth required** : NO
 
-### Success response
+#### Success response
 
 **Code** : `200 OK`
 
@@ -1774,7 +1774,7 @@ Endpoint is used to retrieve a batch of event records.
 - `start` (optional) : Specifies the starting ID for retrieving events. If the specified ID is outside the ring buffer
   (too low or too high), the response will include the lowest and highest ID values with `EventRecords` being empty.
 
-### Success response
+#### Success response
 
 **Code**: `200 OK`
 
@@ -1824,7 +1824,7 @@ Endpoint is used to retrieve a batch of event records.
 }
 ```
 
-### Error response
+#### Error response
 
 **Code** : `500 Internal Server Error`
 
@@ -1842,7 +1842,7 @@ The number of active connections is limited. The default setting is 100 connecti
 **URL query parameters**:
 - `count` (optional) : Specifies the number of past events (those which have been generated before the connection establishment) to include in the response. Default value is 0.
 
-### Success response
+#### Success response
 
 **Code**: `200 OK`
 
@@ -1934,7 +1934,7 @@ Allocation (603) added (2) to user resource usage (5):
 }
 ```
 
-### Error responses
+#### Error responses
 
 **Code** : `400 Bad Request` (URL query is invalid)
 
