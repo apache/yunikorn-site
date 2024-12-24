@@ -30,7 +30,7 @@ under the License.
 :::note
 Pre-requisites:
 - This tutorial assumes YuniKorn is [installed](../../get_started/get_started.md) under the namespace `yunikorn`
-- Use spark-operator version >= 2.0 to enable support for YuniKorn gang scheduling
+- Use spark-operator version >= 2.1.0 to enable support for YuniKorn gang scheduling
 :::
 
 ### Install YuniKorn
