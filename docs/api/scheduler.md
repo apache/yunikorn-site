@@ -837,10 +837,10 @@ Field `uuid` has been deprecated, would be removed from below response in YUNIKO
 **Code** : `500 Internal Server Error`
 
 
-## UsersTracker
-### Get users usage tracking information
+## User quota and usage
+### All users
 
-Fetch all users usage given a Partition and displays general information about the users managed by YuniKorn.
+Fetch all users given a Partition and displays usage and quota information for the users. All queues in the hierarchy tracked for the specific user will be included.
 
 **URL** : `/ws/v1/partition/{partitionName}/usage/users`
 
@@ -935,8 +935,9 @@ Fetch all users usage given a Partition and displays general information about t
 
 **Code** : `500 Internal Server Error`
 
-### Get specific user usage tracking information
-Fetch specific user usage given a Partition and displays general information about the users managed by YuniKorn. In case the username contains any special characters, it needs to be url escaped to avoid issues.
+### Single user
+
+Fetch the specified user given a Partition and displays usage and quota information for the user. All queues in the hierarchy tracking the user will be included.
 
 **URL** : `/ws/v1/partition/{partitionName}/usage/user/{userName}`
 
@@ -997,9 +998,10 @@ Fetch specific user usage given a Partition and displays general information abo
 
 **Code** : `500 Internal Server Error`  
 
-## GroupsTracker
-### Get groups usage tracking information
-Fetch all groups usage given a Partition and displays general information about the groups managed by YuniKorn.
+## Group quota and usage
+### All groups
+
+Fetch all groups usage given a Partition and displays usage and quota information for the groups. All queues in the hierarchy tracked for the specific groups will be included.
 
 **URL** : `/ws/v1/partition/{partitionName}/usage/groups`
 
@@ -1090,10 +1092,9 @@ Fetch all groups usage given a Partition and displays general information about 
 
 **Code** : `500 Internal Server Error`
 
-## GroupTracker
-### Get specific group usage tracking information
+### Single group
 
-Fetch specific group usage given a Partition and displays general information about the groups managed by YuniKorn. In case the group name contains any special characters, it needs to be url escaped to avoid issues.
+Fetch the specified group given a Partition and displays usage and quota information for the group. All queues in the hierarchy tracking the group will be included.
 
 **URL** : `/ws/v1/partition/{partitionName}/usage/group/{groupName}`
 
