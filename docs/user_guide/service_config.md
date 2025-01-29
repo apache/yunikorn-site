@@ -534,7 +534,7 @@ data:
   service.clusterId: "mycluster"
   service.policyGroup: "queues"
   service.schedulingInterval: "1s"
-  service.volumeBindTimeout: "10s"
+  service.volumeBindTimeout: "10m"
   service.eventChannelCapacity: "1048576"
   service.dispatchTimeout: "5m"
   service.disableGangScheduling: "false"
@@ -625,11 +625,11 @@ Controls the timeout before volume binding fails.
 
 A change to this setting requires a restart of YuniKorn to take effect.
 
-Default: `10s`
+Default: `10m`
 
 Example:
 ```yaml
-service.volumeBindTimeout: "30s"
+service.volumeBindTimeout: "15m"
 ```
 #### service.eventChannelCapacity
 Controls the number of internal scheduling events that YuniKorn will allow

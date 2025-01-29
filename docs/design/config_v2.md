@@ -169,7 +169,7 @@ specified. Note that these values are subject to change in future releases.
       service.clusterId: "mycluster"
       service.policyGroup: "queues"
       service.schedulingInterval: "1s"
-      service.volumeBindTimeout: "10s"
+      service.volumeBindTimeout: "10m"
       service.eventChannelCapacity: "1048576"
       service.dispatchTimeout: "5m"
       service.operatorPlugins: "general"
