@@ -1178,7 +1178,7 @@ service.operatorPlugins: "general"
   
 #### admissionController.filtering.defaultQueue
 
-**_DEPRECATED in 1.6.0:_** No replacement
+**_DEPRECATED in 1.6.0:_** This setting is deprecated. To configure a desire queue name, use the [Fixed Rule](placement_rules/#fixed-rule) placement rule instead.
 
 Controlls what will be the default queue name for the application.
 
