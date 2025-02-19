@@ -1205,3 +1205,4 @@ admissionController.filtering.defaultQueue: ""
     - shim.rmcallback
     - shim.scheduler
     - shim.scheduler.plugin
+    - shim.utils
