@@ -1121,6 +1121,37 @@ Example:
 service.operatorPlugins: "general"
 ```
 
+#### admissionController.filtering.defaultQueue
+
+**_DEPRECATED in 1.6.0:_** This setting is deprecated. To configure a desire queue name, use the [Fixed Rule](placement_rules/#fixed-rule) placement rule instead.
+
+Controlls what will be the default queue name for the application.
+
+If the application does not define a queue name during app submission, admission controller will add a default queue name to the pod labels. `root.default` queue name will be added to the pod labels if this property is not set.
+
+In case, the default queue name needs to be updated to something other than `root.default`,  `admissionController.filtering.defaultQueue` can be set with the desired queue name.
+
+Example:
+```yaml
+# Change default queue to root.mydefault
+admissionController.filtering.defaultQueue: "root.mydefault"
+```
+
+**_NOTE :_**
+The queue name needs to be a fully qualified queue name.
+
+For certain use-cases, there may be a need to skip adding a default queue name to the pod labels. In such cases, `admissionController.filtering.defaultQueue` can be set to empty string.
+
+Adding default queue name should be avoided when `provided` rule is used in conjunction with other placement rules and `provided` rule is higher in the hierarchy. If default queue label is added whenever there is no queue name specified, all the apps will be placed via `provided` rule and the other rules after that will never be executed.
+
+Default: `root.default`
+
+Example:
+```yaml
+# Skip adding default queue name
+admissionController.filtering.defaultQueue: ""
+```
+
 [^1]: Available log subsystem values:
     - admission
     - admission.client
@@ -1175,34 +1206,3 @@ service.operatorPlugins: "general"
     - shim.scheduler
     - shim.scheduler.plugin
     - shim.utils
-  
-#### admissionController.filtering.defaultQueue
-
-**_DEPRECATED in 1.6.0:_** This setting is deprecated. To configure a desire queue name, use the [Fixed Rule](placement_rules/#fixed-rule) placement rule instead.
-
-Controlls what will be the default queue name for the application.
-
-If the application does not define a queue name during app submission, admission controller will add a default queue name to the pod labels. `root.default` queue name will be added to the pod labels if this property is not set.
-
-In case, the default queue name needs to be updated to something other than `root.default`,  `admissionController.filtering.defaultQueue` can be set with the desired queue name.
-
-Example:
-```yaml
-# Change default queue to root.mydefault
-admissionController.filtering.defaultQueue: "root.mydefault"
-```
-
-**_NOTE :_**
-The queue name needs to be a fully qualified queue name.
-
-For certain use-cases, there may be a need to skip adding a default queue name to the pod labels. In such cases, `admissionController.filtering.defaultQueue` can be set to empty string.
-
-Adding default queue name should be avoided when `provided` rule is used in conjunction with other placement rules and `provided` rule is higher in the hierarchy. If default queue label is added whenever there is no queue name specified, all the apps will be placed via `provided` rule and the other rules after that will never be executed.
-
-Default: `root.default`
-
-Example:
-```yaml
-# Skip adding default queue name
-admissionController.filtering.defaultQueue: ""
-```
