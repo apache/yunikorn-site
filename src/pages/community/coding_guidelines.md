@@ -52,7 +52,7 @@ The tool can be run locally and will be integrated into the GitHub PR flow.
 
 ### Installing and running locally
 Depending on your development system the instructions might differ slightly.
-Follow the [installation instructions](https://golangci-lint.run/usage/install/#local-installation) provided by the project.
+Follow the [installation instructions](https://golangci-lint.run/welcome/install/#local-installation) provided by the project.
 
 After the tool is installed you can run it using the standard command line: 
 ```shell script
