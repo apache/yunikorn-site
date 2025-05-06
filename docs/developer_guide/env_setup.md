@@ -194,7 +194,7 @@ The scheduler, web-ui and admission-controller examples are below:
 ```shell script
 kind load docker-image apache/yunikorn:scheduler-amd64-latest
 kind load docker-image apache/yunikorn:web-amd64-latest
-kind load docker-image apache/yunikorn:admission-amd64-latesta
+kind load docker-image apache/yunikorn:admission-amd64-latest
 ```
 
 If running on an ARM system, replace `amd64` with `arm64` above.
