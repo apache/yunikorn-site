@@ -1,0 +1,8 @@
+## Setup a KubeRay operator
+```
+helm repo add kuberay https://ray-project.github.io/kuberay-helm/
+helm repo update
+helm install kuberay-operator kuberay/kuberay-operator --version 1.2.2 --set batchScheduler.name=yunikorn
+```
+- The result should be as shown below
+![ray_cluster_operator](../../../assets/ray_cluster_operator.png)
