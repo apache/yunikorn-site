@@ -48,48 +48,14 @@ There are a large number of lint tools are available for Go.
 Most of the lint tools only check one specific thing.
 Some of the tools will aggregate a number of linters and provide an overview of all the issues found. 
 For the project we have chosen the [golangci-lint](https://github.com/golangci/golangci-lint) tool.
-The tool can be run locally and will be integrated into the GitHub PR flow.
+The tool can be run locally and is integrated into the GitHub PR flow.
 
 ### Installing and running locally
-Depending on your development system the instructions might differ slightly.
-Follow the [installation instructions](https://golangci-lint.run/usage/install/#local-installation) provided by the project.
-
-After the tool is installed you can run it using the standard command line: 
-```shell script
-golangci-lint run
-```
-The projects still generate a number of warnings.
-The high impact warnings have been fixed or ignored via comments, see [False positives](#false-positives).
-
-If you have been working on a new feature, or a bug fix you only want to check the files that have changed.
-You can run the tool with the option `--new` or `--new-from-rev` option.
-The `--new` option will only check uncommitted files.
-The `--new-from-rev` option will check changes against a specific committed revision.
-
-```shell script
-# for uncommitted changes
-golangci-lint run --new
-# for committed changes against a revision
-golangci-lint run --new-from-rev=origin/master
-```
-
-The make target is `lint`:
+The tool can be installed and run via the Makefile:
 ```shell script
 make lint
 ```
-
-The `make` integration checks two locations for the linter executable:
-* `$(go env GOPATH)/bin/`
-* `./bin/`
-  
-The location for a standard installation is slightly different for a developer and CI install.
-By checking both locations we can run locally and during our automated builds.
-
-The make integration uses the `--new-from-rev` command line option.
-The revision to check against is determined as part of the run to allow it to run on different branches and on pull requests during our CI build.
-A lint check is part of the standard CI build run for the project. 
-
-See the golangci-lint product documentation for more options and information on how to run the tool.
+This will install and run the correct version of the linter in the `tools` directory, based on the project's Go version.
 
 ### Configuration
 A predefined configuration is provided for the two projects that use them:
@@ -97,9 +63,6 @@ A predefined configuration is provided for the two projects that use them:
 * [YuniKorn core](https://github.com/apache/yunikorn-core), configuration file [golangci.yml](https://github.com/apache/yunikorn-core/blob/master/.golangci.yml). 
 
 The web interface is a javascript project and the scheduler interface only has generated Go code and thus do not use it. 
-
-### Integration in pull requests
-The planning is to integrate the `golangci-lint` check into the GitHub PR flow. 
 
 ## False positives
 Tools are never 100% correct and neither is this one.
