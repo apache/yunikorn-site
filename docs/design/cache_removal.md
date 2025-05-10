@@ -41,7 +41,7 @@ The goal is to provide the same functionality before and after the change.
 :::
 
 ## Background 
-The current Scheduler Core is build up around two major components to store the data: the cache and scheduler objects.
+The current Scheduler Core is built up around two major components to store the data: the cache and scheduler objects.
 The cache objects form the base for most data to be tracked. 
 The Scheduler objects track specific in flight details and are build on top of a cache object.
  

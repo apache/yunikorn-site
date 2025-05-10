@@ -60,9 +60,9 @@ Combined flow for the shim and core during startup of an application:
 *   The placeholder AllocationAsk’s are scheduled by the core as if they were normal AllocationAsk’s. (5)
 *   All Allocations, even if they are the result of the placeholder AllocationAsks being allocated by the scheduler, are communicated back to the shim.
 *   The original real pod is passed to the core as an AllocationAsk. (6)
-*   After the real pod and all all the placeholder pods are scheduled the shim starts the real pod that triggered the application creation. (7)
+*   After the real pod and all the placeholder pods are scheduled the shim starts the real pod that triggered the application creation. (7)
 
-After the first, real, pod is started the following pods should all be handled in the same way (8):
+After the first real pod is started, the following pods should all be handled in the same way (8):
 *   A real pod is created on k8s.
 *   The pod is processed and an AllocationAsk is created.
 *   The scheduler processes the AllocationAsk (more detail below) and replaces a placeholder with the real allocation.
