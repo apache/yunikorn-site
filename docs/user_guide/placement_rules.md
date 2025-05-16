@@ -67,7 +67,7 @@ A message will be logged about the broken and ignored configuration.
 
 Dots "." in the rule result are replaced by the string "\_dot_".
 A dot is replaced because it is used as the hierarchy separator in the fully qualified queue name.
-Replacing the dot occurs before the full queue hierarchy is build and the result is qualified.
+Replacing the dot occurs before the full queue hierarchy is built and the result is qualified.
 This means that we allow user name and or tag values to contain dots without the dots affecting the queue hierarchy.
 For queues in the configuration that as an example must map to username with a dot you must specify them as follows:
 A user rule with the user `user.name` will generate the queue name `root.user_dot_name` as output.
