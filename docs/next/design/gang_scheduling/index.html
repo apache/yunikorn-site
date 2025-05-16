@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.5.2">
 <title data-rh="true">Gang scheduling design | Apache YuniKorn</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" name="twitter:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" property="og:url" content="https://yunikorn.apache.org/docs/next/design/gang_scheduling"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Gang scheduling design | Apache YuniKorn"><meta data-rh="true" name="description" content="&lt;!--"><meta data-rh="true" property="og:description" content="&lt;!--"><link data-rh="true" rel="icon" href="/img/yunikorn.ico"><link data-rh="true" rel="canonical" href="https://yunikorn.apache.org/docs/next/design/gang_scheduling"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/design/gang_scheduling" hreflang="en"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/design/gang_scheduling" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://Q1V951BG2V-dsn.algolia.net" crossorigin="anonymous"><link rel="search" type="application/opensearchdescription+xml" title="Apache YuniKorn" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.9ba51dea.css">
-<script src="/assets/js/runtime~main.4cabfa25.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.bb8d69cf.js" defer="defer"></script>
 <script src="/assets/js/main.239d0b84.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -44,9 +44,9 @@ More details are in the chapter on the <a href="#scheduler-logic-changes">Schedu
 <li>The placeholder AllocationAsk’s are scheduled by the core as if they were normal AllocationAsk’s. (5)</li>
 <li>All Allocations, even if they are the result of the placeholder AllocationAsks being allocated by the scheduler, are communicated back to the shim.</li>
 <li>The original real pod is passed to the core as an AllocationAsk. (6)</li>
-<li>After the real pod and all all the placeholder pods are scheduled the shim starts the real pod that triggered the application creation. (7)</li>
+<li>After the real pod and all the placeholder pods are scheduled the shim starts the real pod that triggered the application creation. (7)</li>
 </ul>
-<p>After the first, real, pod is started the following pods should all be handled in the same way (8):</p>
+<p>After the first real pod is started, the following pods should all be handled in the same way (8):</p>
 <ul>
 <li>A real pod is created on k8s.</li>
 <li>The pod is processed and an AllocationAsk is created.</li>
