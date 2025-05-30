@@ -204,7 +204,7 @@ not allow preempting any of the tasks in that queue.
 ### A task cannot preempt other tasks in the same application
 
 As part of the current design we are only implementing inter-queue preemption.
-This rule does not apply for inter-queue preemption. It is documented here to
+This rule does not apply for intra-queue preemption. It is documented here to
 make extending to intra-queue preemption possible without a rule change.
 
 When a task is considered for preemption the task that triggered the preemption
