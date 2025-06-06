@@ -23,23 +23,20 @@ under the License.
 -->
 
 ## Application
-Each queue has a `<queue_name> queue_app` metric to trace the applications in the queue.
-`<queue_name> queue_app` metrics records the number of applications in different states.
-These application states include `running`, `accepted`, `rejected`, `failed` and `completed`. 
-`<queue_name> queue_app` metrics record container states including `released`, `allocated`.
 
-Prior to `1.5.0` queue metrics were pushed to a separate subsystem for each queue. In `1.5.0` 
-fixed metrics with `<queue name>` labels were introduced. Metrics using `<queue name>` subsystems 
-will be **deprecated in `1.6.0` and removed in `1.7.0`** in favor of a `<queue name>` label based approach.
+The `yunikorn_queue_app` metric, introduced in version `1.5.0`, tracks the number of applications and their container states in each queue using labels.
 
-### Label
-(Introduced in `1.5.0`)
+### Metric details
 
 **Metric Type**: `gauge`
 
 **Namespace**: `yunikorn`
 
-**Label**: `queue: <queue name>`
+**Labels**:
+- `queue`: the name of the queue (e.g., "root.default")
+- `state`: the state of the application or container
+  - **Application states**: `accepted`, `running`, `rejected`, `failed`, `completed`
+  - **Container states**: `allocated`, `released`
 
 **TYPE**: `yunikorn_queue_app`
 
@@ -48,34 +45,19 @@ yunikorn_queue_app{queue="root.default",state="accepted"} 3
 yunikorn_queue_app{queue="root.default",state="running"} 3
 ```
 
-### Subsystem
-|:exclamation: To be deprecated in `1.6.0` and removed in `1.7.0`|
-|----------------------------------------------------------------|
-
-**Metric Type**: `gauge`
-
-**Namespace**: `yunikorn`
-
-**Subsystem**: `<queue name>`
-
-**TYPE**: `yunikorn_<queue name>_queue_app`
-
-```json
-yunikorn_root_default_queue_app{state="accepted"} 3
-yunikorn_root_default_queue_app{state="running"} 3
-```
-
 ## Resource
-The `<queue_name> queue_resource` metric to trace the resource in the queue.
-These resource states include `guaranteed`, `max`, `allocated`, `pending`, `preempting`.
-### Label
-(Introduced in `1.5.0`)
+The `yunikorn_queue_resource` metric, introduced in version `1.5.0`, tracks the resource states in each queue using labels.
+
+### Metric details
 
 **Metric Type**: `gauge`
 
 **Namespace**: `yunikorn`
 
-**Label**: `queue: <queue name>`
+**Labels**:
+- `queue`: the name of the queue (e.g., "root")
+- `state`: the resource states include `guaranteed`, `max`, `allocated`, `pending`, `preempting`
+- `resource`: the type of resource (e.g., `ephemeral-storage`, `memory`, `vcore`, `pods`, `hugepages-1Gi`, `hugepages-2Mi`)
 
 **TYPE**: `yunikorn_queue_resource`
 
@@ -86,25 +68,4 @@ yunikorn_queue_resource{queue="root",resource="hugepages-2Mi",state="max"} 0
 yunikorn_queue_resource{queue="root",resource="memory",state="max"} 1.6223076352e+10
 yunikorn_queue_resource{queue="root",resource="pods",state="max"} 110
 yunikorn_queue_resource{queue="root",resource="vcore",state="max"} 8000
-```
-
-### Subsystem
-|:exclamation: To be deprecated in `1.6.0` and removed in `1.7.0`|
-|----------------------------------------------------------------|
-
-**Metric Type**: `gauge`
-
-**Namespace**: `yunikorn`
-
-**Subsystem**: `<queue name>`
-
-**TYPE**: `yunikorn_<queue name>_queue_resource`
-
-```json
-yunikorn_root_queue_resource{resource="ephemeral-storage",state="max"} 9.41009558e+10
-yunikorn_root_queue_resource{resource="hugepages-1Gi",state="max"} 0
-yunikorn_root_queue_resource{resource="hugepages-2Mi",state="max"} 0
-yunikorn_root_queue_resource{resource="memory",state="max"} 1.6223076352e+10
-yunikorn_root_queue_resource{resource="pods",state="max"} 110
-yunikorn_root_queue_resource{resource="vcore",state="max"} 8000
 ```
