@@ -462,9 +462,9 @@ In the following tests, we run the environment with a node resource limit of `{m
 
 | queue                       | offset | # of deploy apps | # of apps accept by yunikorn | YAML filename |
 |-----------------------------|--------|------------------|------------------------------|---------------|
-| root.system.low-priority    | 1000   | 8                | 8                            | system.yaml   |
+| root.system.high-priority   | 1000   | 8                | 8                            | system.yaml   |
 | root.system.normal-priority | 0      | 8                | 5                            | system.yaml   |
-| root.system.high-priority   | -1000  | 8                | 0                            | system.yaml   |
+| root.system.low-priority    | -1000  | 8                | 0                            | system.yaml   |
 
 **Case 2: priority-fenced**
 
