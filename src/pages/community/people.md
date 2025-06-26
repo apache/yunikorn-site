@@ -77,6 +77,7 @@ members and [committers](https://infra.apache.org/new-committers-guide.html#what
 | Ryan Lo       | wenchih       | Fazz           | +8                  |
 | Ted Lin       | steinsgateted | NCKU           | +8                  |
 | Yu-Lin Chen   | chenyulin0719 | opensource4you | +8                  |
+| Junyan Ling   | junyanling    | Apple          | +8                  |
 
 ## Become a Committer
 
