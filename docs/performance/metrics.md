@@ -46,6 +46,9 @@ all metrics are declared in `yunikorn` namespace.
 | sortingLatency        | Histogram    | Latency of all nodes sorting, in milliseconds.                                                                   |
 | tryNodeLatency        | Histogram    | Latency of node condition checks for container allocations, such as placement constraints, in milliseconds.      |
 | tryPreemptionLatency  | Histogram    | Latency of preemption condition checks for container allocations, in milliseconds.                               |
+| schedulingCycle       | Histogram    | Total time for a full scheduling cycle, in milliseconds.                                                         |
+| tryNodeEvaluation     | Histogram    | Total time for a pod to find a proper node, in milliseconds.                                                     |
+
 
 ###    Queue Metrics
 
