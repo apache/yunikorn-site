@@ -66,7 +66,7 @@ Note that this list is not guaranteed to remain stable and can change from relea
 
 **Content examples**
 
-The output of this REST query can be rather large, and it is a combination of those which have already been documented as part of the [scheduler API](scheduler.md#Overview).
+The output of this REST query can be rather large, and it is a combination of those which have already been documented as part of the [scheduler API](scheduler.md).
 
 The `RMDiagnostics` shows the content of the K8Shim cache. The exact content is version dependent and is not stable.
 The current content shows the cached objects:
@@ -81,7 +81,7 @@ The current content shows the cached objects:
 
 ## Go routine info
 
-Dumps the stack traces of the currently running goroutines. This is a similar view as provided in the [pprof goroutine](#pprof-goroutine) in a human-readable form.  
+Dumps the stack traces of the currently running goroutines. This is a similar view as provided in the [pprof goroutine](#pprof-goroutine) in a human-readable form.
 
 **URL** : `/debug/stack`
 
@@ -317,7 +317,7 @@ trace: A trace of execution of the current program. You can specify the duration
 num_symbols: 1
 ```
 
-## pprof trace		
+## pprof trace
 
 **URL** : `/debug/pprof/trace`
 

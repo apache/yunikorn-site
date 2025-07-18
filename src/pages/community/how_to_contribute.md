@@ -56,12 +56,12 @@ JIRAs that have a pull requests linked will have the label `pull-request-availab
 For anything that is more than a trivial change, like a typo or one line code change, it’s a good idea to discuss your intended approach on the issue.
 You are much more likely to have your patch reviewed and committed if you’ve already got buy-in from the YuniKorn community before you start writing the fix.
 
-If you cannot assign the JIRA to yourself ask the community to help assign it and add you to the contributors list in JIRA.   
+If you cannot assign the JIRA to yourself ask the community to help assign it and add you to the contributors list in JIRA.
 
 ## Fix an issue
 Fixes or improvement must be created on the `master` branch.
 Fork the relevant YuniKorn project into your own project and checkout the `master` branch.
-If the same issue exist in an earlier release branch it can be back ported after the fix has been added to master. 
+If the same issue exist in an earlier release branch it can be back ported after the fix has been added to master.
 Make sure that you have an up-to-date code revision checked out before you start. Use `git status` to see if you are up-to-date.
 Create a branch to work on, a good name to use is the JIRA ID you are working on.
 
@@ -77,14 +77,14 @@ In general, if you find a bug while working on a specific feature, file a JIRA f
 This helps us to differentiate between bug fixes and features and allows us to build stable maintenance releases.
 
 Make sure you have observed the recommendations in the [coding guidelines](/community/coding_guidelines).
-Before you commit your changes and create a pull request based on your changes you should run the code checks. 
+Before you commit your changes and create a pull request based on your changes you should run the code checks.
 These same checks are run as part of the pull request workflow.
 The pull request workflow performs the following checks:
 * Apache license check: `make license-check`.
 * Go lint check: `make lint`.
 * Full unit test suite: `make test`.
 
-These three checks should pass locally before opening a pull request. 
+These three checks should pass locally before opening a pull request.
 As part of the pull request workflow all checks must pass before the change is committed.
 For first time contributors to a repository the automated pull request workflow must be approved by a committer.
 Once the workflow has run and has given a pass (a +1 vote) a committer will review the patch.
@@ -97,7 +97,7 @@ They can be executed locally via `yunikorn-k8shim/scripts/run-e2e-tests.sh`.
 Finally, please write a good, clear commit message, with a short, descriptive title.
 The descriptive title must start with the JIRA ID you are working on.
 An example is: `[YUNIKORN-2] Support Gang Scheduling`
-The body of the commit message is used to describe the change made. 
+The body of the commit message is used to describe the change made.
 The whole commit message will be used to pre-fill the pull request information.
 The body of the first commit message will be added to the PR Template.
 The JIRA ID in the message will automatically link the pull request and the JIRA this is an essential part of tracking JIRA progress.
@@ -108,7 +108,7 @@ The dependencies are only relevant for the code repositories.
 
 | repository                   | depends on                                  |
 |------------------------------|---------------------------------------------|
-| yunikorn-core                | yunikorn-scheduler-interface                | 
+| yunikorn-core                | yunikorn-scheduler-interface                |
 | yunikorn-k8shim              | yunikorn-scheduler-interface, yunikorn-core |
 | yunikorn-scheduler-interface | none                                        |
 | yunikorn-web                 | yunikorn-core                               |
@@ -124,7 +124,7 @@ We follow the version numbering as described in the [version numbering](https://
 The master branch *must* use a pseudo version.
 See the [Go module dependencies](/docs/next/developer_guide/dependencies) for updating the pseudo version.
 The release branches *must* use branch version.
-See the [release procedure](/community/release_procedure#tag-and-update-release-for-version) on when and how to update the tags and references during the release creation. 
+See the [release procedure](/community/release_procedure#tag-for-release) on when and how to update the tags and references during the release creation.
 
 ## Documentation updates
 Documentation is published and maintained as part of the website.
@@ -164,7 +164,7 @@ After making the changes you can build the website locally in development mode w
 ```shell script
 ./local-build.sh run
 ```
-The only requirement is that you have docker installed as the build and server will be run inside a docker container. 
+The only requirement is that you have docker installed as the build and server will be run inside a docker container.
 
 ## Create a pull request
 Please create a pull request on github with your patch.
@@ -192,7 +192,7 @@ One for the upcoming version for the master and one for each branch the fix is p
 There are three options for committing a change:
 * use the script (recommended)
 * manually using the git command line
-* use the GitHub web UI "squash and merge" button 
+* use the GitHub web UI "squash and merge" button
 
 A [simple shell script](https://github.com/apache/yunikorn-release/tree/master/tools/merge_pr.sh) to help with a squash and merge is part of the release repository.
 The script handles the checkout, merge and commit message preparation.
@@ -211,7 +211,7 @@ this can cause author names like "username \<12345678-username@users.noreply.git
 :::
 
 Commit messages **must** comply to a simple set of rules:
-* Subject line is the title of the change formatted as follows: `[JIRA reference] subject (#PR ID)`.  
+* Subject line is the title of the change formatted as follows: `[JIRA reference] subject (#PR ID)`.
 * Second line must be empty, separates the subject from the body.
 * The body of the message contains the description of the change.
 * All lines in the commit message should be wrapped at 72 characters.
