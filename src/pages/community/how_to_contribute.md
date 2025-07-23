@@ -194,7 +194,7 @@ There are three options for committing a change:
 * manually using the git command line
 * use the GitHub web UI "squash and merge" button 
 
-A [simple shell script](https://github.com/apache/yunikorn-release/tree/master/tools/merge_pr.sh) to help with a squash and merge is part of the release repository.
+A [simple shell script](https://github.com/apache/yunikorn-release/tree/master/release-tools/merge_pr.sh) to help with a squash and merge is part of the release repository.
 The script handles the checkout, merge and commit message preparation.
 As part of the merge process conflicts can be resolved by the committer and added to the commit.
 The commit message is prepared but not finalised. The committer can edit, and cleanup, the message before the commit is made.
