@@ -88,7 +88,8 @@ Returns general information and statistics about a partition.
             "total": 10
         },
         "totalContainers": 0,
-        "totalNodes": 2
+        "totalNodes": 2,
+        "preemptionEnabled": false
     },
     {
         "clusterId": "mycluster",
@@ -123,7 +124,8 @@ Returns general information and statistics about a partition.
             "total": 20
         },
         "totalContainers": 20,
-        "totalNodes": 5
+        "totalNodes": 5,
+        "preemptionEnabled": false
     }
 ]
 ```
@@ -277,7 +279,14 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                 "allocatingAcceptedApps": [
                     "app-1",
                     "app-2"
-                ]
+                ],
+                "sortingPolicy": "fair",
+                "prioritySorting": true,
+                "preemptionEnabled": true,
+                "isPreemptionFence": true,
+                "preemptionDelay": "30s",
+                "isPriorityFence": true,
+                "priorityOffset": 3
             }
         ],
         "absUsedCapacity": {
@@ -355,7 +364,14 @@ If the query parameter `subtree` is not set, the queue's children will not be re
     "allocatingAcceptedApps": [
         "app-1",
         "app-2"
-    ]
+    ],
+    "sortingPolicy": "fair",
+    "prioritySorting": true,
+    "preemptionEnabled": true,
+    "isPreemptionFence": true,
+    "preemptionDelay": "30s",
+    "isPriorityFence": true,
+    "priorityOffset": 3
 }
 ```
 
