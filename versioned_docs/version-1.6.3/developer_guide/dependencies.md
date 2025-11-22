@@ -47,8 +47,8 @@ require (
 )
 ```
 Release branches **must** not use pseudo versions.
-During the creation of a release, [tags](/community/release_procedure#tag-and-update-release-for-version) will be created.
-These tags will be used as the reference in the go.mod files for the release.    
+During the creation of a release, [tags](/community/release_procedure#tag-for-release) will be created.
+These tags will be used as the reference in the go.mod files for the release.
 
 ## Enforcement of pseudo version
 In the pull request checks for the `yunikorn-core` and `yunikorn-k8shim` repositories enforce the format of the versions.
@@ -57,7 +57,7 @@ repositories in the `master` branch is not a pseudo version.
 
 The check enforces that the start of the version reference is `v.0.0.0-`
 
-Pseudo versions are not enforced in the release branches as per [why a pseudo version](#why-a-pseudo-version) explanation above. 
+Pseudo versions are not enforced in the release branches as per [why a pseudo version](#why-a-pseudo-version) explanation above.
 
 ## Updating the core dependency
 Before updating the core dependency must make sure that the scheduler interface changes are finalised.
@@ -100,7 +100,7 @@ It is therefor that steps 5 and 8 are performed to make sure there is no regress
 ## Generating a pseudo version
 
 A pseudo references for use in a go.mod file is based on the commit hash and timestamp.
-It is simple to generate one using the following steps: 
+It is simple to generate one using the following steps:
 
 1. Change to the repository for which the new pseudo version needs to be generated.
 2. Update the local checked out code for the master branch to get the latest commits
