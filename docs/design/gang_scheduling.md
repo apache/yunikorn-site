@@ -167,15 +167,15 @@ For gang scheduling we have a simple one new to one release relation in the case
 
 The scheduler processes the AllocationAsk as follows:
 1. Check if the application has an unreleased allocation for a placeholder allocation with the same _taskGroupName._ If no placeholder allocations are found a normal allocation cycle will be used to allocate the request.
-2. A placeholder allocation is selected and marked for release. A request to release the placeholder allocation is communicated to the shim. This must be an async process as the shim release process is dependent on the underlying K8s response which might not be instantaneous.  
+2. A placeholder allocation is selected and marked for release. A request to release the placeholder allocation is communicated to the shim. This must be an async process as the shim release process is dependent on the underlying K8s response which might not be instantaneous.
    NOTE: no allocations are released in the core at this point in time.
-3. The core “parks” the processing of the real AllocationAsk until the shim has responded with a confirmation that the placeholder allocation has been released.  
+3. The core “parks” the processing of the real AllocationAsk until the shim has responded with a confirmation that the placeholder allocation has been released.
    NOTE: locks are released to allow scheduling to continue
 4. After the confirmation of the release is received from the shim the “parked” AllocationAsk processing is finalised.
 5. The AllocationAsk is allocated on the same node as the placeholder used.
    The removal of the placeholder allocation is finalised in either case. This all needs to happen as one update to the application, queue and node.
     * On success: a new Allocation is created.
-    * On Failure: try to allocate on a different node, if that fails the AllocationAsk becomes unschedulable triggering scale up. 
+    * On Failure: try to allocate on a different node, if that fails the AllocationAsk becomes unschedulable triggering scale up.
 6. Communicate the allocation back to the shim (if applicable, based on step 5)
 
 ## Application completion
@@ -196,7 +196,7 @@ The time out of the _waiting_ state is new functionality.
 
 Placeholders are not considered active allocations.
 Placeholder asks are considered pending resource asks.
-These cases will be handled in the [Cleanup](#Cleanup) below.
+These cases will be handled in the [Cleanup](#cleanup) below.
 
 ### Cleanup
 When we look at gang scheduling there is a further issue around unused placeholders, placeholder asks and their cleanup.
@@ -219,7 +219,7 @@ Processing in the core thus needs to consider two cases that will impact the tra
 1. Placeholder asks pending (exit from _accepted_)
 2. Placeholders allocated (exit from _waiting_)
 
-Placeholder asks pending:  
+Placeholder asks pending:
 Pending placeholder asks are handled via a timeout.
 An application must only spend a limited time waiting for all placeholders to be allocated.
 This timeout is needed because an application’s partial placeholders allocation may occupy cluster resources without really using them.
@@ -259,7 +259,7 @@ Combined flow for the shim and core during timeout of placeholder:
 *   After the placeholder Allocations and Asks are released the core moves the application to the killed state removing it from the queue (4).
 *   The state change is finalised in the core and shim. (5)
 
-Allocated placeholders:  
+Allocated placeholders:
 Leftover placeholders need to be released by the core.
 The shim needs to be informed to remove them. This must be triggered on entry of the _completed_ state.
 After the placeholder release is requested by the core the state transition of the application can proceed.
@@ -429,14 +429,14 @@ In patched message form that would look like:
 message UpdateResponse {
 ...
   // Released allocation(s), allocations can be released by either the RM or scheduler.
-  // The TerminationType defines which side needs to act and process the message. 
+  // The TerminationType defines which side needs to act and process the message.
   repeated AllocationRelease releasedAllocations = 3;
 ...
 }
 
 message AllocationReleasesRequest {
   // Released allocation(s), allocations can be released by either the RM or scheduler.
-  // The TerminationType defines which side needs to act and process the message. 
+  // The TerminationType defines which side needs to act and process the message.
   repeated AllocationRelease releasedAllocations = 1;
 ...
 }
@@ -469,7 +469,7 @@ In patched message form that would look like:
 message AllocationRelease {
   enum TerminationType {
     STOPPED_BY_RM = 0;
-    TIMEOUT = 1; 
+    TIMEOUT = 1;
     PREEMPTED_BY_SCHEDULER = 2;
     PLACEHOLDER_REPLACED = 3;
   }
@@ -481,7 +481,7 @@ message AllocationRelease {
   // The UUID of the allocation to release, if not set all allocations are released for
   // the applicationID
   string UUID = 3;
-  // The termination type as described above 
+  // The termination type as described above
   TerminationType terminationType = 4;
   // human-readable message
   string message = 5;
@@ -525,7 +525,7 @@ message AllocationReleasesRequest {
 ...
   // Released allocationask(s), allocationasks can be released by either the RM or
   // scheduler. The TerminationType defines which side needs to act and process the
-  // message. 
+  // message.
   repeated AllocationAskRelease allocationAsksToRelease = 2;
 }
 ```
@@ -536,12 +536,12 @@ In patched message form that would look like:
 message AllocationAskRelease {
   enum TerminationType {
     STOPPED_BY_RM = 0;
-    TIMEOUT = 1; 
+    TIMEOUT = 1;
     PREEMPTED_BY_SCHEDULER = 2;
     PLACEHOLDER_REPLACED = 3;
   }
 ...
-  // The termination type as described above 
+  // The termination type as described above
   TerminationType terminationType = 4;
 ...
 }

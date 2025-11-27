@@ -83,12 +83,12 @@ root hard nofile 50000
 
 Before going into the details, here are the general steps used in our tests:
 
-- [Step 1](#Kubernetes): Properly configure Kubernetes API server and controller manager, then add worker nodes.
-- [Step 2](#Setup-Kubemark): Deploy hollow pods,which will simulate worker nodes, name hollow nodes. After all hollow nodes in ready status, we need to cordon all native nodes, which are physical presence in the cluster, not the simulated nodes, to avoid we allocated test workload pod to native nodes.
-- [Step 3](#Deploy-YuniKorn): Deploy YuniKorn using the Helm chart on the master node, and scale down the Deployment to 0 replica, and [modify the port](#Setup-Prometheus) in `prometheus.yml` to match the port of the service.
-- [Step 4](#Run-tests): Deploy 50k Nginx pods for testing, and the API server will create them. But since the YuniKorn scheduler Deployment has been scaled down to 0 replica, all Nginx pods will be stuck in pending.
+- [Step 1](#kubernetes): Properly configure Kubernetes API server and controller manager, then add worker nodes.
+- [Step 2](#setup-kubemark): Deploy hollow pods,which will simulate worker nodes, name hollow nodes. After all hollow nodes in ready status, we need to cordon all native nodes, which are physical presence in the cluster, not the simulated nodes, to avoid we allocated test workload pod to native nodes.
+- [Step 3](#deploy-yunikorn): Deploy YuniKorn using the Helm chart on the master node, and scale down the Deployment to 0 replica, and [modify the port](#setup-prometheus) in `prometheus.yml` to match the port of the service.
+- [Step 4](#run-tests): Deploy 50k Nginx pods for testing, and the API server will create them. But since the YuniKorn scheduler Deployment has been scaled down to 0 replica, all Nginx pods will be stuck in pending.
 - [Step 5](../user_guide/troubleshooting.md#restart-the-scheduler): Scale up The YuniKorn Deployment back to 1 replica, and cordon the master node to avoid YuniKorn allocating Nginx pods there. In this step, YuniKorn will start collecting the metrics.
-- [Step 6](#Collect-and-Observe-YuniKorn-metrics): Observe the metrics exposed in Prometheus UI.
+- [Step 6](#collect-and-observe-yunikorn-metrics): Observe the metrics exposed in Prometheus UI.
 ---
 
 ## Setup Kubemark
@@ -166,12 +166,12 @@ spec:
         name: hollow-node
     spec:
       nodeSelector:  # leverage label to allocate to native node
-        tag: tagName  
+        tag: tagName
       initContainers:
       - name: init-inotify-limit
         image: docker.io/busybox:latest
         imagePullPolicy: IfNotPresent
-        command: ['sysctl', '-w', 'fs.inotify.max_user_instances=200'] # set as same as max_user_instance in actual node 
+        command: ['sysctl', '-w', 'fs.inotify.max_user_instances=200'] # set as same as max_user_instance in actual node
         securityContext:
           privileged: true
       volumes:
@@ -183,7 +183,7 @@ spec:
           path: /var/log
       containers:
       - name: hollow-kubelet
-        image: 0yukali0/kubemark:1.20.10 # the kubemark image you build 
+        image: 0yukali0/kubemark:1.20.10 # the kubemark image you build
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 4194
@@ -215,7 +215,7 @@ spec:
         securityContext:
           privileged: true
       - name: hollow-proxy
-        image: 0yukali0/kubemark:1.20.10 # the kubemark image you build 
+        image: 0yukali0/kubemark:1.20.10 # the kubemark image you build
         imagePullPolicy: IfNotPresent
         env:
         - name: NODE_NAME
@@ -341,7 +341,7 @@ scrape_configs:
     scrape_interval: 1s
     metrics_path: '/ws/v1/metrics'
     static_configs:
-    - targets: ['docker.for.mac.host.internal:9080'] 
+    - targets: ['docker.for.mac.host.internal:9080']
     # 9080 is internal port, need port forward or modify 9080 to service's port
 ```
 
@@ -355,7 +355,7 @@ scrape_configs:
 
 Once the environment is setup, you are good to run workloads and collect results. YuniKorn community has some useful tools to run workloads and collect metrics, more details will be published here.
 
-### 1. Scenarios 
+### 1. Scenarios
 In performance tools, there are three types of tests and feedbacks.
 
 |	Test type	|						Description									|	Diagram	|  		Log		|
@@ -364,7 +364,7 @@ In performance tools, there are three types of tests and feedbacks.
 |	thourghput	|	Measure schedulers' throughput by calculating how many pods are allocated per second based on the pod start time	|	Exist	|	None			|
 
 ### 2. Build tool
-The performance tool is available in [yunikorn release repo](https://github.com/apache/yunikorn-release.git),clone the repo to your workspace. 
+The performance tool is available in [yunikorn release repo](https://github.com/apache/yunikorn-release.git),clone the repo to your workspace.
 ```
 git clone https://github.com/apache/yunikorn-release.git
 ```
@@ -388,7 +388,7 @@ If you set these fields with large number to cause timeout problem, increase val
 | ---				| ---									 						|
 |	SchedulerNames		|	List of scheduler will run the test											|
 |	ShowNumOfLastTasks	|	Show metadata of last number of pods										|
-|	CleanUpDelayMs		|	Controll period to refresh deployments status and print log							| 	
+|	CleanUpDelayMs		|	Controll period to refresh deployments status and print log							|
 |	RequestConfigs		|	Set resource request and decide number of deployments and pods per deployment with `repeat` and `numPods`	|
 
 In this case,yunikorn and default scheduler will sequentially separately create ten deployments which contains fifty pods.
@@ -493,7 +493,7 @@ In the Kubernetes API server, we need to modify two parameters: `max-mutating-re
 
 #### Controller-Manager
 
-In the Kubernetes controller manager, we need to increase the value of three parameters: `node-cidr-mask-size`, `kube-api-burst` and `kube-api-qps`. `kube-api-burst` and `kube-api-qps` control the server side request bandwidth. `node-cidr-mask-size` represents the node CIDR. it needs to be increased as well in order to scale up to thousands of nodes. 
+In the Kubernetes controller manager, we need to increase the value of three parameters: `node-cidr-mask-size`, `kube-api-burst` and `kube-api-qps`. `kube-api-burst` and `kube-api-qps` control the server side request bandwidth. `node-cidr-mask-size` represents the node CIDR. it needs to be increased as well in order to scale up to thousands of nodes.
 
 
 Modify `/etc/kubernetes/manifest/kube-controller-manager.yaml`:

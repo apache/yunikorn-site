@@ -55,7 +55,7 @@ and a [validation webhook](https://kubernetes.io/docs/reference/access-authn-aut
        to immediately transition from the `Starting` to `Running` state so that it will not block other applications.
 2. The `validation webhook` validates the configuration set in the configmap
    - This is used to prevent writing malformed configuration into the configmap.
-   - The validation webhook calls scheduler [validation REST API](api/scheduler.md#configuration-validation) to validate configmap updates.
+   - The validation webhook calls scheduler [validation REST API](api/cluster.md#configuration-validation) to validate configmap updates.
 
 ### Admission controller deployment
 
@@ -66,7 +66,7 @@ On startup, the admission controller performs a series of tasks to ensure that i
 2. If the secret cannot be found or either CA certificate is within 90 days of expiration, generates new certificate(s). If a certificate is expiring, a new one is generated with an expiration of 12 months in the future. If both certificates are missing or expiring, the second certificate is generated with an expiration of 6 months in the future. This ensures that both certificates do not expire at the same time, and that there is an overlap of trusted certificates.
 3. If the CA certificates were created or updated, writes the secrets back to Kubernetes.
 4. Generates an ephemeral TLS server certificate signed by the CA certificate with the latest expiration date.
-5. Validates, and if necessary, creates or updates the Kubernetes webhook configurations named `yunikorn-admission-controller-validations` and `yunikorn-admission-controller-mutations`. If the CA certificates have changed, the webhooks will also be updated. These webhooks allow the Kubernetes API server to connect to the admission controller service to perform configmap validations and pod mutations. 
+5. Validates, and if necessary, creates or updates the Kubernetes webhook configurations named `yunikorn-admission-controller-validations` and `yunikorn-admission-controller-mutations`. If the CA certificates have changed, the webhooks will also be updated. These webhooks allow the Kubernetes API server to connect to the admission controller service to perform configmap validations and pod mutations.
 6. Starts up the admission controller HTTPS server.
 
 Additionally, the admission controller also starts a background task to wait for CA certificates to expire. Once either certificate is expiring within the next 30 days, new CA and server certificates are generated, the webhook configurations are updated, and the HTTPS server is quickly restarted. This ensures that certificates rotate properly without downtime.
