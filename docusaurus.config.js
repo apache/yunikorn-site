@@ -220,11 +220,48 @@ Copyright © 2020-${new Date().getFullYear()} <a href="https://www.apache.org/">
 </div>
 </div>`
     },
-    algolia: {
-      appId: 'Q1V951BG2V',
-      apiKey: '9ae3e2f7a01a21300490729dfb9f2a51',
-      indexName: 'yunikorn',
-      contextualSearch: true,
-    },
+    plugins: [
+      [
+        "@cmfcmf/docusaurus-search-local",
+        {
+          // whether to index docs pages
+          indexDocs: true,
+
+          // Whether to also index the titles of the parent categories in the sidebar of a doc page.
+          // 0 disables this feature.
+          // 1 indexes the direct parent category in the sidebar of a doc page
+          // 2 indexes up to two nested parent categories of a doc page
+          // 3...
+          //
+          // Do _not_ use Infinity, the value must be a JSON-serializable integer.
+          indexDocSidebarParentCategories: 0,
+
+          // Includes parent categories path in search result
+          includeParentCategoriesInPageTitle: false,
+
+          // whether to index blog pages
+          indexBlog: true,
+
+          // whether to index static pages
+          // /404.html is never indexed
+          indexPages: false,
+
+          // language of your documentation, see next section
+          language: "en",
+
+          // setting this to "none" will prevent the default CSS to be included. The default CSS
+          // comes from autocomplete-theme-classic, which you can read more about here:
+          // https://www.algolia.com/doc/ui-libraries/autocomplete/api-reference/autocomplete-theme-classic/
+          // When you want to overwrite CSS variables defined by the default theme, make sure to suffix your
+          // overwrites with `!important`, because they might otherwise not be applied as expected. See the
+          // following comment for more information: https://github.com/cmfcmf/docusaurus-search-local/issues/107#issuecomment-1119831938.
+          style: undefined,
+
+          // The maximum number of search results shown to the user. This does _not_ affect performance of
+          // searches, but simply does not display additional search results that have been found.
+          maxSearchResults: 8,
+        },
+      ],
+    ],
   }
 };
