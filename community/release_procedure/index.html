@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.5.2">
 <title data-rh="true">Release Procedure | Apache YuniKorn</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" name="twitter:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" property="og:url" content="https://yunikorn.apache.org/community/release_procedure"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Release Procedure | Apache YuniKorn"><meta data-rh="true" name="description" content="&lt;!--"><meta data-rh="true" property="og:description" content="&lt;!--"><link data-rh="true" rel="icon" href="/img/yunikorn.ico"><link data-rh="true" rel="canonical" href="https://yunikorn.apache.org/community/release_procedure"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/community/release_procedure" hreflang="en"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/community/release_procedure" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://Q1V951BG2V-dsn.algolia.net" crossorigin="anonymous"><link rel="search" type="application/opensearchdescription+xml" title="Apache YuniKorn" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.9ba51dea.css">
-<script src="/assets/js/runtime~main.c4d93277.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.6d96be2b.js" defer="defer"></script>
 <script src="/assets/js/main.282d2adb.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -63,8 +63,8 @@ Even if a release has been made before make sure that the latest version is chec
 <li>Stabilize the release by fixing test failures and bugs only</li>
 <li>Tag update release for a new version to prepare a release candidate, e.g <code>v1.3.0-1</code> for RC1</li>
 <li>Update the CHANGELOG</li>
-<li>Configure <a href="https://github.com/apache/yunikorn-release/tree/master/tools/release-configs.json" target="_blank" rel="noopener noreferrer">release-configs.json</a></li>
-<li>Run script <a href="https://github.com/apache/yunikorn-release/tree/master/tools/build-release.py" target="_blank" rel="noopener noreferrer">build-release.py</a> to generate source code tarball, checksum and signature.</li>
+<li>Configure <a href="https://github.com/apache/yunikorn-release/tree/master/release-tools/release-configs.json" target="_blank" rel="noopener noreferrer">release-configs.json</a></li>
+<li>Run script <a href="https://github.com/apache/yunikorn-release/tree/master/release-tools/build-release.py" target="_blank" rel="noopener noreferrer">build-release.py</a> to generate source code tarball, checksum and signature.</li>
 <li>Voting and releasing the candidate</li>
 </ol>
 <h2 class="anchor anchorWithStickyNavbar_X9mg" id="step-by-step-procedure">Step-by-step procedure<a href="#step-by-step-procedure" class="hash-link" aria-label="Direct link to Step-by-step procedure" title="Direct link to Step-by-step procedure">​</a></h2>
@@ -91,7 +91,7 @@ This will break golang dependency resolution for downstream users.</p></div></di
 <div class="language-shell codeBlockContainer_EajB theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_yYRp"><pre tabindex="0" class="prism-code language-shell codeBlock_z86c thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_zIeA"><span class="token-line" style="color:#bfc7d5"><span class="token plain">go get github.com/apache/yunikorn-scheduler-interface</span><br></span></code></pre><div class="buttonGroup_mp8g"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_HhJ2" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_giQl"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_Nh_7"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <!-- -->Add the same tag as in the previous step and commit the changes.</li>
 <li>Update the <code>go.mod</code> file in the shim using<!-- -->
-<div class="language-shell codeBlockContainer_EajB theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_yYRp"><pre tabindex="0" class="prism-code language-shell codeBlock_z86c thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_zIeA"><span class="token-line" style="color:#bfc7d5"><span class="token plain">go get github.com/apache/yunikorn-scheduler-interface  </span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">go get github.com/apache/yunikorn-core</span><br></span></code></pre><div class="buttonGroup_mp8g"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_HhJ2" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_giQl"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_Nh_7"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div class="language-shell codeBlockContainer_EajB theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_yYRp"><pre tabindex="0" class="prism-code language-shell codeBlock_z86c thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_zIeA"><span class="token-line" style="color:#bfc7d5"><span class="token plain">go get github.com/apache/yunikorn-scheduler-interface</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">go get github.com/apache/yunikorn-core</span><br></span></code></pre><div class="buttonGroup_mp8g"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_HhJ2" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_giQl"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_Nh_7"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <!-- -->Add the same tag as in the previous step and commit the changes.</li>
 <li>Create a new branch in the yunikorn-release repo, set the correct chart version in <a href="https://github.com/apache/yunikorn-release/tree/master/helm-charts/yunikorn/Chart.yaml" target="_blank" rel="noopener noreferrer">Chart.yaml</a>, and then create the same tag in this repository.</li>
 </ol>
@@ -111,7 +111,7 @@ Follow these steps to generate the list:</p>
 <p>Please check the <a href="#signing-your-first-release">signing your first release</a> before proceeding here for details on signing a release.
 Limitations apply to the key that can be used for signing.</p>
 <p>A tool has been written to handle most of the release tasks.
-The tool requires a simple <a href="https://github.com/apache/yunikorn-release/tree/master/tools/release-configs.json" target="_blank" rel="noopener noreferrer">json</a> input file to be updated before running.
+The tool requires a simple <a href="https://github.com/apache/yunikorn-release/tree/master/release-tools/release-configs.json" target="_blank" rel="noopener noreferrer">json</a> input file to be updated before running.
 This configuration points to the tag to use in the release and the version to release.
 Update the version to release and the tag for each repository.
 The version used must be the <em>exact</em> version that you intend to release.
@@ -141,7 +141,7 @@ Verify that the signature is correct using:</p>
 <div class="language-shell codeBlockContainer_EajB theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_yYRp"><pre tabindex="0" class="prism-code language-shell codeBlock_z86c thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_zIeA"><span class="token-line" style="color:#bfc7d5"><span class="token plain">shasum -a 512 apache-yunikorn-1.3.0-src.tar.gz &gt; apache-yunikorn-1.3.0-src.tar.gz.sha512</span><br></span></code></pre><div class="buttonGroup_mp8g"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_HhJ2" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_giQl"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_Nh_7"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <p>This will create the checksum in the file: <code>apache-yunikorn-1.3.0-src.tar.gz.sha512</code>
 Verify that the checksum is correct using:</p>
-<div class="language-shell codeBlockContainer_EajB theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_yYRp"><pre tabindex="0" class="prism-code language-shell codeBlock_z86c thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_zIeA"><span class="token-line" style="color:#bfc7d5"><span class="token plain">shasum -a 512 -c apache-yunikorn-1.3.0-src.tar.gz.sha512 </span><br></span></code></pre><div class="buttonGroup_mp8g"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_HhJ2" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_giQl"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_Nh_7"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div class="language-shell codeBlockContainer_EajB theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_yYRp"><pre tabindex="0" class="prism-code language-shell codeBlock_z86c thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_zIeA"><span class="token-line" style="color:#bfc7d5"><span class="token plain">shasum -a 512 -c apache-yunikorn-1.3.0-src.tar.gz.sha512</span><br></span></code></pre><div class="buttonGroup_mp8g"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_HhJ2" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_giQl"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_Nh_7"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <h3 class="anchor anchorWithStickyNavbar_X9mg" id="upload-release-candidate-artifacts">Upload Release Candidate Artifacts<a href="#upload-release-candidate-artifacts" class="hash-link" aria-label="Direct link to Upload Release Candidate Artifacts" title="Direct link to Upload Release Candidate Artifacts">​</a></h3>
 <p>The release artifacts consist of three parts:</p>
 <ul>
@@ -236,8 +236,8 @@ The helm package will generate two files:</p>
 <p>Both files <em>must</em> be attached to the <a href="#create-the-git-releases">release in GIT</a> for the release repository.</p>
 <p>Last step is to update the <a href="https://github.com/apache/yunikorn-release/blob/gh-pages/index.yaml" target="_blank" rel="noopener noreferrer">index.yaml</a> and
 <a href="https://github.com/apache/yunikorn-release/blob/gh-pages/index.md" target="_blank" rel="noopener noreferrer">index.md</a> file in the <code>gh-pages</code> branch with the new release.
-First the <code>index.yaml</code> file:<br>
-<!-- -->The <code>digest</code> mentioned in the index.yaml file is the digest that gets printed by the tool (unsigned package) or stored in the provenance file.
+First the <code>index.yaml</code> file:
+The <code>digest</code> mentioned in the index.yaml file is the digest that gets printed by the tool (unsigned package) or stored in the provenance file.
 It can be generated manually using:</p>
 <div class="language-shell codeBlockContainer_EajB theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_yYRp"><pre tabindex="0" class="prism-code language-shell codeBlock_z86c thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_zIeA"><span class="token-line" style="color:#bfc7d5"><span class="token plain">shasum -a 256 yunikorn-1.3.0.tgz</span><br></span></code></pre><div class="buttonGroup_mp8g"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_HhJ2" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_giQl"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_Nh_7"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <div class="theme-admonition theme-admonition-caution admonition_DRKi alert alert--warning"><div class="admonitionHeading_Wd3u"><span class="admonitionIcon_XJlf"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>caution</div><div class="admonitionContent_vZ3Q"><p>Do not use the <code>helm repo index</code> command to update the <code>index.yaml</code> file. The command does not handle the enhanced information stored in the <code>index.yaml</code> file nicely.
@@ -322,15 +322,15 @@ All committers have access to the filter and can update the version to be checke
 <li>Apache license</li>
 <li>Following headings<!-- -->
 <ul>
-<li>Overview of the release (level 2)<br>
-<!-- -->This contains the generic overview of the release, including the release manager and date etc.
+<li>Overview of the release (level 2)
+This contains the generic overview of the release, including the release manager and date etc.
 The link to the included Jiras for the release must be available to anyone, and not require a login.</li>
-<li>Incompatible changes<br>
-<!-- -->Details for incompatible changes at level 3 heading, referencing a Jira via a link to provide more details.</li>
-<li>Highlights (level 2)<br>
-<!-- -->Chosen highlights or features at level 3 heading, referencing a Jira via a link to provide more details.</li>
-<li>Community update (level 2)<br>
-<!-- -->Mention all new committers and or PMC members added since the last release.</li>
+<li>Incompatible changes
+Details for incompatible changes at level 3 heading, referencing a Jira via a link to provide more details.</li>
+<li>Highlights (level 2)
+Chosen highlights or features at level 3 heading, referencing a Jira via a link to provide more details.</li>
+<li>Community update (level 2)
+Mention all new committers and or PMC members added since the last release.</li>
 </ul>
 </li>
 </ul>
@@ -338,8 +338,8 @@ The link to the included Jiras for the release must be available to anyone, and 
 <p>The download page contains the link to the Apache source download, signatures etc.
 The table on the page has a specific layout that is correctly rendered after going through the docusaurus build.
 Please do not change the release entry layout in the table.</p>
-<p>First step is to update the <code>latest release</code> line to the correct version.<br>
-<!-- -->Second step is to update the table: remove the last row from the table.
+<p>First step is to update the <code>latest release</code> line to the correct version.
+Second step is to update the table: remove the last row from the table.
 Duplicate the first row of the table and change the links and details to reflect the new release details.
 All links must be updated:</p>
 <ul>
