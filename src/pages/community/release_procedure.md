@@ -24,7 +24,7 @@ limitations under the License.
 
 The [release repository](https://github.com/apache/yunikorn-release) contains the code and configuration to create a release for Apache YuniKorn.
 Before starting the release procedure clone the repository and checkout the master branch.
-Even if a release has been made before make sure that the latest version is checked out as the code and or config might have changed.  
+Even if a release has been made before make sure that the latest version is checked out as the code and or config might have changed.
 
 The instructions and tools obey the ASF [release policy](http://www.apache.org/legal/release-policy.html).
 
@@ -61,8 +61,8 @@ Simplified release procedure:
 2. Stabilize the release by fixing test failures and bugs only
 3. Tag update release for a new version to prepare a release candidate, e.g `v1.3.0-1` for RC1
 4. Update the CHANGELOG
-5. Configure [release-configs.json](https://github.com/apache/yunikorn-release/tree/master/tools/release-configs.json)
-6. Run script [build-release.py](https://github.com/apache/yunikorn-release/tree/master/tools/build-release.py) to generate source code tarball, checksum and signature.
+5. Configure [release-configs.json](https://github.com/apache/yunikorn-release/tree/master/release-tools/release-configs.json)
+6. Run script [build-release.py](https://github.com/apache/yunikorn-release/tree/master/release-tools/build-release.py) to generate source code tarball, checksum and signature.
 7. Voting and releasing the candidate
 
 ## Step-by-step procedure
@@ -99,11 +99,11 @@ The tagging is multistep process, all actions are done on the branch that will b
 2. Update the `go.mod` file in the core using:
    ```shell script
    go get github.com/apache/yunikorn-scheduler-interface
-   ```  
+   ```
    Add the same tag as in the previous step and commit the changes.
-3. Update the `go.mod` file in the shim using 
+3. Update the `go.mod` file in the shim using
    ```shell script
-   go get github.com/apache/yunikorn-scheduler-interface  
+   go get github.com/apache/yunikorn-scheduler-interface
    go get github.com/apache/yunikorn-core
    ```
    Add the same tag as in the previous step and commit the changes.
@@ -122,10 +122,10 @@ Follow these steps to generate the list:
 
 ### Run the release tool
 Please check the [signing your first release](#signing-your-first-release) before proceeding here for details on signing a release.
-Limitations apply to the key that can be used for signing. 
+Limitations apply to the key that can be used for signing.
 
 A tool has been written to handle most of the release tasks.
-The tool requires a simple [json](https://github.com/apache/yunikorn-release/tree/master/tools/release-configs.json) input file to be updated before running.
+The tool requires a simple [json](https://github.com/apache/yunikorn-release/tree/master/release-tools/release-configs.json) input file to be updated before running.
 This configuration points to the tag to use in the release and the version to release.
 Update the version to release and the tag for each repository.
 The version used must be the _exact_ version that you intend to release.
@@ -182,7 +182,7 @@ shasum -a 512 apache-yunikorn-1.3.0-src.tar.gz > apache-yunikorn-1.3.0-src.tar.g
 This will create the checksum in the file: `apache-yunikorn-1.3.0-src.tar.gz.sha512`
 Verify that the checksum is correct using:
 ```shell script
-shasum -a 512 -c apache-yunikorn-1.3.0-src.tar.gz.sha512 
+shasum -a 512 -c apache-yunikorn-1.3.0-src.tar.gz.sha512
 ```
 
 ### Upload Release Candidate Artifacts
@@ -191,7 +191,7 @@ The release artifacts consist of three parts:
 - signature file
 - checksum file
 
-The three artefacts need to be uploaded to: `https://dist.apache.org/repos/dist/dev/yunikorn/` 
+The three artefacts need to be uploaded to: `https://dist.apache.org/repos/dist/dev/yunikorn/`
 
 Create a release directory based on the version, i.e. `1.3.0`, add the three files to directory.
 Commit the changes.
@@ -202,7 +202,7 @@ Do not remove any keys from the file they are kept here to enable older releases
 NOTE: you will need to install subversion to access this repo (use your apache ID). You can use any SVN client, e.g svnX, for convenience.
 
 ### Start Voting Thread
-According to the Apache [release approval doc](http://www.apache.org/legal/release-policy.html#release-approval) 
+According to the Apache [release approval doc](http://www.apache.org/legal/release-policy.html#release-approval)
 A voting thread must be created on `dev@yunikorn.apache.org` and run for at least 72 hours.
 At least three +1 votes are required and more +1 votes than -1 votes.
 
@@ -218,7 +218,7 @@ git push origin v1.3.0
 ```
 
 ### Publish the Release
-Once the voting is passed, move the release artefacts from the staging area to the release location `https://dist.apache.org/repos/dist/release/yunikorn/`. 
+Once the voting is passed, move the release artefacts from the staging area to the release location `https://dist.apache.org/repos/dist/release/yunikorn/`.
 Once moved to this space, the content will be automatically synced to `https://downloads.apache.org/yunikorn/` which must be used as the final location for all release files.
 
 Read more about the [distribution services](https://apache.org/history/mirror-history.html) for the source code.
@@ -233,7 +233,7 @@ As part of the release convenience images are build and uploaded to the Apache a
 :::note
 Each Apache project has a limited number of people with write access to the Apache Docker organisation.
 Not all PMC members can be given access.
-Reach out to the private@ list to get help if you have not published images before or have trouble accessing Docker Hub. 
+Reach out to the private@ list to get help if you have not published images before or have trouble accessing Docker Hub.
 :::
 
 As we added multi architecture support the release of the images has become a bit more complex and is now tool driven.
@@ -272,7 +272,7 @@ All images are pushed to the docker hub.
 When both architectures are built a manifest is created for the multi architecture image.
 The manifest is pushed to docker hub and a cleanup of unused tags is executed.
 
-The whole process can take a while as builds of executables and docker images are executed multiple times. 
+The whole process can take a while as builds of executables and docker images are executed multiple times.
 
 If you want to test the tool run to make sure it all works you can run the tool against a non apache repository.
 For this you provide the optional variable on the command line:
@@ -321,7 +321,7 @@ Both files _must_ be attached to the [release in GIT](#create-the-git-releases) 
 
 Last step is to update the [index.yaml](https://github.com/apache/yunikorn-release/blob/gh-pages/index.yaml) and
 [index.md](https://github.com/apache/yunikorn-release/blob/gh-pages/index.md) file in the `gh-pages` branch with the new release.
-First the `index.yaml` file:  
+First the `index.yaml` file:
 The `digest` mentioned in the index.yaml file is the digest that gets printed by the tool (unsigned package) or stored in the provenance file.
 It can be generated manually using:
 ```shell script
@@ -334,19 +334,19 @@ Update the file manually.
 :::
 
 In the same PR update the `index.md` file. In most cases the change is limited to the supported Kubernetes versions.
-If there are no changes for the release this step can be skipped. Larger changes should be tracked as a separate jira not as a work item for a release. 
+If there are no changes for the release this step can be skipped. Larger changes should be tracked as a separate jira not as a work item for a release.
 Releases are always tracked based on the minor release only, i.e. 1.23.x or 1.25.x.
 Multiple Kubernetes versions can be added as supported from the current release. Each version should be mentioned as a separate entry under the **K8s Version** column.
 The current YuniKorn release is added to the **Supported from version** and **Support ended** as needed.
 
-Any change in supported Kubernetes versions _must_ be mentioned in the [release announcement](#release-announcement).  
+Any change in supported Kubernetes versions _must_ be mentioned in the [release announcement](#release-announcement).
 
 #### Update the website
 - Create a new documentation version on YuniKorn website based on the latest content in the `docs` directory.
-  Refer to [these steps](#version-the-documentation) on how to create the new documentation version. 
-- Create the release announcement to be referenced from download page on the website. 
-  The release announcement is a markdown file based on the version: `1.3.0.md`. 
-  The steps on how to create the [release announcement](#release-announcement) explains the content and where to add the file. 
+  Refer to [these steps](#version-the-documentation) on how to create the new documentation version.
+- Create the release announcement to be referenced from download page on the website.
+  The release announcement is a markdown file based on the version: `1.3.0.md`.
+  The steps on how to create the [release announcement](#release-announcement) explains the content and where to add the file.
 - Update the [download page](/community/download) of the website as per the [steps](#update-the-download-page).
 
 The site can, and most likely will, contain an announcement bar.
@@ -372,8 +372,8 @@ The releases need to clean up in two locations:
 
 :::note
 If there are multiple releases actively maintained then there could be multiple releases in the release area.
-We _must_ have only one release per active branch in the _release_ area, i.e. one for 1.0, one for 1.1 etc. 
-For detailed information you can check the [release distribution policy](https://infra.apache.org/release-distribution.html).   
+We _must_ have only one release per active branch in the _release_ area, i.e. one for 1.0, one for 1.1 etc.
+For detailed information you can check the [release distribution policy](https://infra.apache.org/release-distribution.html).
 :::
 
 #### Create the GIT releases
@@ -421,23 +421,23 @@ For an overview of which Jiras are marked for inclusion in the release notes the
 All committers have access to the filter and can update the version to be checked. *Login is required to run and see the filter.
 
 The file name must be the same as the semver version of the release without the 'v':
-``` 
+```
 src/pages/release-announce/1.3.0.md
 ```
-All releases are automatically added to the [index list](https://yunikorn.apache.org/release-announce/). 
+All releases are automatically added to the [index list](https://yunikorn.apache.org/release-announce/).
 
 The page itself is in Markdown format and should follow the example of the already existing pages:
 * id and title definition (docusaurus syntax)
 * Apache license
 * Following headings
-    * Overview of the release (level 2)  
+    * Overview of the release (level 2)
       This contains the generic overview of the release, including the release manager and date etc.
       The link to the included Jiras for the release must be available to anyone, and not require a login.
-    * Incompatible changes  
-      Details for incompatible changes at level 3 heading, referencing a Jira via a link to provide more details. 
-    * Highlights (level 2)  
+    * Incompatible changes
+      Details for incompatible changes at level 3 heading, referencing a Jira via a link to provide more details.
+    * Highlights (level 2)
       Chosen highlights or features at level 3 heading, referencing a Jira via a link to provide more details.
-    * Community update (level 2)  
+    * Community update (level 2)
       Mention all new committers and or PMC members added since the last release.
 
 ### Update the download page
@@ -445,7 +445,7 @@ The download page contains the link to the Apache source download, signatures et
 The table on the page has a specific layout that is correctly rendered after going through the docusaurus build.
 Please do not change the release entry layout in the table.
 
-First step is to update the `latest release` line to the correct version.  
+First step is to update the `latest release` line to the correct version.
 Second step is to update the table: remove the last row from the table.
 Duplicate the first row of the table and change the links and details to reflect the new release details.
 All links must be updated:
