@@ -1,6 +1,6 @@
 ---
 id: quota_change_enforcement_through_preemption
-title: Quota Change Enforcement through Preemption
+title: Quota Enforcement through Preemption
 ---
 
 <!--
@@ -40,7 +40,7 @@ Queue quota can be increased or decreased based on the need. In case of an incre
 
 ## Quota Preemption Configuration
 
-Quota Change Enforcement through Preemption feature can be turned off globally by setting the   
+Quota Enforcement through Preemption feature can be turned off globally by setting the   
 appropriate property at partition level. It is configurable as follows:
 
 ```yaml
@@ -132,15 +132,15 @@ Results could contain all positive values or negative values or combinations of 
 
 Below table covers the various possible scenarios for the queue `root.a.b` with examples:
 
-|Queue| Current Max         | New Max             | Usage               | Preemptable Resources |
-|--|---------------------|---------------------|---------------------|-----------------------|
-| `root.a.b` | {M: 100G}           | {M: 50G}            | {M: 80G}            | {M: 30G}              |
-|  | Nil                 | {M: 50G}            | {M: 80G}            | {M: 30G}              |
-|  | {M: 100G, CPU: 100} | {M: 50G, CPU: 50}   | {M: 80G, CPU: 80}   | {M: 30G, CPU: 30}     |
-|  | {M: 100G, CPU: 100} | {M:200G, CPU: 50}   | {M: 100G, CPU: 80}  | {CPU: 30}             |
-|  | {M: 100G}           | {M: 100G, CPU: 100} | {M: 50G, CPU: 500}  | {CPU: 400}            |
-|  | {M: 100G, CPU: 100} | {M: 50G}            | {M: 80G, CPU: 100}  | {M: 30G}              |
-|  | {M: 100G}           | {CPU: 100}          | {M: 100G, CPU: 500} | {CPU: 400}            |
+|Queue| Current Max           | New Max               | Usage                 | Preemptable Resources |
+|--|-----------------------|-----------------------|-----------------------|-----------------------|
+| `root.a.b` | \{M: 100G\}           | \{M: 50G\}            | \{M: 80G\}            | \{M: 30G\}            |
+|  | Nil                   | \{M: 50G\}            | \{M: 80G\}            | \{M: 30G\}            |
+|  | \{M: 100G, CPU: 100\} | \{M: 50G, CPU: 50\}   | \{M: 80G, CPU: 80\}   | \{M: 30G, CPU: 30\}   |
+|  | \{M: 100G, CPU: 100\} | \{M:200G, CPU: 50\}   | \{M: 100G, CPU: 80\}  | \{CPU: 30\}           |
+|  | \{M: 100G\}           | \{M: 100G, CPU: 100\} | \{M: 50G, CPU: 500\}  | \{CPU: 400\}          |
+|  | \{M: 100G, CPU: 100\} | \{M: 50G\}            | \{M: 80G, CPU: 100\}  | \{M: 30G\}            |
+|  | \{M: 100G\}           | \{CPU: 100\}          | \{M: 100G, CPU: 500\} | \{CPU: 400\}          |
 
 ## Lowering Leaf Queue Quota
 
@@ -183,8 +183,8 @@ Queue selection process prior to doing [victims selection process](#how-are-vict
 
 ## “Preemption does not help” situations
 
-Resources used by each victim may or may not differ. Selecting victims from potential victims involves necessary checks, one among them is to ensure usage doesn’t go below the guaranteed resources. So, there could be chances that there are no viable options to proceed further. For example, Preemptable resources is {memory: 40 GB}, Guaranteed resources: {memory: 50 GB} and Usage is {memory: 100 GB}. 5 victims. Each victim is using {memory: 20  GB}. Preempting 2 victims is not a problem and attempting 3rd one would make use fall below the guaranteed resources. One could come up with ‘N’ number of different scenarios by applying different possible combinations using the above example as reference.  
-Unlike Intra queue preemption, where in asks (preemptor) goes through preemption process every scheduling cycle with an interval of  \`X\` seconds and probability of preemption yielding positive outcome after multiple attempts is higher, this preemption process doesn’t have a such inherent retry capabilities to increase the probability of successful preemption. Even if it is available, it is not going to help much as running victims are long lived workloads and not going to change immediately. We don’t have any option other than trying “best effort” solutions as there is no retryable possibility. In order to achieve a successful preemption outcome, a new configuration option called “miss” could be introduced as a  “best effort”  approach to define a smaller % of resources that could be ignored by preempting the victims as much as we can depending on the situations to alleviate the above problem smoothly. Not only does it address the above problem, it helps in making a serious attempt to bring down the usage to the nearest expected level and thereby making an effort to march towards the objective of this whole quota change enforcement through preemption.
+Resources used by each victim may or may not differ. Selecting victims from potential victims involves necessary checks, one among them is to ensure usage doesn’t go below the guaranteed resources. So, there could be chances that there are no viable options to proceed further. For example, Preemptable resources is \{memory: 40 GB\}, Guaranteed resources: \{memory: 50 GB\} and Usage is \{memory: 100 GB\}. 5 victims. Each victim is using \{memory: 20  GB\}. Preempting 2 victims is not a problem and attempting 3rd one would make use fall below the guaranteed resources. One could come up with ‘N’ number of different scenarios by applying different possible combinations using the above example as reference.  
+Unlike Intra queue preemption, where in asks (preemptor) goes through preemption process every scheduling cycle with an interval of  \`X\` seconds and probability of preemption yielding positive outcome after multiple attempts is higher, this preemption process doesn’t have a such inherent retry capabilities to increase the probability of successful preemption. Even if it is available, it is not going to help much as running victims are long lived workloads and not going to change immediately. We don’t have any option other than trying “best effort” solutions as there is no retryable possibility. In order to achieve a successful preemption outcome, a new configuration option called “miss” could be introduced as a  “best effort”  approach to define a smaller % of resources that could be ignored by preempting the victims as much as we can depending on the situations to alleviate the above problem smoothly. Not only does it address the above problem, it helps in making a serious attempt to bring down the usage to the nearest expected level and thereby making an effort to march towards the objective of this whole quota enforcement through preemption.
 
 However, there could be situations where the above explained “best effort” might not be applied to get best out of the process as it depends on the no. of potential victims available at any moment. If there are not enough victims available, maybe only 1 victim, preemption does not help at any cost as attempting further would make usage go below the guaranteed resources.
 
@@ -202,7 +202,7 @@ In short, all existing Intra Queue Preemption Configurations have no relevance f
 
 ### Preemption Fence & Preemption Delay
 
-Existing Preemption related properties like preemption.policy, preemption.delay should not be considered or used in conjunction with this [preemption](#motivation) as the objective is completely different from the other one. In addition, the reason for not considering preemption.policy (fence) into account especially for the child queues underneath the current parent queue being worked upon is to avoid unbiased and incorrect decisions. A fence is a unidirectional way of traversing down the hierarchy and preventing going upwards to look for victims. Quota change also traverses down the hierarchy to apply the change. So, there is no reason to bring the fence into account. In addition, Choosing Victims only from Non fenced child queues doesn’t seem to be a fair way of running the selection process. In case of having Fenced child queues fenced underneath the current parent queue doesn’t allow us to complete the quota change enforcement through preemption at all. Hence, preemption.policy should not be considered.
+Existing Preemption related properties like preemption.policy, preemption.delay should not be considered or used in conjunction with this [preemption](#motivation) as the objective is completely different from the other one. In addition, the reason for not considering preemption.policy (fence) into account especially for the child queues underneath the current parent queue being worked upon is to avoid unbiased and incorrect decisions. A fence is a unidirectional way of traversing down the hierarchy and preventing going upwards to look for victims. Quota change also traverses down the hierarchy to apply the change. So, there is no reason to bring the fence into account. In addition, Choosing Victims only from Non fenced child queues doesn’t seem to be a fair way of running the selection process. In case of having Fenced child queues fenced underneath the current parent queue doesn’t allow us to complete the quota enforcement through preemption at all. Hence, preemption.policy should not be considered.
 
 Queue=\>properties=\>preemption.delay should not be confused with above discussed Quota Change Preemption delay [Queue=\>resources=\>preemption.delay](#quota-preemption-configuration) and treated differently as earlier has been introduced to compensate for the scheduling cycle interval and used only in the scheduling cycle core path.
 
