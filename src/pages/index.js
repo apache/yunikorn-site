@@ -111,20 +111,18 @@ function Home() {
         <header className={clsx('hero', styles.heroBanner)}>
             <div className="container">
                 <div className="row">
+                     <div className='hero_column_logo'>
+                        <img className={styles.heroImg} src="/img/logo/yunikorn_classic_logo.png" alt="YuniKorn logo"/>
+                    </div>
                     <div className='hero_column_main'>
                         <h1 className="hero__title">{siteConfig.title}</h1>
                         <p className="hero__subtitle">{siteConfig.tagline}</p>
-                        <div className="container">
                             <div className="buttons_src-pages-">
                                 <a className="button button--primary button--lg" href="/docs/">GET STARTED</a>
                                 <a className="button button--primary button--lg" href="/community/download">DOWNLOAD</a>
                                 <a className="button button--primary button--lg" href="/community/roadmap">ROADMAP</a>
                             </div>
-                        </div>
-                    </div>
-                    <div className='hero_column_logo'>
-                        <img className={styles.heroImg} src="/img/logo/yunikorn_classic_logo.png" alt="YuniKorn logo"/>
-                    </div>
+                    </div>                   
                 </div>
             </div>
         </header>

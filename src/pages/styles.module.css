@@ -33,9 +33,9 @@
 }
 
 .heroImg {
-  display: flex;
-  align-items: center;
   width: 80%;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .features {
@@ -57,13 +57,15 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  padding: 2rem 0;
 }
 
 .postContainer {
   align-content: center;
   min-width: 300px;
   max-width: 800px;
-  margin: 0 20%;
+  margin: 0 auto;
+  padding: 0 16px;
   overflow: auto;
 }
 
