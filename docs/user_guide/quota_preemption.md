@@ -24,7 +24,7 @@ under the License.
 
 Quota Enforcement through preemption allows users to enforce newly configured quota with in certain amount of time rather than waiting indefinitely to come into effect through natural exits of running workloads. Preemption would be triggerred in case of quota decrease to evict the suitable victims only when delay has reached  to enforce the new quota into effect.
 
-This document guide users to set up preemption delay while decreasing the quota, switching ON/OFF whole feature at partition level etc. For more details on the design, please refer
+This document guide users to set up preemption delay while decreasing the quota, switching ON/OFF whole feature at partition level etc. For more details on the design, please refer [design doc](design/quota_change_enforcement_through_preemption.md) for details.
 
 ## Quota Preemption Configuration
 
