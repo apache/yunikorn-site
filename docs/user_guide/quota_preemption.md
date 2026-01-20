@@ -179,7 +179,7 @@ partitions:
 
 New Set up:
 
-`root.default` max resource reduced to `{memory: 10G}`. Delay of 2 hours should be configured as `2h`.
+`root.default` max resource decreased to `{memory: 10G}`. Delay of 2 hours should be configured as `2h`.
 
 ```yaml
 partitions:
@@ -192,7 +192,7 @@ partitions:
           - name: default
             resources:
               max:
-                {memory: 20G}
+                {memory: 10G}
             properties:
               quota.preemption.delay: 2h
 ```
@@ -220,7 +220,7 @@ partitions:
 
 New Set up:
 
-`root.default` max resource reduced to `{memory: 10G}`. Delay of 5 minutes should be configured as `5m`.
+`root.default` max resource decreased to `{memory: 10G}`. Delay of 5 minutes should be configured as `5m`.
 
 ```yaml
 partitions:
@@ -233,7 +233,7 @@ partitions:
           - name: default
             resources:
               max:
-                {memory: 20G}
+                {memory: 10G}
             properties:
               quota.preemption.delay: 5m
 ```
@@ -261,7 +261,7 @@ partitions:
 
 New Set up:
 
-`root.default` max resource reduced to `{memory: 10G}` but delay is not configured.
+`root.default` max resource decreased to `{memory: 10G}` but delay is not configured.
 
 ```yaml
 partitions:
