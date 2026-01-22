@@ -103,6 +103,7 @@ module.exports = {
                     'design/cache_removal',
                     'design/preemption',
                     'design/simple_preemptor',
+                    'design/quota_change_enforcement_through_preemption',
                     'design/generic_resource',
                     'design/priority_scheduling',
                     'design/resilience',
