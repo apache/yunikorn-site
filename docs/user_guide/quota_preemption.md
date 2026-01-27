@@ -1,6 +1,6 @@
 ---
 id: quota_preemption
-title: Quota Enforcement through Preemption
+title: Quota Preemption
 ---
 
 <!--
@@ -22,49 +22,61 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-Quota Enforcement through preemption allows users to enforce newly configured quota with in certain amount of time rather than waiting indefinitely to come into effect through natural exits of running workloads. Preemption would be triggerred in case of quota decrease to evict the suitable victims only when delay has reached  to enforce the new quota into effect.
+Queues can be configured with a quota. The quota for a queue can be changed while the system is running. In the case that a quota is changed the new quota is applied immediately in the next scheduling cycle. Depending on the type of change there are different impacts.
 
-This document guide users to set up preemption delay while decreasing the quota, switching ON/OFF whole feature at partition level etc. For more details on the design, please refer [design doc](design/quota_preemptor.md) for details.
+For a queue that had its quota increased: no impact. The queue could not have used more than its old quota and the new quota is higher providing more resources to be allocated by the workloads running in the queue.
 
-## Quota Preemption Configuration
+For a queue that had its quota decreased there are two cases.
+1) the new, lowered, quota is larger than the current usage in the queue: no impact. Workloads will be allocated until the new quota is reached. All running workloads are unaffected.
+2) the new, lowered, quota is smaller than the current usage in the queue: the queue is impacted. Any workloads that were pending in the queue will need to wait until resources become available. Workloads will keep on running until they are done.
 
-### Global Switch at Partition Level
+This second case is what is targeted by quota preemption. Quota preemption provides the administrator the option to intervene in the running workload when lowering a quota.
+This document guide users to set up preemption delay for more details on the design, please refer [design doc](design/quota_preemptor.md).
 
-Quota Enforcement through Preemption feature can be turned off globally by setting the appropriate property at partition level. It is configurable as follows:
+
+## Global configuration
+
+Quota preemption is available in YuniKorn 1.8 or later and turned `off` by default.
+
+To turn on quota preemption it must be turned on globally at the partition level first in the YuniKorn config:
 
 ```yaml
-partitions:  
-  - name: <name of the partition>  
-    preemption:  
-   	 quotapreemptionenabled: <boolean value>  
-    queues:  
-      - name: <name of the queue>  
-        resources:  
-          max: <maximum resources allowed for this queue>
+partitions:
+  - name: <name of the partition>
+    preemption:
+      quotapreemptionenabled: <boolean value>
 ```
 
-Default is false (disabled). Setting it to true would turn ON the feature globally and preemption would be triggered whenever any queue quota decreases. 
+The default value for _quotapreemptionenabled_ is _false_. Allowed values: _true_ or _false_, any other value will cause a parse error.
 
-Examples are
+When quota preemption is turned on at the partition level quota changes could trigger a preemption when a queue quota is changed.
 
-1\) Switch ON the feature:
+## Queue configuration
 
-Current Set up:
-
-Partition `default` doesn't have any preemption related configuration.
+With the global configuration is turned on each queue must be configured to opt in to quota preemption. A queue can opt in by setting the _quota.preemption.delay_ property on the queue.
 
 ```yaml
-partitions:  
+queues:
   - name: default
-    queues:
-    - name: root
-      queues:
-        - name: default  
+    properties:
+      quota.preemption.delay: <delay string>
 ```
 
-New Set up:
+The delay when not specified defaults to 0. A delay value explicitly set to 0 will prevent the quota change of the queue from triggering preemption.
+Any non-zero value for the delay will be added to the time the change of the quota was applied to the queue. That timestamp defines the trigger point for quota preemption.
+Quota preemption will only be triggered if the queue at the point in time of the change is above the new quota.
+The standard scheduling quota enforcement will immediately enforce the new quota in all other cases and no further preemption actions are needed.
 
-Partition `default` has `preemption.quotapreemptionenabled`
+The scheduler will not trigger quota preemption until the delay has passed. If at that point in time the queue usage has dropped below the quota set no the queue at that point in time, no actions will be taken.
+The quota preemption tracking information will be cleaned up in that case.
+
+To prevent multiple quota changes from impacting each other quota preemption works top down in the queue hierarchy. If a change of a quota has triggered preemption on a queue none of the children of that queue will be able to trigger quota preemption.
+This prevents complex victim selection interactions if multiple changes are made.
+
+Victims for quota preemption can come from any queue below the queue that triggered the quota preemption. Quota preemption follows the same rules for victim selection as normal preemption.
+It cannot cause a queue to go below its guaranteed, allocations are sorted based on priority and can opt out. See the description in the [preemption documentation](preemption.md) for details.
+
+An example configuration turning on quota preemption and setting a delay of 15 minutes on the "prod" queue:
 
 ```yaml
 partitions:
@@ -74,245 +86,34 @@ partitions:
     queues:
       - name: root
         queues:
-          - name: default
-```
-Preemption would be triggerred in case of any quota decrease.
-
-2\) Switch OFF the feature explicitly:
-
-Current Set up:
-
-Partition `default` doesn't have any preemption related configuration.
-
-```yaml
-partitions:  
-  - name: default
-    queues:
-    - name: root
-      queues:
-        - name: default  
-```
-
-New Set up:
-
-Partition `default` has `preemption.quotapreemptionenabled`
-
-```yaml
-partitions:
-  - name: default
-    preemption:
-      quotapreemptionenabled: false
-    queues:
-      - name: root
-        queues:
-          - name: default
-```
-Preemption would be triggerred in case of any quota decrease.
-
-3\) Switch OFF the feature (default):
-
-Current Set up:
-
-Partition `default` doesn't have any preemption related configuration.
-
-```yaml
-partitions:  
-  - name: default
-    queues:
-    - name: root
-      queues:
-        - name: default  
-```
-
-New Set up:
-
-Even in new set up, Partition `default` doesn't have any `preemption.quotapreemptionenabled` setting explicitly.
-
-```yaml
-partitions:
-  - name: default
-    queues:
-      - name: root
-        queues:
-          - name: default
-```
-Preemption won't be triggerred in case of any quota decrease.
-
-### Preemption Delay
-
-Quota Preemption Delay is the time duration after which the preemption should get triggered for quota changes. It is configurable.Unit is seconds.
-
-It is configurable as follows:
-```yaml
-partitions:  
-  - name: <name of the partition>  
-    queues:  
-      - name: <name of the queue>  
-        resources:  
-          max: <maximum resources allowed for this queue>
-        properties:
-          quota.preemption.delay: <quota preemption delay in seconds>
-```
-It could be any value between 0 and max int. Setting any value between 60 seconds and 6 hours is preferable for most of the cases.
-
-Examples are 
-
-1\) Quota decrease with delay in hours:
-
-Current Set up:
-
-`root.default` max resource is `{memory: 20G}`
-
-```yaml
-partitions:  
-  - name: default
-    preemption:
-      quotapreemptionenabled: true
-    queues:
-    - name: root
-      queues:
-        - name: default 
-          resources:  
-            max:  
-              {memory: 20G}  
-```
-
-New Set up:
-
-`root.default` max resource decreased to `{memory: 10G}`. Delay of 2 hours should be configured as `2h`.
-
-```yaml
-partitions:
-  - name: default
-    preemption:
-      quotapreemptionenabled: true
-    queues:
-      - name: root
-        queues:
-          - name: default
+          - name: prod
+            parent: false
             resources:
               max:
-                {memory: 10G}
+                {memory: 10T, vcore: 1000}
             properties:
-              quota.preemption.delay: 2h
-```
-Preemption would be triggerred after 2 hours for the queue `root.default` to enforce newly configured quota by evicting the suitable victims.
-
-2\) Quota decrease with delay in minutes:
-
-Current Set up:
-
-`root.default` max resource is `{memory: 20G}`
-
-```yaml
-partitions:  
-  - name: default
-    preemption:
-      quotapreemptionenabled: true
-    queues:
-    - name: root
-      queues:
-        - name: default 
-          resources:  
-            max:  
-              {memory: 20G}  
+              quota.preemption.delay: 15m
 ```
 
-New Set up:
+:::note Dynamic Queues
+Dynamic queues do not support quota preemption.
+:::
 
-`root.default` max resource decreased to `{memory: 10G}`. Delay of 5 minutes should be configured as `5m`.
+:::note Inheritance
+The current configuration does not support inheritance of the _quota.preemption.delay_ value.
+[YUNIKORN-3208](https://issues.apache.org/jira/browse/YUNIKORN-3208) has been logged to support that functionality.
+:::
 
-```yaml
-partitions:
-  - name: default
-    preemption:
-      quotapreemptionenabled: true
-    queues:
-      - name: root
-        queues:
-          - name: default
-            resources:
-              max:
-                {memory: 10G}
-            properties:
-              quota.preemption.delay: 5m
-```
-Preemption would be triggerred after 5 minutes for the queue `root.default` to enforce newly configured quota by evicting the suitable victims.
+## Recommendations
 
-3\) Quota decrease but not delay:
+Quota preemption should be used with care. Using short delays is not recommended. Although no minimum delay is enforced any delay below a minute (60 seconds) should not be used.
 
-Current Set up:
+If a queue mainly runs service type workloads up and down scaling of deployments should be considered when changing quotas. Workloads will not exit automatically and will be restarted if preempted.
+Using quota preemption could cause the service to be left in a degraded state. The controller will also try to recreate the workload.
 
-`root.default` max resource is `{memory: 20G}`
+When running batch workloads, the delay should be based on the runtime of the workloads. Preempting workloads should be a last resort.
+A workload that finishes automatically lowers the queue usage and will not require to be re-run. Preempted workloads have already used resources and will be more expensive overall.
 
-```yaml
-partitions:  
-  - name: default
-    preemption:
-      quotapreemptionenabled: true
-    queues:
-    - name: root
-      queues:
-        - name: default 
-          resources:  
-            max:  
-              {memory: 20G}  
-```
-
-New Set up:
-
-`root.default` max resource decreased to `{memory: 10G}` but delay is not configured.
-
-```yaml
-partitions:
-  - name: default
-    preemption:
-      quotapreemptionenabled: true
-    queues:
-      - name: root
-        queues:
-          - name: default
-            resources:
-              max:
-                {memory: 10G}
-```
-Preemption won't be triggerred for this quota decrease as delay is 0 (default).
-
-4\) Quota increase:
-
-Current Set up:
-
-`root.default` max resource is `{memory: 20G}`
-
-```yaml
-partitions:  
-  - name: default
-    preemption:
-      quotapreemptionenabled: true
-    queues:
-    - name: root
-      queues:
-        - name: default 
-          resources:  
-            max:  
-              {memory: 20G}  
-```
-
-New Set up:
-
-`root.default` max resource increased to `{memory: 50G}`
-
-```yaml
-partitions:
-  - name: default
-    preemption:
-      quotapreemptionenabled: true
-    queues:
-      - name: root
-        queues:
-          - name: default
-            resources:
-              max:
-                {memory: 50G}
-```
-Preemption won't be triggerred as it is not required for quota increase and not expected behaviour.
+:::tip
+For consistency: until inheritance is provided setting a delay on a parent queue should not be set unless all children below it are also updated with the same delay.
+:::
