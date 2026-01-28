@@ -67,7 +67,7 @@ Any non-zero value for the delay will be added to the time the change of the quo
 Quota preemption will only be triggered if the queue at the point in time of the change is above the new quota.
 The standard scheduling quota enforcement will immediately enforce the new quota in all other cases and no further preemption actions are needed.
 
-The scheduler will not trigger quota preemption until the delay has passed. If at that point in time the queue usage has dropped below the quota set no the queue at that point in time, no actions will be taken.
+The scheduler will not trigger quota preemption until the delay has passed. If at that point in time the queue usage has dropped below the quota set, no actions will be taken.
 The quota preemption tracking information will be cleaned up in that case.
 
 To prevent multiple quota changes from impacting each other quota preemption works top down in the queue hierarchy. If a change of a quota has triggered preemption on a queue none of the children of that queue will be able to trigger quota preemption.
