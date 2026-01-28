@@ -30,6 +30,7 @@ module.exports = {
             'user_guide/sorting_policies',
             'user_guide/priorities',
             'user_guide/preemption_cases',
+            'user_guide/quota_preemption',
             'user_guide/acls',
             'user_guide/resource_quota_management',
             'user_guide/gang_scheduling',

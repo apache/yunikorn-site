@@ -71,19 +71,25 @@ Placement rules and limits are explained in their own chapters
 The `nodesortpolicy` key defines the way the nodes are sorted for the partition.
 Details on the values that can be used are in the [sorting policy](sorting_policies.md#node-sorting) documentation.
 
-The `preemption` key can have only one sub key: _enabled_.
-This boolean value defines the preemption behavior for the whole partition.
+The `preemption` key can have two sub keys:
+* _enabled_
+* _quotapreemptionenabled_
+Both are boolean values that define the preemption behavior for the whole partition.
 
 The default value for _enabled_ is _true_.
 Allowed values: _true_ or _false_, any other value will cause a parse error.
 
-Example `partition` yaml entry with a `nodesortpolicy` of _fair_ and preemption disabled:
+The default value for _quotapreemptionenabled_ is _false_.
+Allowed values: _true_ or _false_, any other value will cause a parse error.
+
+Example `partition` yaml entry with a `nodesortpolicy` of _fair_ and all preemption disabled:
 ```yaml
 partitions:
   - name: <name of the partition>
     nodesortpolicy: fair
     preemption:
       enabled: false
+      quotapreemptionenabled: false
 ```
 NOTE:
 Currently the Kubernetes unique shim does not support any other partition than the `default` partition.
@@ -108,7 +114,7 @@ a more fine-grained control on resource sharing across multiple tenants with con
 YuniKorn queue can be used to replace the namespace resource quota, in order to provide more scheduling features.
 :::
 
-The _queues_ entry is the main configuration element. 
+The _queues_ entry is the main configuration element.
 It defines a hierarchical structure for the queues.
 
 It can have a `root` queue defined but it is not a required element.
@@ -215,7 +221,7 @@ The recovery queue, identified by the name `root.@recovery@`, is a dynamic queue
 
 The placement rules are defined and documented in the [placement rule](placement_rules.md) document.
 
-Each partition can have only one set of placement rules defined. 
+Each partition can have only one set of placement rules defined.
 If no rules are defined, [provided rule](placement_rules#provided-rule) will be applied.
 Each application *must* have a queue set on submit.
 
@@ -263,7 +269,7 @@ The _limit_ parameter is an optional description of the limit entry.
 It is not used for anything but making the configuration understandable and readable. 
 
 The _users_ and _groups_ that can be configured can be one of two types:
-* a star "*" 
+* a star "*"
 * a list of users or groups.
 
 If the entry for users or groups contains more than one (1) entry it is always considered a list of either users or groups.
@@ -289,20 +295,20 @@ _maxapplications_ is an unsigned integer value, which allows you to limit the nu
 Specifying 0 for _maxapplications_ is not allowed.
 
 The _maxresources_ parameter can be used to specify a limit for one or more resources.
-The _maxresources_ uses the same syntax as the [resources](#resources) parameter for the queue. 
+The _maxresources_ uses the same syntax as the [resources](#resources) parameter for the queue.
 Resources that are not specified in the list are not limited.
 A resource limit can be set to 0.
-This prevents the user or group from requesting the specified resource even though the queue or partition has that specific resource available.  
+This prevents the user or group from requesting the specified resource even though the queue or partition has that specific resource available.
 Specifying an overall resource limit of zero is not allowed.
 This means that at least one of the resources specified in the limit must be greater than zero.
 
 If a resource is not available on a queue the maximum resources on a queue definition should be used.
 Specifying a limit that is effectively zero, _maxapplications_ is zero and all resource limits are zero, is not allowed and will cause a parsing error.
- 
-A limit is per user or group. 
+
+A limit is per user or group.
 It is *not* a combined limit for all the users or groups together.
 
-As an example: 
+As an example:
 ```yaml
 limit: "example entry"
 maxapplications: 10
@@ -318,7 +324,7 @@ Additional queue configuration can be added via the `properties` section,
 specified as simple key/value pairs. The following parameters are currently
 supported:
 
-#### `application.sort.policy` 
+#### `application.sort.policy`
 
 Supported values: `fifo`, `fair`, `stateaware`
 
@@ -410,11 +416,21 @@ Default value: `30s`
 
 The property can only be set on a leaf queue. A queue with pending requests can only trigger preemption after it has been in the queue for at least this duration.
 
+#### `quota.preemption.delay`
+
+Supported values: any positive [Golang duration string](https://pkg.go.dev/time#ParseDuration)
+
+Default value: `0s`
+
+The property can be set on any queue. The default value will not trigger quota preemption. Quota preemption cannot be triggered until at least this duration has expired.
+The first quota configuration change is considered the trigger time. The starting time is the trigger time plus the delay. Consecutive quota changes will not affect the trigger time.
+Delay changes are applied to the starting time as a delta compared to the original delay value.
+
 ### Resources
 The resources entry for the queue can set the _guaranteed_ and or _maximum_ resources for a queue.
 Resource limits are checked recursively.
 The usage of a leaf queue is the sum of all assigned resources for that queue.
-The usage of a parent queue is the sum of the usage of all queues, leafs and parents, below the parent queue. 
+The usage of a parent queue is the sum of the usage of all queues, leafs and parents, below the parent queue.
 
 The root queue, when defined, cannot have any resource limit set.
 If the root queue has any limit set a parsing error will occur.
@@ -423,7 +439,7 @@ There is no guaranteed resource setting for the root queue.
 
 Maximum resources when configured place a hard limit on the size of all allocations that can be assigned to a queue at any point in time.
 A maximum resource can be set to 0 which makes the resource not available to the queue.
-Guaranteed resources are used in calculating the share of the queue and during allocation. 
+Guaranteed resources are used in calculating the share of the queue and during allocation.
 It is used as one of the inputs for deciding which queue to give the allocation to.
 Preemption uses the _guaranteed_ resource of a queue as a base which a queue cannot go below.
 
