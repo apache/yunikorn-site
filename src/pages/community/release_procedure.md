@@ -57,7 +57,7 @@ The instructions and tools obey the ASF [release policy](http://www.apache.org/l
 
 ## Release Procedure
 Simplified release procedure:
-1. Create a release branch for the target release in all git repos, such as `branch-1.3`
+1. Create a release branch for the target release in all git repos, such as `branch-1.8`
 2. Stabilize the release by fixing test failures and bugs only
 3. Tag update release for a new version to prepare a release candidate, e.g `v1.8.0-1` for RC1
 4. Update the CHANGELOG
@@ -72,8 +72,8 @@ Branching and tagging can, and in most cases will, require changes in the go mod
 Branching is part of the release preparation and often has happened some time before the release process starts.
 As an example the steps to create the branch for the `v1.8.0` release:
 ```shell script
-git checkout -b branch-1.3 master
-git push -u origin branch-1.3
+git checkout -b branch-1.8 master
+git push -u origin branch-1.8
 ```
 
 ### Tag for RCs
@@ -94,7 +94,7 @@ This will break golang dependency resolution for downstream users.
 :::
 
 ### Update references based on tags
-The tagging is multistep process, all actions are done on the branch that will be released, like `branch-1.3`:
+The tagging is multistep process, all actions are done on the branch that will be released, like `branch-1.8`:
 1. Tag the web and scheduler interface with the release candidate tag: i.e. `v1.8.0-1`.
 2. Update the `go.mod` file in the core using:
    ```shell script
