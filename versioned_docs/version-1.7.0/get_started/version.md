@@ -57,4 +57,5 @@ Older build dependencies in earlier releases could prevent you from using some n
 | 1.29.x              |            1.5.0            |       -       |
 | 1.30.x              |            1.6.0            |       -       |
 | 1.31.x              |            1.6.0            |       -       |
+| 1.32.x              |            1.7.0            |       -       |
 
