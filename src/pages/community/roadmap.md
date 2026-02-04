@@ -25,33 +25,33 @@ under the License.
 # Kubernetes version support
 
 Supported Kubernetes versions and the Kubernetes dependency will be defined and finalised during the development cycle.
-Current build dependency: 1.27
+Current build dependency: 1.34
 
 # Next Release Development
 
 Release Details:
-- Version: 1.5.0
-- Target release date: February / March 2024
+- Version: 1.9.0
+- Target release date: May 2026
 - Release manager: undecided
 - Development status: [Issue tracker](https://issues.apache.org/jira/issues/?filter=12348416)
 
 Planned major features:
-- [YUNIKORN-970](https://issues.apache.org/jira/browse/YUNIKORN-970) Change queue metrics to labeled
-- [YUNIKORN-1544](https://issues.apache.org/jira/browse/YUNIKORN-1544) User and group quota enforcement - Phase 2
-- [YUNIKORN-2099](https://issues.apache.org/jira/browse/YUNIKORN-2099) [Umbrella] K8shim simplification
-- [YUNIKORN-2115](https://issues.apache.org/jira/browse/YUNIKORN-2125) [Umbrella] Application tracking history - Phase 2
-- [YUNIKORN-1362](https://issues.apache.org/jira/browse/YUNIKORN-1362) filtering nodes in UI
-- [YUNIKORN-1727](https://issues.apache.org/jira/browse/YUNIKORN-1727) build info extension
-- [YUNIKORN-1922](https://issues.apache.org/jira/browse/YUNIKORN-1922) display pending resources in web UI
-- [YUNIKORN-2140](https://issues.apache.org/jira/browse/YUNIKORN-2140) Web UI: resource display rework
-- [no jira yet] display preemption info in web UI
+- [YUNIKORN-3211](https://issues.apache.org/jira/browse/YUNIKORN-3211) K8s 1.35 support
+- [YUNIKORN-3117](https://issues.apache.org/jira/browse/YUNIKORN-3117) DRA GA in K8s 1.34
+- [YUNIKORN-3058](https://issues.apache.org/jira/browse/YUNIKORN-3058) [UMBRELLA] Support InPlacePodVerticalScaling (phase 3)
+- [YUNIKORN-3210](https://issues.apache.org/jira/browse/YUNIKORN-3210) Remove plugin code
+- [YUNIKORN-3122](https://issues.apache.org/jira/browse/YUNIKORN-3122) Optimize Node Evaluation by Pre-filtering Tainted Nodes
+- [YUNIKORN-3203](https://issues.apache.org/jira/browse/YUNIKORN-3203) [Umbrella] Quota change enforcement via preemption
+- [YUNIKORN-3192](https://issues.apache.org/jira/browse/YUNIKORN-3192) Queue configuration management
+- [YUNIKORN-3118](https://issues.apache.org/jira/browse/YUNIKORN-3118) Implement Parallel TryNode Evaluation
 
+Minor changes and important bugs:
+- [YUNIKORN-3025](https://issues.apache.org/jira/browse/YUNIKORN-3025) Support for application-level preemption
+- [YUNIKORN-1727](https://issues.apache.org/jira/browse/YUNIKORN-1727) build info extension
+- [YUNIKORN-3132](https://issues.apache.org/jira/browse/YUNIKORN-3132) Placeholder deployment hardening
+- [multiple jiras] Web UI updates to expose
 
 # Future development: long term goals
-- [YUNIKORN-22](https://issues.apache.org/jira/browse/YUNIKORN-22) Partition support for nodes
-- [YUNIKORN-1728](https://issues.apache.org/jira/browse/YUNIKORN-1728) Percentage support for queue max app and resources
-- Queue type change from leaf to parent and reverse
-- moving applications from queue to queue
-- compressed queue config (configmap 1MB limit)
-- reproducible builds
+- [YUNIKORN-2985](https://issues.apache.org/jira/browse/YUNIKORN-2985) [Umbrella] Foreign pod preemption
+- [YUNIKORN-1546](https://issues.apache.org/jira/browse/YUNIKORN-1546) [Umbrella] Allow changing queue type
 - FIPS builds

@@ -23,16 +23,8 @@ under the License.
 -->
 
 ## Upcoming Events
-- KubeCon and CloudNativeCon 2023, Amsterdam  
-  _Scheduling Framework: Batch Extensions with Apache YuniKorn_  
-  https://sched.co/1Hydt  (Thursday, April 20th 4.30PM CEST)  
-  Wilfred Spiegelenburg and Peter Bacsko (Cloudera)
-- KubeCon and CloudNativeCon 2023, Batch + HPC Day event, Amsterdam
-  _SLA Aware Batch Scheduling in Apache YuniKorn with Multi-Tenant Preemption_  
-  https://sched.co/1Jo90 (Tuesday, April 18th 3.50PM CEST)  
-  Craig Condit and Sunil Govindan (Cloudera)
 
-Join us in person or virtual.  We wil post links to the recordings of the sessions after they have been made available.
+None planned at this point.
 
 ---
 
@@ -54,28 +46,28 @@ A lot has changed since our last meetup a little over 6 months ago.
 We since then have graduated to an Apache TLP, released v1.0.0 and two minor releases as a follow-up.
 We had multiple presentations at: KubeCon Europe 2022, VISA Meetup and ApacheCON 2022.
 This is just a partial list of all that has happened and is going to happen.
- 
+
 To add this event to your Google calendar [click here].
 The invite includes a link for joining us virtually [using zoom webinar].
 
-We have the following agenda lined up:  
-1. **YuniKorn @ Pinterest**  
-Speaker : Rainie, Pinterest  
+We have the following agenda lined up:
+1. **YuniKorn @ Pinterest**
+Speaker : Rainie, Pinterest
 Abstract:
 Spark on YARN is used for production workloads.
 Using Apache YuniKorn we try to move from YARN to Kubernetes.
 A path of testing, comparing and changing at multiple levels.
-2. **ApacheCON and YuniKorn : Feedback**  
-Speaker : Wilfred, Cloudera  
+2. **ApacheCON and YuniKorn : Feedback**
+Speaker : Wilfred, Cloudera
 Abstract:
 As a community we delivered two talks at ApacheCON NA.
 How did we do and what was the feedback on our two talks.
 Cloud native also had its own track: some observations from other talks.
-3. **YuniKorn roadmap**  
-Speaker : Wilfred / Craig, Cloudera  
+3. **YuniKorn roadmap**
+Speaker : Wilfred / Craig, Cloudera
 Abstract:
-For YuniKorn 1.2 we have a roadmap defined around User Quotas, Application Priority and a K8s upgrade. 
-Is that all we want and need. Do we want to add other things, and what do we want to do after this release?  
+For YuniKorn 1.2 we have a roadmap defined around User Quotas, Application Priority and a K8s upgrade.
+Is that all we want and need. Do we want to add other things, and what do we want to do after this release?
 
 There will also plenty of time to discuss community related things that are not on the agenda.
 
@@ -103,19 +95,26 @@ _Abstract_: Apache YuniKorn (Incubating) has released v0.11 earlier this year wi
 like Gang scheduling, REST API enhancements and Kubernetes 1.19 support. In a month, we are planning the major
 v1.0.0 release with Kubernetes 1.20 & 1.21 support, improved node sorting and numerous small fixes & enhancements! In this meetup, we will deep dive into the implementation of Gang scheduling behind the use of temporary
 placeholder pods on Kubernetes, significant performance improvement with simplified scheduler core code and
-a new node sorting algorithm. Please find all the topics for this meetup [here](https://drive.google.com/file/d/1cbT3i6_kSvrvlj4M7OyNIvXohVrGRiEl/view?usp=sharing). 
+a new node sorting algorithm. Please find all the topics for this meetup [here](https://drive.google.com/file/d/1cbT3i6_kSvrvlj4M7OyNIvXohVrGRiEl/view?usp=sharing).
 
 ----
 
 ## Past Conference & Meetup Recordings
 
-- KubeCon North America 2022, Batch & HPC day: 
+- KubeCon North America 2025:
+  - [Optimized Scheduling for Big Data Workloads - The Why, What...](https://www.youtube.com/watch?v=_W83GgQof70) :busts_in_silhouette: Rahul Sharma, Wilfred Spiegelenburg
+  - [Panel: Cracking the Data Locality Puzzle](https://youtu.be/NUR0bFPchks) :busts_in_silhouette: Wilfred Spiegelenburg, Et al.
+- KubeCon Europe 2023: [Scheduling Framework: Batch Extensions with Apache YuniKorn](https://www.youtube.com/watch?v=ij2UQ9V4CBU) :busts_in_silhouette: Wilfred Spiegelenburg, Peter Bacsko
+- Data on Kubernetes Community: [Batch Workloads in Multi-tenant Environment with Apache YuniKorn](https://www.youtube.com/watch?v=8B8GNE-wl-g) :busts_in_silhouette: Wilfred Spiegelenburg, Sunil Govindan
+- Apache Community Over Code 2023 Apache YuniKorn: preemption for multi tenant Kubernetes clusters :busts_in_silhouette: Wilfred Spiegelenburg, Craig Condit
+- KubeCon North America 2023 [Migrating Hybrid Big Data Platforms at Scale to Kubernetes](https://www.youtube.com/watch?v=1NepjxK4XLM) :busts_in_silhouette: Sunil Govindan
+- KubeCon North America 2022 including Batch & HPC day:
   - [Beyond Experimental: Spark on Kubernetes](https://www.youtube.com/watch?v=u7htKIiK75c) :busts_in_silhouette:  Weiwei Yang, Bowen Li
   - [Panel discussion: Batch scheduling on Kubernetes](https://www.youtube.com/watch?v=xQBkBRJdMCs) :busts_in_silhouette:  Wilfred Spiegelenburg, Et al.
 - Apache YuniKorn Meetup: [October 2022](https://youtu.be/l76NByMersg) | [Pinterest presentation](https://drive.google.com/file/d/1sSXRNx_ndk4mWaCICjtbddjoSUYN9TV7/view?usp=sharing) | [Cloudera presentation](https://drive.google.com/file/d/14jqfDNpCTTQr0R2ZBrghn-WGFBR89KI7/view?usp=sharing) :busts_in_silhouette: Wilfred Spiegelenburg, Rainie Li, Craig Condit
 - ApacheCon North America 2022: [Apache YuniKorn Enhanced Scheduling  in the Cloud](https://www.apachecon.com/acna2022/slides/03_Spiegelenburg_Apache-YuniKorn-Enhanced.pdf) :busts_in_silhouette:  Wilfred Spiegelenburg, Manikandan Ramaraj
 - VISA Data Meetup: [Apache YuniKorn scheduling Apache Spark on Kubernetes](https://web.cvent.com/event/9ceb73f1-4ce7-480e-95ed-fe65dea09cc4/websitePage:e6b9cca5-1c3b-4b7a-99e7-62c045b1ce26?i=bn_TynKrfUao8DzBYW3XwA&locale=en-US) :busts_in_silhouette: Wilfred Spiegelenburg
-- KubeCon Europe 2022, Batch & HPC day: [Apache YuniKorn A Kubernetes Scheduler Plugin for Batch Workloads](https://www.youtube.com/watch?v=cQD_jwA4fqo) :busts_in_silhouette: Wilfred Spiegelenburg, Craig Condit 
+- KubeCon Europe 2022, Batch & HPC day: [Apache YuniKorn A Kubernetes Scheduler Plugin for Batch Workloads](https://www.youtube.com/watch?v=cQD_jwA4fqo) :busts_in_silhouette: Wilfred Spiegelenburg, Craig Condit
 - ApacheCon 2021: [Next Level Spark on Kubernetes with Apache YuniKorn (Incubating)](https://youtu.be/gOST-iT-hj8) :busts_in_silhouette: Weiwei Yang, Chaoran Yu
 - ApacheCon Asia 2021: [State Of The Union With Apache Yunikorn (Incubating) - Cloud Native Scheduler For Big Data Usecases](https://www.youtube.com/watch?v=c9UYxzqVMeg)  :busts_in_silhouette: Julia Kinga Marton, Sunil Govindan
 - Future of Data Meetup: [Apache YuniKorn: Cloud-native Resource Scheduling](https://www.youtube.com/watch?v=j-6ehu6GrwE) :busts_in_silhouette: Wangda Tan, Wilfred Spiegelenburg
