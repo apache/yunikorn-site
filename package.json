@@ -2,6 +2,10 @@
   "name": "website",
   "version": "2.0.0",
   "private": true,
+    "engines": {
+    "node": ">=24.0",
+    "pnpm": ">=10"
+  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "start": "docusaurus start",
@@ -19,7 +23,7 @@
     "axios": "^1.7.7",
     "clsx": "^2.1.1",
     "node": "^24.11.0",
-    "pnpm": "10.27.0",
+    "pnpm": "10.28.2",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },
