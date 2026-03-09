@@ -540,9 +540,9 @@ data:
   service.disableGangScheduling: "false"
   service.enableConfigHotRefresh: "true"
   service.placeholderImage: "registry.k8s.io/pause:3.7"
-  service.placeholderRunAsUser: 65534
-  service.placeholderRunAsGroup: 65534
-  service.placeholderFsGroup: 65534
+  service.placeholderRunAsUser: 65535
+  service.placeholderRunAsGroup: 65535
+  service.placeholderFsGroup: 65535
   service.instanceTypeNodeLabelKey: "node.kubernetes.io/instance-type"
   health.checkInterval: "30s"
   log.level: "INFO"
