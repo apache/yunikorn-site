@@ -20,7 +20,7 @@
     "@docusaurus/core": "3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
     "@mdx-js/react": "^3.0.1",
-    "axios": "^1.7.7",
+    "axios": "^1.13.5",
     "clsx": "^2.1.1",
     "node": "^24.11.0",
     "pnpm": "10.28.2",
