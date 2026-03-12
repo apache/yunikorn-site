@@ -247,7 +247,7 @@ Sets the tolerations for the YuniKorn scheduler pod.
 
 Default: `[]`
 
-Example: 
+Example:
 ```yaml
 tolerations:
   - key: node-role.kubernetes.io/control-plane
@@ -262,7 +262,7 @@ Sets the tolerations for the YuniKorn admission controller pod.
 
 Default: `[]`
 
-Example: 
+Example:
 ```yaml
 admissionController:
   tolerations:
@@ -540,6 +540,9 @@ data:
   service.disableGangScheduling: "false"
   service.enableConfigHotRefresh: "true"
   service.placeholderImage: "registry.k8s.io/pause:3.7"
+  service.placeholderRunAsUser: 65535
+  service.placeholderRunAsGroup: 65535
+  service.placeholderFsGroup: 65535
   service.instanceTypeNodeLabelKey: "node.kubernetes.io/instance-type"
   health.checkInterval: "30s"
   log.level: "INFO"
@@ -692,6 +695,33 @@ Example:
 ```yaml
 service.placeholderImage: "registry.k8s.io/pause:3.6"
 ```
+#### service.placeholderRunAsUser
+**Optional** setting which sets the runtime user ID of the entrypoint process of the placeholder container.
+
+Default: If value not provided, it will default to the user of the image you set in `service.placeholderImage`. For the default placeholder image (`registry.k8s.io/pause`) it is `65535`.
+
+Example:
+```yaml
+service.placeholderRunAsUser: 65535
+```
+#### service.placeholderRunAsGroup
+**Optional** setting which sets the runtime group ID of the entrypoint process of the placeholder container.
+
+Default: If value not provided, it will default to the group of the image you set in `service.placeholderImage`. For the default placeholder image (`registry.k8s.io/pause`) it is `65535`.
+
+Example:
+```yaml
+service.placeholderRunAsGroup: 65535
+```
+#### service.placeholderFsGroup
+**Optional** setting which sets the runtime fsGroup ID of the entrypoint process of the placeholder container.
+
+Default: If value not provided, it will *NOT* be set.
+
+Example:
+```yaml
+service.placeholderFsGroup: 65535
+```
 #### service.instanceTypeNodeLabelKey
 Sets the node label that will be used to determine the instance type of node.
 
@@ -810,9 +840,9 @@ log.level: "DEBUG"
 #### log.\{subsystem\}.level
 Sets the verbosity that YuniKorn subsystem will log at.
 
-Yunikorn allows fine-grained logging configuration in a hierarchical manner. For example, 
-setting an entry for `log.core.level` will configure all loggers that start with `core.` 
-(including `core.scheduler`, etc.) unless a more specific configuration is present. 
+Yunikorn allows fine-grained logging configuration in a hierarchical manner. For example,
+setting an entry for `log.core.level` will configure all loggers that start with `core.`
+(including `core.scheduler`, etc.) unless a more specific configuration is present.
 Each subsystem[^1] has its log level.
 
 A change to this setting will be picked up without a restart of YuniKorn. The available
@@ -935,7 +965,7 @@ Example:
 admissionController.filtering.bypassNamespaces: "^kube-system$,^fluentd-"
 ```
 
-> **_NOTE :_**  
+> **_NOTE :_**
 > To simplify management, you can directly set the `yunikorn.apache.org/namespace.enableYunikorn` annotation on the namespace itself, regardless of whether it is specified in a regular expression. This annotation enables you to determine if the namespace should be managed by Yunikorn.
 
 #### admissionController.filtering.labelNamespaces
