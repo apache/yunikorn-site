@@ -151,15 +151,20 @@ Whenever any leaf queue quota changes, the above described preemptable resource 
 Collect all running tasks based on below described criteria:
 
 1. Ignore Daemon set pods  
-2. Choose pods which have “at least one” match with preemptable resources.
+2. Choose pods only whose resources have “at least one type” match with preemptable resources. Otherwise, completely "dis-joint" pods resource type wise are ignored.
 
 Once the set of tasks been collected, same has to be sorted based on the below described preference rules:
 
-1. Prefer Non originator pods over originator  
-2. In case of tie in rule \#1, prefer pods based on priority. Lower priority picked up first followed by high priority pods.  
-3. In case of tie in rule \#2, Prefer pods for which the “allowPreemption” flag has been set to true over other pods.  
-4. In case of tie in rule \#3, prefer “young” pods based on the age  
-   
+1. Prefer the highest scoring pod over the others. Scores are computed based on the following criteria:
+   1. Prefer Non originator pods over originator. Score is higher for Non originator pods when compared to originator.
+   2. Prefer pods for which the “allowPreemption” flag has been set to true over other pods. Score is higher for pods for which “allowPreemption” flag has been set when compared to others.
+   3. Prefer pods based on "type matching" percentage with preemptable resources. Higher the "type matching" percentage, higher the score. "type matching" percentage is calculated based on the no. of matching resource types against preemptable resource types and total no. of resource types used by the pod. For example, pod used only one resource type and that too matching with preemptable resource types carries 100% type matching percentage.
+
+Once the total score derived for each pod, prefer the highest scoring pod over the others.
+
+2. In case of tie or having same scores in rule \#1, prefer pods based on priority. Lower priority picked up first followed by high priority pods.
+3. In case of tie in rule \#2, prefer “young” pods based on the age. Pod creation timestamp is truncated upto Unit "Hour" and used as lowest granularity. So, pods created in same hour are not really ordered, whereas pods created in different hours are ordered effectively by not taking seconds, micro, millis etc. into account.
+4. In case of tie in rule \#3, prefer the least used pods resource wise. Order pods based on allocated resources. Only the preemptable resource types used in pods are taken into account.
 
 Once the tasks are sorted, tasks can be traversed one by one and preempted to free up resources until we reach the target.
 
