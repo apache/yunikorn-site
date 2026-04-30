@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkwebsite=globalThis.webpackChunkwebsite||[]).push([[70806],{11305(e,s,t){t.r(s),t.d(s,{default:()=>b});t(96363);var i=t(57596),a=t(47259);const b=()=>(0,a.jsx)(i.rd,{to:"/community/get_involved/"})}}]);
