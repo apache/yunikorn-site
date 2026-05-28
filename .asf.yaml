@@ -43,8 +43,7 @@ github:
       branches:
         includes:
           - "~DEFAULT_BRANCH"
-          - "release/*"
-          - "rel/*"
+          - "asf-site"
         excludes: []
       bypass_teams:
         - root
