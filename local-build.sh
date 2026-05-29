@@ -21,6 +21,7 @@ function stop() {
   docker stop yunikorn-site-local &>/dev/null
   docker rm -f yunikorn-site-local &>/dev/null
   docker rmi yunikorn/yunikorn-website:latest &>/dev/null
+  docker builder prune -f
 }
 
 function clean() {
@@ -36,7 +37,11 @@ function node_version() {
     NODE_VERSION=$(<"$NV_FILE")
   fi
   # docusausrus 3.9 and later only work with node 20 later, we use latest LTS as default.
-  NODE_VERSION=${NODE_VERSION:-24.11}
+  NODE_VERSION=${NODE_VERSION:-24.16}
+}
+
+function pnpm_version() {
+  PNPM_VERSION=${PNPM_VERSION:-11.4}
 }
 
 function image_build() {
@@ -44,7 +49,7 @@ function image_build() {
   cat <<EOF >.dockerfile.tmp
 FROM node:${NODE_VERSION}
 WORKDIR /yunikorn-site
-RUN npm install -g pnpm
+RUN npm install -g pnpm@${PNPM_VERSION}
 COPY pnpm-lock.yaml /yunikorn-site
 RUN pnpm fetch
 COPY . /yunikorn-site
@@ -59,12 +64,11 @@ EOF
   rm -rf .dockerfile.tmp
 }
 
-function web() {
+function run_web() {
   # start the web server
-  echo " Starting development server with locale $LOCALE"
-  docker exec -it yunikorn-site-local /bin/bash -c "pnpm start --locale=$LOCALE --host 0.0.0.0"
+  echo " Starting development server"
+  docker exec -it yunikorn-site-local /bin/bash -c "pnpm start --host 0.0.0.0"
   RET=$?
-  [ ${RET} -eq 131 ] && echo "  ctrl-\ caught, restarting" && return 2
   [ ${RET} -eq 130 ] && echo "  ctrl-c caught, exiting build" && return 0
   [ ${RET} -ne 0 ] && echo "start web-server failed" && return 1
 }
@@ -86,16 +90,6 @@ function run_base() {
   return 0
 }
 
-function run_web() {
-	while true; do
-		web
-		RET=$?
-		[ ${RET} -ne 2 ] && return ${RET}
-		read -r -p "locale for website: " LOCALE
-		LOCALE="${LOCALE:-en}"
-	done
-}
-
 function run_build() {
   # run build inside the container
   if ! docker exec -it yunikorn-site-local pnpm build; then
@@ -107,9 +101,8 @@ function run_build() {
 
 function print_usage() {
   cat <<EOF
-Usage: $(basename "$0") run [locale] | build | clean | help
+Usage: $(basename "$0") run | build | clean | help
     run     build the website, and launch the server in a docker image.
-            a locale can be specified, currently supported: "en"
     build   create a production build, input for manual update of the website.
     clean   remove old build and cached files.
     help    print this message.
@@ -120,25 +113,21 @@ Description:
   made in this directory, the site will be automatically rebuild. The server
   will be automatically refreshed. Be aware that some of the changes require
   the server to be restarted.
-  Use ctrl-\ to restart, allowing a locale change (SIGQUIT).
   Use ctrl-c to exit (SIGINT).
 
   This script must be run from the top directory of the repository.
 EOF
 }
 
-if [ $# -eq 0 ] || [ $# -gt 2 ] || [ ! -f ./docusaurus.config.js ]; then
+if [ $# -eq 0 ] || [ $# -gt 1 ] || [ ! -f ./docusaurus.config.js ]; then
   print_usage
   exit 1
 fi
 RUNOPT=$1
 if [ "${RUNOPT}" == "run" ]; then
-	LOCALE=en
-  if [ $# -eq 2 ]; then
-    LOCALE=$2
-  fi
   stop
   node_version
+  pnpm_version
   image_build
   [ $? -eq 1 ] && echo "image build failed" && exit 1
   run_base
@@ -149,6 +138,7 @@ if [ "${RUNOPT}" == "run" ]; then
 elif [ "${RUNOPT}" == "build" ]; then
   stop
   node_version
+  pnpm_version
   image_build
   [ $? -eq 1 ] && echo "image build failed" && exit 1
   run_base

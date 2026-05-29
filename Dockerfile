@@ -13,15 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG NODE_VERSION=
+ARG NODE_VERSION=24.16
 FROM node:${NODE_VERSION}
 
 WORKDIR /yunikorn-site
-RUN npm install -g pnpm
+ARG PNPM_VERSION=11.4
+RUN npm install -g pnpm@${PNPM_VERSION}
 COPY pnpm-lock.yaml /yunikorn-site
 RUN pnpm fetch
 
 COPY . /yunikorn-site
 RUN pnpm install -r --offline
 RUN pnpm build
-ENTRYPOINT pnpm start --host 0.0.0.0
+ENTRYPOINT [ "pnpm","start","--host","0.0.0.0" ]
