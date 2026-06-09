@@ -60,8 +60,7 @@ Building the Docker images can be triggered by following command:
 make image
 ```
 
-This will generate images for the scheduler, scheduler plugin, and admission
-controller.
+This will generate images for the scheduler and admission controller.
 
 The images created can be deployed directly on Kubernetes.
 Some sample deployments that can be used are found under the
@@ -93,7 +92,6 @@ info in the image metadata. You can retrieve this information with docker
 
 ```shell script
 docker inspect apache/yunikorn:scheduler-amd64-latest
-docker inspect apache/yunikorn:scheduler-plugin-amd64-latest
 docker inspect apache/yunikorn:admission-controller-amd64-latest
 ```
 
@@ -228,12 +226,6 @@ make run
 
 This will launch a local scheduler and connect to the Kubernetes cluster
 referenced in your `KUBECONFIG` or `$HOME/.kube/config`.
-
-To run YuniKorn in Kubernetes scheduler plugin mode instead, execute:
-
-```
-make run_plugin
-```
 
 You can also use the same approach to run the scheduler locally but connecting
 to a remote kubernetes cluster, as long as the `$HOME/.kube/config` file

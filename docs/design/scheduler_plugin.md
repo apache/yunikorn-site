@@ -21,6 +21,9 @@ title: K8s Scheduler Plugin
 * limitations under the License.
 -->
 
+
+NOTE: The plugin deployment mode is deprecated and no longer supported. Please refer [deployment modes](user_guide/deployment_modes.md) section for more details
+
 ## Background
 
 YuniKorn (on Kubernetes) is traditionally implemented as a ground-up implementation of a Kubernetes scheduler.
