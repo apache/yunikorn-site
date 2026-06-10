@@ -225,36 +225,6 @@ Set the following values in the dialog (as shown):
 Once the changes are done, click "Apply", then "Debug". You will need to
 set proper breakpoints in order to debug the program.
 
-## Debug the scheduler plugin
-
-The scheduler may also be run in plugin mode. In this mode, the YuniKorn
-scheduler is built on top of the default scheduler and runs as a
-plugin (rather than completely standalone). Functionally, it performs the
-same tasks, but relies on the upstream Kubernetes scheduler codebase for
-common functionality.
-
-The run configuration for the scheduler in plugin mode is as follows:
-
-- Run Kind: Package
-- Package path: `github.com/apache/yunikorn-k8shim/pkg/cmd/schedulerplugin`
-- Working directory: Project base directory (`yunikorn-k8shim`)
-- Program arguments:
-  ```
-  --bind-address=0.0.0.0
-  --leader-elect=false
-  --config=conf/scheduler-config-local.yaml
-  -v=2
-  ```
-- Environment: If `KUBECONFIG` is not set globally, ensure it is set here.
-  Additionally, you may want to set `NAMESPACE=yunikorn`, as otherwise
-  YuniKorn will look for the `yunikorn-configs` ConfigMap under the
-  `default` Kubernetes namespace.
-
-Additionally, before running for the first time, run `make init` from a
-terminal in the root of the `yunikorn-k8shim` repository. This will
-generate the contents of `conf/scheduler-config-local.yaml`, which is
-required.
-
 ## Access remote Kubernetes cluster
 
 This setup assumes you have already installed a remote Kubernetes cluster. 

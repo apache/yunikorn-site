@@ -46,12 +46,6 @@ image:
   tag: scheduler-{version}          # default depends on YuniKorn version
   pullPolicy: Always
 
-# Image information for the plugin scheduler
-pluginImage:
-  repository: apache/yunikorn
-  tag: scheduler-plugin-{version}   # default depends on YuniKorn version
-  pullPolicy: Always
-
 # Image information for the web UI
 web:
   image:
@@ -402,15 +396,7 @@ Example:
 ```yaml
 embedAdmissionController: false
 ```
-#### enableSchedulerPlugin
-Controls whether to run YuniKorn in scheduler plugin mode.
 
-Default: `false`
-
-Example:
-```yaml
-enableSchedulerPlugin: true
-```
 #### enableWebService
 Controls whether to enable the YuniKorn Web UI service.
 
@@ -973,9 +959,8 @@ all pods which are scheduled by YuniKorn will have an `applicationId` label appl
 When running YuniKorn using the standard deployment model, all pods should be labeled,
 as YuniKorn is unable to schedule pods without an `applicationId` defined.
 
-When running YuniKorn using the scheduler plugin deployment model, this setting can
-be used to filter which namespaces should be scheduled via YuniKorn's queueing model,
-and which should bypass queueing and be scheduled by the embedded default scheduler.
+This setting can be used to filter which namespaces should be scheduled via YuniKorn's queueing model,
+and which should bypass queueing and be scheduled by the default scheduler.
 
 This setting is a comma-separated list of regular expressions. If this setting
 is an empty string, all pods forwarded to YuniKorn will have an `applicationId` label
@@ -997,9 +982,8 @@ acts as an exception list to `admissionController.filtering.labelNamespaces`.
 When running YuniKorn using the standard deployment model, all pods should be labeled,
 as YuniKorn is unable to schedule pods without an `applicationId` defined.
 
-When running YuniKorn using the scheduler plugin deployment model, this setting can
-be used to filter which namespaces should be scheduled via YuniKorn's queueing model,
-and which should bypass queueing and be scheduled by the embedded default scheduler.
+This setting can be used to filter which namespaces should be scheduled via YuniKorn's queueing model,
+and which should bypass queueing and be scheduled by the default scheduler.
 
 This setting is a comma-separated list of regular expressions. If this setting
 is an empty string, no exclusions to `admissionController.filtering.labelNamespaces` will
