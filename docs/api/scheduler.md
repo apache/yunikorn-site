@@ -1495,52 +1495,6 @@ Node details include host and rack name, capacity, resources, utilization, and a
 
 **Code** : `500 Internal Server Error`
 
-### Node utilization
-
-Show how every node is distributed with regard to dominant resource utilization.
-
-**Status** : Deprecated since v1.5.0 and will be removed in the next major release. Replaced with `/ws/v1/scheduler/node-utilizations`.
-
-**URL** : `/ws/v1/scheduler/node-utilization`
-
-**Method** : `GET`
-
-**Auth required** : NO
-
-#### Success response
-
-**Code** : `200 OK`
-
-**Content examples**
-
-```json
-{
-    "type": "vcore",
-    "utilization": [
-      {
-        "bucketName": "0-10%",
-        "numOfNodes": 1,
-        "nodeNames": [
-          "aethergpu"
-        ]
-      },
-      {
-        "bucketName": "10-20%",
-        "numOfNodes": 2,
-        "nodeNames": [
-            "primary-node",
-            "second-node"
-        ]
-      },
-      ...  
-    ]
-}
-```
-
-#### Error response
-
-**Code** : `500 Internal Server Error`
-
 
 ### Node utilizations
 
