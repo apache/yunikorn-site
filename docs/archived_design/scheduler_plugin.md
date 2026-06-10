@@ -22,7 +22,7 @@ title: K8s Scheduler Plugin
 -->
 
 
-NOTE: The plugin deployment mode is deprecated and no longer supported. Please refer [deployment modes](user_guide/deployment_modes.md) section for more details
+NOTE: The plugin deployment mode is deprecated and no longer supported. Please refer [deployment mode](user_guide/deployment_modes.md) section for more details
 
 ## Background
 
