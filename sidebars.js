@@ -94,7 +94,6 @@ module.exports = {
                 label: 'Designs',
                 items: [
                     'design/architecture',
-                    'design/scheduler_plugin',
                     'design/gang_scheduling',
                     'design/user_group',
                     'design/user_based_resource_usage_tracking',
@@ -124,6 +123,7 @@ module.exports = {
                     'archived_design/state_aware_scheduling',
                     'archived_design/cross_queue_preemption',
                     'archived_design/pluggable_app_management',
+                    'archived_design/scheduler_plugin',
                 ]                
             },
         ],
