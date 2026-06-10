@@ -177,7 +177,7 @@ Sets an alternate service account for the YuniKorn scheduler.
 
 Changing this value is not recommended, as Helm installs role-based access
 control (RBAC) policies for the default user that are required for proper
-functionaliy.
+functionally.
 
 Default: `yunikorn-admin`
 
@@ -190,7 +190,7 @@ Sets an alternate service account for the YuniKorn admission controller.
 
 Changing this value is not recommended, as Helm installs role-based access
 control (RBAC) policies for the default user that are required for proper
-functionaliy.
+functionally.
 
 Default: `yunikorn-admission-controller`
 
@@ -452,6 +452,8 @@ yunikornDefaults:
 
 **_DEPRECATED in 1.9.0:_** replaced by `goMemoryLimitPercentage`
 
+If both the deprecated and the percentage entry are specified, the percentage entry will take precedence.
+
 The `goMemoryLimit`, `web.goMemoryLimit`, and
 `admissionController.goMemoryLimit` are used to set a soft limit on the
 total amount of memory the Go runtime is allowed to consume. This limit
@@ -462,18 +464,16 @@ not managed by the Go runtime.
 
 Legal values consist of a numeric value in bytes with an optional unit
 suffix. The supported suffixes include `B`, `KiB`, `MiB`, `GiB`, and
-`TiB`. This value is passsed into the container via the `GOMEMLIMIT`
+`TiB`. This value is passed into the container via the `GOMEMLIMIT`
 environment variable.
 
 #### Moved to ConfigMap
 
-The following settings are deprecated, and will be removed from a future
-YuniKorn release. They should now be specified in the `yunikorn-configs` ConfigMap
-or via the Helm `yunikornDefaults` section:
+The following settings are removed from the YuniKorn 1.9.0 release.
+They must be specified in the `yunikorn-configs` ConfigMap or via the Helm `yunikornDefaults` section:
 
-| Deprecated setting                     | ConfigMap replacement                           |
+| Removed setting                        | ConfigMap replacement                           |
 |----------------------------------------|-------------------------------------------------|
-| operatorPlugins                        | -                                               |
 | placeHolderImage                       | service.placeholderImage                        |
 | admissionController: processNamespaces | admissionController.filtering.processNamespaces |
 | admissionController: bypassNamespaces  | admissionController.filtering.bypassNamespaces  |
@@ -481,26 +481,6 @@ or via the Helm `yunikornDefaults` section:
 | admissionController: noLabelNamespaces | admissionController.filtering.noLabelNamespaces |
 | configuration                          | queues.yaml                                     |
 
-Deprecated example:
-```yaml
-operatorPlugins: general
-placeHolderImage: registry.k8s.io/pause:3.7
-admissionController:
-  processNamespaces: "^spark-,^mpi-"
-  bypassNamespaces: "^kube-system$"
-  labelNamespaces: "^spark-"
-  noLabelNamespaces: "^mpi-legacy-"
-configuration: |
-  partitions:
-    - name: default
-      placementrules:
-        - name: tag
-          value: namespace
-          create: true
-      queues:
-      - name: root
-        submitacl: '*'
-```
 Replacement example:
 ```yaml
 yunikornDefaults:
@@ -521,8 +501,6 @@ yunikornDefaults:
         - name: root
           submitacl: '*'
 ```
-Currently, if both the deprecated parameter and the replacement ConfigMap entry are specified, the ConfigMap entry will take precedence.
-
 
 ## YuniKorn Configuration
 
@@ -1152,30 +1130,11 @@ binaryData:
 
 ### Deprecated settings
 
-#### service.operatorPlugins
-
-**_DEPRECATED in 1.4.0:_** No replacement
-
-Controls the set of operator plugins which are enabled within YuniKorn.
-Currently, only the `general` plugin is implemented, and the plugin
-functionality will be removed entirely in a future release.  The `general`
-plugin should not be disabled as it is critical to the proper operation of
-YuniKorn.
-
-A change to this setting requires a restart of YuniKorn to take effect.
-
-Default: `general`
-
-Example:
-```yaml
-service.operatorPlugins: "general"
-```
-
 #### admissionController.filtering.defaultQueue
 
 **_DEPRECATED in 1.6.0:_** This setting is deprecated. To configure a desire queue name, use the [Fixed Rule](placement_rules/#fixed-rule) placement rule instead.
 
-Controlls what will be the default queue name for the application.
+Controls what will be the default queue name for the application.
 
 If the application does not define a queue name during app submission, admission controller will add a default queue name to the pod labels. `root.default` queue name will be added to the pod labels if this property is not set.
 
