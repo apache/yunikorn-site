@@ -24,32 +24,49 @@ under the License.
 
 ## User resolution
 
-User information is an important aspect of the scheduling cycle. It is one of the key identifier that can be used to determine the queue to which a job should be submitted. The Yunikorn Scheduler relies on the K8s Shim to provide user information. In the world of Kubernetes, there is no object defined that identfies the actual user. This is by design and more information can be found [here](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#users-in-kubernetes).
+User information is an important aspect of the scheduling cycle. It is one of the key identifier that can be used to determine the queue to which a job should be submitted.
+The YuniKorn Scheduler relies on the K8s Shim to provide user information. In the world of Kubernetes, there is no object defined that identifies the actual user.
+This is by design and more information can be found [here](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#users-in-kubernetes).
 
-In Yunikorn, there are two ways of handling users and groups. The first is the legacy way, which uses the label `yunikorn.apache.org/username`. If this label is set on a pod, then the value is automatically extracted in the shim and will be used accordingly. Group resolution is also done in the shim and is disabled by default. The problem with this approach is twofold: user restrictions can be easily bypassed because the submitter is free to set this label to any value, therefore this only be used in a trusted environment. The second is that identifying the groups in the shim is too late: users can be assigned to multiple groups, but depending on the authentication mechanism (X509, tokens, LDAP, etc) it might be very difficult to look up which group a user belongs to. Since these limitations are significant, this method is kept for backward compatibility reasons and will likely be removed in the future.
-
-A more reliable and robust mechanism is using the `yunikorn.apache.org/user.info` annotation, where the user information can be set externally by an allowed list of users or groups or the admission controller can attach this automatically to every workload.
-
+A more reliable and robust mechanism is using the `yunikorn.apache.org/user.info` annotation.
+The user information can be set externally by an allowed list of users or groups or the admission controller can attach this automatically to every workload.
 
 ## Group resolution
 
-Group membership resolution is pluggables and is defined here. Groups do not have to be part of provided user and group object. When the object is added to the cache the groups are automatically resolved based on the resolution that is configured.
+Groups do not have to be part of provided user and group object. If the user information contains one or more groups no group resolution is triggered.
+The groups in the `user.info` annotation will be used regardless of the group resolution configured.
+
+If groups are not provided the groups are resolved inside the `yunikorn-core` code. Group membership resolution is pluggable.
+When the object is added to the cache the groups are automatically resolved based on the resolution that is configured.
 The resolver which is linked to the cache can be set per partition.
 
-The default group resolver is "no resolver".
-This resolver just echos the user name and a primary group with the same name as the user.
+The default group resolver is "no resolver". This resolver just echos the username and a primary group with the same name as the user.
 
-Other resolvers are:
-* OS resolver
-* test resolver
+To specify a group resolver the following partition level configuration setting in the queue config is available:
+```yaml
+partitions:
+  - name: <name of the partition>
+    usergroupresolver:
+      type: <resolver type>
+```
 
+The currently supported resolvers are:
+* Default resolver: ""
+* LDAP resolver: "ldap" 
+* OS resolver: "os"
+* test resolver: "test"
 
+The LDAP resolver is in technical preview. See [YUNIKORN-656](https://issues.apache.org/jira/browse/YUNIKORN-656) for implementation details.
+[YUNIKORN-3158](https://issues.apache.org/jira/browse/YUNIKORN-3158) is required for the graduation of the LDAP resolver to become generally available.
+
+The OS resolver depends on the OS of the node to provide the group details. There is no configuration options for the resolver in YuniKorn.
+
+The test resolver is not for production use cases and is only used during unit testing to provide an implementation that is independent of the test environment.
 
 ## User handling
 
-Since Yunikorn 1.2 a more sophisticated way of user/group resolution is available.
-
-In this mode, Yunikorn no longer relies on the `yunikorn.apache.org/username` label, instead, the annotation `yunikorn.apache.org/user.info` is attached to the workload. The value is simple JSON, which defines the user name and groups:
+User details can be specified via an annotation on a workload. The annotation `yunikorn.apache.org/user.info` is attached to the workload.
+The value is simple JSON, which defines the username and groups:
 
 ```yaml
 metadata:
@@ -69,9 +86,9 @@ However, to enhance security, the following is enforced in the admission control
 * if the annotation is missing, the admission controller will add this information automatically
 * attempts to change this annotation will be rejected
 
-We also no longer do this on pods only, but also on Deployments, ReplicaSets, DeamonSets, StatefulSets, Jobs and CronJobs.
+The workload considered is not just a pod, but also on Deployments, ReplicaSets, DaemonSets, StatefulSets, Jobs and CronJobs.
 
-Group resolution is no longer necessary inside the shim.
+Group resolution is no longer required inside the shim.
 
 ### Configuring the admission controller
 
@@ -85,34 +102,24 @@ The admission controller can be configured with the `yunikorn-configs` configmap
 | `externalUsers`    | ""                                    | Regular expression for the allowed external user list                      |
 | `externalGroups`   | ""                                    | Regular expression for the allowed external group list                     |
 
-If `bypassAuth` is set to true the admission controller will not add the annotation to a pod if the annotation is not present and the deprecated user label is set. If the annotation is not set and the user label is not set the new annotation will be added. In the case that `bypassAuth` is false, the default, the admission controller will always add the new annotation, regardless of the existence of the deprecated label.
+If `bypassAuth` is set to true the admission controller will not add the annotation to a pod if the annotation is not present and the deprecated user label is set.
+If the annotation is not set and the user label is not set the new annotation will be added.
+In the case that `bypassAuth` is false, the default, the admission controller will always add the new annotation, regardless of the existence of the deprecated label.
 
-In certain scenarios, users and groups must be provided to Yunikorn upon submission because the user and group management is provided by external systems and the lookup mechanism is not trivial. In these cases, the `externalUsers` and `externalGroups` can be configured which are treated as regular expressions. Matching users and groups are allowed to set the `yunikorn.apache.org/user.info` annotation to any arbitrary value. Since this has implications which affects scheduling inside Yunikorn, these properties must be set carefully.
-
-
-## Legacy user handling
-
-### Using the `yunikorn.apache.org/username` label
-
-Since, Kubernetes has no pre-defined field or resource for user information and individual cluster deployments with unique user identification tools can vary, we have defined a standard way of identifying the user. Yunikorn requires a Kubernetes [Label](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) added. Using the [recommendation](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/) provided here, the default label is defined as below:
-
-| Label                          | Value                                                                                                        |
-|--------------------------------|--------------------------------------------------------------------------------------------------------------|
-| yunikorn.apache.org/username 	 | User name. It can have duplicate entries but only the first value will be used. The default user is `nobody` |
-
-Example:
-```yaml
-metadata:
-  labels:
-    yunikorn.apache.org/username: "john"
-```
-:::tip 
-In order to make this field uniquiely identifiable to the authorized user, the suggestion is to add this label as an immutable field by the user identification tool used by the cluster administrators. The cluster administrators or users are free to use any method or tool to add this field and value. This includes adding it manually at the time of submission. 
-:::
+In certain scenarios, users and groups must be provided to YuniKorn upon submission because the user and group management is provided by external systems and the lookup mechanism is not trivial. 
+In these cases, the `externalUsers` and `externalGroups` can be configured which are treated as regular expressions. Matching users and groups are allowed to set the `YuniKorn.apache.org/user.info` annotation to any arbitrary value.
+Since this has implications which affects scheduling inside YuniKorn, these properties must be set carefully.
 
 :::note Assumption 
-Assumption:
-  Yunikorn assumes that all pods belonging to an application are owned by the same user. We recommend that the user label is added to every pod of an app. This is to ensure that there is no discrepency. 
+YuniKorn assumes that all pods belonging to an application are owned by the same user.
+We recommend that the annottation is added to every pod of an application.
+This is to ensure that there is no discrepancy between the users if pods get processed in an unexpected order. 
 :::
 
+## Deprecated user handling
 
+### Username specification via label 
+
+Using the `yunikorn.apache.org/username` label has been deprecated and is no longer supported.
+In YuniKorn 1.9.0 the usage of the label will only be possible if the annotation is not found.
+Usage will trigger a deprecation log message. The code to support the fallback to the label will be removed in YuniKorn 1.10.
