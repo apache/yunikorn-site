@@ -827,7 +827,7 @@ Sets the verbosity that YuniKorn subsystem will log at.
 Yunikorn allows fine-grained logging configuration in a hierarchical manner. For example,
 setting an entry for `log.core.level` will configure all loggers that start with `core.`
 (including `core.scheduler`, etc.) unless a more specific configuration is present.
-Each subsystem[^1] has its log level.
+Each subsystem allows configuring a separate log level. The list of subsystems is defined [here](#log-subsystem-values) 
 
 A change to this setting will be picked up without a restart of YuniKorn. The available
 values can be numeric or textual:
@@ -846,10 +846,11 @@ Example:
 
 The `log.level` is the default log level for all loggers.
 
+Example configuration with a log level set to INFO except for the admission controller (DEBUG), and the core configuration code (WARN). 
 ```yaml
 log.level: "INFO"
 log.admission.level: "DEBUG"
-log.core.config.level: "INFO"
+log.core.config.level: "WARN"
 ```
 
 ### Kubernetes settings
@@ -1145,14 +1146,19 @@ Example:
 admissionController.filtering.defaultQueue: ""
 ```
 
-[^1]: Available log subsystem values:
+### Log subsystem values
+
+#### Admission controller
     - admission
     - admission.client
     - admission.conf
     - admission.utils
     - admission.webhook
+
+#### Scheduler core
     - core
     - core.config
+    - core.diagnostics
     - core.entrypoint
     - core.events
     - core.metrics
@@ -1169,19 +1175,20 @@ admissionController.filtering.defaultQueue: ""
     - core.scheduler.fsm
     - core.scheduler.health
     - core.scheduler.node
+    - core.scheduler.nodesusage
     - core.scheduler.partition
     - core.scheduler.preemption
+    - core.scheduler.preemption.quotachange
+    - core.scheduler.preemption.requirednode
     - core.scheduler.queue
     - core.scheduler.reservation
     - core.scheduler.ugm
     - core.security
     - core.utils
-    - deprecation
+
+#### Kubernetes shim
     - kubernetes
     - shim
-    - shim.appmgmt
-    - shim.appmgmt.general
-    - shim.appmgmt.sparkoperator
     - shim.cache.application
     - shim.cache.external
     - shim.cache.node
@@ -1193,9 +1200,14 @@ admissionController.filtering.defaultQueue: ""
     - shim.dispatcher
     - shim.framework
     - shim.fsm
+    - shim.placeholder.config
     - shim.predicates
     - shim.resources
     - shim.rmcallback
     - shim.scheduler
-    - shim.scheduler.plugin
     - shim.utils
+
+#### Special purpose logger
+Supported by the admission controller, core and kubernetes shim
+
+    - deprecation
