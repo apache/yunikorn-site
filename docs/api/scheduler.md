@@ -89,7 +89,8 @@ Returns general information and statistics about a partition.
         },
         "totalContainers": 0,
         "totalNodes": 2,
-        "preemptionEnabled": false
+        "preemptionEnabled": false,
+        "quotaPreemptionEnabled": false
     },
     {
         "clusterId": "mycluster",
@@ -125,7 +126,8 @@ Returns general information and statistics about a partition.
         },
         "totalContainers": 20,
         "totalNodes": 5,
-        "preemptionEnabled": false
+        "preemptionEnabled": false,
+        "quotaPreemptionEnabled": false
     }
 ]
 ```
@@ -225,7 +227,7 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
         "isLeaf": "false",
         "isManaged": "false",
         "properties": {
-            "application.sort.policy": "stateaware"
+            "application.sort.policy": "fifo"
         },
         "parent": "",
         "template": {
@@ -238,7 +240,7 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                 "vcore": 80
             },
             "properties": {
-                "application.sort.policy": "stateaware"
+                "application.sort.policy": "fifo"
             }
         },
         "partition": "default",
@@ -265,7 +267,7 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                 "isLeaf": "true",
                 "isManaged": "false",
                 "properties": {
-                    "application.sort.policy": "stateaware"
+                    "application.sort.policy": "fifo"
                 },
                 "parent": "root",
                 "template": null,
@@ -351,7 +353,7 @@ If the query parameter `subtree` is not set, the queue's children will not be re
     "isLeaf": "true",
     "isManaged": "false",
     "properties": {
-        "application.sort.policy": "stateaware"
+        "application.sort.policy": "fifo"
     },
     "parent": "root",
     "template": null,
@@ -1224,16 +1226,16 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
             "vcore": 6000
         },
         "occupied": {
-            "memory": 154000000,
-            "vcore" :750
+            "memory": 6500000,
+            "vcore" : 250
         },
         "available": {
             "ephemeral-storage": 75850798569,
             "hugepages-1Gi": 0,
             "hugepages-2Mi": 0,
-            "memory": 6423000000,
-            "pods": 110,
-            "vcore": 1250
+            "memory": 8570500000,
+            "pods": 107,
+            "vcore": 3750
         },
         "utilized": {
             "memory": 3,
@@ -1291,7 +1293,31 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
                 "placeholderUsed": false
             }
         ],
-        "schedulable": true
+        "foreignAllocations": [
+            {
+                "allocationKey": "02724936-4e80-4620-bf0c-6cf3bc4a2d36",
+                "allocationTags": {
+                    "creationTime": "1782105319",
+                    "foreign": "default",
+                    "kubernetes.io/label/app.kubernetes.io/instance": "coredns-updater",
+                    "kubernetes.io/label/app.kubernetes.io/name": "coredns-updater",
+                    "kubernetes.io/label/pod-template-hash": "5b94674f96",
+                    "kubernetes.io/meta/namespace": "kube-system",
+                    "kubernetes.io/meta/podName": "coredns-updater-5b94674f96-fhcn4"
+                },
+                "allocationTime": 1782105319000000000,
+                "resource": {
+                    "memory": 6500000,
+                    "pods": 1,
+                    "vcore": 250
+                },
+                "priority": "2000000000",
+                "nodeId": "node-0001",
+                "preemptable": true
+            }
+        ],
+        "schedulable": true,
+        "isReserved": false
     },
     {
         "nodeID": "node-0002",
@@ -1322,8 +1348,8 @@ Here you can see an example response from a 2-node cluster having 3 allocations.
             "vcore": 2000
         },
         "occupied": {
-            "memory": 154000000,
-            "vcore" :750
+            "memory": 0,
+            "vcore" :0
         },
         "available": {
             "ephemeral-storage": 75850798569,
@@ -1483,7 +1509,31 @@ Node details include host and rack name, capacity, resources, utilization, and a
          "placeholderUsed":false
       }
    ],
-   "schedulable":true
+   "foreignAllocations": [
+      {
+         "allocationKey": "02724936-4e80-4620-bf0c-6cf3bc4a2d36",
+         "allocationTags": {
+            "creationTime": "1782105319",
+            "foreign": "default",
+            "kubernetes.io/label/app.kubernetes.io/instance": "coredns-updater",
+            "kubernetes.io/label/app.kubernetes.io/name": "coredns-updater",
+            "kubernetes.io/label/pod-template-hash": "5b94674f96",
+            "kubernetes.io/meta/namespace": "kube-system",
+            "kubernetes.io/meta/podName": "coredns-updater-5b94674f96-fhcn4"
+         },
+         "allocationTime": 1782105319000000000,
+         "resource": {
+            "memory": 6500000,
+            "pods": 1,
+            "vcore": 250
+         },
+         "priority": "2000000000",
+         "nodeId": "node-0001",
+         "preemptable": true
+      }
+   ],
+   "schedulable":true,
+   "isReserved": false
 }
 ```
 
