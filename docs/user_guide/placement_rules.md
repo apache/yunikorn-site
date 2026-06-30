@@ -289,10 +289,10 @@ Result: failed, next rule executed
 Internal rule name: *recovery*
 
 The recovery rule is an internal rule that is automatically added as the _last_ rule of every placement policy.
-It is implicit: it cannot be configured, reordered or removed and does not need to be added to the configuration.
+It is implicit: it cannot be configured, reordered or removed and cannot be added to the configuration.
 
 The rule only acts on applications that are submitted with the _force_ flag set.
-The shim sets this flag for applications that own allocations which are already running on the cluster, for instance while the scheduler is being restarted or recovered.
+The shim sets this flag for applications that contain allocations which are already running on the cluster, for instance while the scheduler is being restarted or recovered.
 When such an application is not placed by any of the configured rules the recovery rule places it into the recovery queue `root.@recovery@`, so that the already running allocation can be recovered without user intervention.
 Applications that do not have the force flag set are never placed in the recovery queue: for those applications the recovery rule returns no queue.
 
@@ -305,7 +305,8 @@ Supported parameters:
 
 ## Handling placement failures
 A rule only matches if it generates a queue that the application is allowed to run in.
-A generated queue that does not exist and cannot be created, that is not a leaf queue, that is being drained, or that the user is not allowed to submit to is not a match.
+A generated queue that does not exist and cannot be created, that already exists as a parent queue, that is being drained, or that the user is not allowed to submit to is not a match.
+The creation of a generated queue fails when the queue does not exist and the create flag is not set on the rule, or when the new queue would have to be created as a leaf below an already existing leaf queue.
 In that case the policy continues with the next rule.
 
 When none of the configured rules generate a usable queue the application is not rejected straight away.
