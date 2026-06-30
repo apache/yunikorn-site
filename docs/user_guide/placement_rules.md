@@ -39,7 +39,7 @@ There is no limit on the number of levels in the queue hierarchy that can be gen
 When a rule is executed the result of rules that have been executed is unknown and not taken into account.
 Similar for rule that have not been executed yet: rules cannot influence other rules except when they are configured as the [parent](#parent-parameter) rule.
 
-If the policy does not generate a queue name and no more rules are left the application will be rejected.
+If the policy does not generate a queue name and no more rules are left the application is handled as described in [Handling placement failures](#handling-placement-failures).
 
 Basic structure for the rule placement definition in the configuration:
 ```yaml
@@ -284,6 +284,36 @@ Result: `root.testing`
 
 Application submit request for a non kubernetes based application by the user `developer`<br/>
 Result: failed, next rule executed
+
+### Recovery Rule
+Internal rule name: *recovery*
+
+The recovery rule is an internal rule that is automatically added as the _last_ rule of every placement policy.
+It is implicit: it cannot be configured, reordered or removed and cannot be added to the configuration.
+
+The rule only acts on applications that are submitted with the _force_ flag set.
+The shim sets this flag for applications that contain allocations which are already running on the cluster, for instance while the scheduler is being restarted or recovered.
+When such an application is not placed by any of the configured rules the recovery rule places it into the recovery queue `root.@recovery@`, so that the already running allocation can be recovered without user intervention.
+Applications that do not have the force flag set are never placed in the recovery queue: for those applications the recovery rule returns no queue.
+
+The recovery queue is a dynamic, internally managed queue.
+It has no quota and no ACL, it cannot be referenced by other rules and it cannot be submitted to directly.
+See the [recovery queue](queue_config#recovery-queue) description for more details.
+
+Supported parameters:
+* none
+
+## Handling placement failures
+A rule only matches if it generates a queue that the application is allowed to run in.
+A generated queue that does not exist and cannot be created, that already exists as a parent queue, that is being drained, or that the user is not allowed to submit to is not a match.
+The creation of a generated queue fails when the queue does not exist and the create flag is not set on the rule, or when the new queue would have to be created as a leaf below an already existing leaf queue.
+In that case the policy continues with the next rule.
+
+When none of the configured rules generate a usable queue the application is not rejected straight away.
+The outcome depends on how the application was submitted:
+* Applications submitted with the _force_ flag set are placed in the recovery queue `root.@recovery@` by the implicit [recovery rule](#recovery-rule). This is used during the recovery of already running allocations.
+* All other applications fall back to the `root.default` queue, if that queue exists and the user is allowed to submit to it.
+* If no queue can be selected the application is rejected with the error: `application rejected: no placement rule matched`.
 
 ## Complex examples
 In this complex example we chain three rules:
