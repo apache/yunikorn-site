@@ -107,12 +107,13 @@ If the annotation is not set and the user label is not set the new annotation wi
 In the case that `bypassAuth` is false, the default, the admission controller will always add the new annotation, regardless of the existence of the deprecated label.
 
 In certain scenarios, users and groups must be provided to YuniKorn upon submission because the user and group management is provided by external systems and the lookup mechanism is not trivial. 
-In these cases, the `externalUsers` and `externalGroups` can be configured which are treated as regular expressions. Matching users and groups are allowed to set the `YuniKorn.apache.org/user.info` annotation to any arbitrary value.
+In these cases, the `externalUsers` and `externalGroups` can be configured which are treated as regular expressions.
+Matching users and groups are allowed to set the `yunikorn.apache.org/user.info` annotation to any arbitrary value.
 Since this has implications which affects scheduling inside YuniKorn, these properties must be set carefully.
 
 :::note Assumption 
 YuniKorn assumes that all pods belonging to an application are owned by the same user.
-We recommend that the annottation is added to every pod of an application.
+We recommend that the annotation is added to every pod of an application.
 This is to ensure that there is no discrepancy between the users if pods get processed in an unexpected order. 
 :::
 
