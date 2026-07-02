@@ -45,6 +45,29 @@ yunikorn_queue_app{queue="root.default",state="accepted"} 3
 yunikorn_queue_app{queue="root.default",state="running"} 3
 ```
 
+## Application Total
+
+The `yunikorn_queue_app_total` metric, introduced in version `1.10.0`, tracks the cumulative number of applications that reached a terminal state in each queue. Unlike the `yunikorn_queue_app` gauge, this counter is monotonically increasing and persists across queue removal and recreation.
+
+### Metric details
+
+**Metric Type**: `counter`
+
+**Namespace**: `yunikorn`
+
+**Labels**:
+- `queue`: the name of the queue (e.g., "root.default")
+- `state`: the terminal state of the application
+  - `completed`, `failed`, `rejected`
+
+**TYPE**: `yunikorn_queue_app_total`
+
+```json
+yunikorn_queue_app_total{queue="root.default",state="completed"} 15
+yunikorn_queue_app_total{queue="root.default",state="failed"} 2
+yunikorn_queue_app_total{queue="root.default",state="rejected"} 1
+```
+
 ## Resource
 The `yunikorn_queue_resource` metric, introduced in version `1.5.0`, tracks the resource states in each queue using labels.
 
