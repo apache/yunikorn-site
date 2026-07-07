@@ -146,13 +146,19 @@ A Yunikorn state dump contains the every state object for every process which ge
 
 The state dump is a valuable resource that Yunikorn offers for use while troubleshooting.
 
+Since the debug endpoints are not proxied by the web UI server, you need to access the scheduler web service directly.
+
 There are a few ways to obtain the full state dump.
 
 ### 1. Scheduler URL
 
 STEPS:
-* Open the Scheduler URL in your browser window/tab and edit the URL as follows:
-* Replace `/#/dashboard` with `/ws/v1/fullstatedump`, (For example, `http://localhost:9889/ws/v1/fullstatedump`)
+* Port forwarding for the REST service on the standard port can be turned on via:
+  ```shell script
+  kubectl port-forward svc/yunikorn-service 9080:9080 -n yunikorn
+  ```
+* Open the debug endpoint URL in your browser:
+  `http://localhost:9080/debug/fullstatedump`
 * Press Enter
 
 That displays and provides an easy user experience to view live full state dump.
@@ -161,7 +167,7 @@ That displays and provides an easy user experience to view live full state dump.
 
 With the below scheduler REST API returns information about full state dump used by the YuniKorn Scheduler.
 
-`curl -X 'GET' http://localhost:9889/debug/fullstatedump -H 'accept: application/json'`
+`curl -X 'GET' http://localhost:9080/debug/fullstatedump -H 'accept: application/json'`
 
 For more details around the content of the state dump, please refer to the documentation on [retrieve-full-state-dump](api/system.md#retrieve-state-dump)
 
