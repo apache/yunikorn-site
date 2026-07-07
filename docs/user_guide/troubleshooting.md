@@ -153,12 +153,8 @@ There are a few ways to obtain the full state dump.
 ### 1. Scheduler URL
 
 STEPS:
-* Port forwarding for the REST service on the standard port can be turned on via:
-  ```shell script
-  kubectl port-forward svc/yunikorn-service 9080:9080 -n yunikorn
-  ```
-* Open the debug endpoint URL in your browser:
-  `http://localhost:9080/debug/fullstatedump`
+* Enable port forwarding to access the scheduler web service (see [Access to the web UI](https://yunikorn.apache.org/docs/developer_guide/deployment#access-to-the-web-ui)).
+* Open the debug endpoint in your browser: `http://localhost:9080/debug/fullstatedump`
 * Press Enter
 
 That displays and provides an easy user experience to view live full state dump.
