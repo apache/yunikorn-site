@@ -35,7 +35,7 @@ The current shim identifies the user and the groups the user belongs to using th
 ## Configuration
 The configuration file for the scheduler that is described here only provides the configuration for the partitions and queues.
 
-By default the scheduler reads the ConfigMap section `queues.yaml` for partition and queue configuration. The section name can
+By default, the scheduler reads the ConfigMap section `queues.yaml` for partition and queue configuration. The section name can
 be changed by updating the `service.policyGroup` ConfigMap entry to be something other than `queues`.
 
 The example reference for the configuration is located in the scheduler core's [queues.yaml](https://github.com/apache/yunikorn-core/blob/master/config/queues.yaml) file.
@@ -65,8 +65,9 @@ Optionally the following keys can be defined for a partition:
 * [limits](#limits)
 * nodesortpolicy
 * preemption
+* [usergroupresolver](usergroup_resolution.md#group-resolution)
 
-Placement rules and limits are explained in their own chapters
+Placement rules, limits and the user group resolver are explained in their own chapters.
 
 The `nodesortpolicy` key defines the way the nodes are sorted for the partition.
 Details on the values that can be used are in the [sorting policy](sorting_policies.md#node-sorting) documentation.
@@ -82,7 +83,7 @@ Allowed values: _true_ or _false_, any other value will cause a parse error.
 The default value for _quotapreemptionenabled_ is _false_.
 Allowed values: _true_ or _false_, any other value will cause a parse error.
 
-Example `partition` yaml entry with a `nodesortpolicy` of _fair_ and all preemption disabled:
+Example `partition` yaml entry with a `nodesortpolicy` of _fair_, all preemption disabled and the LDAP user group resolver:
 ```yaml
 partitions:
   - name: <name of the partition>
@@ -90,10 +91,13 @@ partitions:
     preemption:
       enabled: false
       quotapreemptionenabled: false
+    usergroupresolver:
+      type: ldap
 ```
-NOTE:
-Currently the Kubernetes unique shim does not support any other partition than the `default` partition.
-This has been logged as an [jira](https://issues.apache.org/jira/browse/YUNIKORN-22) for the shim.
+:::note
+Currently the Kubernetes shim does not support any other partition than the `default` partition.
+This has been logged as a [jira](https://issues.apache.org/jira/browse/YUNIKORN-22) for the shim.
+:::
 
 ### Queues
 
@@ -107,8 +111,8 @@ YuniKorn manages resources by leveraging resource queues. The resource queue has
 
 :::info
 The difference between YuniKorn queue and [Kubernetes namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/):
-Kubernetes namespace provides the scope for the Kubernetes resources, including the security context (i.e who can access the objects), and resource
-boundary when [resource quota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is defined (i.e how many resources can be used by the objects).
+Kubernetes namespace provides the scope for the Kubernetes resources, including the security context (i.e. who can access the objects), and resource
+boundary when [resource quota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is defined (i.e. how many resources can be used by the objects).
 On the other hand, YuniKorn queue is only used how many resources can be used by a group of jobs, and in which order. It provides
 a more fine-grained control on resource sharing across multiple tenants with considering of resource fairness, job ordering, etc. In most of the cases,
 YuniKorn queue can be used to replace the namespace resource quota, in order to provide more scheduling features.
@@ -117,11 +121,11 @@ YuniKorn queue can be used to replace the namespace resource quota, in order to 
 The _queues_ entry is the main configuration element.
 It defines a hierarchical structure for the queues.
 
-It can have a `root` queue defined but it is not a required element.
+It can have a `root` queue defined, but it is not a required element.
 If the `root` queue is not defined the configuration parsing will insert the root queue for consistency.
 The insertion of the root queue is triggered by:
 * If the configuration has more than one queue defined at the top level a root queue is inserted.
-* If there is only one queue defined at the top level and it is not called `root` a root queue is inserted.  
+* If there is only one queue defined at the top level, and it is not called `root` a root queue is inserted.  
 
 The defined queue or queues will become a child queue of the inserted `root` queue.
 
@@ -152,7 +156,7 @@ A queue cannot contain a dot "." character as that character is used to separate
 
 Valid Queue name:
 
-* must be 64 characters or less,
+* must be less than or equal to 64 characters,
 * can contain alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), hashes (#), slashes (/), at signs (@), and dashes (-).
 
 If the name is not unique for the queue in the configuration or contains a dot or does not follow the above rules, a parsing error is generated and the configuration is rejected.
@@ -175,7 +179,7 @@ The `maxapplications` property is an integer value, larger than 1, which allows 
 The [properties](#properties) section contains simple key/value pairs. This is
 used for further queue customization of features such as 
 [application sorting](sorting_policies.md#application-sorting) and priority
-scheduling. Future features will use the exisitng `properties` section as well
+scheduling. Future features will use the existing `properties` section as well
 to avoid the need to define a new structure for queue configuration.
 
 Access to a queue is set via the `adminacl` for administrative actions and for submitting an application via the `submitacl` entry.
@@ -215,7 +219,7 @@ The recovery queue, identified by the name `root.@recovery@`, is a dynamic queue
 - The queue is created dynamically and will disappear when it is no longer in use.
 - The queue does not have quotas or Access Control Lists (ACLs).
 - It cannot be submitted to directly by users. It is managed internally by YuniKorn for specific recovery operations.
-- While the queue is unqueryable directly, its existence and activities can be observed through the application RESTful API at [/ws/v1/partition/:partition/applications/:state](../api/scheduler#partition-applications).
+- While the queue is un-queryable directly, its existence and activities can be observed through the application RESTful API at [/ws/v1/partition/:partition/applications/:state](../api/scheduler#partition-applications).
 
 ### Placement rules
 
@@ -278,7 +282,7 @@ Duplicate entries in the lists are ignored and do not cause a parsing error.
 Specifying a star beside other list elements is not allowed.
 When a wildcard group is configured, a limit must be configured with at least one named group.
 
-Valid User name:
+Valid username:
 
 * must start with a letter (uppercase or lowercase) or an underscore (_),
 * followed by alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), hashes (#), slashes (/), at signs (@), dots (.), and dashes (-).
@@ -382,7 +386,7 @@ Supported values: any positive or negative 32-bit integer
 
 Default value: `0`
 
-Adjusts the priority of the queue relative to it's siblings. This can be useful
+Adjusts the priority of the queue relative to its siblings. This can be useful
 to create high or low-priority queues without needing to set every task's
 priority manually.
 
