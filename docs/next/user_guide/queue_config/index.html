@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Partition and Queue Configuration | Apache YuniKorn</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" name="twitter:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" property="og:url" content="https://yunikorn.apache.org/docs/next/user_guide/queue_config"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Partition and Queue Configuration | Apache YuniKorn"><meta data-rh="true" name="description" content="&lt;!--"><meta data-rh="true" property="og:description" content="&lt;!--"><link data-rh="true" rel="icon" href="/img/yunikorn.ico"><link data-rh="true" rel="canonical" href="https://yunikorn.apache.org/docs/next/user_guide/queue_config"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/user_guide/queue_config" hreflang="en"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/user_guide/queue_config" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Partition and Queue Configuration","item":"https://yunikorn.apache.org/docs/next/user_guide/queue_config"}]}</script><link rel="stylesheet" href="/assets/css/styles.83b0d08d.css">
-<script src="/assets/js/runtime~main.1e44dcd0.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.e5bb7f11.js" defer="defer"></script>
 <script src="/assets/js/main.65590042.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -19,7 +19,7 @@ It references both the <a class="" href="/docs/next/user_guide/acls">Access Cont
 The current shim identifies the user and the groups the user belongs to using the methodology provided in <a class="" href="/docs/next/user_guide/usergroup_resolution">User &amp; Group Resolution</a>.</p>
 <h2 class="anchor anchorTargetStickyNavbar_w_tw" id="configuration">Configuration<a href="#configuration" class="hash-link" aria-label="Direct link to Configuration" title="Direct link to Configuration" translate="no">​</a></h2>
 <p>The configuration file for the scheduler that is described here only provides the configuration for the partitions and queues.</p>
-<p>By default the scheduler reads the ConfigMap section <code>queues.yaml</code> for partition and queue configuration. The section name can
+<p>By default, the scheduler reads the ConfigMap section <code>queues.yaml</code> for partition and queue configuration. The section name can
 be changed by updating the <code>service.policyGroup</code> ConfigMap entry to be something other than <code>queues</code>.</p>
 <p>The example reference for the configuration is located in the scheduler core&#x27;s <a href="https://github.com/apache/yunikorn-core/blob/master/config/queues.yaml" target="_blank" rel="noopener noreferrer" class="">queues.yaml</a> file.</p>
 <h2 class="anchor anchorTargetStickyNavbar_w_tw" id="partitions">Partitions<a href="#partitions" class="hash-link" aria-label="Direct link to Partitions" title="Direct link to Partitions" translate="no">​</a></h2>
@@ -42,8 +42,9 @@ Each shim uses its own unique partition.</p>
 <li class=""><a href="#limits" class="">limits</a></li>
 <li class="">nodesortpolicy</li>
 <li class="">preemption</li>
+<li class=""><a class="" href="/docs/next/user_guide/usergroup_resolution#group-resolution">usergroupresolver</a></li>
 </ul>
-<p>Placement rules and limits are explained in their own chapters</p>
+<p>Placement rules, limits and the user group resolver are explained in their own chapters.</p>
 <p>The <code>nodesortpolicy</code> key defines the way the nodes are sorted for the partition.
 Details on the values that can be used are in the <a class="" href="/docs/next/user_guide/sorting_policies#node-sorting">sorting policy</a> documentation.</p>
 <p>The <code>preemption</code> key can have two sub keys:</p>
@@ -56,11 +57,10 @@ Both are boolean values that define the preemption behavior for the whole partit
 Allowed values: <em>true</em> or <em>false</em>, any other value will cause a parse error.</p>
 <p>The default value for <em>quotapreemptionenabled</em> is <em>false</em>.
 Allowed values: <em>true</em> or <em>false</em>, any other value will cause a parse error.</p>
-<p>Example <code>partition</code> yaml entry with a <code>nodesortpolicy</code> of <em>fair</em> and all preemption disabled:</p>
-<div class="language-yaml codeBlockContainer_wWus theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_PBHK"><pre tabindex="0" class="prism-code language-yaml codeBlock_VfZZ thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_bDnW"><span class="token-line" style="color:#bfc7d5"><span class="token key atrule">partitions</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">  </span><span class="token punctuation" style="color:rgb(199, 146, 234)">-</span><span class="token plain"> </span><span class="token key atrule">name</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> &lt;name of the partition</span><span class="token punctuation" style="color:rgb(199, 146, 234)">&gt;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token key atrule">nodesortpolicy</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> fair</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token key atrule">preemption</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token key atrule">enabled</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> </span><span class="token boolean important" style="color:rgb(255, 88, 116)">false</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token key atrule">quotapreemptionenabled</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> </span><span class="token boolean important" style="color:rgb(255, 88, 116)">false</span><br></span></code></pre></div></div>
-<p>NOTE:
-Currently the Kubernetes unique shim does not support any other partition than the <code>default</code> partition.
-This has been logged as an <a href="https://issues.apache.org/jira/browse/YUNIKORN-22" target="_blank" rel="noopener noreferrer" class="">jira</a> for the shim.</p>
+<p>Example <code>partition</code> yaml entry with a <code>nodesortpolicy</code> of <em>fair</em>, all preemption disabled and the LDAP user group resolver:</p>
+<div class="language-yaml codeBlockContainer_wWus theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_PBHK"><pre tabindex="0" class="prism-code language-yaml codeBlock_VfZZ thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_bDnW"><span class="token-line" style="color:#bfc7d5"><span class="token key atrule">partitions</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">  </span><span class="token punctuation" style="color:rgb(199, 146, 234)">-</span><span class="token plain"> </span><span class="token key atrule">name</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> &lt;name of the partition</span><span class="token punctuation" style="color:rgb(199, 146, 234)">&gt;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token key atrule">nodesortpolicy</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> fair</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token key atrule">preemption</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token key atrule">enabled</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> </span><span class="token boolean important" style="color:rgb(255, 88, 116)">false</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token key atrule">quotapreemptionenabled</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> </span><span class="token boolean important" style="color:rgb(255, 88, 116)">false</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">    </span><span class="token key atrule">usergroupresolver</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">      </span><span class="token key atrule">type</span><span class="token punctuation" style="color:rgb(199, 146, 234)">:</span><span class="token plain"> ldap</span><br></span></code></pre></div></div>
+<div class="theme-admonition theme-admonition-note admonition_VRP9 alert alert--secondary"><div class="admonitionHeading_XhPW"><span class="admonitionIcon_Em7P"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_byXs"><p>Currently the Kubernetes shim does not support any other partition than the <code>default</code> partition.
+This has been logged as a <a href="https://issues.apache.org/jira/browse/YUNIKORN-22" target="_blank" rel="noopener noreferrer" class="">jira</a> for the shim.</p></div></div>
 <h3 class="anchor anchorTargetStickyNavbar_w_tw" id="queues">Queues<a href="#queues" class="hash-link" aria-label="Direct link to Queues" title="Direct link to Queues" translate="no">​</a></h3>
 <p>YuniKorn manages resources by leveraging resource queues. The resource queue has the following characters:</p>
 <ul>
@@ -72,19 +72,19 @@ This has been logged as an <a href="https://issues.apache.org/jira/browse/YUNIKO
 <li class="">a job can only run under a specific queue</li>
 </ul>
 <div class="theme-admonition theme-admonition-info admonition_VRP9 alert alert--info"><div class="admonitionHeading_XhPW"><span class="admonitionIcon_Em7P"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_byXs"><p>The difference between YuniKorn queue and <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/" target="_blank" rel="noopener noreferrer" class="">Kubernetes namespace</a>:
-Kubernetes namespace provides the scope for the Kubernetes resources, including the security context (i.e who can access the objects), and resource
-boundary when <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/" target="_blank" rel="noopener noreferrer" class="">resource quota</a> is defined (i.e how many resources can be used by the objects).
+Kubernetes namespace provides the scope for the Kubernetes resources, including the security context (i.e. who can access the objects), and resource
+boundary when <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/" target="_blank" rel="noopener noreferrer" class="">resource quota</a> is defined (i.e. how many resources can be used by the objects).
 On the other hand, YuniKorn queue is only used how many resources can be used by a group of jobs, and in which order. It provides
 a more fine-grained control on resource sharing across multiple tenants with considering of resource fairness, job ordering, etc. In most of the cases,
 YuniKorn queue can be used to replace the namespace resource quota, in order to provide more scheduling features.</p></div></div>
 <p>The <em>queues</em> entry is the main configuration element.
 It defines a hierarchical structure for the queues.</p>
-<p>It can have a <code>root</code> queue defined but it is not a required element.
+<p>It can have a <code>root</code> queue defined, but it is not a required element.
 If the <code>root</code> queue is not defined the configuration parsing will insert the root queue for consistency.
 The insertion of the root queue is triggered by:</p>
 <ul>
 <li class="">If the configuration has more than one queue defined at the top level a root queue is inserted.</li>
-<li class="">If there is only one queue defined at the top level and it is not called <code>root</code> a root queue is inserted.</li>
+<li class="">If there is only one queue defined at the top level, and it is not called <code>root</code> a root queue is inserted.</li>
 </ul>
 <p>The defined queue or queues will become a child queue of the inserted <code>root</code> queue.</p>
 <p>Basic <code>queues</code> yaml entry with sub queue:</p>
@@ -108,7 +108,7 @@ As an example: the queue structure <code>root.testqueue</code> and <code>root.pa
 A queue cannot contain a dot &quot;.&quot; character as that character is used to separate the queues in the hierarchy.</p>
 <p>Valid Queue name:</p>
 <ul>
-<li class="">must be 64 characters or less,</li>
+<li class="">must be less than or equal to 64 characters,</li>
 <li class="">can contain alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), hashes (#), slashes (/), at signs (@), and dashes (-).</li>
 </ul>
 <p>If the name is not unique for the queue in the configuration or contains a dot or does not follow the above rules, a parsing error is generated and the configuration is rejected.</p>
@@ -129,7 +129,7 @@ The <code>queues</code> entry is a recursive entry for a queue level and uses th
 <p>The <a href="#properties" class="">properties</a> section contains simple key/value pairs. This is
 used for further queue customization of features such as
 <a class="" href="/docs/next/user_guide/sorting_policies#application-sorting">application sorting</a> and priority
-scheduling. Future features will use the exisitng <code>properties</code> section as well
+scheduling. Future features will use the existing <code>properties</code> section as well
 to avoid the need to define a new structure for queue configuration.</p>
 <p>Access to a queue is set via the <code>adminacl</code> for administrative actions and for submitting an application via the <code>submitacl</code> entry.
 ACLs are documented in the <a class="" href="/docs/next/user_guide/acls">Access control lists</a> document.</p>
@@ -144,7 +144,7 @@ As both entries are complex configuration entries they are explained in <a href=
 <li class="">The queue is created dynamically and will disappear when it is no longer in use.</li>
 <li class="">The queue does not have quotas or Access Control Lists (ACLs).</li>
 <li class="">It cannot be submitted to directly by users. It is managed internally by YuniKorn for specific recovery operations.</li>
-<li class="">While the queue is unqueryable directly, its existence and activities can be observed through the application RESTful API at <a class="" href="/docs/next/api/scheduler#partition-applications">/ws/v1/partition/<!-- -->:partition<!-- -->/applications/<!-- -->:state</a>.</li>
+<li class="">While the queue is un-queryable directly, its existence and activities can be observed through the application RESTful API at <a class="" href="/docs/next/api/scheduler#partition-applications">/ws/v1/partition/<!-- -->:partition<!-- -->/applications/<!-- -->:state</a>.</li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_w_tw" id="placement-rules">Placement rules<a href="#placement-rules" class="hash-link" aria-label="Direct link to Placement rules" title="Direct link to Placement rules" translate="no">​</a></h3>
 <p>The placement rules are defined and documented in the <a class="" href="/docs/next/user_guide/placement_rules">placement rule</a> document.</p>
@@ -183,7 +183,7 @@ The star &quot;*&quot; is the wildcard character and matches all users or groups
 Duplicate entries in the lists are ignored and do not cause a parsing error.
 Specifying a star beside other list elements is not allowed.
 When a wildcard group is configured, a limit must be configured with at least one named group.</p>
-<p>Valid User name:</p>
+<p>Valid username:</p>
 <ul>
 <li class="">must start with a letter (uppercase or lowercase) or an underscore (_),</li>
 <li class="">followed by alphanumeric character ([a-z0-9A-Z]), underscores (_), colons (:), hashes (#), slashes (/), at signs (@), dots (.), and dashes (-).</li>
@@ -250,7 +250,7 @@ queue) will not be exposed outside the fence boundary.</p>
 <h4 class="anchor anchorTargetStickyNavbar_w_tw" id="priorityoffset"><code>priority.offset</code><a href="#priorityoffset" class="hash-link" aria-label="Direct link to priorityoffset" title="Direct link to priorityoffset" translate="no">​</a></h4>
 <p>Supported values: any positive or negative 32-bit integer</p>
 <p>Default value: <code>0</code></p>
-<p>Adjusts the priority of the queue relative to it&#x27;s siblings. This can be useful
+<p>Adjusts the priority of the queue relative to its siblings. This can be useful
 to create high or low-priority queues without needing to set every task&#x27;s
 priority manually.</p>
 <p><strong>NOTE</strong>: This value is not inherited by child queues.</p>
