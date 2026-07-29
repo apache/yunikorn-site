@@ -34,8 +34,6 @@ are returned in units of bytes while resources of type `vcore` are returned in u
 
 Under the `allocations` field in the response content for the app/node-related calls in the following spec, `placeholderUsed` refers to whether or not the allocation is a replacement for a placeholder. If true, `requestTime` is the creation time of its placeholder allocation, otherwise it's that of the allocation's ask. `allocationTime` is the creation time of the allocation, and `allocationDelay` is simply the difference between `allocationTime` and `requestTime`.
 
-Queue responses include runtime fields for quota preemption and unschedulable-ask backoff. `quotaPreemptionStartTime` is the quota preemption start time in Unix nanoseconds and is omitted when not set. `isQuotaPreemptionRunning` indicates whether quota preemption run is in progress for the queue. `unschedAskBackoff` is the configured unschedulable-ask backoff threshold and is omitted when zero. `askBackoffDelay` is the effective backoff delay as a Golang duration string.
-
 ## Partitions
 
 Returns general information and statistics about a partition.
@@ -379,7 +377,9 @@ If the query parameter `subtree` is not set, the queue's children will not be re
     "preemptionDelay": "30s",
     "isPriorityFence": true,
     "priorityOffset": 3,
-    "isQuotaPreemptionRunning": false,
+    "isQuotaPreemptionRunning": true,
+    "quotaPreemptionStartTime": 1649167576110754000,
+    "unschedAskBackoff": 12,
     "askBackoffDelay": "30s"
 }
 ```
