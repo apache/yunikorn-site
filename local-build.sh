@@ -41,7 +41,11 @@ function node_version() {
 }
 
 function pnpm_version() {
-  PNPM_VERSION=${PNPM_VERSION:-11.4}
+  PNPM_FILE=.pnpmrc
+  if [ -r ${PNPM_FILE} ]; then
+    PNPM_VERSION=$(<"$PNPM_FILE")
+  fi
+  PNPM_VERSION=${PNPM_VERSION:-11.17}
 }
 
 function image_build() {
