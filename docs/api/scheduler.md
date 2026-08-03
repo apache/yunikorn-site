@@ -288,7 +288,10 @@ For the default queue hierarchy (only `root.default` leaf queue exists) a simila
                 "isPreemptionFence": true,
                 "preemptionDelay": "30s",
                 "isPriorityFence": true,
-                "priorityOffset": 3
+                "priorityOffset": 3,
+                "isQuotaPreemptionRunning": false,
+                "unschedAskBackoff": 12,
+                "askBackoffDelay": "30s"
             }
         ],
         "absUsedCapacity": {
@@ -373,7 +376,11 @@ If the query parameter `subtree` is not set, the queue's children will not be re
     "isPreemptionFence": true,
     "preemptionDelay": "30s",
     "isPriorityFence": true,
-    "priorityOffset": 3
+    "priorityOffset": 3,
+    "isQuotaPreemptionRunning": true,
+    "quotaPreemptionStartTime": 1649167576110754000,
+    "unschedAskBackoff": 12,
+    "askBackoffDelay": "30s"
 }
 ```
 
