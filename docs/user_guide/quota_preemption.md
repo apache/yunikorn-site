@@ -53,16 +53,24 @@ When quota preemption is turned on at the partition level quota changes could tr
 
 ## Queue configuration
 
-With the global configuration is turned on each queue must be configured to opt in to quota preemption. A queue can opt in by setting the _quota.preemption.delay_ property on the queue.
+With the global configuration turned on, each queue must be configured to opt in to quota preemption. A queue can opt in by setting the _quota.preemption.delay_ property on the queue.
 
 ```yaml
 queues:
   - name: default
     properties:
-      quota.preemption.delay: <delay string>
+      quota.preemption.delay: <delay value>
 ```
 
-The delay when not specified defaults to 0. A delay value explicitly set to 0 will prevent the quota change of the queue from triggering preemption.
+The delay value must be specified in Go [time.Duration](https://pkg.go.dev/time#ParseDuration) format. Valid units are `s` (seconds), `m` (minutes), and `h` (hours). Units can be combined.
+
+Examples of valid delay values:
+- `15s` — 15 seconds
+- `5m` — 5 minutes
+- `1h30m` — 1 hour and 30 minutes
+- `2h` — 2 hours
+
+The delay when not specified defaults to `0`. A delay value explicitly set to `0` will prevent the quota change of the queue from triggering preemption.
 Any non-zero value for the delay will be added to the time the change of the quota was applied to the queue. That timestamp defines the trigger point for quota preemption.
 Quota preemption will only be triggered if the queue at the point in time of the change is above the new quota.
 The standard scheduling quota enforcement will immediately enforce the new quota in all other cases and no further preemption actions are needed.
@@ -103,6 +111,51 @@ Dynamic queues do not support quota preemption.
 The current configuration does not support inheritance of the _quota.preemption.delay_ value.
 [YUNIKORN-3208](https://issues.apache.org/jira/browse/YUNIKORN-3208) has been logged to support that functionality.
 :::
+
+## Triggering preconditions
+
+Quota preemption is triggered when **all** of the following conditions are met:
+
+1. Quota preemption is enabled at the partition level (`quotapreemptionenabled: true`)
+2. The queue has a non-zero `quota.preemption.delay` configured
+3. The queue is a managed queue (not dynamically created)
+4. The queue's allocated resources exceed its configured max resources
+5. No quota preemption is currently running for that queue
+6. The configured delay has elapsed since the trigger event
+
+If the queue usage drops below the max resources before the delay expires, the preemption is cancelled and the tracking state is cleared.
+
+:::note
+Quota preemption does not check for pending pods. It triggers based solely on allocated resources exceeding the max quota. This means preemption can occur even if no workloads are waiting for resources.
+:::
+
+## Configuration change scenarios
+
+The following table describes when and how quota preemption is triggered for various configuration changes:
+
+| Scenario | Behavior |
+| --- | --- |
+| Max resources decreased | Start time is set to `now + delay`. Preemption will trigger after the delay if usage still exceeds the new max. |
+| Delay value changed | The start time is adjusted by the difference: `startTime += (newDelay - oldDelay)`. |
+| New allocation pushes queue over max | Start time is set to `now + delay`. This can occur when a running allocation is added to the queue. |
+| Consecutive quota decreases | The earliest start time is preserved. Subsequent decreases do not reset the timer. |
+| Quota increased back (usage < new max) | Start time is cleared. Preemption is cancelled. |
+| Max resources removed entirely | Start time is cleared. No quota means no limit to enforce. |
+
+:::caution
+If preemption has already been triggered and is in progress, a subsequent quota increase or removal cannot stop the running preemption process. Only future preemption cycles are affected.
+:::
+
+## Restart behavior
+
+The quota preemption start time is held in memory and is **not** persisted to any external store. When the YuniKorn scheduler restarts:
+
+1. The preemption start time is lost.
+2. During recovery, allocations are restored via the resource manager (shim). Each allocation increments the queue's allocated resources.
+3. If, after recovery, a queue's usage exceeds its max resources and a non-zero delay is configured, a **new** start time is set to `now + delay`.
+4. Preemption will only trigger after the full delay has elapsed from the restart time.
+
+This means that a restart effectively resets the preemption timer. Preemption will not fire immediately after a restart even if the delay had already elapsed before the restart.
 
 ## Recommendations
 
