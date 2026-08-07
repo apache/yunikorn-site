@@ -423,7 +423,7 @@ A state change is thus immediate and this should prevent an issue like [YUNIKORN
 ### Direction of lock 
 It is possible to acquire another lock while holding a lock, but we need to make sure that we do not allow: 
 - Holding A.lock and acquire B's lock. 
-- Holding B.lock and acquire B's lock. 
+- Holding B.lock and acquire A's lock. 
 
 The current code in the scheduler takes a lock as late as possible and only for the time period needed.
 Some actions are not locked on the scheduler side just on the cache side as each object has its own lock.
@@ -453,4 +453,8 @@ The partition should be locked while retrieving for instance the node that needs
 
 This approach fits in with the current locking approach and will keep the locking changes to a minimum.
 Testing, specifically end-to-end testing, should catch these deadlocks. 
-There are no known tools that could be used to detect or describe lock order.
+
+Since this design was written, runtime detection has been added.
+The `pkg/locking` package wraps [go-deadlock](https://github.com/sasha-s/go-deadlock) and provides both lock order detection and lock wait timeout detection for all locks that use it.
+It is disabled by default and is turned on using the environment variables described in [deadlock detection](../user_guide/troubleshooting.md#deadlock-detection).
+The unit test run, `make test`, enables it in both the core and the k8shim.

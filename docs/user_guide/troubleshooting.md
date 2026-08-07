@@ -167,6 +167,51 @@ With the below scheduler REST API returns information about full state dump used
 
 For more details around the content of the state dump, please refer to the documentation on [retrieve-full-state-dump](api/system.md#retrieve-state-dump)
 
+## Deadlock detection
+
+If the scheduler stops making progress but the process is still running and responding to the
+REST API, a lock problem is one possible cause. YuniKorn can detect this at runtime.
+
+All locks in the scheduler core and the Kubernetes shim are created through the `pkg/locking`
+package, which wraps [go-deadlock](https://github.com/sasha-s/go-deadlock). The shim delegates
+its configuration to the core, so a single set of settings covers both. Detection is **disabled
+by default** and is turned on with environment variables on the scheduler container:
+
+| Variable | Default | Effect |
+|---|---|---|
+| `DEADLOCK_DETECTION_ENABLED` | `false` | Master switch. go-deadlock is always compiled in, this only enables it. |
+| `DEADLOCK_TIMEOUT_SECONDS` | `60` | How long a goroutine may wait for a lock before a potential deadlock is reported. |
+| `DEADLOCK_EXIT` | `false` | Terminate the process with exit code 1 when a potential deadlock is detected. |
+| `DEADLOCK_DISABLE_LOCK_ORDER` | `false` | Disable lock order (ABBA) detection and keep only the wait timeout check. |
+
+Two independent checks are performed. The **wait timeout** check reports a goroutine that has
+been waiting for a single lock for longer than `DEADLOCK_TIMEOUT_SECONDS`. The **lock order**
+check reports two locks that have been acquired in opposite orders by different goroutines,
+which can deadlock even if it has not happened yet.
+
+Reports are written to the log under the `core.diagnostics` subsystem at `ERROR` level, and
+begin with `POTENTIAL DEADLOCK`. Each report names the goroutine holding the lock and the
+goroutine waiting for it, with a stack trace for both.
+
+Whether detection is currently active can be read back from the scheduler:
+
+```shell script
+curl -X 'GET' http://localhost:9080/ws/v1/config -H 'accept: application/json'
+```
+
+The response includes `DeadlockDetectionEnabled` and `DeadlockTimeoutSeconds`.
+
+:::note
+`DEADLOCK_EXIT=true` will terminate a running scheduler as soon as a potential deadlock is
+seen. That is useful when reproducing a problem, because it captures the state at the point of
+detection instead of leaving a hung process, but consider the effect on a production cluster
+before enabling it there.
+:::
+
+Detection is enabled for unit tests in both repositories. The `make test` target sets
+`DEADLOCK_DETECTION_ENABLED=true`, `DEADLOCK_TIMEOUT_SECONDS=10` and `DEADLOCK_EXIT=true`, so a
+test run that ends with a `POTENTIAL DEADLOCK` report has found a real lock problem.
+
 ## Restart the scheduler
 
 :::note

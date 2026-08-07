@@ -163,6 +163,12 @@ To make sure that the local changes will not break other parts of the
 build you should run:
 - A full build `make` (build target depends on the repository)
 - A full unit test run `make test`
+  This runs the tests with the race detector (`-race`) and with deadlock detection
+  enabled: `DEADLOCK_DETECTION_ENABLED=true`, `DEADLOCK_TIMEOUT_SECONDS=10` and
+  `DEADLOCK_EXIT=true`. A run that ends with a `POTENTIAL DEADLOCK` report and a
+  non-zero exit code is a detected lock problem, not a flaky test. See
+  [deadlock detection](../user_guide/troubleshooting.md#deadlock-detection) for
+  the settings and how to read the report.
 - For diagnosing flaky tests, which are challenging due to their infrequent failures, use a looping command to repeatedly run the test. For instance, to diagnose `TestNoFillWithoutEventPluginRegistered` in `yunikorn-core/pkg/events/event_publisher_test.go`, you can use the following command:
 
   ```sh
