@@ -51,6 +51,8 @@ platforms (like YARN/K8s), and is responsible for container allocation requests.
 best spot for each request and then sends response allocations to the resource management platform.
 Scheduler core is agnostic about underneath platforms, all the communications are through the [scheduler interface](https://github.com/apache/yunikorn-scheduler-interface).
 Please read more about the design of schedule core [here](../archived_design/scheduler_core_design.md).
+The threading model, and the locking rules that go with it, are described in
+[Concurrency and Object Conventions](../developer_guide/concurrency.md).
 
 ### Kubernetes shim
 
