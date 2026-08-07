@@ -26,15 +26,15 @@ background services all run at the same time and touch the same objects. The rul
 safe are followed consistently in the code, but most of them are recorded only as comments on
 individual functions. This page collects them.
 
-It is aimed at anyone changing scheduler code or reviewing such a change. It describes the
-conventions as they are, not as a proposal.
+It is aimed at anyone changing scheduler code or reviewing such a change. It describes conventions
+the code already follows, and the reasoning behind them, rather than proposing new ones.
 
 ## Locking
 
 All locks in `yunikorn-core` and `yunikorn-k8shim` are created through the `pkg/locking` package
 rather than using `sync` directly. That package wraps
 [go-deadlock](https://github.com/sasha-s/go-deadlock), so every lock taken through it can be checked
-at runtime for lock order violations and for waits that never complete. Using `sync.Mutex` or
+at runtime for lock order violations and for waits that exceed a timeout. Using `sync.Mutex` or
 `sync.RWMutex` directly in scheduler code silently opts out of that checking.
 
 ### Lock order
@@ -136,8 +136,9 @@ They must not be called from outside the object.
 
 Several structs separate their fields into a block that is set once at construction and never
 changed, and a block that is protected by the lock. `Node` marks the first block as "fields for fast
-access, these fields are considered read only", `Allocation` as "read-only fields", `Application` and
-`Queue` mark the second block as "private fields need protection".
+access ... considered read only" and `Allocation` as "read-only fields". `Queue` marks the protected
+block as "private fields need protection", and `Application` as "private mutable fields need
+protection".
 
 These comments are a contract. The read only fields are read all over the code without taking a
 lock, so adding a setter for one of them is not a small change.
@@ -232,7 +233,7 @@ reported as an error rather than applying back pressure to the caller.
 Alongside these there are periodic services: a health checker, a node usage monitor, an outstanding
 request inspector, a quota preemption trigger, and per partition cleanup routines for finished
 applications and removed queues. The REST handlers run with whatever concurrency the HTTP server
-provides and only read.
+provides and do not modify scheduler state.
 
 Communication back to the resource manager goes through the RMProxy on its own goroutine. The
 scheduling loop sends the update and waits for the reply on a channel, holding no object locks while
@@ -249,11 +250,13 @@ application, task and node events are handled in order. When the channel is full
 back to retrying in a separate goroutine, and beyond a configured limit it panics rather than
 silently dropping events.
 
-Two rules follow from this structure. **Do not make Kubernetes API calls while holding an object
-lock** — the call takes as long as the API server takes, and every goroutine waiting on that lock
-waits with it. Snapshot what is needed, release the lock, then make the call. And **every informer
-that is created must also be started and stopped**; an informer that is created but never started
-produces no events and no error.
+Two rules follow from this structure. **Avoid making Kubernetes API calls while holding an object
+lock.** The call takes as long as the API server takes, and every goroutine waiting on that lock
+waits with it. Snapshot what is needed, release the lock, then make the call. The context does this
+explicitly when registering nodes: it releases its own write lock before waiting for the responses,
+with a comment recording that it does so to avoid a potential deadlock. And **every informer that is
+created must also be started and stopped**; an informer that is created but never started produces
+no events and no error.
 
 ## Detecting problems
 
