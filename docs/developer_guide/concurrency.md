@@ -132,6 +132,13 @@ even when it looks safe, because the field can be replaced while it is being rea
 `removeAsksInternal` or `addAllocationInternal` do not take a lock; their caller already has it.
 They must not be called from outside the object.
 
+**`String()` on a locked object is a trap on both sides.** Stringers are evaluated lazily — a
+`zap.Stringer` field is rendered inside the logging call, under whatever locks the logging code
+happens to hold. That means `String()` can neither read guarded fields directly (the caller may
+hold no lock: a data race) nor take the object's own lock (the caller may already hold it: a
+self-deadlock). Restrict `String()` to construction-time fields, or have callers log an explicit
+snapshot taken under the lock.
+
 ### Read only fields
 
 Several structs separate their fields into a block that is set once at construction and never
@@ -142,6 +149,14 @@ protection".
 
 These comments are a contract. The read only fields are read all over the code without taking a
 lock, so adding a setter for one of them is not a small change.
+
+The contract extends beyond the marked blocks. Some fields that sit next to lock-protected state
+are nevertheless construction-time only and are deliberately read without the lock:
+`Queue.stateMachine`, `Application.stateMachine` (the `fsm` library does its own internal locking)
+and `PartitionContext.root` (read lock-free on the scheduling hot path) are all set once and never
+reassigned. Do not "fix" an unlocked read of such a field by taking the lock — that changes the
+contract; if a field like this ever needs to become mutable, that is the large change, not the
+missing lock.
 
 ### Comment banners
 
@@ -157,8 +172,17 @@ form means something specific:
 | `No locking must be called while holding the lock` | The caller holds this object's own lock |
 | `lock free as it cannot be referenced yet` | Construction time, the object is not published |
 
+The `No locking must be called while holding the lock` form is easy to misread: it parses as "no
+locking [is done here]; [this] must be called while holding the lock" — a caller-holds-the-lock
+precondition, not a prohibition. Every occurrence in the code today means exactly that.
+
 When adding a function with a locking precondition, write the banner. When changing one, update it.
-Reviewers rely on these instead of re-deriving the order from scratch.
+Reviewers rely on these instead of re-deriving the order from scratch — but banners are prose and
+do drift. A 2026 audit of the fifteen partition lock banners found two stale:
+`PartitionContext.updateNodeSortingPolicy` claims the partition lock must be held although its own
+caller deliberately invokes it unlocked (with a comment saying why), and `getQueueInternal` claims
+the same although it only touches fields that are set at construction. When relying on a banner for
+a change, verify it against the callers rather than trusting it blindly.
 
 ## State machines
 
@@ -264,6 +288,14 @@ Deadlock detection is built in and disabled by default. It is enabled with envir
 is turned on automatically for unit tests, so a test run that reports `POTENTIAL DEADLOCK` has found
 a real problem. See [deadlock detection](../user_guide/troubleshooting.md#deadlock-detection) for the
 settings and how to read a report.
+
+Know what the detector can and cannot see. Its lock order tracking is keyed on individual lock
+*instances*: it reports when the same two locks are taken in both orders, and it reports a
+goroutine re-acquiring a lock it already holds. It does not understand the object hierarchy, so
+taking one task's lock before the application lock and, elsewhere, the application lock before a
+*different* task's lock never forms a reversed pair and is not reported — even though it violates
+the documented order. Order violations between different instances of the same shape are only
+caught when they happen to deadlock within the timeout.
 
 The race detector is also enabled for unit tests. Both find problems only on the code paths a test
 actually exercises, so a change to a concurrent path is worth an explicit test that drives it from
