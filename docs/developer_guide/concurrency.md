@@ -249,6 +249,15 @@ Scheduling runs in a single background goroutine. It is woken when something hap
 the result and otherwise runs on a short timer. Because there is only one, scheduling decisions do
 not race with each other, and adding a goroutine to the scheduling path removes that guarantee.
 
+This invariant is load-bearing for lock ordering, not just for decision consistency: the scheduling
+path is the only place that holds one application's lock while acquiring another's (the preemption
+victim scan reads other applications' allocations, and a required-node reservation cancel can
+unreserve a different application). Cross-application nesting cannot deadlock only because a single
+goroutine can never take the reverse order against itself. A second scheduling goroutine — including
+per-partition scheduling — arms that deadlock immediately. Any work that parallelises scheduling
+must first remove the cross-application nesting from the path, and a class-level lock order check
+exists to detect it (see the lock ordering work in `pkg/locking`).
+
 Everything that changes cluster state arrives as an event on a buffered channel and is drained by a
 handler goroutine: one for allocation and application updates, one for node updates and one for
 registration and configuration changes. The enqueue is a non-blocking send, so a full channel is
