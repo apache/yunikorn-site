@@ -565,7 +565,8 @@ In the example below there are three allocations belonging to two applications, 
             }
         ],
         "hasReserved": false,
-        "reservations": []
+        "reservations": [],
+        "backoffDeadline": 1648754032081234567
     },
     {
         "applicationID": "application-0002",

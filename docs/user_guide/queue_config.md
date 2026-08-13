@@ -430,6 +430,22 @@ The property can be set on any queue. The default value will not trigger quota p
 The first quota configuration change is considered the trigger time. The starting time is the trigger time plus the delay. Consecutive quota changes will not affect the trigger time.
 Delay changes are applied to the starting time as a delta compared to the original delay value.
 
+#### `application.unschedasks.backoff`
+
+Supported values: any non-negative 64-bit integer
+
+Default value: `0`
+
+Sets the threshold for the number of unschedulable requests to check before triggering backoff for an application in the queue. When an application has too many unschedulable tasks, repeatedly evaluating them can impact scheduling throughput. Setting this property to a value greater than `0` enables backoff. The default value of `0` disables backoff.
+
+#### `application.unschedasks.backoff.delay`
+
+Supported values: any positive [Golang duration string](https://pkg.go.dev/time#ParseDuration)
+
+Default value: `30s`
+
+Sets the backoff delay duration when unschedulable task backoff is triggered for an application (via `application.unschedasks.backoff`). During this backoff period, further scheduling attempts for the application's unschedulable tasks are paused.
+
 ### Resources
 The resources entry for the queue can set the _guaranteed_ and or _maximum_ resources for a queue.
 Resource limits are checked recursively.
