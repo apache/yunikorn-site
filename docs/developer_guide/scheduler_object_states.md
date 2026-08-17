@@ -26,6 +26,10 @@ This ranges from applications in the core to nodes in the k8shim.
 The state machines are independent and not shared between the resource managers and core.
 A resource manager shim, and the core can thus have an independent idea of the state of a similar object.
 
+This page describes the states and the transitions between them.
+For the rules that apply when firing an event or writing a callback, such as which lock is held while
+the callbacks run, see [Concurrency and Object Conventions](concurrency.md#state-machines).
+
 ## Core Scheduler
 State change are triggered by events that get processed.
 One event can cause a change for multiple states or no change at all.

@@ -39,6 +39,10 @@ When using an IDE, like GoLand or Visual Studio Code, use the builtin options.
 Most IDEs will provide an extensive list of checks or formatting options that help formatting and point out code issues.
 See [IDE setup](#goland-ide-setup) for a basic setup for the GoLand IDE. 
 
+Beyond formatting, the scheduler has conventions that a linter cannot check: the order in which locks
+are taken, what may run inside a state machine callback, and how resources are copied and compared.
+These are described in [Concurrency and Object Conventions](/docs/next/developer_guide/concurrency).
+
 ## Automated checks
 Not all code will be written using an IDE.
 Even between contributors the settings might not be the same in all installs.
