@@ -221,6 +221,8 @@ Regardless whether the configuration is allowed or not if the server was able to
 
 **Code** : `200 OK`
 
+The response always contains the `allowed` field. When the configuration is rejected the `reason` field describes why. When the configuration is allowed the response also contains the `checksum` calculated over the submitted configuration and `checksumMatch`, which is `true` when the checksum already present in the submitted configuration matched the calculated `checksum`.
+
 #### Allowed configuration
 
 Sending the following simple configuration yields an accept
@@ -239,7 +241,8 @@ Reponse
 ```json
 {
     "allowed": true,
-    "reason": ""
+    "checksum": "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08",
+    "checksumMatch": false
 }
 ```
 
