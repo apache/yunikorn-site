@@ -255,3 +255,108 @@ Or follow these simplified steps:
 
 More documentation can be found
 [here](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
+
+## Debug scheduler in a remote cluster
+
+This section explains how to deploy a debug-enabled scheduler image to a remote cluster and attach a debugger from your local machine using [Delve](https://github.com/go-delve/delve).
+
+### Prerequisites
+
+- A remote Kubernetes cluster accessible via `kubectl` (see [above](#access-remote-kubernetes-cluster))
+- A container registry you can push to (Docker Hub, private registry, etc.)
+- [Delve](https://github.com/go-delve/delve) installed locally:
+  ```shell script
+  go install github.com/go-delve/delve/cmd/dlv@latest
+  ```
+
+### Build a debug image
+
+Compile the scheduler with optimizations and inlining disabled so that the debugger can map breakpoints correctly:
+
+```shell script
+cd yunikorn-k8shim
+CGO_ENABLED=0 go build -gcflags="all=-N -l" -o _output/shim ./pkg/cmd/shim
+```
+
+Create a Dockerfile for the debug image. This installs Delve and uses it as the entrypoint:
+
+```dockerfile
+FROM golang:1.22 AS dlv-builder
+RUN go install github.com/go-delve/delve/cmd/dlv@latest
+
+FROM ubuntu:22.04
+COPY --from=dlv-builder /go/bin/dlv /usr/local/bin/dlv
+COPY _output/shim /scheduler
+EXPOSE 2345
+ENTRYPOINT ["dlv", "exec", "/scheduler", "--headless", "--listen=:2345", "--api-version=2", "--accept-multiclient"]
+```
+
+Build and tag the image:
+
+```shell script
+docker build -t <your-registry>/yunikorn:scheduler-debug -f Dockerfile.debug .
+```
+
+### Push image to registry
+
+```shell script
+docker push <your-registry>/yunikorn:scheduler-debug
+```
+
+Alternatively, update the `REGISTRY` variable in the `Makefile` (see [Build Docker images](build.md#build-docker-images)) and adapt the build target.
+
+### Deploy to remote cluster
+
+Update the scheduler Deployment (or Helm values) to use the debug image and expose port 2345:
+
+```yaml
+spec:
+  containers:
+    - name: yunikorn-scheduler
+      image: <your-registry>/yunikorn:scheduler-debug
+      ports:
+        - containerPort: 2345
+          name: dlv
+          protocol: TCP
+```
+
+Deploy using Helm or `kubectl apply`. Ensure the Pod has sufficient permissions (the same ServiceAccount used for normal scheduler deployment).
+
+### Attach debugger from local machine
+
+Port-forward the debug port:
+
+```shell script
+kubectl port-forward <scheduler-pod> 2345:2345
+```
+
+#### GoLand
+
+1. Run → Edit Configurations → "+" → **Go Remote**
+2. Set **Host**: `localhost`, **Port**: `2345`
+3. Click **Debug** and set breakpoints in the `yunikorn-k8shim` or `yunikorn-core` source
+
+#### VS Code
+
+Add to `.vscode/launch.json`:
+
+```json
+{
+  "name": "Attach to Remote Scheduler",
+  "type": "go",
+  "request": "attach",
+  "mode": "remote",
+  "host": "localhost",
+  "port": 2345
+}
+```
+
+Then press F5 to attach.
+
+### Cleanup
+
+:::caution
+Debug images disable compiler optimizations and include debug symbols, resulting in significantly larger binaries. Do not deploy debug images to production.
+:::
+
+When done, remove the port-forward and redeploy with a normal scheduler image.
