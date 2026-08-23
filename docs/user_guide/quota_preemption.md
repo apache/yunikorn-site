@@ -107,11 +107,6 @@ partitions:
 Dynamic queues do not support quota preemption.
 :::
 
-:::note Inheritance
-The current configuration does not support inheritance of the _quota.preemption.delay_ value.
-[YUNIKORN-3208](https://issues.apache.org/jira/browse/YUNIKORN-3208) has been logged to support that functionality.
-:::
-
 ## Triggering preconditions
 
 Quota preemption is triggered when **all** of the following conditions are met:

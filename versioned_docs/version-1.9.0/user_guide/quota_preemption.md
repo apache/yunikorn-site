@@ -99,11 +99,6 @@ partitions:
 Dynamic queues do not support quota preemption.
 :::
 
-:::note Inheritance
-The current configuration does not support inheritance of the _quota.preemption.delay_ value.
-[YUNIKORN-3208](https://issues.apache.org/jira/browse/YUNIKORN-3208) has been logged to support that functionality.
-:::
-
 ## Recommendations
 
 Quota preemption should be used with care. Using short delays is not recommended. Although no minimum delay is enforced any delay below a minute (60 seconds) should not be used.
