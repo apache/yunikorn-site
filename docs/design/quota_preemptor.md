@@ -60,7 +60,7 @@ Setting it to true would turn ON the feature globally and preemption would be tr
 
 ## Quota Preemption Delay
 
-Quota Preemption Delay is the time duration after which the preemption should get triggered for quota changes. Otherwise, triggering preemption immediately has a profound impact especially on the queues where long live applications run. It is applicable only for quota decrease, nothing to do with increase. It is configurable.Unit is seconds.
+Quota Preemption Delay is the time duration after which the preemption should get triggered for quota changes. Otherwise, triggering preemption immediately has a profound impact especially on the queues where long live applications run. It is applicable only for quota decrease, nothing to do with increase. It is configurable as a queue property using Go `time.Duration` format (for example `2h`, `5m`, `30s`, `500ms`).
 
 It is configurable as follows:
 
@@ -69,11 +69,12 @@ partitions:
   - name: <name of the partition>  
     queues:  
       - name: <name of the queue>  
+        properties:  
+          quota.preemption.delay: <quota preemption delay as a duration, e.g. 2h>
         resources:  
-          max: <maximum resources allowed for this queue>  
-          quota.preemption.delay: <quota preemption delay in seconds>
+          max: <maximum resources allowed for this queue>
 ```
-It could be any value between 0 and maxint. 
+It could be any positive duration.
 
 The default is 0. It means, preemption won’t be triggered when lowering the quota which is nothing but the situation exists today. As of now, In case of quota decrease, new quota would be applied and brought into effect only for the new requests during the next scheduling cycle but existing applications continue to run as is. So, having default as 0 is to retain the existing behavior as is.
 
@@ -88,31 +89,39 @@ partitions:
   - name: default  
     queues:  
       - name: queueA  
+        properties:  
+          quota.preemption.delay: 2h
         resources:  
           max:  
-            {memory: 10G}  
-          quota.preemption.delay: 7200
+            {memory: 10G}
 ```
 
-2\) To trigger preemption immediately after 5 minutes
+2\) To trigger preemption after 5 seconds
 
 ```yaml
 partitions:  
   - name: default  
     queues:  
       - name: queueA  
+        properties:  
+          quota.preemption.delay: 5s
         resources:  
           max:  
-            {memory: 10G}  
-          quota.preemption.delay: 5
+            {memory: 10G}
 ```
 
-The delay timer clocks in once the config map has been saved. Config map could be modified for multiple scenarios, but the timer clocks in only when either Queue max resources or quota preemption delay property changes. Once the timer started, changes could happen to either one of these two properties. In case of any such changes, timers reset and start again from the beginning, not on top of the current timer value to avoid unnecessary confusions. Manipulation based on the current timer value which has already started a while back could cause a lot of confusion and make it difficult to reason about the net effect of the change. So, timers reset and starting again from 0 is easy to interpret in all scenarios. In short, any quota preemption delay or max resources configured either through initial setup or change applied later is applicable from the moment the config map has been saved. Only values being used currently and newer values coming from config map are combined together to decide the next steps at any given moment even though the delay timer has not yet passed the current time or actual preemption process has not yet started. So, in case of decrease from Q to Q/3 at T1 with delay of ‘x’ seconds and again increase from Q/3 to Q/2 at T2 before T1 \+ x seconds has passed doesn’t trigger preemption as recent change is purely an increase. But, If T1 \+ x seconds had just passed and preemption had just triggered around the same time as T2 then the triggered process cannot be reverted and/or interrupted in the middle of it. At any given time, only one preemption process should be running for the specific queue even though quota has been decreased with delay of ‘0’ seconds (immediately) around the same time preemption started for the same queue based on earlier changes. No action should be taken when preemption is already running for the same queue and skipped as allowing it to continue would create havoc.  
+The delay timer clocks in once the config map has been saved. Config map could be modified for multiple scenarios, but the timer clocks in only when either Queue max resources or quota preemption delay property changes. Once the timer started, changes could happen to either one of these two properties. In case of any such changes, the timer is adjusted rather than reset to zero, so the net effect of the change can still be reasoned about deterministically:
+
+* When the delay value changes (with or without a max change), the existing start time is shifted by the delta between the new and old delay (`startTime += newDelay - oldDelay`). The resulting time may fall in the past, which simply means the delay window has already elapsed.
+* When the quota is lowered again while a start time from an earlier lowering is still pending, the earliest start time is preserved (only the delta adjustment above is applied if the delay also changed); the timer is not restarted from the moment of the newer change.
+* When the delay was previously 0 and is now set to a positive value with no max change, a fresh start time (`now + newDelay`) is set so that preemption can eventually fire.
+
+In short, any quota preemption delay or max resources configured either through initial setup or change applied later is applicable from the moment the config map has been saved. Only values being used currently and newer values coming from config map are combined together to decide the next steps at any given moment even though the delay timer has not yet passed the current time or actual preemption process has not yet started. So, in case of decrease from Q to Q/3 at T1 with delay of ‘x’ seconds and again increase from Q/3 to Q/2 at T2 before T1 \+ x seconds has passed doesn’t trigger preemption as recent change is purely an increase. But, If T1 \+ x seconds had just passed and preemption had just triggered around the same time as T2 then the triggered process cannot be reverted and/or interrupted in the middle of it. At any given time, only one preemption process should be running for the specific queue even though quota has been decreased with delay of ‘0’ seconds (immediately) around the same time preemption started for the same queue based on earlier changes. No action should be taken when preemption is already running for the same queue and skipped as allowing it to continue would create havoc.  
 In addition, changes could be made to more than one queue at the same time but with different delay values. In case of the same delay for leaf queue and other parent queue in the whole queue hierarchy, leaf queue could be prioritized over the parent as it might help the [Queue selection process](#queue-selection-and-ordering) for the parent as described later. Need not to go through further on this in detail here as these cases would be sorted out appropriately during the implementation.
 
 ### Impact of Restart
 
-How does Quota Preemption Delay work after the quota changes followed up by restart? As explained earlier, the clock kicks in once the config map has been saved, say T1. Yunikorn restarted at T2. When service starts again after T2, Quota Preemption Delay would start again from the beginning and lead to postponing this activity due to lost time (T2-T1) as opposed to earlier schedule.
+How does Quota Preemption Delay work after the quota changes followed up by restart? As explained earlier, the clock kicks in once the config map has been saved, say T1. Yunikorn restarted at T2. Once the service starts again after T2 and recovery kicks in, each existing allocation is added back to its queue through `IncAllocatedResource()`. When the resulting usage exceeds the queue max, that call sets `quotaPreemptionStartTime = now + quotaPreemptionDelay`. As a result, the countdown effectively restarts from the recovery moment and preemption is postponed by the lost time (T2-T1) compared to the pre-restart schedule.
 
 ## Meaningful Quota Decrease
 
@@ -209,7 +218,7 @@ In short, all existing Intra Queue Preemption Configurations have no relevance f
 
 Existing Preemption related properties like preemption.policy, preemption.delay should not be considered or used in conjunction with this [preemption](#motivation) as the objective is completely different from the other one. In addition, the reason for not considering preemption.policy (fence) into account especially for the child queues underneath the current parent queue being worked upon is to avoid unbiased and incorrect decisions. A fence is a unidirectional way of traversing down the hierarchy and preventing going upwards to look for victims. Quota change also traverses down the hierarchy to apply the change. So, there is no reason to bring the fence into account. In addition, Choosing Victims only from Non fenced child queues doesn’t seem to be a fair way of running the selection process. In case of having Fenced child queues fenced underneath the current parent queue doesn’t allow us to complete the quota enforcement through preemption at all. Hence, preemption.policy should not be considered.
 
-Queue=\>properties=\>preemption.delay should not be confused with above discussed Quota Change Preemption delay [Queue=\>resources=\>preemption.delay](#quota-preemption-configuration) and treated differently as earlier has been introduced to compensate for the scheduling cycle interval and used only in the scheduling cycle core path.
+Queue=\>properties=\>preemption.delay should not be confused with above discussed Quota Change Preemption delay [Queue=\>properties=\>quota.preemption.delay](#quota-preemption-delay) and treated differently as earlier has been introduced to compensate for the scheduling cycle interval and used only in the scheduling cycle core path.
 
 ### Priority Fence & Offset
 
