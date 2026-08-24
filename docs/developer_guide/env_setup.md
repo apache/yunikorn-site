@@ -278,10 +278,16 @@ cd yunikorn-k8shim
 CGO_ENABLED=0 go build -gcflags="all=-N -l" -o _output/shim ./pkg/cmd/shim
 ```
 
+Build flags:
+
+- `CGO_ENABLED=0`: produce a statically linked binary so it can run inside the minimal debug image without extra libc dependencies.
+- `-gcflags="all=-N -l"`: applied to all packages; `-N` disables optimizations and `-l` disables inlining, so Delve can map source lines to instructions and breakpoints hit reliably.
+- `-o _output/shim`: output path that matches the `COPY _output/shim /scheduler` line in the Dockerfile below.
+
 Create a Dockerfile for the debug image. This installs Delve and uses it as the entrypoint:
 
 ```dockerfile
-FROM golang:1.22 AS dlv-builder
+FROM golang:1.26 AS dlv-builder
 RUN go install github.com/go-delve/delve/cmd/dlv@latest
 
 FROM ubuntu:22.04
@@ -299,11 +305,12 @@ docker build -t <your-registry>/yunikorn:scheduler-debug -f Dockerfile.debug .
 
 ### Push image to registry
 
+If the local image is not already tagged for your target registry, retag it first, then push:
+
 ```shell script
+docker tag yunikorn:scheduler-debug <your-registry>/yunikorn:scheduler-debug
 docker push <your-registry>/yunikorn:scheduler-debug
 ```
-
-Alternatively, update the `REGISTRY` variable in the `Makefile` (see [Build Docker images](build.md#build-docker-images)) and adapt the build target.
 
 ### Deploy to remote cluster
 
