@@ -47,7 +47,7 @@ require (
 )
 ```
 Release branches **must** not use pseudo versions.
-During the creation of a release, [tags](/community/release_procedure#tag-and-update-release-for-version) will be created.
+During the creation of a release, [tags](/community/release_procedure#tag-for-release) will be created.
 These tags will be used as the reference in the go.mod files for the release.    
 
 ## Updating the core dependency

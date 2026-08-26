@@ -66,7 +66,7 @@ Note that this list is not guaranteed to remain stable and can change from relea
 
 **Content examples**
 
-The output of this REST query can be rather large, and it is a combination of those which have already been documented as part of the [scheduler API](scheduler.md#Overview).
+The output of this REST query can be rather large, and it is a combination of those which have already been documented as part of the [scheduler API](scheduler.md).
 
 The `RMDiagnostics` shows the content of the K8Shim cache. The exact content is version dependent and is not stable.
 The current content shows the cached objects:
