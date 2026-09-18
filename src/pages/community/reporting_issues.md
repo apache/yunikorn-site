@@ -26,7 +26,7 @@ under the License.
 YuniKorn community cares deeply about the security and actively addresses any security issues as
 the top priority. We follow the Apache security guidelines for handling security issues, please see the Apache doc
 about [handling security issues](https://www.apache.org/security/). If you find any security issue,
-please send a vulnerability report to [security@apache.org](mailto:security@apache.org), the YuniKorn security team will assess the issue
+please send a vulnerability report to [security@yunikorn.apache.org](mailto:security@yunikorn.apache.org), the YuniKorn security team will assess the issue
 immediately and work with the reporter on a plan to fix it. 
 Please do not disclose the issue to any public forum before working with the security team.
 
