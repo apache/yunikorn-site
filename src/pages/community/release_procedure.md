@@ -145,8 +145,11 @@ As an example when releasing the first release candidate for `1.8.0` the json fi
 }
 ```
 
-The tool has one requirement outside of standard Python 3: [GitPython](https://gitpython.readthedocs.io/en/stable/intro.html)
-Make sure you have installed it by running `python3 -m pip install gitpython`.
+The tool has two requirements outside of standard Python 3 installation:
+1. [GitPython](https://gitpython.readthedocs.io/en/stable/)
+2. [PyYAML](https://pyyaml.org/)
+
+Make sure you have installed it by running `python3 -m pip install gitpython` and `python3 -m pip install pyyaml`.
 
 Run the tool:
 ```shell script
