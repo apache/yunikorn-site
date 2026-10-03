@@ -196,7 +196,7 @@ The time out of the _waiting_ state is new functionality.
 
 Placeholders are not considered active allocations.
 Placeholder asks are considered pending resource asks.
-These cases will be handled in the [Cleanup](#Cleanup) below.
+These cases will be handled in the [Cleanup](#cleanup) below.
 
 ### Cleanup
 When we look at gang scheduling there is a further issue around unused placeholders, placeholder asks and their cleanup.

@@ -177,9 +177,9 @@ Once “releasable resources” is derived, calculate “total releasable resour
 
 Honoring Guaranteed resources on one specific queue would increase or decrease the preemption rate on other siblings is a side effect caused by the above shift which is something admin should take into account while doing quota readjustments. We can introduce a configuration to decide the percentage of distribution among queues or queue based individual preemption property to permit the maximum preemptable resource later.
 
-Since we know the preemptable resource target for each leaf queue located under the current parent queue being worked upon, the next step is to repeat the same process for all levels until we reach the leaf queues branched from different queues at different levels. As always, a recursive approach would be followed here too. After reaching the end leaf queues, next step is to follow the steps described in [victims selection process](#how-are-victims-selected-and-processed?)
+Since we know the preemptable resource target for each leaf queue located under the current parent queue being worked upon, the next step is to repeat the same process for all levels until we reach the leaf queues branched from different queues at different levels. As always, a recursive approach would be followed here too. After reaching the end leaf queues, next step is to follow the steps described in [victims selection process](#how-are-victims-selected-and-processed)
 
-Queue selection process prior to doing [victims selection process](#how-are-victims-selected-and-processed?) has a disadvantage of not doing sorting based on pod significance across all queues. However, given the advantage as described above, Queue selection ensures fairness in the preemption process triggered through lowering of parent queue quota.
+Queue selection process prior to doing [victims selection process](#how-are-victims-selected-and-processed) has a disadvantage of not doing sorting based on pod significance across all queues. However, given the advantage as described above, Queue selection ensures fairness in the preemption process triggered through lowering of parent queue quota.
 
 ## “Preemption does not help” situations
 

@@ -55,7 +55,7 @@ and a [validation webhook](https://kubernetes.io/docs/reference/access-authn-aut
        to immediately transition from the `Starting` to `Running` state so that it will not block other applications.
 2. The `validation webhook` validates the configuration set in the configmap
    - This is used to prevent writing malformed configuration into the configmap.
-   - The validation webhook calls scheduler [validation REST API](api/scheduler.md#configuration-validation) to validate configmap updates.
+   - The validation webhook calls scheduler [validation REST API](api/cluster.md#configuration-validation) to validate configmap updates.
 
 ### Admission controller deployment
 
