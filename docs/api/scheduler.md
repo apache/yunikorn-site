@@ -1970,23 +1970,3 @@ Allocation (603) added (2) to user resource usage (5):
 **Code** : `503 Service Unavailable` (Too many active streaming connections)
 
 **Code** : `500 Internal Server Error`
-
-## Retrieve full state dump
-
-Endpoint to retrieve most of the REST exposed information in a single response.
-See [Retrieve state dump](system.md#retrieve-state-dump) as part of the System group
-
-**Status** : Deprecated and permanently moved to `/debug/fullstatedump` since v1.7.0. Automatically redirected to the new endpoint.
-Users should update their calls to the new endpoint. 
-
-**URL** : `/ws/v1/fullstatedump`
-
-## Goroutines info
-
-Dumps the stack traces of the currently running goroutines.
-See [Goroutines info](system.md#go-routine-info) as part of the System group
-
-**Status** : Deprecated and permanently moved to `/debug/stack` since v1.7.0. Automatically redirected to the new endpoint.
-Users should update their calls to the new endpoint.
-
-**URL** : `/ws/v1/stack`

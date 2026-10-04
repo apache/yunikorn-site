@@ -216,7 +216,7 @@ information, following the existing `AllocationDAOInfo`:
 
 The allocations will be available from two URLs:
 - `/ws/v1/partition/<partition>/nodes`
-- `/ws/v1/fullstatedump`
+- `/debug/fullstatedump`
 
 ## Web UI integration
 
