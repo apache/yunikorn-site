@@ -428,6 +428,8 @@ The content of the application object is the same as Queue Applications. See
 
 Fetch all Applications for the given Partition/Queue combination and displays general information about the applications like used resources, queue name, submission time and allocations. In case the queue name contains any special characters, it needs to be url escaped to avoid issues.
 
+Resources held by the placeholders of a gang scheduled application are reported in `placeholderUsedResource` and are not included in `usedResource`.
+
 **URL** : `/ws/v1/partition/{partitionName}/queue/{queueName}/applications`
 
 **Method** : `GET`
@@ -454,6 +456,7 @@ In the example below there are three allocations belonging to two applications, 
             "memory": 4000000000,
             "vcore": 4000
         },
+        "placeholderUsedResource": {},
         "maxUsedResource": {
             "memory": 4000000000,
             "vcore": 4000
@@ -574,6 +577,7 @@ In the example below there are three allocations belonging to two applications, 
             "memory": 4000000000,
             "vcore": 4000
         },
+        "placeholderUsedResource": {},
         "maxUsedResource": {
             "memory": 4000000000,
             "vcore": 4000
@@ -716,6 +720,8 @@ The content of the application object is the same as Queue Applications. See [Qu
 
 Fetch an Application given a Partition, Queue(optional) and Application ID and displays general information about the application like used resources, queue name, submission time and allocations. In case the queue name contains any special characters, it needs to be url escaped to avoid issues.
 
+Resources held by the placeholders of a gang scheduled application are reported in `placeholderUsedResource` and are not included in `usedResource`.
+
 **URL** : `/ws/v1/partition/{partitionName}/application/{appId}` or `/ws/v1/partition/{partitionName}/queue/{queueName}/application/{appId}`
 
 **Method** : `GET`
@@ -739,6 +745,7 @@ Field `uuid` has been deprecated, would be removed from below response in YUNIKO
         "memory": 4000000000,
         "vcore": 4000
     },
+    "placeholderUsedResource": {},
     "maxUsedResource": {
         "memory": 4000000000,
         "vcore": 4000
