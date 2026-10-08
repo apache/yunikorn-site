@@ -47,7 +47,7 @@ treated as the same kind in the scheduler.
 ### Prerequisite
 
 For the queues which runs gang scheduling enabled applications, the queue sorting policy needs to be set either
-`FIFO` or `StateAware`. To configure queue sorting policy, please refer to doc: [app sorting policies](user_guide/sorting_policies.md#Application_sorting).
+`FIFO` or `StateAware`. To configure queue sorting policy, please refer to doc: [app sorting policies](user_guide/sorting_policies.md#application-sorting).
 
 :::info Why FIFO based sorting policy?
 When Gang Scheduling is enabled, the scheduler proactively reserves resources

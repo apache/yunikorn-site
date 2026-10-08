@@ -26,7 +26,7 @@ YuniKorn exposes its scheduling metrics via Prometheus. Thus, we need to set up 
 
 We will provide two methods for building Prometheus: either running it locally or using Helm to deploy it in your cluster. Additionally, in the Helm version, we will explain how to integrate it with Grafana and provide generic Grafana Dashboards for monitoring Yunikorn's metrics and observing the changes over time.
 
-If you don't know what metric can be used, you can use [REST API](../../api/scheduler.md#metrics).
+If you don't know what metric can be used, you can use [REST API](../../api/cluster.md#metrics).
 
 ## Run Prometheus locally
 
@@ -166,7 +166,7 @@ A dashboard consists of multiple panels that are organized and arranged in rows.
 
 We provide a sample dashboard JSON file. To access it, you can navigate to the [`/deployments/grafana-dashboard` directory](https://github.com/apache/yunikorn-k8shim/blob/master/deployments/grafana-dashboard) in the Yunikorn-k8shim repository.
 
-You can refer to the [REST API](../../api/scheduler.md#metrics) to build your own custom Dashboard.
+You can refer to the [REST API](../../api/cluster.md#metrics) to build your own custom Dashboard.
 
 ### Import the JSON files in the Dashboard
 
