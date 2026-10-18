@@ -102,7 +102,7 @@ info in the image metadata. You can retrieve this information with docker
 
 ```shell script
 docker inspect apache/yunikorn:scheduler-amd64-latest
-docker inspect apache/yunikorn:admission-controller-amd64-latest
+docker inspect apache/yunikorn:admission-amd64-latest
 ```
 
 The `amd64` tag is dependent on your host architecture (i.e. for Intel it would
