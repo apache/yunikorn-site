@@ -32,7 +32,7 @@ The three most common ones are **Minikube** ([docs](https://kubernetes.io/docs/s
 Docker installation.
 
 **Kind** provides lightweight Kubernetes clusters for Windows, Linux and Mac
-using an existing Docker installation.
+using an existing Docker (or Podman) installation.
 
 ## Local Kubernetes cluster using Docker Desktop
 
@@ -183,6 +183,24 @@ To delete the kind cluster:
 kind delete cluster --name test
 ```
 
+### Using Kind with Podman
+
+Kind can use Podman instead of Docker. Set the provider before running any
+`kind` command:
+```shell script
+export KIND_EXPERIMENTAL_PROVIDER=podman
+```
+
+Kind on Podman requires cgroup v2. To check this, run the following command,
+which should print `v2`:
+```shell script
+podman info --format '{{.Host.CgroupsVersion}}'
+```
+
+Running Podman rootless needs some additional host setup, such as cgroup
+delegation. Follow the Kind [rootless](https://kind.sigs.k8s.io/docs/user/rootless/)
+guide for the details.
+
 ### Loading your images
 
 In order to use a local image, you have to load your images into kind's
@@ -198,6 +216,22 @@ kind load docker-image apache/yunikorn:admission-amd64-latest
 ```
 
 If running on an ARM system, replace `amd64` with `arm64` above.
+
+When using Podman, build the images with `DOCKER=podman make image`, as the
+build uses Docker when both are installed. `kind load docker-image` does not
+work as it only looks for images in Docker. Save the image to an archive and
+load the archive instead:
+
+```shell script
+podman save apache/yunikorn:scheduler-amd64-latest -o scheduler.tar
+kind load image-archive scheduler.tar
+```
+
+Repeat the same steps for the web-ui and admission-controller images.
+
+Podman adds a `localhost/` prefix to the names of locally built images, so the
+deployment must reference the image as
+`localhost/apache/yunikorn:scheduler-amd64-latest`.
 
 ## Debug code locally
 

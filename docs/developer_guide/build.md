@@ -30,7 +30,7 @@ This document describes how to setup and use a local development environment.
 ## Dev Environment setup
 
 Read the [Dev Environment Setup](developer_guide/env_setup.md) guide first to
-setup Docker and Kubernetes development environment.
+setup Docker (or Podman) and Kubernetes development environment.
 
 ## Build YuniKorn
 
@@ -61,6 +61,16 @@ make image
 ```
 
 This will generate images for the scheduler and admission controller.
+
+The build detects the container engine automatically: it uses `docker` when
+installed and falls back to `podman` otherwise. To use Podman even when Docker
+is installed, set the `DOCKER` variable:
+```shell script
+DOCKER=podman make image
+```
+
+The same `DOCKER` variable is supported when building the
+[Web UI](#build-the-web-ui) image.
 
 The images created can be deployed directly on Kubernetes.
 Some sample deployments that can be used are found under the
@@ -97,6 +107,8 @@ docker inspect apache/yunikorn:admission-controller-amd64-latest
 
 The `amd64` tag is dependent on your host architecture (i.e. for Intel it would
 be `amd64` and for Mac M1, it would be `arm64`).
+
+When using Podman, run `podman inspect` with the same arguments instead.
 
 This info includes git revisions (last commit SHA) for each component, to help
 you understand which version of the source code was shipped by this image. They
