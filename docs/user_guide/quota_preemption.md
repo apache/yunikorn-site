@@ -161,7 +161,3 @@ Using quota preemption could cause the service to be left in a degraded state. T
 
 When running batch workloads, the delay should be based on the runtime of the workloads. Preempting workloads should be a last resort.
 A workload that finishes automatically lowers the queue usage and will not require to be re-run. Preempted workloads have already used resources and will be more expensive overall.
-
-:::tip
-For consistency: until inheritance is provided setting a delay on a parent queue should not be set unless all children below it are also updated with the same delay.
-:::
