@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Build and Run | Apache YuniKorn</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" name="twitter:image" content="https://yunikorn.apache.org/img/logo/yunikorn-logo-main.png"><meta data-rh="true" property="og:url" content="https://yunikorn.apache.org/docs/next/developer_guide/build"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Build and Run | Apache YuniKorn"><meta data-rh="true" name="description" content="&lt;!--"><meta data-rh="true" property="og:description" content="&lt;!--"><link data-rh="true" rel="icon" href="/img/yunikorn.ico"><link data-rh="true" rel="canonical" href="https://yunikorn.apache.org/docs/next/developer_guide/build"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/developer_guide/build" hreflang="en"><link data-rh="true" rel="alternate" href="https://yunikorn.apache.org/docs/next/developer_guide/build" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Build and Run","item":"https://yunikorn.apache.org/docs/next/developer_guide/build"}]}</script><link rel="stylesheet" href="/assets/css/styles.83b0d08d.css">
-<script src="/assets/js/runtime~main.9320a98d.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.9283cb4d.js" defer="defer"></script>
 <script src="/assets/js/main.f644aed6.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -17,7 +17,7 @@ is provided which provides a drop-in scheduler for the Kubernetes platform.
 This document describes how to setup and use a local development environment.</p>
 <h2 class="anchor anchorTargetStickyNavbar_w_tw" id="dev-environment-setup">Dev Environment setup<a href="#dev-environment-setup" class="hash-link" aria-label="Direct link to Dev Environment setup" title="Direct link to Dev Environment setup" translate="no">​</a></h2>
 <p>Read the <a class="" href="/docs/next/developer_guide/env_setup">Dev Environment Setup</a> guide first to
-setup Docker and Kubernetes development environment.</p>
+setup Docker (or Podman) and Kubernetes development environment.</p>
 <h2 class="anchor anchorTargetStickyNavbar_w_tw" id="build-yunikorn">Build YuniKorn<a href="#build-yunikorn" class="hash-link" aria-label="Direct link to Build YuniKorn" title="Direct link to Build YuniKorn" translate="no">​</a></h2>
 <p>Prerequisites:</p>
 <ul>
@@ -36,6 +36,12 @@ integrated image for the YuniKorn scheduler.</p>
 <p>Building the Docker images can be triggered by following command:</p>
 <div class="language-shell codeBlockContainer_wWus theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_PBHK"><pre tabindex="0" class="prism-code language-shell codeBlock_VfZZ thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_bDnW"><span class="token-line" style="color:#bfc7d5"><span class="token plain">make image</span><br></span></code></pre></div></div>
 <p>This will generate images for the scheduler and admission controller.</p>
+<p>The build detects the container engine automatically: it uses <code>docker</code> when
+installed and falls back to <code>podman</code> otherwise. To use Podman even when Docker
+is installed, set the <code>DOCKER</code> variable:</p>
+<div class="language-shell codeBlockContainer_wWus theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_PBHK"><pre tabindex="0" class="prism-code language-shell codeBlock_VfZZ thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_bDnW"><span class="token-line" style="color:#bfc7d5"><span class="token plain">DOCKER=podman make image</span><br></span></code></pre></div></div>
+<p>The same <code>DOCKER</code> variable is supported when building the
+<a href="#build-the-web-ui" class="">Web UI</a> image.</p>
 <p>The images created can be deployed directly on Kubernetes.
 Some sample deployments that can be used are found under the
 <a href="https://github.com/apache/yunikorn-k8shim/tree/master/deployments/scheduler" target="_blank" rel="noopener noreferrer" class="">deployments/scheduler</a>
@@ -58,9 +64,10 @@ change.</p>
 <p>The Docker images built from previous step have embedded some important build
 info in the image metadata. You can retrieve this information with docker
 <code>inspect</code> command:</p>
-<div class="language-shell codeBlockContainer_wWus theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_PBHK"><pre tabindex="0" class="prism-code language-shell codeBlock_VfZZ thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_bDnW"><span class="token-line" style="color:#bfc7d5"><span class="token plain">docker inspect apache/yunikorn:scheduler-amd64-latest</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">docker inspect apache/yunikorn:admission-controller-amd64-latest</span><br></span></code></pre></div></div>
+<div class="language-shell codeBlockContainer_wWus theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_PBHK"><pre tabindex="0" class="prism-code language-shell codeBlock_VfZZ thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_bDnW"><span class="token-line" style="color:#bfc7d5"><span class="token plain">docker inspect apache/yunikorn:scheduler-amd64-latest</span><br></span><span class="token-line" style="color:#bfc7d5"><span class="token plain">docker inspect apache/yunikorn:admission-amd64-latest</span><br></span></code></pre></div></div>
 <p>The <code>amd64</code> tag is dependent on your host architecture (i.e. for Intel it would
 be <code>amd64</code> and for Mac M1, it would be <code>arm64</code>).</p>
+<p>When using Podman, run <code>podman inspect</code> with the same arguments instead.</p>
 <p>This info includes git revisions (last commit SHA) for each component, to help
 you understand which version of the source code was shipped by this image. They
 are listed as docker image <code>labels</code>, such as</p>
