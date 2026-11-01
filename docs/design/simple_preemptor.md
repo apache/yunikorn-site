@@ -58,10 +58,10 @@ All Daemonset pods should be filtered out completely irrespective of priority se
 Once pods has been filtered out, need to classify the pods based on its types:
 
 1. Regular/Normal Pods (RP)
-2. Driver/Owner Pods (DP)
-3. Preemption Opt out Pods (OP)
+2. Preemption Opt out Pods (OP)
+3. Driver/Owner Pods (DP)
 
-This classification ensures different treatment for each type of pod so that victims can be chosen among these pods in the same order. Please refer to the above diagram. It shows the 2-Dimensional array (NOTE: “Array” has been used only for documentation purposes, need to finalize the appropriate data structure) with each sub array holding pods of the same type. 1st sub array has RP’s, 2nd sub array has DP’s, 3rd sub array has OP’s and goes on.
+This classification ensures different treatment for each type of pod so that victims can be chosen among these pods in the same order. Please refer to the above diagram. It shows the 2-Dimensional array (NOTE: “Array” has been used only for documentation purposes, need to finalize the appropriate data structure) with each sub array holding pods of the same type. 1st sub array has RP’s, 2nd sub array has OP’s, 3rd sub array has DP’s and goes on.
 
 Regular/Normal Pods (RP)
 
@@ -69,11 +69,11 @@ The regular/normal pods should be gathered and placed in the 1st sub array as th
 
 Application Owner (DP)
 
-Pod acting as owner/master for other pods in the same application should be placed in the 2nd sub array because preempting those kinds of pods has a major impact when compared to Regular pods. We can select these pods by checking whether any owner reference exists between this pod and other pods. This will help prevent scenarios such as a driver pod being evicted at a very early stage when other alternatives are available for choosing the victim.
+Pod acting as owner/master for other pods in the same application should be placed in the 3rd sub array and can be used to choose victims as a last option, because preempting those kinds of pods has a major impact when compared to other pods. We can select these pods by checking whether any owner reference exists between this pod and other pods. This will help prevent scenarios such as a driver pod being evicted at a very early stage when other alternatives are available for choosing the victim.
 
 Preemption Opt out (OP)
 
-Pods can be allowed to run with the Preempt opt out option. So, Pods marked with opt out should be placed in the 3rd sub array and can be used to choose victims as a last option. For now, we can use a label such as yunikorn.apache.org/allow-preemption: false for detecting those pods.
+Pods can be allowed to run with the Preempt opt out option. So, Pods marked with opt out should be placed in the 2nd sub array. For now, we can use a label such as yunikorn.apache.org/allow-preemption: false for detecting those pods.
 
 
 As and when we want to introduce a new class/type of Pods, a new sub array would be created for the same and would be placed in the main array based on its significance.
