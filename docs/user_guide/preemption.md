@@ -110,7 +110,19 @@ While preemption allows service-type pods to scale up or down through preemption
 2. Interactive pods, such as Python notebooks, have a significant impact when restarted and should be avoided from preemption.
 
 To address this issue, we have designed a "do not preempt me" flag. You can set the annotation `yunikorn.apache.org/allow-preemption` to `false` in the PriorityClass to prevent pod requests from being preempted. 
-> **_NOTE:_** The flag `yunikorn.apache.org/allow-preemption` is a request only. It is not guaranteed but Pods annotated with this flag will be preempted last.
+> **_NOTE:_** The flag `yunikorn.apache.org/allow-preemption` is a request only. It is not guaranteed but Pods annotated with this flag will be preempted after regular Pods.
+
+### Victim Order
+
+When choosing victims, YuniKorn splits the running Pods into three types and tries them in this order: **Regular > Opted-out > Originator**.
+
+| Order | Type       | Description                                                      |
+| ----- | ---------- | ---------------------------------------------------------------- |
+| 1     | Regular    | Pods that allow preemption (the default).                        |
+| 2     | Opted-out  | Pods with `yunikorn.apache.org/allow-preemption` set to `false`. |
+| 3     | Originator | The Pod that started the application, such as a Spark driver.    |
+
+Originator Pods are preempted last, after opted-out Pods, because preempting the originator usually fails the whole application. The same order is used by generic, DaemonSet and quota preemption.
 
 
 ### PriorityClass
@@ -140,7 +152,7 @@ Result:
 
 When preemption is triggered, `queue-3` will start searching for a victim. However, since `queue-2` is set with allow-preemption as false, the resources of `queue-1` will be preempted.
 
-Please note that setting `yunikorn.apache.org/allow-preemption` is a strong recommendation but does not guarantee the lack of preemption. When this flag is set to `false`, it moves the Pod to the back of the preemption list, giving it a lower priority for preemption compared to other Pods. However, in certain scenarios, such as when no other preemption options are available, Pods with this flag may still be preempted.
+Please note that setting `yunikorn.apache.org/allow-preemption` is a strong recommendation but does not guarantee the lack of preemption. When this flag is set to `false`, it moves the Pod behind regular Pods in the preemption list, giving it a lower priority for preemption compared to regular Pods. However, in certain scenarios, such as when no other preemption options are available, Pods with this flag may still be preempted.
 
 For example, even with `allow-preemption` set to `false`, DaemonSet pods can still trigger preemption. Additionally, if an application in `queue-1` has a higher priority than one in `queue-3`, the application in `queue-2` will be preempted because an application can never preempt another application with a higher priority. In such cases where no other preemption options exist, the `allow-preemption` flag may not prevent preemption.
 
