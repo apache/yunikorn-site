@@ -471,7 +471,7 @@ Replacement example:
 ```yaml
 yunikornDefaults:
   service.policyGroup: queues
-  service.placeholderImage: registry.k8s.io/pause:3.7
+  service.placeholderImage: registry.k8s.io/pause:3.10.2
   admissionController.filtering.processNamespaces: "^spark-,^mpi-"
   admissionController.filtering.bypassNamespaces: "^kube-system$"
   admissionController.filtering.labelNamespaces: "^spark-"
@@ -523,7 +523,7 @@ data:
   service.dispatchTimeout: "5m"
   service.disableGangScheduling: "false"
   service.enableConfigHotRefresh: "true"
-  service.placeholderImage: "registry.k8s.io/pause:3.7"
+  service.placeholderImage: "registry.k8s.io/pause:3.10.2"
   service.placeholderRunAsUser: 65535
   service.placeholderRunAsGroup: 65535
   service.placeholderFsGroup: 65535
@@ -673,7 +673,7 @@ Sets the Pod image that will be used for gang scheduling placeholders.
 
 A change to this setting requires a restart of YuniKorn to take effect.
 
-Default: `registry.k8s.io/pause:3.7`
+Default: `registry.k8s.io/pause:3.10.2`
 
 Example:
 ```yaml
