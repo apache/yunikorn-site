@@ -446,6 +446,18 @@ Default value: `30s`
 
 Sets the backoff delay duration when unschedulable task backoff is triggered for an application (via `application.unschedasks.backoff`). During this backoff period, further scheduling attempts for the application's unschedulable tasks are paused.
 
+#### `reservation.max.time`
+
+Supported values: any positive [Golang duration string](https://pkg.go.dev/time#ParseDuration)
+
+Default value: `60m`
+
+Sets the maximum time a task can keep a node reserved. A reservation that has not led to an allocation within this time is cancelled. A reservation of a task that does not fit in the queue or user headroom is cancelled after a quarter of this time. Tasks that require a specific node, such as daemon set pods, keep their reservation.
+
+After a reservation is cancelled, the node cannot be reserved again for 2 seconds, so that tasks that fit in its free resources can use it. Tasks that require that node and preemption are not affected by this. The task that lost the reservation stays pending and can reserve a node again.
+
+The property can be set on any queue and is inherited by the child queues defined in the configuration. A dynamic queue created by a placement rule does not inherit it from its parent queue. To set it for dynamic queues use the properties of a [child template](#child-template).
+
 ### Resources
 The resources entry for the queue can set the _guaranteed_ and or _maximum_ resources for a queue.
 Resource limits are checked recursively.
@@ -490,6 +502,7 @@ The supported configuration in template are shown below.
 2. max resources
 3. guaranteed resources
 4. max applications
+5. reservation max time
 
 As an example:
 ```yaml
