@@ -452,7 +452,7 @@ Supported values: any positive [Golang duration string](https://pkg.go.dev/time#
 
 Default value: `60m`
 
-Sets the maximum time a task can keep a node reserved. A reservation that has not led to an allocation within this time is cancelled. A reservation of a task that does not fit in the queue or user headroom is cancelled after a quarter of this time, unless the task triggered preemption and is waiting for its victims to exit. Tasks that require a specific node, such as daemon set pods, keep their reservation.
+Sets the maximum time a task can keep a node reserved. A reservation that has not led to an allocation within this time is cancelled. A reservation of a task that is over a queue or user limit is cancelled after a quarter of this time, unless the task triggered preemption and is waiting for its victims to exit. Tasks that require a specific node, such as daemon set pods, keep their reservation.
 
 After a reservation is cancelled, the node cannot be reserved again for 2 seconds, so that tasks that fit in its free resources can use it. Tasks that require that node and preemption are not affected by this. The task that lost the reservation stays pending and can reserve a node again.
 
