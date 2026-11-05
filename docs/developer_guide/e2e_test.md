@@ -64,15 +64,11 @@ script then sets `KIND_EXPERIMENTAL_PROVIDER=podman` automatically.
 DOCKER=podman ./scripts/run-e2e-tests.sh -a install -n yktest -v kindest/node:v1.28.0
 ```
 
-* Launching CI tests is as simple as below.
+* Launching all the tests can be done as.
 ```shell
 # We need to add a 'kind' prefix to the argument of the run-e2e-tests.sh -n command.
 kubectl config use-context kind-yktest 
-ginkgo -r -v ci -timeout=2h -- -yk-namespace "yunikorn" -kube-config "$HOME/.kube/config"
-```
-
-* Launching all the tests can be done as.
-```shell
+cd test/e2e/
 ginkgo -r -v -timeout=2h -- -yk-namespace "yunikorn" -kube-config "$HOME/.kube/config"
 ```
 
@@ -80,7 +76,7 @@ ginkgo -r -v -timeout=2h -- -yk-namespace "yunikorn" -kube-config "$HOME/.kube/c
 e.g. test/e2e/user_group_limit/
 ```shell 
 cd test/e2e/
-ginkgo -r user_group_limit -v -- -yk-namespace "yunikorn" -kube-config "$HOME/.kube/config"
+ginkgo -r -v user_group_limit -- -yk-namespace "yunikorn" -kube-config "$HOME/.kube/config"
 ```
 
 * Launching specified test file.
