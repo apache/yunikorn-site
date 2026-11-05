@@ -68,6 +68,7 @@ DOCKER=podman ./scripts/run-e2e-tests.sh -a install -n yktest -v kindest/node:v1
 ```shell
 # We need to add a 'kind' prefix to the argument of the run-e2e-tests.sh -n command.
 kubectl config use-context kind-yktest 
+cd test/e2e/
 ginkgo -r -v -timeout=2h -- -yk-namespace "yunikorn" -kube-config "$HOME/.kube/config"
 ```
 
