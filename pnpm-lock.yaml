@@ -248,8 +248,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       node:
-        specifier: ^24.16.0
-        version: 24.16.0
+        specifier: ^24.22.3
+        version: 24.22.3
       pnpm:
         specifier: ^11.4.0
         version: 11.4.0
@@ -3960,8 +3960,8 @@ packages:
     resolution: {integrity: sha512-GYVXHE2KnrzAfsAjl4uP++evGFCrAU1jta4ubEjIG7YWt/64Gqv66a30yKwWczVjA6j3bM4nBwH7Pk1JmDHaxQ==}
     engines: {node: '>=18'}
 
-  node@24.16.0:
-    resolution: {integrity: sha512-/I/OXFqToKBumieZArsCwPrHdbsgwa6Ho3acCaDZwKlcVkgUyQ6+AERsEicdAoZNkKR3TXkh462gEW301y+/1g==}
+  node@24.22.3:
+    resolution: {integrity: sha512-Y78ViJ48UCbCiLND37hxGe64wwaImf604a2VDz0n73BVkHUSS8iNMs1BW5zAEwIx2IwsalgQsUGOjYCt8erWgw==}
     engines: {npm: '>=5.0.0'}
     hasBin: true
 
@@ -10770,7 +10770,7 @@ snapshots:
 
   node-releases@2.0.46: {}
 
-  node@24.16.0:
+  node@24.22.3:
     dependencies:
       node-bin-setup: 1.1.4
 
