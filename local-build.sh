@@ -37,7 +37,7 @@ function node_version() {
     NODE_VERSION=$(<"$NV_FILE")
   fi
   # docusausrus 3.9 and later only work with node 20 later, we use latest LTS as default.
-  NODE_VERSION=${NODE_VERSION:-24.16}
+  NODE_VERSION=${NODE_VERSION:-24.22.3}
 }
 
 function pnpm_version() {
