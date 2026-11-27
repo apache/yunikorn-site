@@ -470,7 +470,10 @@ The maximum resource limit for the root queue is automatically equivalent to the
 There is no guaranteed resource setting for the root queue.
 
 Maximum resources when configured place a hard limit on the size of all allocations that can be assigned to a queue at any point in time.
-A maximum resource can be set to 0 which makes the resource not available to the queue.
+A single resource type within the maximum resource can be set to 0 which makes that type not available to the queue.
+However, a maximum resource with all resource types set to 0 will be ignored, not set on the queue, and logged for debugging.
+If the queue already has a maximum resource set, for example from an earlier configuration, the existing maximum resource will be removed.
+The queue will then only be limited by the maximum resource of its parent queue.
 Guaranteed resources are used in calculating the share of the queue and during allocation.
 It is used as one of the inputs for deciding which queue to give the allocation to.
 Preemption uses the _guaranteed_ resource of a queue as a base which a queue cannot go below.
